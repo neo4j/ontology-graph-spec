@@ -32,12 +32,11 @@ private val jsonFormat = Json {
     prettyPrint = false
 }
 
-private val validationLabelsToSet: Map<String, Set<Validation>> = mapOf(
+private val validationLabelsToSet: Map<String, Collection<Validation>> = mapOf(
     "core" to Validations.core,
     "labelled" to Validations.labelled,
     "consistent_schema" to Validations.consistentSchema,
     "mappable" to Validations.mappable,
-    "bulk_importable" to Validations.bulkImportable,
     "well_constrained" to Validations.wellConstrained,
     "all" to Validations.all,
 )

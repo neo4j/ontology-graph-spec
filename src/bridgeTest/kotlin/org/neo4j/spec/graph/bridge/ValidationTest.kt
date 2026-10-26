@@ -83,7 +83,7 @@ class ValidationTest {
     @Test
     fun testValidateEverySet() {
         val validationSets = listOf(
-            "core", "labelled", "consistent_schema", "mappable", "bulk_importable", "well_constrained", "all"
+            "core", "labelled", "consistent_schema", "mappable", "well_constrained", "all"
         )
         for (validation in validationSets) {
             val result = validateContent(input, validation)

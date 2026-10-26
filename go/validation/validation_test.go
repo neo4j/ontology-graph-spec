@@ -54,7 +54,6 @@ func TestValidate_Sets(t *testing.T) {
 		validation.SetLabelled,
 		validation.SetConsistentSchema,
 		validation.SetMappable,
-		validation.SetBulkImportable,
 		validation.SetWellConstrained,
 		validation.SetAll,
 	}
@@ -89,7 +88,6 @@ func TestValidate_MultipleSets(t *testing.T) {
 			validation.SetLabelled,
 			validation.SetConsistentSchema,
 			validation.SetMappable,
-			validation.SetBulkImportable,
 			validation.SetWellConstrained,
 		)
 		require.NoError(t, err)
