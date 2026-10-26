@@ -25,7 +25,7 @@ import org.neo4j.spec.graph.validate.node.NodeConstraints
 import org.neo4j.spec.graph.validate.relationship.RelationshipValidation
 
 object RelationshipTypeConstraint : RelationshipValidation {
-    override fun dependsOn() = setOf(NodeConstraints)
+    override fun dependsOn() = listOf(NodeConstraints)
 
     override fun validateConstraint(
         model: GraphModel,

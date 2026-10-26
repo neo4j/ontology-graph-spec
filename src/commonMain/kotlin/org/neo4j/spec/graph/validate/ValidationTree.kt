@@ -25,7 +25,7 @@ class ValidationTree {
     /**
      * Build a tree of validation dependencies using [Validation.dependsOn]
      */
-    fun build(validators: Set<Validation>) {
+    fun build(validators: List<Validation>) {
         clear()
         for (validation in validators) {
             val dependencies = validation.dependsOn()
