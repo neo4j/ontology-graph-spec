@@ -35,6 +35,7 @@ decoded.
 | `extensions` | xref:reference/extensions.adoc#_custom_data[custom data] | No | Extensions for the property.
 | `name` | string | No | Name of the property in the database, when different from its id.
 | `description` | string | No | Description of the property.
+| `aliases` | list of strings | No | Alternative names for the property.
 | `reference` | string | No | Reference or URI of an external resource describing the property.
 | `pattern` | string | No | Pattern values of the property are expected to match.
 | `one_of` | list of strings | No | Values the property is restricted to.

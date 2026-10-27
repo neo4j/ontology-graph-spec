@@ -229,8 +229,8 @@ Construct counts by verdict:
 
 | Verdict | RDFS | SHACL |
 |---|---|---|
-| covered | 5 | 5 |
-| partially covered | 2 | 1 |
+| covered | 6 | 5 |
+| partially covered | 1 | 1 |
 | lossy | 0 | 4 |
 | carried | 0 | 8 |
 | different mechanism | 0 | 1 |
