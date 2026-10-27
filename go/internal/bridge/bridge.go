@@ -34,7 +34,7 @@ const (
 
 type bridge struct {
 	migrate  func(inputJSON unsafe.Pointer, inputType, targetType, targetVersion string, outputBuffer unsafe.Pointer, bufferSize int32) int32
-	validate func(inputJSON unsafe.Pointer, outputBuffer unsafe.Pointer, bufferSize int32) int32
+	validate func(inputJSON unsafe.Pointer, validationSets string, outputBuffer unsafe.Pointer, bufferSize int32) int32
 }
 
 var loadBridge = sync.OnceValues(bindBridge)
@@ -103,10 +103,10 @@ func (b *bridge) call(op Op, model []byte, args []string, buf []byte) (int, erro
 		}
 		res = b.migrate(in, args[0], args[1], args[2], out, outLen)
 	case Validate:
-		if len(args) != 0 {
-			return invalidInputError, fmt.Errorf("validate requires 0 arguments, got %d", len(args))
+		if len(args) != 1 {
+			return invalidInputError, fmt.Errorf("validate requires 1 argument, got %d", len(args))
 		}
-		res = b.validate(in, out, outLen)
+		res = b.validate(in, args[0], out, outLen)
 	default:
 		return invalidInputError, fmt.Errorf("unknown bridge call: %s", op)
 	}

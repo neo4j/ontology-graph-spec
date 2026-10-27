@@ -135,7 +135,7 @@ import org.neo4j.spec.graph.validate.Validations
 val model: GraphModel = GraphSpec.Json.decodeFromString(json)
 
 // Validate
-val issues = model.validate(Validations.all)
+val issues = model.validate(Validations.core)
 issues.forEach { println("${it.code}: ${it.message} (${it.path})") }
 
 // Encode
@@ -156,7 +156,7 @@ import org.neo4j.spec.graph.validate.Validations;
 GraphModel model = GraphSpec.Json.INSTANCE.decodeFromString(json, Type.GRAPH_SPEC);
 
 // Validate
-for (Issue issue : model.validate(Validations.Companion.getAll())) {
+for (Issue issue : model.validate(Validations.Companion.getCore())) {
     System.out.println(issue.getCode() + ": " + issue.getMessage());
 }
 
@@ -173,7 +173,7 @@ import { GraphSpec, GraphModel, Validations } from "@neo4j/ontology-graph-spec";
 const model: GraphModel = GraphSpec.Json.decodeFromString(json);
 
 // Validate
-const issues = GraphModel.validate(model, Validations.all);
+const issues = GraphModel.validate(model, Validations.core);
 issues.forEach((issue) => console.log(`${issue.code}: ${issue.message}`));
 
 // Encode
@@ -197,7 +197,7 @@ if err := json.Unmarshal(raw, &graph); err != nil {
 }
 
 // Validate
-issues, err := validation.Validate(graph)
+issues, err := validation.Validate(graph, validation.SetCore)
 if err != nil {
 	return err
 }

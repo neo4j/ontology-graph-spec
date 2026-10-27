@@ -34,8 +34,11 @@ NOTE: The Go library currently only supports JSON.
 ----
 import "github.com/neo4j/ontology-graph-spec/go/validation"
 
-issues, err := validation.Validate(graph)
+issues, err := validation.Validate(graph, validation.SetCore)
 ----
+
+Pass more than one set to check against all of them, such as `validation.Validate(graph, validation.SetCore,
+validation.SetLabelled)`.
 
 See xref:validation.adoc[] for the validator sets and issues.
 

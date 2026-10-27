@@ -87,11 +87,17 @@ func TestCallInputValidation(t *testing.T) {
 			wantErr: "migrate requires 3 arguments",
 		},
 		{
+			name:    "not enough args for validate",
+			op:      Validate,
+			model:   []byte("0"),
+			wantErr: "validate requires 1 argument",
+		},
+		{
 			name:    "too many args for validate",
 			op:      Validate,
 			model:   []byte("0"),
-			args:    []string{"1"},
-			wantErr: "validate requires 0 arguments",
+			args:    []string{"1", "2"},
+			wantErr: "validate requires 1 argument",
 		},
 		{
 			name:    "unknown operation",
