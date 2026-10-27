@@ -136,7 +136,7 @@ func main() {
 	if err := json.Unmarshal(content, &graph); err != nil {
 		log.Fatal(err)
 	}
-	issues, err := validation.Validate(graph)
+	issues, err := validation.Validate(graph, validation.SetCore)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -154,7 +154,3 @@ Running it prints:
 ----
 No issues found
 ----
-
-NOTE: The Go library doesn't print `No issues found` for this model. It runs all validations by default, including
-stricter checks such as requiring every property to set its `name`, so it reports a `missing_property_name` issue for
-each property in the model. See xref:validation.adoc[] for the validator sets.

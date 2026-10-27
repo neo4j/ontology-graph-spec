@@ -8,12 +8,21 @@ no problems.
 
 [cols="1,4"]
 |===
-| Set | Checks
+| Set | Use
 
-| `Validations.core` | The xref:format:rules.adoc[rules] of the format.
-| `Validations.all` | `core`, plus stricter checks used by Neo4j's import tools, such as requiring every property to set
-its `name`.
+| Core | Checking a model is valid, that it follows the xref:format:rules.adoc[rules] of the format.
+| Labelled | Checking a model is complete enough to work with, with an identifier label on every node and a type on every
+relationship.
+| Consistent Schema | Checking a model's properties, indexes and constraints can be created in Neo4j, so names are set
+and unique and definitions don't conflict.
+| Mappable | Checking a model's data source mappings can be used to import data, so every node mapping has a key and
+mappings and table columns are complete.
+| Well Constrained | Reviewing a model's design against recommended practice, such as every node having properties and a
+constraint.
+| All | Running every built-in check.
 |===
+
+Combine sets to check a model against more than one, such as Core and Labelled.
 
 A validator can depend on others, and only runs when they found no issues. This avoids a cascade of issues from a single
 mistake, but means fixing an issue can reveal new ones.
