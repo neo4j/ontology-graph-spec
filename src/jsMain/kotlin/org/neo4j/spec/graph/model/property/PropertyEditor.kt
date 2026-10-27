@@ -59,6 +59,18 @@ class PropertyEditor {
         }
 
         @JsStatic
+        fun addAlias(property: PropertyJs, alias: String) {
+            if (!property.aliases.contains(alias)) {
+                property.aliases += alias
+            }
+        }
+
+        @JsStatic
+        fun removeAlias(property: PropertyJs, alias: String) {
+            property.aliases = property.aliases.filter { it != alias }.toTypedArray()
+        }
+
+        @JsStatic
         fun setPattern(property: PropertyJs, pattern: String) {
             property.pattern = pattern
         }
