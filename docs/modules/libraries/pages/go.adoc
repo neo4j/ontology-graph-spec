@@ -42,21 +42,9 @@ validation.SetLabelled)`.
 
 See xref:validation.adoc[] for the validator sets and issues.
 
-== Migrate models
-
-[source,go]
-----
-import "github.com/neo4j/ontology-graph-spec/go/migration"
-
-graph, err := migration.ToGraphSpec(dataModelJSON, migration.ModelTypeDataModel)
-exported, err := migration.FromGraphSpec(graph, migration.ModelTypeDataModel, migration.ModelVersionDataModelV30)
-----
-
-See xref:migration.adoc[] for the supported types and versions.
-
 == Native library
 
-Validation and migration run in a native library embedded in the module and loaded on first use.
+Validation runs in a native library embedded in the module and loaded on first use.
 
 If you want to load the library from a custom location, set `GRAPHDATAMODEL_LIB_PATH` to the path of the library for
 your platform, copied from `go/internal/bridge/lib/` in the repository.

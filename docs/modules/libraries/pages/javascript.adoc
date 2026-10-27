@@ -35,15 +35,3 @@ const issues = GraphModel.validate(model, Validations.core).asJsReadonlyArrayVie
 ----
 
 See xref:validation.adoc[] for the validator sets and issues.
-
-== Migrate models
-
-To read from or write to another format, pass its type, and for writing its version.
-
-[source,typescript]
-----
-const model = GraphSpec.Json.decodeFromString(dataModelJson, "data_model");
-const exported = GraphSpec.Json.encodeToString(model, "data_model", "3.0.0");
-----
-
-See xref:migration.adoc[] for the supported types and versions.

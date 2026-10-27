@@ -1,0 +1,187 @@
+= Interoperability
+:description: How RDFS and SHACL constructs map onto a Neo4j Ontology Graph Specification model, what the database enforces, and what falls short.
+
+The format covers the parts of RDFS and SHACL that describe a domain, not all of either. It is not RDF, not OWL: no
+triples, no IRIs, no inference. It is descriptive first: a model says what a domain looks like. Only part of what it
+says is enforced in the database.
+
+The coverage tables name fields from the xref:format:reference/properties.adoc[],
+xref:format:reference/relationships.adoc[], xref:format:reference/constraints-and-indexes.adoc[] and
+xref:format:reference/extensions.adoc[] pages. Constructs with no native field travel in custom data. Each row
+gets one of these verdicts:
+
+* *covered*: maps to native fields.
+* *partially covered*: maps, with limits.
+* *lossy*: maps, but drops meaning.
+* *carried*: no native field. Travels in custom data.
+* *different mechanism*: met another way.
+* *excluded*: deliberately out.
+* *n/a*: not a construct of that vocabulary.
+
+== RDFS coverage
+
+[cols="2,4,1"]
+|===
+| Construct | Mapping | Verdict
+
+| `rdfs:Class` | A xref:format:reference/nodes.adoc[node]. Its `labels` carry the class: `identifier` names it. `implied` and
+`optional` add further labels. The `label` shorthand expands into `labels` when the model is decoded. | covered
+
+| `rdf:Property` | A xref:format:reference/relationships.adoc[relationship] when its range is a class, a
+xref:format:reference/properties.adoc[property] when its range is a datatype. Nothing records which it came from: a
+tool importing RDF decides. A property with several domains or ranges becomes one relationship entry per pair of
+ends. RDFS joins them conjunctively. The per-pair entries do not carry that: the combination survives as the
+identifier and `implied` labels of one node. | covered
+
+| `rdfs:domain` / `rdfs:range` | The `from` and `to` ends of a xref:format:reference/relationships.adoc[relationship]. A
+property's range via its xref:format:reference/properties.adoc[type]. Types are Neo4j types, not xsd datatypes: a tool
+importing RDF maps them. | covered
+
+| `rdfs:label` | `aliases` on a xref:format:reference/nodes.adoc[node] or xref:format:reference/relationships.adoc[relationship].
+A property has only `name` (its name in the database when different from its id) and no `aliases`. A node has no name
+field. | partially covered
+
+| `rdfs:comment` | `description` on the model, a node, a relationship or a property: one string each, capped as the
+xref:format:rules.adoc[length rules] set out. | covered
+
+| `rdfs:seeAlso`, `rdfs:isDefinedBy` | `reference` on a xref:format:reference/nodes.adoc[node],
+xref:format:reference/relationships.adoc[relationship] or xref:format:reference/properties.adoc[property]: one URI
+each. Further values ride xref:format:reference/extensions.adoc[custom data]. | partially covered
+
+| `rdfs:subClassOf` | No hierarchy to traverse: a tool importing RDF flattens it into the `implied` labels of a
+xref:format:reference/nodes.adoc[node]. `implied` and `optional` are plain labels. Nothing infers over them. | covered
+
+| `rdfs:subPropertyOf` | No field on a node, relationship or property. Property hierarchies are excluded. | excluded
+
+| containers (`Bag`/`Seq`/`Alt`), reification | No field. The list xref:format:reference/properties.adoc[types], such as
+`LIST<STRING>`, are ordered lists, not RDF containers. Reification has no carrier. | excluded
+
+| cardinality, enums, patterns | Not RDFS constructs, but native here: xref:format:reference/relationships.adoc[count],
+xref:format:reference/relationships.adoc[min_count] and xref:format:reference/relationships.adoc[max_count] on a
+relationship end. xref:format:reference/properties.adoc[one_of] and xref:format:reference/properties.adoc[pattern] on
+a property. | n/a
+|===
+
+== SHACL coverage
+
+[cols="2,4,1"]
+|===
+| Construct | Mapping | Verdict
+
+| `sh:datatype` | The xref:format:reference/properties.adoc[type] of a property, a Neo4j type rather than an xsd
+datatype. `VECTOR` types pair with `dimension`, and `ANY` opts the property out. Enforceable as a `PROPERTY_TYPE`
+xref:format:reference/constraints-and-indexes.adoc[constraint]. | covered
+
+| `sh:in` | xref:format:reference/properties.adoc[one_of] on a property of a node or relationship: a list of strings, so
+non-string literals must be quoted. Mutually exclusive with `pattern`. SHACL allows both together. |
+partially covered
+
+| `sh:pattern` | xref:format:reference/properties.adoc[pattern] on a property: a single regex string, with flags such
+as `(?i)` folded into it. Mutually exclusive with `one_of`. Descriptive, not enforced. | covered
+
+| `sh:minCount` = 1 on property | xref:format:reference/properties.adoc[must_exist] on a property: shorthand for an
+`EXISTS` constraint, expanded when the model is decoded. Enforceable via the database schema. A minimum above 1 has
+no native field. | covered
+
+| `sh:minCount`/`sh:maxCount` on relationship | xref:format:reference/relationships.adoc[count] alone, or
+xref:format:reference/relationships.adoc[min_count] with xref:format:reference/relationships.adoc[max_count], on a
+relationship end. Descriptive: not yet enforced in the database. | covered
+
+| `sh:maxCount` > 1 on property | A list xref:format:reference/properties.adoc[type], such as `LIST<STRING>`, or
+`LIST<ANY>` for mixed elements. Gives a list, not a bound on length. Element types are always scalars. | lossy
+
+| `sh:class` | The `node` or `label` of a xref:format:reference/relationships.adoc[relationship end], pointing at a
+xref:format:reference/nodes.adoc[node] whose `identifier` label is the class. A relationship is its type and two ends:
+the same type between other nodes is a separate entry. | covered
+
+| `sh:nodeKind` | The shape of the model itself: literals live under `properties`, node references only as relationship
+ends. IRIs collapse into relationships and labels, literals into property types. Nothing distinguishes an IRI from a
+blank node: blank nodes have no carrier. | lossy
+
+| `sh:name`, `sh:description` | `description` on a node, relationship or property. The only `name` fields are a
+property's (its name in the database when different from its id) and the model's own. No display name for a node or
+relationship. | lossy
+
+| `sh:message`, `sh:severity` | No native field. Rides xref:format:reference/extensions.adoc[custom data]. The format
+has no severity concept. | lossy
+
+| `sh:minInclusive/maxExclusive` etc. (value ranges) | No native field on a property: only `pattern` and
+`one_of` restrict values. Rides xref:format:reference/extensions.adoc[custom data]. See <<_gaps_and_caveats>>. |
+carried
+
+| `sh:minLength/maxLength` | No native field on a property. Rides xref:format:reference/extensions.adoc[custom
+data]. Not the length caps on the xref:format:rules.adoc[rules] page: those bound the model's own `name` and
+`description`, not property values. See <<_gaps_and_caveats>>. | carried
+
+| `sh:languageIn`, `sh:uniqueLang` | No native field. Rides xref:format:reference/extensions.adoc[custom data].
+Property values carry no language tags. | carried
+
+| `sh:equals`, `sh:disjoint`, `sh:lessThan` (property-pair comparisons) | No native field. Rides
+xref:format:reference/extensions.adoc[custom data]. See <<_gaps_and_caveats>>. | carried
+
+| `sh:hasValue` | No dedicated field. Rides xref:format:reference/extensions.adoc[custom data]. Approximate it with
+`one_of` plus `must_exist`: a single value, strings only, and it forces presence. | carried
+
+| `sh:closed`, `sh:ignoredProperties` | No native field. Rides xref:format:reference/extensions.adoc[custom data].
+Neo4j is schema-optional: a closed world is enforcement policy, not ontology content. | carried
+
+| `sh:order`, `sh:group` | No native field. Rides xref:format:reference/extensions.adoc[custom data]. The
+nearest native field to styling is a node's `display`. | carried
+
+| property paths (inverse) | No field of its own: the `from` and `to` ends of a
+xref:format:reference/relationships.adoc[relationship] entry express them by direction. | different mechanism
+
+| property paths (alternative/sequence) | Not constraints in this format. Anything beyond a single hop rides
+xref:format:reference/extensions.adoc[custom data]. | carried
+
+| `sh:not/and/or/xone`, qualified cardinality | No boolean composition: the
+xref:format:reference/constraints-and-indexes.adoc[constraint types] are only `EXISTS`, `UNIQUE`, `KEY` and
+`PROPERTY_TYPE`. | excluded
+
+| SHACL-SPARQL constraints | No SPARQL machinery. Raw text at best in xref:format:reference/extensions.adoc[custom
+data]. | excluded
+
+| SHACL-AF rules/functions | No field on the model, deliberately: rules and functions imply inference, which the
+format does not do. | excluded
+|===
+
+== Enforcement
+
+A model is descriptive first. The xref:libraries:validation.adoc[libraries] validate the model document itself, not
+the data in the database. The database enforces only what its schema can carry.
+
+Enforced in the database:
+
+* The `identifier` label of a node and the `type` of a relationship: they select what the constraints apply to. The
+`implied` and `optional` labels are descriptive.
+* xref:format:reference/properties.adoc[must_exist], `unique` and `key` on a property, and the
+xref:format:reference/constraints-and-indexes.adoc[constraints] of a node or relationship: the four constraint types,
+`EXISTS`, `UNIQUE`, `KEY` and `PROPERTY_TYPE`.
+
+Descriptive, not enforced:
+
+* The `from` and `to` ends of a relationship and their xref:format:reference/relationships.adoc[count], `min_count`
+and `max_count`.
+* xref:format:reference/properties.adoc[one_of] and `pattern` on a property.
+* `name`, `description`, `aliases`, `reference` and `dimension`.
+* `extensions`, and the custom data in them.
+
+== Gaps and caveats
+
+Gaps, likeliest to matter first:
+
+* Value ranges: `sh:minInclusive`, `sh:maxExclusive` and the rest. Plausible in regulated industries (ingredient
+classes, dosage ranges). No native field on a property. The route is an owner-defined validation object in
+xref:format:reference/extensions.adoc[custom data].
+* String lengths: `sh:minLength` and `sh:maxLength`. Cheap to add on the same validation object. Nothing on a
+property today. Not the length caps on the xref:format:rules.adoc[rules] page: those bound the model's own `name` and
+`description`, not property values.
+* Property-pair comparisons: `sh:equals`, `sh:disjoint`, `sh:lessThan`. Rare in practice. The same route through
+custom data.
+
+Caveats:
+
+* SHACL validates instance data after loading it. This format is descriptive first, enforced via the database schema
+where possible. Validation checks the model document, not the data.
+* SHACL binds shapes to data with targets such as `sh:targetClass`. Here the binding is identity: a
+xref:format:reference/nodes.adoc[node] entry is the shape for its `identifier` label. No target machinery.

@@ -219,6 +219,25 @@ npm start
 This builds the site and serves it at http://localhost:8000, rebuilding and restarting the server on changes.
 Use `npm run build:preview` to build without serving, or `npm run serve` to serve an existing build.
 
+## Interoperability
+
+The format covers the parts of RDFS and SHACL that describe a domain, not all of either. See
+[docs/modules/format/pages/interoperability.adoc](docs/modules/format/pages/interoperability.adoc) for the
+construct-by-construct tables and what each verdict means.
+
+Construct counts by verdict:
+
+| Verdict | RDFS | SHACL |
+|---|---|---|
+| covered | 5 | 5 |
+| partially covered | 2 | 1 |
+| lossy | 0 | 4 |
+| carried | 0 | 8 |
+| different mechanism | 0 | 1 |
+| excluded | 2 | 3 |
+| n/a | 1 | 0 |
+| total | 10 | 22 |
+
 ## Repository layout
 
 | Path | Contents |

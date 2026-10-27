@@ -3,6 +3,7 @@
 ## Non-negotiables
 
 - Any change to this repository that would make the docs pages stale MUST update the pages under `docs/` in the same change.
+- Any change that alters what the format covers (fields, constraints, cardinality, validation behavior) MUST update the coverage tables in `docs/modules/format/pages/interoperability.adoc` and the interoperability summary in `README.md` in the same change.
 
 ## Running and previewing the docs
 
