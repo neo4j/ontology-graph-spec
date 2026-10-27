@@ -27,7 +27,7 @@ import kotlin.js.JsName
 
 @JsExport
 class GraphSpecConfig(
-    val validators: Set<Validation>,
+    val validators: List<Validation>,
     val migrations: Map<String, List<Migration>>,
     val format: Format
 ) {
@@ -35,7 +35,7 @@ class GraphSpecConfig(
         @JsName("builderFormat")
         var format: Format
     ) {
-        val validators = mutableSetOf<Validation>()
+        val validators = mutableListOf<Validation>()
         val migrations = mutableMapOf<String, MutableList<Migration>>()
 
         @JsName("default")

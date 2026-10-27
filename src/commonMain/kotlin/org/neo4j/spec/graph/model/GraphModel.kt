@@ -72,7 +72,7 @@ data class GraphModel(
     }
 
     @JsExport.Ignore
-    fun validate(validators: Set<Validation>): List<Issue> {
+    fun validate(validators: List<Validation>): List<Issue> {
         val tree = ValidationTree()
         tree.build(validators)
         return tree.validate(this)
@@ -80,7 +80,7 @@ data class GraphModel(
 
     companion object {
         @JsStatic
-        fun validate(model: GraphModel, validators: Set<Validation>) = model.validate(validators)
+        fun validate(model: GraphModel, validators: List<Validation>) = model.validate(validators)
 
         @JsStatic
         fun longhand(model: GraphModel) = model.longhand()

@@ -40,7 +40,7 @@ class ValidationTreeTest {
         val tree = ValidationTree()
         val v1 = MockValidation("V1")
 
-        tree.build(setOf(v1))
+        tree.build(listOf(v1))
         val issues = tree.validate(emptyModel)
 
         assertEquals(1, v1.callCount)
@@ -51,9 +51,9 @@ class ValidationTreeTest {
     fun `child validator is executed if parent succeeds`() {
         val tree = ValidationTree()
         val parent = MockValidation("Parent", shouldFail = false)
-        val child = MockValidation("Child", dependencies = setOf(parent))
+        val child = MockValidation("Child", dependencies = listOf(parent))
 
-        tree.build(setOf(parent, child))
+        tree.build(listOf(parent, child))
         tree.validate(emptyModel)
 
         assertEquals(1, parent.callCount)
@@ -64,9 +64,9 @@ class ValidationTreeTest {
     fun `child validator is skipped if parent fails`() {
         val tree = ValidationTree()
         val parent = MockValidation("Parent", shouldFail = true)
-        val child = MockValidation("Child", dependencies = setOf(parent))
+        val child = MockValidation("Child", dependencies = listOf(parent))
 
-        tree.build(setOf(parent, child))
+        tree.build(listOf(parent, child))
         val issues = tree.validate(emptyModel)
 
         assertEquals(1, parent.callCount)
@@ -81,7 +81,7 @@ class ValidationTreeTest {
         val root1 = MockValidation("R1")
         val root2 = MockValidation("R2")
 
-        tree.build(setOf(root1, root2))
+        tree.build(listOf(root1, root2))
         tree.validate(emptyModel)
 
         assertEquals(1, root1.callCount)
@@ -92,10 +92,10 @@ class ValidationTreeTest {
     fun `branching dependencies - one parent failure stops entire branch`() {
         val tree = ValidationTree()
         val root = MockValidation("Root", shouldFail = true)
-        val child1 = MockValidation("C1", dependencies = setOf(root))
-        val child2 = MockValidation("C2", dependencies = setOf(root))
+        val child1 = MockValidation("C1", dependencies = listOf(root))
+        val child2 = MockValidation("C2", dependencies = listOf(root))
 
-        tree.build(setOf(root, child1, child2))
+        tree.build(listOf(root, child1, child2))
         tree.validate(emptyModel)
 
         assertEquals(1, root.callCount)
@@ -107,10 +107,10 @@ class ValidationTreeTest {
     fun `deep dependency chain works correctly`() {
         val tree = ValidationTree()
         val v1 = MockValidation("V1")
-        val v2 = MockValidation("V2", dependencies = setOf(v1))
-        val v3 = MockValidation("V3", dependencies = setOf(v2))
+        val v2 = MockValidation("V2", dependencies = listOf(v1))
+        val v3 = MockValidation("V3", dependencies = listOf(v2))
 
-        tree.build(setOf(v1, v2, v3))
+        tree.build(listOf(v1, v2, v3))
         tree.validate(emptyModel)
 
         assertEquals(1, v1.callCount)
@@ -124,10 +124,10 @@ class ValidationTreeTest {
         val v1 = MockValidation("V1")
         val v2 = MockValidation("V2")
 
-        tree.build(setOf(v1))
+        tree.build(listOf(v1))
 
         // Rebuild with only v2
-        tree.build(setOf(v2))
+        tree.build(listOf(v2))
         tree.validate(emptyModel)
 
         assertEquals(0, v1.callCount)
@@ -140,9 +140,9 @@ class ValidationTreeTest {
         val tree = ValidationTree()
         val p1 = MockValidation("P1")
         val p2 = MockValidation("P2")
-        val child = MockValidation("Child", dependencies = setOf(p1, p2))
+        val child = MockValidation("Child", dependencies = listOf(p1, p2))
 
-        tree.build(setOf(p1, p2, child))
+        tree.build(listOf(p1, p2, child))
         tree.validate(emptyModel)
 
         // The current implementation will run 'child' twice because it's added
@@ -154,7 +154,7 @@ class ValidationTreeTest {
 
     private class MockValidation(
         val name: String,
-        private val dependencies: Set<Validation> = emptySet(),
+        private val dependencies: List<Validation> = emptyList(),
         private val shouldFail: Boolean = false
     ) : Validation {
         var callCount = 0

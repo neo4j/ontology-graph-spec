@@ -32,13 +32,13 @@ private val jsonFormat = Json {
     prettyPrint = false
 }
 
-private val validationLabelsToSet: Map<String, Collection<Validation>> = mapOf(
+private val validationLabelsToSet: Map<String, List<Validation>> = mapOf(
     "core" to Validations.core,
     "labelled" to Validations.labelled,
     "consistent_schema" to Validations.consistentSchema,
     "mappable" to Validations.mappable,
     "well_constrained" to Validations.wellConstrained,
-    "all" to Validations.all,
+    "all" to Validations.all
 )
 
 @OptIn(ExperimentalForeignApi::class, ExperimentalNativeApi::class)
@@ -47,7 +47,7 @@ fun validate(
     inputJson: CPointer<ByteVar>?,
     validationSets: CPointer<ByteVar>?,
     outputBuffer: CPointer<ByteVar>?,
-    bufferSize: Int,
+    bufferSize: Int
 ) = invokeBridge(
     inputJson,
     validationSets,
@@ -56,11 +56,11 @@ fun validate(
 ) { input -> validateContent(content = input[0], sets = input[1]) }
 
 internal fun validateContent(content: String, sets: String): String {
-    val validators = sets.split(",").flatMapTo(mutableSetOf()) { label ->
+    val validators = sets.split(",").flatMap { label ->
         validationLabelsToSet.getOrElse(label) {
             throw IllegalArgumentException("unknown validation type: $label")
         }
-    }
+    }.distinct()
     val validation = ValidationTree().also { it.build(validators) }
 
     val graphModel = GraphSpec.Json.decodeFromString(content)

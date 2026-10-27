@@ -41,7 +41,7 @@ class ValidationTest {
                 }
             }
         }
-        """.trimIndent()
+    """.trimIndent()
 
     @Test
     fun testValidate() {
@@ -83,7 +83,12 @@ class ValidationTest {
     @Test
     fun testValidateEverySet() {
         val validationSets = listOf(
-            "core", "labelled", "consistent_schema", "mappable", "well_constrained", "all"
+            "core",
+            "labelled",
+            "consistent_schema",
+            "mappable",
+            "well_constrained",
+            "all"
         )
         for (validation in validationSets) {
             val result = validateContent(input, validation)
