@@ -69,27 +69,3 @@ List<Issue> issues = model.validate(Validations.Companion.getCore());
 ----
 
 See xref:validation.adoc[] for the validator sets and issues.
-
-== Migrate models
-
-To read from or write to another format, pass its type, and for writing its version.
-
-[.tabs]
-.Kotlin
-[source,kotlin]
-----
-import org.neo4j.spec.graph.model.Type
-import org.neo4j.spec.graph.model.Version
-
-val model = GraphSpec.Json.decodeFromString(dataModelJson, Type.DATA_MODEL)
-val exported = GraphSpec.Json.encodeToString(model, Type.DATA_MODEL, Version.DATA_MODEL_V30)
-----
-
-.Java
-[source,java]
-----
-GraphModel model = GraphSpec.Json.INSTANCE.decodeFromString(dataModelJson, Type.DATA_MODEL);
-String exported = GraphSpec.Json.INSTANCE.encodeToString(model, Type.DATA_MODEL, Version.DATA_MODEL_V30);
-----
-
-See xref:migration.adoc[] for the supported types and versions.

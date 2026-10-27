@@ -13,6 +13,7 @@
 ** xref:format:shorthand.adoc[]
 ** xref:format:rules.adoc[]
 ** xref:format:versioning.adoc[]
+** xref:format:interoperability.adoc[]
 
 * xref:libraries:index.adoc[Libraries]
 ** xref:libraries:getting-started.adoc[]
