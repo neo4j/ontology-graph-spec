@@ -17,6 +17,7 @@ class PropertyJsTest : JsMappingTest<Property, PropertyJs>() {
         key = true,
         extensions = PropertyExtensions(mutableMapOf("key1" to "val1")),
         name = "propertyName",
+        aliases = mutableSetOf("alias1", "alias2"),
         reference = "ref",
         pattern = "^a.*",
         oneOf = mutableListOf("a", "b")
@@ -35,6 +36,7 @@ class PropertyJsTest : JsMappingTest<Property, PropertyJs>() {
         assertEquals<Any?>("val1", jsObject.extensions.custom["key1"])
         assertEquals("propertyId", jsObject.id)
         assertEquals("propertyName", jsObject.name)
+        assertEquals(listOf("alias1", "alias2"), jsObject.aliases.toList())
         assertEquals("ref", jsObject.reference)
         assertEquals("^a.*", jsObject.pattern)
         assertEquals(2, jsObject.oneOf.size)

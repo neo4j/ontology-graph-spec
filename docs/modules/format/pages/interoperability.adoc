@@ -37,9 +37,9 @@ identifier and `implied` labels of one node. | covered
 property's range via its xref:format:reference/properties.adoc[type]. Types are Neo4j types, not xsd datatypes: a tool
 importing RDF maps them. | covered
 
-| `rdfs:label` | `aliases` on a xref:format:reference/nodes.adoc[node] or xref:format:reference/relationships.adoc[relationship].
-A property has only `name` (its name in the database when different from its id) and no `aliases`. A node has no name
-field. | partially covered
+| `rdfs:label` | `aliases` on a xref:format:reference/nodes.adoc[node],
+xref:format:reference/relationships.adoc[relationship] or xref:format:reference/properties.adoc[property]. A property
+also has `name` (its name in the database when different from its id). A node has no name field. | covered
 
 | `rdfs:comment` | `description` on the model, a node, a relationship or a property: one string each, capped as the
 xref:format:rules.adoc[length rules] set out. | covered

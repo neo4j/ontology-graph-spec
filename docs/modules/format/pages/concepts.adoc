@@ -16,7 +16,7 @@ and the nodes it connects. Both can have xref:reference/properties.adoc[properti
 Nodes, relationships and properties can describe what they mean:
 
 * `description` says what something represents in the domain, such as "A film released to the public".
-* `aliases` lists other names people use for a node or relationship, such as `Actor` for `Person`.
+* `aliases` lists other names people use for a node, relationship or property, such as `Actor` for `Person`.
 * `reference` links to a definition maintained elsewhere, such as a term in an industry standard or a glossary.
 
 The model's own `name` and `description` say what domain it covers.

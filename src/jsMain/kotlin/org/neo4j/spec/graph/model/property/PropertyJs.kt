@@ -35,6 +35,7 @@ external interface PropertyJs {
     var name: String?
     val id: String
     val description: String
+    var aliases: Array<String>
     var reference: String
     var pattern: String
     var oneOf: Array<String>
@@ -50,6 +51,7 @@ fun propertyJs(
     name: String? = null,
     id: String,
     description: String = "",
+    aliases: Array<String> = emptyArray(),
     reference: String = "",
     pattern: String = "",
     oneOf: Array<String> = emptyArray()
@@ -63,6 +65,7 @@ fun propertyJs(
     this.name = name
     this.id = id
     this.description = description
+    this.aliases = aliases
     this.reference = reference
     this.pattern = pattern
     this.oneOf = oneOf
@@ -78,6 +81,7 @@ fun Property.toJs(key: String) = propertyJs(
     name = name,
     id = key,
     description = description,
+    aliases = aliases.toTypedArray(),
     reference = reference,
     pattern = pattern,
     oneOf = oneOf.toTypedArray()
@@ -96,6 +100,7 @@ fun PropertyJs.toClass(parent: String, property: String): Property {
         extensions = extensions.toClass(),
         name = name,
         description = description,
+        aliases = aliases.toMutableSet(),
         reference = reference,
         pattern = pattern,
         oneOf = oneOf.toMutableList()

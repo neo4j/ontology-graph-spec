@@ -47,6 +47,28 @@ class PropertyEditorTest {
     }
 
     @Test
+    fun testAddAliasIgnoresDuplicates() {
+        val property = property()
+
+        PropertyEditor.addAlias(property, "a")
+        PropertyEditor.addAlias(property, "b")
+        PropertyEditor.addAlias(property, "a")
+
+        assertEquals(listOf("a", "b"), property.aliases.toList())
+    }
+
+    @Test
+    fun testRemoveAlias() {
+        val property = property()
+        PropertyEditor.addAlias(property, "a")
+        PropertyEditor.addAlias(property, "b")
+
+        PropertyEditor.removeAlias(property, "a")
+
+        assertEquals(listOf("b"), property.aliases.toList())
+    }
+
+    @Test
     fun testSetReferenceAndPattern() {
         val property = property()
 
