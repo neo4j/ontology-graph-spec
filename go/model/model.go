@@ -503,6 +503,8 @@ func (v IndexOptionPoint) MarshalJSON() ([]byte, error) {
 
 // A property of a node or relationship.
 type Property struct {
+	// Alternative names for the property.
+	Aliases *[]string `json:"aliases,omitempty"`
 	// Description of the property.
 	Description *string `json:"description,omitempty"`
 	// Dimension of the property when it holds a vector.
