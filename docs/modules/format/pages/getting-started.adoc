@@ -28,12 +28,12 @@ own revision of the model.
 
 == Validate it
 
-The specification is defined by a JSON Schema at `https://neo4j.com/docs/ontology-graph-spec/1.0.0/schema.json`. You can
+The specification is defined by a JSON Schema at `https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json`. You can
 validate a model with any JSON Schema validator, for example:
 
 [source,shell]
 ----
-check-jsonschema --schemafile https://neo4j.com/docs/ontology-graph-spec/1.0.0/schema.json movies.yaml
+check-jsonschema --schemafile https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json movies.yaml
 ----
 
 The schema can't check references within a document, such as whether a relationship points at a node that exists. Those

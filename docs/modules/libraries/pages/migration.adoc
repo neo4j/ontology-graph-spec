@@ -7,7 +7,7 @@ Migration converts models between this specification and the Aura Data Importer 
 |===
 | Type | Format | Read | Write
 
-| `graph_spec` | This specification | 1.0.0 | 1.0.0
+| `graph_spec` | This specification | 1.0.0, 1.1.0 | 1.1.0
 | `data_model` | Aura Data Importer graph data model | 2.3.0, 2.4.0, 3.0.0 | 3.0.0
 | `data_model_wrapped` | Aura Data Importer model file, which wraps the data model with user interface
 information | 2.3.0, 2.4.0, 3.0.0 | 3.0.0

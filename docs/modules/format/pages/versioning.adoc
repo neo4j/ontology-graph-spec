@@ -19,4 +19,4 @@ Each version of the specification publishes its JSON Schema at its own URL:
 https://neo4j.com/docs/ontology-graph-spec/<version>/schema.json
 ----
 
-1.0.0 is the first version of the specification.
+1.0.0 is the first version of the specification. 1.1.0 adds the optional `aliases` property to properties.
