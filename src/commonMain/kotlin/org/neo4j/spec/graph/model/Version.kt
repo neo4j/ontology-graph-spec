@@ -37,12 +37,14 @@ object Version {
     /*
         Graph spec versions
      */
-    const val LATEST = "1.0.0"
+    const val V1 = "1.0.0"
+    const val V1_1 = "1.1.0"
+    const val LATEST = V1_1
 
     /**
      * Every released graph spec version, oldest first, ending with [LATEST].
      */
-    val GRAPH_SPEC_VERSIONS = listOf("1.0.0")
+    val GRAPH_SPEC_VERSIONS = listOf(V1, LATEST)
 
     /*
         Schema urls, the spec version is always the path segment before schema.json.
