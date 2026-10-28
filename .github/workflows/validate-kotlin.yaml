@@ -9,16 +9,10 @@ on:
         type: string
 
 env:
-  WATCHED_PATHS: "src/ build.gradle.kts settings.gradle.kts gradle.properties gradle/"
+  WATCHED_PATHS: "src/ ontology-graph-spec.schema.json build.gradle.kts settings.gradle.kts gradle.properties gradle/"
 
 jobs:
-  spec-version:
-    uses: ./.github/workflows/check-spec-version.yaml
-    with:
-      ref: ${{ inputs.ref }}
-
   test-kotlin:
-    needs: spec-version
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -30,8 +24,13 @@ jobs:
       - name: Detect changed Kotlin or Gradle files
         id: kotlin
         run: |
-          git fetch origin ${{ github.event.pull_request.base.ref }}
-          CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD -- $WATCHED_PATHS | wc -l | tr -d ' ')
+          BASE_REF="${{ github.event.pull_request.base.ref }}"
+          if [ -z "$BASE_REF" ]; then # not a pull request, always check
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch origin "$BASE_REF"
+          CHANGED=$(git diff --name-only "origin/$BASE_REF"...HEAD -- $WATCHED_PATHS | wc -l | tr -d ' ')
           echo "changed=$([ "$CHANGED" -gt 0 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
       - name: Set up JDK 17

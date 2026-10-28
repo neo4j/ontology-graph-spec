@@ -1,7 +1,8 @@
 name: Release Spec
 
 # Tags the spec as released when a new version is merged to main. The version is read from the `$id` of the
-# schema, so the tag can never disagree with it. Publishing the schema is triggered by the tag elsewhere (TeamCity).
+# schema, so the tag can never disagree with it. The Kotlin checks (SpecVersionConsistencyTest) guard the version
+# before it is tagged. Publishing the schema is triggered by the tag elsewhere (TeamCity).
 on:
   push:
     branches: [main]
@@ -14,13 +15,42 @@ permissions:
   contents: write
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      unreleased: ${{ steps.version.outputs.unreleased }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Read the spec version and check whether it is released
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(jq -r '."$id"' ontology-graph-spec.schema.json | cut -d/ -f6)"
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "Unable to read spec version from \$id: '$version'" >&2; exit 1; }
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "refs/tags/release-spec/v${version}" >/dev/null; then
+            echo "release-spec/v${version} already exists, nothing to release"
+            echo "unreleased=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "unreleased=true" >> "$GITHUB_OUTPUT"
+          fi
+
   validate:
-    uses: ./.github/workflows/check-spec-version.yaml
+    needs: check
+    if: needs.check.outputs.unreleased == 'true'
+    uses: ./.github/workflows/validate-kotlin.yaml
     with:
       ref: ${{ github.sha }}
 
   tag:
-    needs: validate
+    needs: [check, validate]
+    if: needs.check.outputs.unreleased == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -28,20 +58,13 @@ jobs:
         with:
           ref: ${{ github.sha }}
 
-      - name: Tag the spec version if unreleased
+      - name: Tag the spec version
         env:
-          VERSION: ${{ needs.validate.outputs.version }}
+          VERSION: ${{ needs.check.outputs.version }}
         shell: bash
         run: |
           set -euo pipefail
-          tag="release-spec/v${VERSION}"
-
-          if git ls-remote --exit-code --tags origin "refs/tags/${tag}" >/dev/null; then
-            echo "${tag} already exists, nothing to release"
-            exit 0
-          fi
-
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag -a "${tag}" -m "spec v${VERSION}"
-          git push origin "refs/tags/${tag}"
+          git tag -a "release-spec/v${VERSION}" -m "spec v${VERSION}"
+          git push origin "refs/tags/release-spec/v${VERSION}"
