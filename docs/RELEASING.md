@@ -53,15 +53,18 @@ This keeps every library release in step with the latest spec.
 
 The Spec Version Guard (`.github/scripts/check-spec-version.sh`) fails when:
 
-- the `$id` version, `Version.LATEST`, the last of `Version.GRAPH_SPEC_VERSIONS` and the Go constant differ
-- a released `release-spec/v*` version is missing from `Version.GRAPH_SPEC_VERSIONS`
-- the schema content has changed but its version already has a `release-spec/v*` tag (which would overwrite the published schema)
+- the schema content has changed but its `$id` version already has a `release-spec/v*` tag (which would overwrite the published schema)
 - the version is not higher than the latest released spec version
 
-The Kotlin tests (`GraphSpecVersionsTest`) additionally fail when any version in `Version.GRAPH_SPEC_VERSIONS` has no migration path to `Version.LATEST`.
+The tests fail when the versions drift apart:
 
-The Release Spec workflow runs the guard on every push to `main` and only tags when the `$id` version has no tag yet, so merging an unchanged version does nothing.
-It is recommended to also protect `release-spec/*` tags with a repository tag ruleset (no creation, update or deletion except by the workflow) and to require the guard on PRs.
+- the schema `$id` is not `Version.LATEST` (`SpecVersionConsistencyTest`)
+- `Version.LATEST` is not the last of `Version.GRAPH_SPEC_VERSIONS`, or a version in it has no migration path to `Version.LATEST` (`GraphSpecVersionsTest`)
+- a released `release-spec/v*` tag is missing from `Version.GRAPH_SPEC_VERSIONS` (`SpecVersionConsistencyTest`, needs the tags fetched, skipped when there are none)
+- `ModelVersionGraphSpecLatest` in the Go library is not the schema `$id` version (`TestGraphSpecLatestMatchesSchemaID`)
+
+The Release Spec workflow runs the guard on every push to `main` and tags the version it reports (the schema `$id` version) only when it has no tag yet, so merging an unchanged version does nothing.
+It is recommended to also protect `release-spec/*` tags (`release-spec/*`, `release/*`, `go/*`) with a repository tag ruleset restricting updates and deletions and to require the guard on PRs.
 
 The guard runs first in the Kotlin and Go validation workflows, which the PR checks and the release workflow both use, so
 neither those tests nor a release run if it fails.

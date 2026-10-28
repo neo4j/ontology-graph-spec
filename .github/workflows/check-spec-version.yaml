@@ -7,6 +7,10 @@ on:
         description: 'The specific git commit SHA to checkout and check'
         required: false
         type: string
+    outputs:
+      version:
+        description: 'The validated spec version, from the schema $id'
+        value: ${{ jobs.check-spec-version.outputs.version }}
 
 permissions:
   contents: read
@@ -14,6 +18,8 @@ permissions:
 jobs:
   check-spec-version:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.check.outputs.version }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -22,4 +28,5 @@ jobs:
           fetch-depth: 0
 
       - name: Check spec version
+        id: check
         run: .github/scripts/check-spec-version.sh

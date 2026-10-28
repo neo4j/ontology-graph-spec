@@ -4,6 +4,7 @@ import (
 	"embed"
 	"encoding/json"
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/neo4j/ontology-graph-spec/go/migration"
@@ -44,4 +45,20 @@ func TestGraphSpecToV3Migration(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, res)
 	t.Log(fmt.Sprintf("Transformed graph: %v", res))
+}
+
+func TestGraphSpecLatestMatchesSchemaID(t *testing.T) {
+	raw, err := os.ReadFile("../../ontology-graph-spec.schema.json")
+	require.NoError(t, err)
+
+	var schema struct {
+		ID string `json:"$id"`
+	}
+	require.NoError(t, json.Unmarshal(raw, &schema))
+
+	require.Equal(t,
+		fmt.Sprintf("https://neo4j.com/docs/ontology-graph-spec/%s/schema.json", migration.ModelVersionGraphSpecLatest),
+		schema.ID,
+		"ModelVersionGraphSpecLatest must match the spec version in the schema $id",
+	)
 }

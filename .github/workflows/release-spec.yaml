@@ -27,22 +27,21 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ github.sha }}
-          fetch-depth: 0
 
       - name: Tag the spec version if unreleased
+        env:
+          VERSION: ${{ needs.validate.outputs.version }}
         shell: bash
         run: |
           set -euo pipefail
-          version="$(sed -nE 's|.*"\$id": *"https://neo4j.com/docs/ontology-graph-spec/([^/]+)/schema.json".*|\1|p' ontology-graph-spec.schema.json | head -n1)"
-          [[ -n "$version" ]] || { echo "Unable to read spec version" >&2; exit 1; }
-          tag="release-spec/v${version}"
+          tag="release-spec/v${VERSION}"
 
-          if git rev-parse -q --verify "refs/tags/${tag}" >/dev/null; then
+          if git ls-remote --exit-code --tags origin "refs/tags/${tag}" >/dev/null; then
             echo "${tag} already exists, nothing to release"
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag -a "${tag}" -m "spec v${version}"
+          git tag -a "${tag}" -m "spec v${VERSION}"
           git push origin "refs/tags/${tag}"
