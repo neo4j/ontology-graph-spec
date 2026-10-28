@@ -40,14 +40,26 @@ No manual `npm publish` or Gradle task is needed - just merge a labelled PR.
 The spec (the JSON schema published to the website) is versioned independently of the libraries and released by tagging a commit `release-spec/vX.Y.Z`.
 The library version needs no bump in the repo: it is derived from the `release/v*` tags by the workflow above.
 
-The spec version lives in two places that must be bumped together before tagging:
+To release a new spec version, bump all of these in the same change, before tagging:
 
 - the `$id` in `ontology-graph-spec.schema.json`
-- `Version.LATEST` in `Version.kt`
+- `Version.LATEST` and `Version.GRAPH_SPEC_VERSIONS` (append the new version) in `Version.kt`
+- `ModelVersionGraphSpecLatest` in `go/migration/migration.go`
+- a migration from the previous spec version, registered in `defaultConfig` in `GraphSpec.kt`.
+  If the format did not change, register `GraphSpecNoOpMigration(from, to)`, which only bumps the version.
+  Migrations from `Version.LATEST` to the Aura Data Importer formats must keep working.
 
-The Spec Version Guard workflow (`.github/scripts/check-spec-version.sh`) fails when:
+This keeps every library release in step with the latest spec.
 
-- the `$id` version and `Version.LATEST` differ
+The Spec Version Guard (`.github/scripts/check-spec-version.sh`) fails when:
+
+- the `$id` version, `Version.LATEST`, the last of `Version.GRAPH_SPEC_VERSIONS` and the Go constant differ
+- a released `release-spec/v*` version is missing from `Version.GRAPH_SPEC_VERSIONS`
 - the schema content has changed but its version already has a `release-spec/v*` tag (which would overwrite the published schema)
 - the version is not higher than the latest released spec version
 - a `release-spec/vX.Y.Z` tag is pushed whose version differs from the `$id`
+
+The Kotlin tests (`GraphSpecVersionsTest`) additionally fail when any version in `Version.GRAPH_SPEC_VERSIONS` has no migration path to `Version.LATEST`.
+
+The guard runs first in the Kotlin and Go validation workflows, which the PR checks and the release workflow both use, so
+neither those tests nor a release run if it fails.

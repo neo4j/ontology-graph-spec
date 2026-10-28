@@ -1,10 +1,14 @@
 name: Spec Version Guard
 
 on:
-  pull_request:
-    branches: [main]
   push:
     tags: ['release-spec/v*']
+  workflow_call:
+    inputs:
+      ref:
+        description: 'The specific git commit SHA to checkout and check'
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -16,6 +20,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          ref: ${{ inputs.ref || github.sha }}
           fetch-depth: 0
 
       - name: Check spec version

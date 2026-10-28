@@ -12,7 +12,13 @@ env:
   WATCHED_PATHS: "src/ build.gradle.kts settings.gradle.kts gradle.properties gradle/"
 
 jobs:
+  spec-version:
+    uses: ./.github/workflows/check-spec-version.yaml
+    with:
+      ref: ${{ inputs.ref }}
+
   test-kotlin:
+    needs: spec-version
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository

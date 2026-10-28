@@ -3,7 +3,10 @@
 #
 # The spec version lives in the `$id` of ontology-graph-spec.schema.json and in Version.LATEST
 # (Version.kt). Spec releases are tags of the form `release-spec/vX.Y.Z`. Checks:
-#   1. `$id` version matches Version.LATEST
+#   1. `$id` version matches Version.LATEST, the last of Version.GRAPH_SPEC_VERSIONS and the Go library's
+#      ModelVersionGraphSpecLatest, so every library release supports the latest spec
+#      (the Kotlin tests then ensure every listed version has a migration path to LATEST)
+#   1b. every released `release-spec/v*` version is listed in Version.GRAPH_SPEC_VERSIONS
 #   2. if a `release-spec/v<$id version>` tag exists, the schema must be identical to the tagged one
 #   3. otherwise, the version must be higher than every released spec version
 #   4. with SPEC_TAG set (tag builds), the tag version must equal the `$id` version
@@ -12,6 +15,7 @@ set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 SCHEMA=ontology-graph-spec.schema.json
+GO_MIGRATION=go/migration/migration.go
 VERSION_KT=src/commonMain/kotlin/org/neo4j/spec/graph/model/Version.kt
 TAG_PREFIX=release-spec/v
 
@@ -27,6 +31,19 @@ version="$(id_version < "$SCHEMA")"
 latest_const="$(sed -nE 's|.*const val LATEST = "([^"]+)".*|\1|p' "$VERSION_KT")"
 [[ "$version" == "$latest_const" ]] ||
   fail "\$id version ($version) in $SCHEMA does not match Version.LATEST ($latest_const) in $VERSION_KT"
+
+go_latest="$(sed -nE 's|.*ModelVersionGraphSpecLatest +ModelVersion *= *"([^"]+)".*|\1|p' "$GO_MIGRATION")"
+[[ "$version" == "$go_latest" ]] ||
+  fail "\$id version ($version) does not match ModelVersionGraphSpecLatest ($go_latest) in $GO_MIGRATION"
+
+listed="$(sed -nE 's|.*val GRAPH_SPEC_VERSIONS *= *listOf\((.*)\).*|\1|p' "$VERSION_KT" | grep -oE '"[^"]+"' | tr -d '"')"
+[[ "$(printf '%s\n' "$listed" | tail -n1)" == "$version" ]] ||
+  fail "Version.GRAPH_SPEC_VERSIONS in $VERSION_KT must end with the current spec version ($version)"
+while IFS= read -r released; do
+  [[ -z "$released" ]] && continue
+  printf '%s\n' "$listed" | grep -qxF "${released#"$TAG_PREFIX"}" ||
+    fail "Released spec ${released#"$TAG_PREFIX"} is missing from Version.GRAPH_SPEC_VERSIONS in $VERSION_KT. Add it, with a migration (GraphSpecNoOpMigration if nothing changed) to the latest version."
+done < <(git tag -l "${TAG_PREFIX}*" | grep -vxF "${SPEC_TAG:-}" || true)
 
 if [[ -n "${SPEC_TAG:-}" ]]; then
   [[ "${SPEC_TAG#"$TAG_PREFIX"}" == "$version" ]] ||

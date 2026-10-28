@@ -9,7 +9,13 @@ on:
         type: string
 
 jobs:
+  spec-version:
+    uses: ./.github/workflows/check-spec-version.yaml
+    with:
+      ref: ${{ inputs.ref }}
+
   test-go-bridge:
+    needs: spec-version
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository Code
