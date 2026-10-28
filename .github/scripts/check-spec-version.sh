@@ -9,7 +9,7 @@
 #   1b. every released `release-spec/v*` version is listed in Version.GRAPH_SPEC_VERSIONS
 #   2. if a `release-spec/v<$id version>` tag exists, the schema must be identical to the tagged one
 #   3. otherwise, the version must be higher than every released spec version
-#   4. with SPEC_TAG set (tag builds), the tag version must equal the `$id` version
+# Tags are created by the Release Spec workflow on merge to main, never by hand.
 set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
@@ -43,22 +43,17 @@ while IFS= read -r released; do
   [[ -z "$released" ]] && continue
   printf '%s\n' "$listed" | grep -qxF "${released#"$TAG_PREFIX"}" ||
     fail "Released spec ${released#"$TAG_PREFIX"} is missing from Version.GRAPH_SPEC_VERSIONS in $VERSION_KT. Add it, with a migration (GraphSpecNoOpMigration if nothing changed) to the latest version."
-done < <(git tag -l "${TAG_PREFIX}*" | grep -vxF "${SPEC_TAG:-}" || true)
-
-if [[ -n "${SPEC_TAG:-}" ]]; then
-  [[ "${SPEC_TAG#"$TAG_PREFIX"}" == "$version" ]] ||
-    fail "Tag $SPEC_TAG does not match the schema \$id version ($version). Bump the version before tagging."
-fi
+done < <(git tag -l "${TAG_PREFIX}*" || true)
 
 # Normalise away the $id line so only real content changes are compared.
 strip_id() { grep -v '"\$id"' ; }
 
-tags="$(git tag -l "${TAG_PREFIX}*" --sort=-v:refname | grep -vxF "${SPEC_TAG:-}" || true)"
-if git rev-parse -q --verify "refs/tags/${TAG_PREFIX}${version}" >/dev/null && [[ "${SPEC_TAG:-}" != "${TAG_PREFIX}${version}" ]]; then
+tags="$(git tag -l "${TAG_PREFIX}*" --sort=-v:refname || true)"
+if git rev-parse -q --verify "refs/tags/${TAG_PREFIX}${version}" >/dev/null; then
   if ! diff <(git show "${TAG_PREFIX}${version}:$SCHEMA" | strip_id) <(strip_id < "$SCHEMA") >/dev/null; then
     fail "Spec $version is already released (${TAG_PREFIX}${version}) but $SCHEMA has changed since. Bump the spec version (\$id in $SCHEMA and Version.LATEST) so the published schema is not overwritten."
   fi
-elif [[ -z "${SPEC_TAG:-}" && -n "$tags" ]]; then
+elif [[ -n "$tags" ]]; then
   highest="$(printf '%s\n' "$tags" | head -n1)"
   highest="${highest#"$TAG_PREFIX"}"
   if [[ "$(printf '%s\n%s\n' "$highest" "$version" | sort -V | tail -n1)" != "$version" || "$highest" == "$version" ]]; then
@@ -67,3 +62,4 @@ elif [[ -z "${SPEC_TAG:-}" && -n "$tags" ]]; then
 fi
 
 echo "Spec version $version OK"
+[[ -z "${GITHUB_OUTPUT:-}" ]] || echo "version=$version" >> "$GITHUB_OUTPUT"

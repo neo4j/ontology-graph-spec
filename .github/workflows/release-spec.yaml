@@ -1,0 +1,48 @@
+name: Release Spec
+
+# Tags the spec as released when a new version is merged to main. The version is read from the `$id` of the
+# schema, so the tag can never disagree with it. Publishing the schema is triggered by the tag elsewhere (TeamCity).
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: "release-spec"
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    uses: ./.github/workflows/check-spec-version.yaml
+    with:
+      ref: ${{ github.sha }}
+
+  tag:
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Tag the spec version if unreleased
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(sed -nE 's|.*"\$id": *"https://neo4j.com/docs/ontology-graph-spec/([^/]+)/schema.json".*|\1|p' ontology-graph-spec.schema.json | head -n1)"
+          [[ -n "$version" ]] || { echo "Unable to read spec version" >&2; exit 1; }
+          tag="release-spec/v${version}"
+
+          if git rev-parse -q --verify "refs/tags/${tag}" >/dev/null; then
+            echo "${tag} already exists, nothing to release"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "${tag}" -m "spec v${version}"
+          git push origin "refs/tags/${tag}"

@@ -37,10 +37,10 @@ No manual `npm publish` or Gradle task is needed - just merge a labelled PR.
 
 ## Releasing the spec
 
-The spec (the JSON schema published to the website) is versioned independently of the libraries and released by tagging a commit `release-spec/vX.Y.Z`.
+The spec (the JSON schema published to the website) is versioned independently of the libraries and released by merging a version bump to `main`: the Release Spec workflow then creates the `release-spec/vX.Y.Z` tag, which triggers publishing the schema to the website (in TeamCity). Never tag by hand.
 The library version needs no bump in the repo: it is derived from the `release/v*` tags by the workflow above.
 
-To release a new spec version, bump all of these in the same change, before tagging:
+To release a new spec version, bump all of these in the same PR:
 
 - the `$id` in `ontology-graph-spec.schema.json`
 - `Version.LATEST` and `Version.GRAPH_SPEC_VERSIONS` (append the new version) in `Version.kt`
@@ -57,9 +57,11 @@ The Spec Version Guard (`.github/scripts/check-spec-version.sh`) fails when:
 - a released `release-spec/v*` version is missing from `Version.GRAPH_SPEC_VERSIONS`
 - the schema content has changed but its version already has a `release-spec/v*` tag (which would overwrite the published schema)
 - the version is not higher than the latest released spec version
-- a `release-spec/vX.Y.Z` tag is pushed whose version differs from the `$id`
 
 The Kotlin tests (`GraphSpecVersionsTest`) additionally fail when any version in `Version.GRAPH_SPEC_VERSIONS` has no migration path to `Version.LATEST`.
+
+The Release Spec workflow runs the guard on every push to `main` and only tags when the `$id` version has no tag yet, so merging an unchanged version does nothing.
+It is recommended to also protect `release-spec/*` tags with a repository tag ruleset (no creation, update or deletion except by the workflow) and to require the guard on PRs.
 
 The guard runs first in the Kotlin and Go validation workflows, which the PR checks and the release workflow both use, so
 neither those tests nor a release run if it fails.
