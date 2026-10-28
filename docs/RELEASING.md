@@ -34,3 +34,20 @@ Invalid combinations (the workflow fails):
 - More than one bump label (`release:major` / `release:minor` / `release:patch`)
 
 No manual `npm publish` or Gradle task is needed - just merge a labelled PR.
+
+## Releasing the spec
+
+The spec (the JSON schema published to the website) is versioned independently of the libraries and released by tagging a commit `release-spec/vX.Y.Z`.
+The library version needs no bump in the repo: it is derived from the `release/v*` tags by the workflow above.
+
+The spec version lives in two places that must be bumped together before tagging:
+
+- the `$id` in `ontology-graph-spec.schema.json`
+- `Version.LATEST` in `Version.kt`
+
+The Spec Version Guard workflow (`.github/scripts/check-spec-version.sh`) fails when:
+
+- the `$id` version and `Version.LATEST` differ
+- the schema content has changed but its version already has a `release-spec/v*` tag (which would overwrite the published schema)
+- the version is not higher than the latest released spec version
+- a `release-spec/vX.Y.Z` tag is pushed whose version differs from the `$id`
