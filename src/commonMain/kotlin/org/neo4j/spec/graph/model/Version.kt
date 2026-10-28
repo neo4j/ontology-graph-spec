@@ -43,6 +43,16 @@ object Version {
 
     /**
      * Every released graph spec version, oldest first, ending with [LATEST].
+     * Check-list:
+     *  - Update [LATEST]
+     *  - Migration support in [org.neo4j.spec.graph.defaultConfig]
+     *  - Update consts in /go/migration/migration.go
+     *  - Update docs
+     *    - `README.md`
+     *    - `docs/modules/format/pages/getting-started.adoc`
+     *    - `docs/modules/format/pages/versioning.adoc`
+     *    - `docs/modules/format/pages/reference/model.adoc`
+     *    - `docs/modules/libraries/pages/migration.adoc`
      */
     val GRAPH_SPEC_VERSIONS = listOf(V1, LATEST)
 
