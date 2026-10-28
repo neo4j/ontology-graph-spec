@@ -109,4 +109,16 @@ class End2EndMigrationTest {
         val decoded = GraphSpec.Json.decodeFromString(wrapped, Type.DATA_MODEL_WRAPPED)
         assertEquals(GraphSpec.Json.encodeToString(model), GraphSpec.Json.encodeToString(decoded))
     }
+
+    @Test
+    fun `graph-spec 1_0_0 model migrates to latest`() {
+        val input = """{"schema":"${Version.schemaUrl(Version.V1)}","version":"1","id":"test",
+            "nodes":{"n:0":{"labels":{"identifier":"Person"},"properties":{"p:0":{"type":"STRING","name":"name"}}}}}"""
+
+        val model = GraphSpec.Json.decodeFromString(input, Type.GRAPH_SPEC)
+
+        assertEquals(Version.schemaUrl(Version.LATEST), model.schema)
+        assertEquals("name", model.nodes.getValue("n:0").properties.getValue("p:0").name)
+        assertTrue(model.nodes.getValue("n:0").properties.getValue("p:0").aliases.isEmpty())
+    }
 }
