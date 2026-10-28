@@ -31,7 +31,7 @@ import org.neo4j.spec.graph.model.Version
 class GraphSpecDataModelWrappedMigration :
     Migration(
         fromType = Type.GRAPH_SPEC,
-        from = Version.LATEST,
+        from = Version.V1_1,
         toType = Type.DATA_MODEL_WRAPPED,
         to = Version.DATA_MODEL_V3_0
     ) {

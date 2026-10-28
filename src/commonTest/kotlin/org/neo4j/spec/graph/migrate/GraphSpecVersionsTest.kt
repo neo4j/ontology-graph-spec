@@ -28,7 +28,7 @@ import kotlin.test.assertNotNull
 class GraphSpecVersionsTest {
 
     @Test
-    fun `versions are ordered, distinct and end with latest`() {
+    fun `versions are distinct and end with latest`() {
         assertEquals(Version.LATEST, Version.GRAPH_SPEC_VERSIONS.last())
         assertEquals(Version.GRAPH_SPEC_VERSIONS.distinct(), Version.GRAPH_SPEC_VERSIONS)
     }
@@ -45,9 +45,35 @@ class GraphSpecVersionsTest {
     }
 
     @Test
+    fun `every data model version migrates to latest`() {
+        val path = MigrationPath(GraphSpec.Json.configuration.migrations)
+        val versions = listOf(Version.DATA_MODEL_V2_3, Version.DATA_MODEL_V2_4, Version.DATA_MODEL_V3_0)
+        for (version in versions) {
+            assertNotNull(
+                path.findPath("${Type.DATA_MODEL}:$version", "${Type.GRAPH_SPEC}:${Version.LATEST}"),
+                "No migration from data model $version to graph spec ${Version.LATEST}"
+            )
+        }
+    }
+
+    @Test
+    fun `every wrapped data model version migrates to latest`() {
+        val path = MigrationPath(GraphSpec.Json.configuration.migrations)
+        assertNotNull(
+            path.findPath(
+                "${Type.DATA_MODEL_WRAPPED}:${Version.DATA_MODEL_WRAPPED_V3_0}",
+                "${Type.GRAPH_SPEC}:${Version.LATEST}"
+            ),
+            "No migration from wrapped data model ${Version.DATA_MODEL_WRAPPED_V3_0} to graph spec ${Version.LATEST}"
+        )
+    }
+
+    @Test
     fun `latest spec migrates to every data model export`() {
         val path = MigrationPath(GraphSpec.Json.configuration.migrations)
-        assertNotNull(path.findPath("${Type.GRAPH_SPEC}:${Version.LATEST}", "${Type.DATA_MODEL}:${Version.DATA_MODEL_V3_0}"))
+        assertNotNull(
+            path.findPath("${Type.GRAPH_SPEC}:${Version.LATEST}", "${Type.DATA_MODEL}:${Version.DATA_MODEL_V3_0}")
+        )
     }
 
     @Test

@@ -69,7 +69,7 @@ class End2EndMigrationTest {
             }
 
             assertTrue(
-                failure.message!!.contains("Unsupported migration from graph_spec:3.0.0 to graph_spec:1.0.0"),
+                failure.message!!.contains("Unsupported migration from graph_spec:3.0.0 to graph_spec:${Version.LATEST}"),
                 "unexpected message: ${failure.message}"
             )
         }

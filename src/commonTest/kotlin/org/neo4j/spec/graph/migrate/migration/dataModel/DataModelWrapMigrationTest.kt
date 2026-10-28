@@ -60,7 +60,9 @@ class DataModelWrapMigrationTest {
             "description" to "a description"
         )
 
-        val result = DataModelWrapMigration().migrate(DataModelUnwrapMigration(Version.DATA_MODEL_V3_0).migrate(wrapped))
+        val result = DataModelWrapMigration().migrate(
+            DataModelUnwrapMigration(Version.DATA_MODEL_V3_0).migrate(wrapped)
+        )
 
         assertEquals(Version.DATA_MODEL_WRAPPED_V3_0, result.string("version"))
         assertEquals("a description", result.string("description"))
