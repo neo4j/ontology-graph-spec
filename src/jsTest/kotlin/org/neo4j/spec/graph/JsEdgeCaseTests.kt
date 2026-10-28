@@ -16,9 +16,7 @@ import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.property.propertyJs
 import kotlin.test.Test
-import kotlin.test.assertContains
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
@@ -69,7 +67,7 @@ class JsEdgeCaseTests {
         graphSpec.longhand()
         val plain = GraphModelEditor.plain(graphSpec)
         val model = GraphModelEditor.model(plain)
-        val encoded = GraphSpec.Json.encodeToString(model, Type.DATA_MODEL, Version.DATA_MODEL_V30)
+        val encoded = GraphSpec.Json.encodeToString(model, Type.DATA_MODEL, Version.DATA_MODEL_V3_0)
 
         assertTrue(encoded.contains("\"token\": \"born\""))
         assertTrue(encoded.contains("\"nullable\": false"))
@@ -92,7 +90,7 @@ class JsEdgeCaseTests {
                 )
             )
         )
-        val encoded = GraphSpec.Json.encodeToString(graphSpec, Type.DATA_MODEL, Version.DATA_MODEL_V30)
+        val encoded = GraphSpec.Json.encodeToString(graphSpec, Type.DATA_MODEL, Version.DATA_MODEL_V3_0)
         assertTrue(encoded.contains("\"token\": \"Person\""))
     }
 
@@ -167,7 +165,7 @@ class JsEdgeCaseTests {
         val dataModel = GraphSpec.Json.decodeFromString(string, Type.DATA_MODEL)
         val plain = GraphModelEditor.plain(dataModel)
         val filled = GraphModelEditor.model(plain)
-        val encoded = GraphSpec.Json.encodeToString(filled, Type.DATA_MODEL, Version.DATA_MODEL_V30)
+        val encoded = GraphSpec.Json.encodeToString(filled, Type.DATA_MODEL, Version.DATA_MODEL_V3_0)
         val decoded = GraphSpec.Json.decodeFromString(encoded, Type.DATA_MODEL)
         assertNotNull(decoded)
     }

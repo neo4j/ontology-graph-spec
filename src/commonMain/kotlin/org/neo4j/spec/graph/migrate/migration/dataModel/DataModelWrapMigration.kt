@@ -27,9 +27,9 @@ import org.neo4j.spec.graph.model.Version
 class DataModelWrapMigration :
     Migration(
         fromType = Type.DATA_MODEL,
-        from = Version.DATA_MODEL_V30,
+        from = Version.DATA_MODEL_V3_0,
         toType = Type.DATA_MODEL_WRAPPED,
-        to = Version.DATA_MODEL_V30
+        to = Version.DATA_MODEL_V3_0
     ) {
 
     override fun migrate(schema: SchemaMap): SchemaMap = DataModelWrapper.wrap(schema)

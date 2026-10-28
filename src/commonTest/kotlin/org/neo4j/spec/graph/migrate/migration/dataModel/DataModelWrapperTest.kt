@@ -37,7 +37,7 @@ class DataModelWrapperTest {
 
         val wrapped = DataModelWrapper.wrap(flat)
 
-        assertEquals(Version.DATA_MODEL_WRAPPED_V30, wrapped.string("version"))
+        assertEquals(Version.DATA_MODEL_WRAPPED_V3_0, wrapped.string("version"))
         assertEquals("a description", wrapped.string("description"))
         assertTrue(wrapped.containsKey("visualisation"))
         val dataModel = wrapped.map("dataModel")

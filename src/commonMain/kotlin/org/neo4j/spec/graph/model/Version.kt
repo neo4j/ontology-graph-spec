@@ -20,14 +20,14 @@ object Version {
     /*
         Data model versions
      */
-    const val DATA_MODEL_V23 = "2.3.0"
-    const val DATA_MODEL_V24 = "2.4.0"
-    const val DATA_MODEL_V30 = "3.0.0"
+    const val DATA_MODEL_V2_3 = "2.3.0"
+    const val DATA_MODEL_V2_4 = "2.4.0"
+    const val DATA_MODEL_V3_0 = "3.0.0"
 
     /*
         Wrapped data model versions
      */
-    const val DATA_MODEL_WRAPPED_V30 = "3.0.0"
+    const val DATA_MODEL_WRAPPED_V3_0 = "3.0.0"
 
     /*
         Import Spec versions

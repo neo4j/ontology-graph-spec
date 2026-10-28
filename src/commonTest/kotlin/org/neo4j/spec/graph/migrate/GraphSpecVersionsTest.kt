@@ -47,7 +47,7 @@ class GraphSpecVersionsTest {
     @Test
     fun `latest spec migrates to every data model export`() {
         val path = MigrationPath(GraphSpec.Json.configuration.migrations)
-        assertNotNull(path.findPath("${Type.GRAPH_SPEC}:${Version.LATEST}", "${Type.DATA_MODEL}:${Version.DATA_MODEL_V30}"))
+        assertNotNull(path.findPath("${Type.GRAPH_SPEC}:${Version.LATEST}", "${Type.DATA_MODEL}:${Version.DATA_MODEL_V3_0}"))
     }
 
     @Test

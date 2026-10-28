@@ -7,12 +7,9 @@ import org.neo4j.spec.graph.codec.schema.SchemaMap
 import org.neo4j.spec.graph.codec.schema.SchemaNull
 import org.neo4j.spec.graph.model.Type
 import org.neo4j.spec.graph.model.Version
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
-import org.neo4j.spec.graph.resourceAsString
 import java.io.File
-import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class DataModelMigrationIT {
@@ -33,7 +30,7 @@ class DataModelMigrationIT {
                         prettyPrint = true
                     }
                 }
-                val output = graphSpec.encodeToString(graphModel, Type.DATA_MODEL, Version.DATA_MODEL_V30)
+                val output = graphSpec.encodeToString(graphModel, Type.DATA_MODEL, Version.DATA_MODEL_V3_0)
                 val expected = graphSpec.configuration.format.decodeFromString(input) as SchemaMap
                 val actual = graphSpec.configuration.format.decodeFromString(output) as SchemaMap
                 // Remove unused configurations

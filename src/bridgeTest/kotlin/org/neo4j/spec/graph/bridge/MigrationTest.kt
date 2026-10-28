@@ -40,7 +40,7 @@ class MigrationTest {
         }
         """.trimIndent()
 
-        val result = migrateContent(shorthand, Type.GRAPH_SPEC, Type.DATA_MODEL, Version.DATA_MODEL_V30)
+        val result = migrateContent(shorthand, Type.GRAPH_SPEC, Type.DATA_MODEL, Version.DATA_MODEL_V3_0)
 
         val dataModel = GraphSpec.Json.configuration.format.decodeFromString(result) as SchemaMap
         val constraints = dataModel.map("graphSchemaRepresentation").map("graphSchema").list("constraints")

@@ -36,7 +36,7 @@ class GraphSpecDataModelV3Migration :
         fromType = Type.GRAPH_SPEC,
         from = Version.LATEST,
         toType = Type.DATA_MODEL,
-        to = Version.DATA_MODEL_V30
+        to = Version.DATA_MODEL_V3_0
     ) {
 
     override fun migrate(schema: SchemaMap): SchemaMap {

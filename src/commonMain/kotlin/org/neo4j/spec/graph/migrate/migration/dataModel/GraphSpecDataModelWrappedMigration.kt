@@ -33,7 +33,7 @@ class GraphSpecDataModelWrappedMigration :
         fromType = Type.GRAPH_SPEC,
         from = Version.LATEST,
         toType = Type.DATA_MODEL_WRAPPED,
-        to = Version.DATA_MODEL_V30
+        to = Version.DATA_MODEL_V3_0
     ) {
 
     private val dataModel = GraphSpecDataModelV3Migration()

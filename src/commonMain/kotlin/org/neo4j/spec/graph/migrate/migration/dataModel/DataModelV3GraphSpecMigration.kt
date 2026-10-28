@@ -35,7 +35,7 @@ import org.neo4j.spec.graph.model.type.IndexType
 class DataModelV3GraphSpecMigration :
     Migration(
         fromType = Type.DATA_MODEL,
-        from = Version.DATA_MODEL_V30,
+        from = Version.DATA_MODEL_V3_0,
         toType = Type.GRAPH_SPEC,
         to = Version.LATEST
     ) {
