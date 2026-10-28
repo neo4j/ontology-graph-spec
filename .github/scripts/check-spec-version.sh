@@ -28,7 +28,20 @@ id_version() {
 version="$(id_version < "$SCHEMA")"
 [[ -n "$version" ]] || fail "Unable to read version from \$id in $SCHEMA"
 
-latest_const="$(sed -nE 's|.*const val LATEST = "([^"]+)".*|\1|p' "$VERSION_KT")"
+# Resolve a Version.kt entry that is either a quoted literal or the name of a `const val` string.
+resolve() {
+  local token="$1"
+  if [[ "$token" == \"*\" ]]; then
+    echo "${token//\"/}"
+  else
+    local value
+    value="$(sed -nE "s|^[[:space:]]*const val ${token} *= *(.*[^[:space:]]).*|\1|p" "$VERSION_KT" | head -n1)"
+    [[ -n "$value" ]] || fail "Unable to resolve $token in $VERSION_KT"
+    resolve "$value"
+  fi
+}
+
+latest_const="$(resolve LATEST)"
 [[ "$version" == "$latest_const" ]] ||
   fail "\$id version ($version) in $SCHEMA does not match Version.LATEST ($latest_const) in $VERSION_KT"
 
@@ -36,7 +49,11 @@ go_latest="$(sed -nE 's|.*ModelVersionGraphSpecLatest +ModelVersion *= *"([^"]+)
 [[ "$version" == "$go_latest" ]] ||
   fail "\$id version ($version) does not match ModelVersionGraphSpecLatest ($go_latest) in $GO_MIGRATION"
 
-listed="$(sed -nE 's|.*val GRAPH_SPEC_VERSIONS *= *listOf\((.*)\).*|\1|p' "$VERSION_KT" | grep -oE '"[^"]+"' | tr -d '"')"
+listed=""
+for token in $(sed -nE 's|.*val GRAPH_SPEC_VERSIONS *= *listOf\((.*)\).*|\1|p' "$VERSION_KT" | tr -d ' ' | tr ',' ' '); do
+  listed+="$(resolve "$token")"$'\n'
+done
+listed="${listed%$'\n'}"
 [[ "$(printf '%s\n' "$listed" | tail -n1)" == "$version" ]] ||
   fail "Version.GRAPH_SPEC_VERSIONS in $VERSION_KT must end with the current spec version ($version)"
 while IFS= read -r released; do
