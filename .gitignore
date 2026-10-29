@@ -14,6 +14,7 @@ gradle-app.setting
 
 # Kotlin
 .kotlin
+kotlin-js-store/
 
 ### IntelliJ IDEA ###
 .idea
