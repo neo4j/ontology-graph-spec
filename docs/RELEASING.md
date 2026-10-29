@@ -42,8 +42,8 @@ The library version needs no bump in the repo: it is derived from the `release/v
 
 To release a new spec version, bump all of these in the same PR:
 
-- the `$id` in `ontology-graph-spec.schema.json`
 - `Version.LATEST` and `Version.GRAPH_SPEC_VERSIONS` (append the new version) in `Version.kt`
+- the schema and Go models, regenerated with `./go/scripts/generate-go-models.sh`, which sets the `$id` in `ontology-graph-spec.schema.json` from `Version.LATEST`
 - `ModelVersionGraphSpecLatest` in `go/migration/migration.go`
 - a migration from the previous spec version, registered in `defaultConfig` in `GraphSpec.kt`.
   If the format did not change, register `GraphSpecNoOpMigration(from, to)`, which only bumps the version.
@@ -51,8 +51,9 @@ To release a new spec version, bump all of these in the same PR:
 
 This keeps every library release in step with the latest spec.
 
-These are enforced by tests, which fail the Kotlin and Go validation (and so the PR checks) when the versions drift apart:
+These are enforced by the Kotlin and Go validation, which run on every PR, and fail when the versions drift apart:
 
+- the committed schema or Go models differ from what the Kotlin model generates (the generation check in `validate-go.yaml`)
 - the schema `$id` is not `Version.LATEST` (`SpecVersionConsistencyTest`)
 - `Version.LATEST` is not the last of `Version.GRAPH_SPEC_VERSIONS`, or a version in it has no migration path to `Version.LATEST` (`GraphSpecVersionsTest`)
 - a released `release-spec/v*` tag is missing from `Version.GRAPH_SPEC_VERSIONS` (`SpecVersionConsistencyTest`)
@@ -62,6 +63,9 @@ These are enforced by tests, which fail the Kotlin and Go validation (and so the
 
 The tests that look at released versions use the `release-spec/v*` git tags, so they skip when no tags are fetched (CI fetches them).
 
+The Kotlin validation skips its checks when a PR changes no Kotlin or Gradle files, and the Go validation skips its checks when a PR only changes docs (`docs/` and Markdown files).
+The release workflows pass `check-all` to always run them.
+
 The Release Spec workflow runs on every push to `main`. If the schema `$id` version has no tag yet, it runs the Kotlin checks and then tags the version.
 Merging an unchanged version does nothing.
-It is recommended to also protect `release-spec/*`, `release/*` and `go/*` tags with a repository tag ruleset restricting updates and deletions.
+`release-spec/*` tags are protected by a repository tag ruleset, so only the Release Spec workflow creates them.

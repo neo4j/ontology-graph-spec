@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   check:
@@ -47,11 +47,14 @@ jobs:
     uses: ./.github/workflows/validate-kotlin.yaml
     with:
       ref: ${{ github.sha }}
+      check-all: true
 
   tag:
     needs: [check, validate]
     if: needs.check.outputs.unreleased == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
