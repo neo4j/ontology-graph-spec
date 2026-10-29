@@ -1066,9 +1066,16 @@
                     ],
                     "description": "Label used to match existing nodes."
                 },
-                "key": {
+                "key_properties": {
                     "type": "array",
                     "description": "Ids of the properties which identify a node.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "key_columns": {
+                    "type": "array",
+                    "description": "Names of the table columns which identify a node.",
                     "items": {
                         "type": "string"
                     }
@@ -1161,12 +1168,18 @@
                     "description": "Id of the source table."
                 },
                 "from_node": {
-                    "$ref": "#/$defs/TargetMapping",
-                    "description": "How the start node of the relationship is matched."
+                    "type": "array",
+                    "description": "How the start node of the relationship is matched.",
+                    "items": {
+                        "$ref": "#/$defs/TargetKeyMapping"
+                    }
                 },
                 "to_node": {
-                    "$ref": "#/$defs/TargetMapping",
-                    "description": "How the end node of the relationship is matched."
+                    "type": "array",
+                    "description": "How the end node of the relationship is matched.",
+                    "items": {
+                        "$ref": "#/$defs/TargetKeyMapping"
+                    }
                 },
                 "match_label": {
                     "type": [
@@ -1186,9 +1199,16 @@
                     "$ref": "#/$defs/MappingMode",
                     "description": "Whether relationships are merged with existing relationships or always created."
                 },
-                "key": {
+                "key_properties": {
                     "type": "array",
                     "description": "Ids of the properties which identify a relationship.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "key_columns": {
+                    "type": "array",
+                    "description": "Names of the table columns which identify a relationship.",
                     "items": {
                         "type": "string"
                     }
@@ -1211,20 +1231,21 @@
             ],
             "additionalProperties": false
         },
-        "TargetMapping": {
+        "TargetKeyMapping": {
             "type": "object",
-            "description": "Identifies a node at one end of a mapped relationship.",
+            "description": "Maps a node key to a relationship column.",
             "properties": {
-                "label": {
+                "node_key_property": {
                     "type": "string",
-                    "description": "Label of the node."
+                    "description": "Id of key property of the node."
                 },
-                "properties": {
-                    "type": "object",
-                    "description": "Mappings from property ids to source columns used to match the node.",
-                    "additionalProperties": {
-                        "$ref": "#/$defs/PropertyMapping"
-                    }
+                "node_key_column": {
+                    "type": "string",
+                    "description": "Name of key column of the node."
+                },
+                "relationship_column": {
+                    "type": "string",
+                    "description": "Name of key column of the relationship."
                 }
             },
             "required": [],

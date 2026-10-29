@@ -1,0 +1,100 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.0.0/schema.json",
+  "version": "1.0.0",
+  "id": "accounts-using-cols-1",
+  "description": "This model corresponds to the graph engine model here: https://github.com/neo-technology/ge-test-data/blob/main/fraud-detection-training/fraud-mono.json. This model is an example that could in the future be used in an API. This model would not be sufficient for use in the UI - it would additionally need a `tables` section to define the SQL/snowflake/etc source tables, columns & types for display in the UI.",
+  "nodes": {
+    "Account": {
+      "label": "Account",
+      "properties": {
+        "email": {
+          "type": "STRING"
+        },
+        "name": {
+          "type": "STRING"
+        },
+        "a_id": {
+          "type": "INTEGER"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "TRANSACTION": {
+      "type": "TRANSACTION",
+      "from": {
+        "node": "Account"
+      },
+      "to": {
+        "node": "Account"
+      },
+      "properties": {
+        "tx_id": {
+          "type": "INTEGER"
+        },
+        "date": {
+          "type": "DATE"
+        },
+        "amount": {
+          "type": "FLOAT"
+        }
+      }
+    }
+  },
+  "extensions": {
+    "mappings": {
+      "mapping0": [
+        {
+          "type": "NODE",
+          "node": "Account",
+          "table": "accounts",
+          "properties": {
+            "email": {
+              "column": "email"
+            },
+            "name": {
+              "column": "name"
+            },
+            "a_id": {
+              "column": "id"
+            }
+          },
+          "key_columns": [
+            "id"
+          ]
+        },
+        {
+          "type": "RELATIONSHIP",
+          "relationship": "TRANSACTION",
+          "table": "transactions",
+          "from_node": [
+            {
+              "node_key_column": "id",
+              "relationship_column": "from_id"
+            }
+          ],
+          "to_node": [
+            {
+              "node_key_column": "id",
+              "relationship_column": "to_id"
+            }
+          ],
+          "properties": {
+            "tx_id": {
+              "column": "id"
+            },
+            "date": {
+              "column": "created_at"
+            },
+            "amount": {
+              "column": "amount"
+            }
+          },
+          "key_columns": [
+            "id"
+          ]
+        }
+      ]
+    }
+  }
+}
