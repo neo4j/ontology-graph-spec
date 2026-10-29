@@ -194,12 +194,16 @@ jobs:
     uses: ./.github/workflows/validate-go.yaml
     with:
       ref: ${{ needs.determine-version.outputs.sha }}
+      # The merged commit is already on main, so the pull request diff would find nothing to check
+      check-all: true
 
   validate-kotlin:
     needs: determine-version
     uses: ./.github/workflows/validate-kotlin.yaml
     with:
       ref: ${{ needs.determine-version.outputs.sha }}
+      # The merged commit is already on main, so the pull request diff would find nothing to check
+      check-all: true
 
   publish-npm:
     needs: [determine-version, validate-kotlin, validate-go]

@@ -7,6 +7,14 @@ on:
         description: 'The specific git commit SHA to checkout and test'
         required: true
         type: string
+      check-all:
+        description: 'Run the checks even when the pull request only changes docs'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
 
 jobs:
   test-go-bridge:
@@ -16,13 +24,29 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ inputs.ref }}
+          fetch-depth: 0
+
+      # Anything but docs can affect the Go module or the generated schema and models, so only docs are skipped
+      - name: Detect changes other than docs
+        id: non-docs
+        run: |
+          BASE_REF="${{ github.event.pull_request.base.ref }}"
+          if [ "${{ inputs.check-all }}" = "true" ] || [ -z "$BASE_REF" ]; then # requested, or not a pull request
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch origin "$BASE_REF"
+          CHANGED=$(git diff --name-only "origin/$BASE_REF"...HEAD -- . ':(exclude)docs/' ':(exclude)*.md' | wc -l | tr -d ' ')
+          echo "changed=$([ "$CHANGED" -gt 0 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
       - name: Set up Go Environment
+        if: steps.non-docs.outputs.changed == 'true'
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
         with:
           go-version-file: go/go.mod
 
       - name: Run Go Module Tests
+        if: steps.non-docs.outputs.changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -32,15 +56,16 @@ jobs:
           go test -v ./...
 
       - name: Run Go Generation and Check Sync
+        if: steps.non-docs.outputs.changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
           chmod +x ./go/scripts/generate-go-models.sh
           ./go/scripts/generate-go-models.sh
           
-          # 2. Check for drift
+          # Check for drift
           if ! git diff --exit-code; then
-            echo "❌ Go models are out of sync with latest changes Kotlin. Run ./scripts/generate-go-models.sh locally and commit."
+            echo "❌ The schema or Go models are out of sync with the Kotlin model. Run ./go/scripts/generate-go-models.sh locally and commit."
             git diff
             exit 1
           fi

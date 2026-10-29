@@ -7,9 +7,17 @@ on:
         description: 'The specific git commit SHA to checkout and test'
         required: true
         type: string
+      check-all:
+        description: 'Run the checks even when no Kotlin or Gradle files changed in the pull request'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
 
 env:
-  WATCHED_PATHS: "src/ ontology-graph-spec.schema.json build.gradle.kts settings.gradle.kts gradle.properties gradle/"
+  WATCHED_PATHS: "src/ ontology-graph-spec.schema.json build.gradle.kts settings.gradle.kts gradle.properties gradle/ gradlew"
 
 jobs:
   test-kotlin:
@@ -25,7 +33,7 @@ jobs:
         id: kotlin
         run: |
           BASE_REF="${{ github.event.pull_request.base.ref }}"
-          if [ -z "$BASE_REF" ]; then # not a pull request, always check
+          if [ "${{ inputs.check-all }}" = "true" ] || [ -z "$BASE_REF" ]; then # requested, or not a pull request
             echo "changed=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi

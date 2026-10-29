@@ -3,9 +3,9 @@ name: Go PR Quality Guard
 on:
   pull_request:
     branches: [main]
-    # Trigger on changes to the Go files (including the JSON schema)
-    paths:
-      - 'go/**'
+
+permissions:
+  contents: read
 
 jobs:
   validate:
