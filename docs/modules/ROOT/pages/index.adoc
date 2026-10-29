@@ -5,6 +5,9 @@ The Neo4j Ontology Graph Specification is a format and library for defining, val
 Neo4j, expressed as YAML or JSON. It provides library support for JVM, JavaScript, TypeScript and Go for validation and
 migration.
 
+The normative definition of the format is the
+https://neo4j.com/docs/ontology-graph-spec/current/schema.json[current JSON Schema].
+
 == Why this specification
 
 Agents are becoming the main way people work with graph data.
