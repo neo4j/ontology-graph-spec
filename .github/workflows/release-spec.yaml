@@ -53,10 +53,14 @@ jobs:
     if: needs.check.outputs.unreleased == 'true'
     runs-on: ubuntu-latest
     steps:
+      # Authenticates with a write deploy key, which is on the bypass list of the tag ruleset. The default
+      # GITHUB_TOKEN cannot create these tags because github-actions[bot] cannot be added to a bypass list.
+      # https://github.com/orgs/community/discussions/13836
       - name: Checkout Repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ github.sha }}
+          ssh-key: ${{ secrets.RELEASE_TAG_DEPLOY_KEY }}
 
       - name: Tag the spec version
         env:
