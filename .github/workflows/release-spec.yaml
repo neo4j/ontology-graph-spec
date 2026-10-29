@@ -53,8 +53,6 @@ jobs:
     needs: [check, validate]
     if: needs.check.outputs.unreleased == 'true'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       # Authenticates with a write deploy key, which is on the bypass list of the tag ruleset. The default
       # GITHUB_TOKEN cannot create these tags because github-actions[bot] cannot be added to a bypass list.

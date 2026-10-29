@@ -69,3 +69,4 @@ The release workflows pass `check-all` to always run them.
 The Release Spec workflow runs on every push to `main`. If the schema `$id` version has no tag yet, it runs the Kotlin checks and then tags the version.
 Merging an unchanged version does nothing.
 `release-spec/*` tags are protected by a repository tag ruleset, so only the Release Spec workflow creates them.
+The workflow pushes the tag over SSH with the `RELEASE_TAG_DEPLOY_KEY` secret, a write deploy key that is on the bypass list of that ruleset.
