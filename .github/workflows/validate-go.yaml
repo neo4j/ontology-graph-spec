@@ -28,7 +28,7 @@ jobs:
 
       # Anything but docs can affect the Go module or the generated schema and models, so only docs are skipped
       - name: Detect changes other than docs
-        id: go
+        id: non-docs
         run: |
           BASE_REF="${{ github.event.pull_request.base.ref }}"
           if [ "${{ inputs.check-all }}" = "true" ] || [ -z "$BASE_REF" ]; then # requested, or not a pull request
@@ -40,13 +40,13 @@ jobs:
           echo "changed=$([ "$CHANGED" -gt 0 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
       - name: Set up Go Environment
-        if: steps.go.outputs.changed == 'true'
+        if: steps.non-docs.outputs.changed == 'true'
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
         with:
           go-version-file: go/go.mod
 
       - name: Run Go Module Tests
-        if: steps.go.outputs.changed == 'true'
+        if: steps.non-docs.outputs.changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -56,7 +56,7 @@ jobs:
           go test -v ./...
 
       - name: Run Go Generation and Check Sync
-        if: steps.go.outputs.changed == 'true'
+        if: steps.non-docs.outputs.changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
