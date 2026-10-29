@@ -32,7 +32,7 @@ class DataModelWrapMigrationTest {
     fun `graph spec migrates directly to the wrapped data model`() {
         val path = migrations.findPath(
             "${Type.GRAPH_SPEC}:${Version.LATEST}",
-            "${Type.DATA_MODEL_WRAPPED}:${Version.DATA_MODEL_V30}"
+            "${Type.DATA_MODEL_WRAPPED}:${Version.DATA_MODEL_V3_0}"
         )
 
         assertEquals(listOf(GraphSpecDataModelWrappedMigration::class), path?.map { it::class })
@@ -41,8 +41,8 @@ class DataModelWrapMigrationTest {
     @Test
     fun `wrapped data models upgrade through the flat migrations`() {
         val path = migrations.findPath(
-            "${Type.DATA_MODEL_WRAPPED}:${Version.DATA_MODEL_V24}",
-            "${Type.DATA_MODEL_WRAPPED}:${Version.DATA_MODEL_V30}"
+            "${Type.DATA_MODEL_WRAPPED}:${Version.DATA_MODEL_V2_4}",
+            "${Type.DATA_MODEL_WRAPPED}:${Version.DATA_MODEL_V3_0}"
         )
 
         assertEquals(
@@ -60,9 +60,11 @@ class DataModelWrapMigrationTest {
             "description" to "a description"
         )
 
-        val result = DataModelWrapMigration().migrate(DataModelUnwrapMigration(Version.DATA_MODEL_V30).migrate(wrapped))
+        val result = DataModelWrapMigration().migrate(
+            DataModelUnwrapMigration(Version.DATA_MODEL_V3_0).migrate(wrapped)
+        )
 
-        assertEquals(Version.DATA_MODEL_WRAPPED_V30, result.string("version"))
+        assertEquals(Version.DATA_MODEL_WRAPPED_V3_0, result.string("version"))
         assertEquals("a description", result.string("description"))
         assertEquals(setOf("version", "dataModel", "visualisation", "description"), result.keys)
     }

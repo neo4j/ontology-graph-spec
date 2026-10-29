@@ -680,7 +680,7 @@ class GraphSpecDataModelV3MigrationTest {
 
         val wrapped = GraphSpecDataModelWrappedMigration().migrate(input)
 
-        assertEquals(Version.DATA_MODEL_WRAPPED_V30, wrapped.string("version"))
+        assertEquals(Version.DATA_MODEL_WRAPPED_V3_0, wrapped.string("version"))
         assertEquals("a description", wrapped.string("description"))
         assertEquals("n1", wrapped.map("visualisation").listOfMaps("nodes").single().string("id"))
         val dataModel = wrapped.map("dataModel")

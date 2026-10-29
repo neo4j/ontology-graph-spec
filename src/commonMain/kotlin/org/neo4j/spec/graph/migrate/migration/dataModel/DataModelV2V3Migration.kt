@@ -30,7 +30,7 @@ class DataModelV2V3Migration(version: String) :
         fromType = Type.DATA_MODEL,
         from = version,
         toType = Type.DATA_MODEL,
-        to = Version.DATA_MODEL_V30
+        to = Version.DATA_MODEL_V3_0
     ) {
 
     override fun migrate(schema: SchemaMap): SchemaMap {

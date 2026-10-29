@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.codec.format.JsonFormat
 import org.neo4j.spec.graph.codec.format.YamlFormat
 import org.neo4j.spec.graph.codec.schema.SchemaMap
 import org.neo4j.spec.graph.migrate.MigrationPath
+import org.neo4j.spec.graph.migrate.migration.GraphSpecNoOpMigration
 import org.neo4j.spec.graph.migrate.migration.dataModel.DataModelUnwrapMigration
 import org.neo4j.spec.graph.migrate.migration.dataModel.DataModelV2V3Migration
 import org.neo4j.spec.graph.migrate.migration.dataModel.DataModelV3GraphSpecMigration
@@ -79,15 +80,16 @@ sealed class GraphSpec(val configuration: GraphSpecConfig) {
 
 fun defaultConfig(format: Format): GraphSpecConfig {
     val builder = GraphSpecConfig.Builder(format)
-    builder.migrate(DataModelV2V3Migration(Version.DATA_MODEL_V23))
-    builder.migrate(DataModelV2V3Migration(Version.DATA_MODEL_V24))
+    builder.migrate(DataModelV2V3Migration(Version.DATA_MODEL_V2_3))
+    builder.migrate(DataModelV2V3Migration(Version.DATA_MODEL_V2_4))
     builder.migrate(DataModelV3GraphSpecMigration())
     builder.migrate(GraphSpecDataModelV3Migration())
     builder.migrate(GraphSpecDataModelWrappedMigration())
-    builder.migrate(DataModelUnwrapMigration(Version.DATA_MODEL_V23))
-    builder.migrate(DataModelUnwrapMigration(Version.DATA_MODEL_V24))
-    builder.migrate(DataModelUnwrapMigration(Version.DATA_MODEL_V30))
+    builder.migrate(DataModelUnwrapMigration(Version.DATA_MODEL_V2_3))
+    builder.migrate(DataModelUnwrapMigration(Version.DATA_MODEL_V2_4))
+    builder.migrate(DataModelUnwrapMigration(Version.DATA_MODEL_V3_0))
     builder.migrate(DataModelWrapMigration())
+    builder.migrate(GraphSpecNoOpMigration(Version.V1, Version.V1_1))
     return builder.build()
 }
 

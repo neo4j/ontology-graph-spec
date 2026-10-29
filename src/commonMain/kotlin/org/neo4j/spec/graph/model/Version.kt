@@ -20,14 +20,14 @@ object Version {
     /*
         Data model versions
      */
-    const val DATA_MODEL_V23 = "2.3.0"
-    const val DATA_MODEL_V24 = "2.4.0"
-    const val DATA_MODEL_V30 = "3.0.0"
+    const val DATA_MODEL_V2_3 = "2.3.0"
+    const val DATA_MODEL_V2_4 = "2.4.0"
+    const val DATA_MODEL_V3_0 = "3.0.0"
 
     /*
         Wrapped data model versions
      */
-    const val DATA_MODEL_WRAPPED_V30 = "3.0.0"
+    const val DATA_MODEL_WRAPPED_V3_0 = "3.0.0"
 
     /*
         Import Spec versions
@@ -37,7 +37,24 @@ object Version {
     /*
         Graph spec versions
      */
-    const val LATEST = "1.0.0"
+    const val V1 = "1.0.0"
+    const val V1_1 = "1.1.0"
+    const val LATEST = V1_1
+
+    /**
+     * Every released graph spec version, oldest first, ending with [LATEST].
+     * Check-list:
+     *  - Update [LATEST]
+     *  - Migration support in [org.neo4j.spec.graph.defaultConfig]
+     *  - Update consts in /go/migration/migration.go
+     *  - Update docs
+     *    - `README.md`
+     *    - `docs/modules/format/pages/getting-started.adoc`
+     *    - `docs/modules/format/pages/versioning.adoc`
+     *    - `docs/modules/format/pages/reference/model.adoc`
+     *    - `docs/modules/libraries/pages/migration.adoc`
+     */
+    val GRAPH_SPEC_VERSIONS = listOf(V1, LATEST)
 
     /*
         Schema urls, the spec version is always the path segment before schema.json.

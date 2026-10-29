@@ -35,9 +35,9 @@ import org.neo4j.spec.graph.model.type.IndexType
 class DataModelV3GraphSpecMigration :
     Migration(
         fromType = Type.DATA_MODEL,
-        from = Version.DATA_MODEL_V30,
+        from = Version.DATA_MODEL_V3_0,
         toType = Type.GRAPH_SPEC,
-        to = Version.LATEST
+        to = Version.V1_1
     ) {
 
     override fun migrate(schema: SchemaMap): SchemaMap {
@@ -48,7 +48,7 @@ class DataModelV3GraphSpecMigration :
         // are emitted as empty maps to match the full migration path of them always being present
         val graphSchema = schema.mapOrNull("graphSchemaRepresentation")?.mapOrNull("graphSchema")
             ?: return schemaMapOf(
-                "schema" to Version.schemaUrl(Version.LATEST),
+                "schema" to Version.schemaUrl(Version.V1_1),
                 "version" to "1.0.0",
                 "id" to "graph-model",
                 "description" to schema.literalOrNull("description"),
@@ -61,7 +61,7 @@ class DataModelV3GraphSpecMigration :
         val nodes = migrateNodes(graphSchema, nodeConstraints, nodeIndexes)
         convertVisualisations(schema, nodes)
         return schemaMapOf(
-            "schema" to Version.schemaUrl(Version.LATEST),
+            "schema" to Version.schemaUrl(Version.V1_1),
             "version" to "1.0.0",
             "id" to "graph-model",
             "description" to schema.literalOrNull("description"),

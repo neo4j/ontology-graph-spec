@@ -69,7 +69,7 @@ class End2EndMigrationTest {
             }
 
             assertTrue(
-                failure.message!!.contains("Unsupported migration from graph_spec:3.0.0 to graph_spec:1.0.0"),
+                failure.message!!.contains("Unsupported migration from graph_spec:3.0.0 to graph_spec:${Version.LATEST}"),
                 "unexpected message: ${failure.message}"
             )
         }
@@ -97,16 +97,28 @@ class End2EndMigrationTest {
         val input = End2EndMigrationTest::class.resourceAsString("prod-like/northwind.json")
         val model = GraphSpec.Json.decodeFromString(input, Type.DATA_MODEL)
 
-        val wrapped = GraphSpec.Json.encodeToString(model, Type.DATA_MODEL_WRAPPED, Version.DATA_MODEL_V30)
+        val wrapped = GraphSpec.Json.encodeToString(model, Type.DATA_MODEL_WRAPPED, Version.DATA_MODEL_V3_0)
 
         val envelope = GraphSpec.Json.configuration.format.decodeFromString(wrapped) as SchemaMap
-        assertEquals(Version.DATA_MODEL_WRAPPED_V30, envelope.string("version"))
+        assertEquals(Version.DATA_MODEL_WRAPPED_V3_0, envelope.string("version"))
         assertTrue(envelope.map("visualisation").listOfMaps("nodes").isNotEmpty())
         val dataModel = envelope.map("dataModel")
-        assertEquals(Version.DATA_MODEL_V30, dataModel.string("version"))
+        assertEquals(Version.DATA_MODEL_V3_0, dataModel.string("version"))
         assertFalse(dataModel.containsKey("visualisation"))
 
         val decoded = GraphSpec.Json.decodeFromString(wrapped, Type.DATA_MODEL_WRAPPED)
         assertEquals(GraphSpec.Json.encodeToString(model), GraphSpec.Json.encodeToString(decoded))
+    }
+
+    @Test
+    fun `graph-spec 1_0_0 model migrates to latest`() {
+        val input = """{"schema":"${Version.schemaUrl(Version.V1)}","version":"1","id":"test",
+            "nodes":{"n:0":{"labels":{"identifier":"Person"},"properties":{"p:0":{"type":"STRING","name":"name"}}}}}"""
+
+        val model = GraphSpec.Json.decodeFromString(input, Type.GRAPH_SPEC)
+
+        assertEquals(Version.schemaUrl(Version.LATEST), model.schema)
+        assertEquals("name", model.nodes.getValue("n:0").properties.getValue("p:0").name)
+        assertTrue(model.nodes.getValue("n:0").properties.getValue("p:0").aliases.isEmpty())
     }
 }

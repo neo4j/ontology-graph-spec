@@ -25,7 +25,21 @@ kotlin {
             associateWith(mainCompilation)
             defaultSourceSet.dependencies { implementation(libs.kotlinx.schema.generator.json) }
         }
-        testRuns.named("test") { executionTask.configure { useJUnitPlatform() } }
+        testRuns.named("test") {
+            executionTask.configure {
+                useJUnitPlatform()
+                // Read by SpecVersionConsistencyTest, so that a change to either reruns the tests.
+                inputs.file("ontology-graph-spec.schema.json")
+                inputs.property(
+                    "releaseSpecTags",
+                    providers
+                        .exec {
+                            commandLine("git", "tag", "-l", "release-spec/v*")
+                            isIgnoreExitValue = true
+                        }.standardOutput.asText
+                )
+            }
+        }
     }
     js(IR) {
         binaries.library()

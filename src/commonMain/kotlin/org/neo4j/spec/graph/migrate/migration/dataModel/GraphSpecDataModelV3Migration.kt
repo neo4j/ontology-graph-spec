@@ -34,9 +34,9 @@ import kotlin.collections.iterator
 class GraphSpecDataModelV3Migration :
     Migration(
         fromType = Type.GRAPH_SPEC,
-        from = Version.LATEST,
+        from = Version.V1_1,
         toType = Type.DATA_MODEL,
-        to = Version.DATA_MODEL_V30
+        to = Version.DATA_MODEL_V3_0
     ) {
 
     override fun migrate(schema: SchemaMap): SchemaMap {

@@ -3,7 +3,7 @@
 // The tables mirror ontology-graph-spec.schema.json, until they are generated from it
 
 A model document is a YAML or JSON object. The JSON Schema at
-`https://neo4j.com/docs/ontology-graph-spec/1.0.0/schema.json` is the normative definition of the format, and fields it
+`https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json` is the normative definition of the format, and fields it
 doesn't define are not allowed.
 
 [cols="2,2,1,5"]

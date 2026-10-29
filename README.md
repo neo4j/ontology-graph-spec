@@ -37,7 +37,7 @@ An excerpt of a model describing actors, movies and the relationship between the
 
 ```json
 {
-  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.0.0/schema.json",
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
   "version": "1",
   "id": "movies",
   "name": "Movies",

@@ -1,9 +1,10 @@
 {
-  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.0.0/schema.json",
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
   "version": "1",
   "id": "test",
   "nodes": {
     "Actor": {
+      "aliases": ["Performer"],
       "labels": {
         "identifier": "Actor",
         "implied": [],
@@ -23,6 +24,7 @@
         },
         "name": {
           "type": "STRING",
+          "aliases": ["fullName", "label"],
           "must_exist": false,
           "unique": false,
           "extensions": {
@@ -68,6 +70,7 @@
   "relationships": {
     "ACTED_IN": {
       "type": "ACTED_IN",
+      "aliases": ["STARRED_IN"],
       "from": {
         "node": "Actor",
         "label": "Actor",
@@ -81,6 +84,7 @@
       "properties": {
         "roles": {
           "type": "STRING",
+          "aliases": ["characters"],
           "must_exist": false,
           "unique": false,
           "extensions": {

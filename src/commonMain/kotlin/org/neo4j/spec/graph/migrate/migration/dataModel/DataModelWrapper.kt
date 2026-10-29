@@ -52,7 +52,7 @@ internal object DataModelWrapper {
         if (isWrapped(schema)) {
             return schema
         }
-        val wrapped = schemaMapOf("version" to Version.DATA_MODEL_WRAPPED_V30)
+        val wrapped = schemaMapOf("version" to Version.DATA_MODEL_WRAPPED_V3_0)
         wrapped[DATA_MODEL] = schema
         moveFields(schema, wrapped)
         return wrapped
