@@ -32,7 +32,7 @@ class NodePropertyEmptyNameTest {
         GraphModel(version = "1", id = "test")
 
     @Test
-    fun `fail when property name is blank`() {
+    fun `pass when name is blank and the key is the name`() {
         val node = Node(
             labels = Labels(identifier = "Person"),
             properties = mutableMapOf("p:1" to Property(name = ""))
@@ -41,12 +41,11 @@ class NodePropertyEmptyNameTest {
 
         validator.validateProperty(model, "n:1", node, "p:1", node.properties["p:1"]!!, issues)
 
-        assertEquals(1, issues.size)
-        assertEquals("missing_property_name", issues.first().code)
+        assertTrue(issues.isEmpty(), "Expected no issues; a blank name override falls back to the key")
     }
 
     @Test
-    fun `fail when property name is null`() {
+    fun `pass when name is omitted and the key is the name`() {
         val node = Node(
             labels = Labels(identifier = "Person"),
             properties = mutableMapOf("p:1" to Property(name = null))
@@ -54,6 +53,19 @@ class NodePropertyEmptyNameTest {
         val issues = mutableListOf<Issue>()
 
         validator.validateProperty(model, "n:1", node, "p:1", node.properties["p:1"]!!, issues)
+
+        assertTrue(issues.isEmpty(), "Expected no issues; the map key is the property name")
+    }
+
+    @Test
+    fun `fail when the key is blank and no name is set`() {
+        val node = Node(
+            labels = Labels(identifier = "Person"),
+            properties = mutableMapOf("" to Property())
+        )
+        val issues = mutableListOf<Issue>()
+
+        validator.validateProperty(model, "n:1", node, "", node.properties[""]!!, issues)
 
         assertEquals(1, issues.size)
         assertEquals("missing_property_name", issues.first().code)

@@ -33,7 +33,7 @@ class RelationshipPropertyEmptyNameTest {
     private val target = RelationshipTarget(node = "n:1", label = "Person")
 
     @Test
-    fun `fail when property name is blank`() {
+    fun `pass when name is blank and the key is the name`() {
         val rel = Relationship(
             type = "KNOWS",
             from = target,
@@ -44,12 +44,11 @@ class RelationshipPropertyEmptyNameTest {
 
         validator.validateProperty(model, "r:1", rel, "p:1", rel.properties["p:1"]!!, issues)
 
-        assertEquals(1, issues.size)
-        assertEquals("missing_property_name", issues.first().code)
+        assertTrue(issues.isEmpty(), "Expected no issues; a blank name override falls back to the key")
     }
 
     @Test
-    fun `fail when property name is null`() {
+    fun `pass when name is omitted and the key is the name`() {
         val rel = Relationship(
             type = "KNOWS",
             from = target,
@@ -59,6 +58,21 @@ class RelationshipPropertyEmptyNameTest {
         val issues = mutableListOf<Issue>()
 
         validator.validateProperty(model, "r:1", rel, "p:1", rel.properties["p:1"]!!, issues)
+
+        assertTrue(issues.isEmpty(), "Expected no issues; the map key is the property name")
+    }
+
+    @Test
+    fun `fail when the key is blank and no name is set`() {
+        val rel = Relationship(
+            type = "KNOWS",
+            from = target,
+            to = target,
+            properties = mutableMapOf("" to Property())
+        )
+        val issues = mutableListOf<Issue>()
+
+        validator.validateProperty(model, "r:1", rel, "", rel.properties[""]!!, issues)
 
         assertEquals(1, issues.size)
         assertEquals("missing_property_name", issues.first().code)

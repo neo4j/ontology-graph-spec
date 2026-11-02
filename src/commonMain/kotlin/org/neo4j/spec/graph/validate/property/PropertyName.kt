@@ -29,8 +29,10 @@ import kotlin.jvm.JvmName
  * UPX: `getPropertyErrors` (errors.ts#L112-L124), same logic for nodes and relationships.
  */
 fun emptyPropertyName(propertyId: String, property: Property, entityPath: String): Issue? {
-    val name = property.name
-    if (name.isNullOrBlank()) {
+    // The map key is the property name; `name` only overrides it for the database, and a blank override
+    // counts as absent.
+    val name = property.name?.takeUnless { it.isBlank() } ?: propertyId
+    if (name.isBlank()) {
         return Issue(
             code = "missing_property_name",
             message = "Missing name for property '$propertyId'",
