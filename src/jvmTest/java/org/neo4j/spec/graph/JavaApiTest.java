@@ -1,6 +1,7 @@
 package org.neo4j.spec.graph;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -85,6 +86,6 @@ class JavaApiTest {
 
         GraphSpec custom = GraphSpecs.graphSpec(GraphSpec.getYaml(), builder ->
             GraphSpecs.json(builder, json -> json.setPrettyPrint(false)));
-        assertTrue(!custom.encodeToString(spec.decodeFromString(MODEL)).contains("\n  "));
+        assertFalse(custom.encodeToString(spec.decodeFromString(MODEL)).contains("\n  "));
     }
 }
