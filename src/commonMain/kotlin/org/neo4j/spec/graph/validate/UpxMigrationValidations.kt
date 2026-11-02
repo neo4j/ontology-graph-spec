@@ -24,6 +24,7 @@ import org.neo4j.spec.graph.validate.node.NodeLabel
 import org.neo4j.spec.graph.validate.node.NodeLabelToken
 import org.neo4j.spec.graph.validate.node.NodeMappingKey
 import org.neo4j.spec.graph.validate.node.NodeMappingKeyType
+import org.neo4j.spec.graph.validate.node.NodeMappingMissing
 import org.neo4j.spec.graph.validate.node.NodeProperties
 import org.neo4j.spec.graph.validate.node.NodePropertyDuplicateName
 import org.neo4j.spec.graph.validate.node.NodePropertyEmptyName
@@ -88,6 +89,7 @@ class UpxMigrationValidations {
             NodeLabel,
             RelationshipType,
             NodeMappingKey,
+            NodeMappingMissing,
             NodeIndexProperties,
             RelationshipIndexProperties,
             NodeConstraintProperties,
