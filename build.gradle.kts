@@ -117,6 +117,10 @@ kotlin {
     }
 }
 
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(11)
+}
+
 tasks.withType<Kotlin2JsCompile>().configureEach {
     compilerOptions {
         target = "es2015"

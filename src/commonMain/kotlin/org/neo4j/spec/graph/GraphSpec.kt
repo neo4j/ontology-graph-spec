@@ -14,6 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:JvmName("GraphSpecs")
+@file:JvmMultifileClass
+
 package org.neo4j.spec.graph
 
 import org.neo4j.spec.graph.codec.format.Format
@@ -32,6 +35,8 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.Type
 import org.neo4j.spec.graph.model.Version
 import kotlin.js.JsExport
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 

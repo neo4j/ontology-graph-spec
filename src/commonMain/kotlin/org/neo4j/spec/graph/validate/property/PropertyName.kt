@@ -14,10 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:JvmName("PropertyNames")
+
 package org.neo4j.spec.graph.validate.property
 
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.validate.Issue
+import kotlin.jvm.JvmName
 
 /**
  * Shared logic for empty and duplicate property name checks.

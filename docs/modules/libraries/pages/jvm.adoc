@@ -46,6 +46,31 @@ GraphModel model = GraphSpec.getYaml().decodeFromString(yaml);
 String json = GraphSpec.getJson().encodeToString(model);
 ----
 
+== Customise the library
+
+`GraphSpec` builds a configured copy of `GraphSpec.Json` or `GraphSpec.Yaml`. From Java, `GraphSpecs.graphSpec` takes a `Consumer` so no `Unit` needs returning.
+
+[.tabs]
+.Kotlin
+[source,kotlin]
+----
+import org.neo4j.spec.graph.GraphSpec
+
+val spec = GraphSpec(GraphSpec.Json) {
+    json { prettyPrint = false }
+}
+----
+
+.Java
+[source,java]
+----
+import org.neo4j.spec.graph.GraphSpec;
+import org.neo4j.spec.graph.GraphSpecs;
+
+GraphSpec spec = GraphSpecs.graphSpec(GraphSpec.getJson(), builder ->
+    GraphSpecs.json(builder, json -> json.setPrettyPrint(false)));
+----
+
 == Validate models
 
 [.tabs]
