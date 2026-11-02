@@ -22,12 +22,13 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions
 import org.neo4j.spec.graph.model.extension.custom.CustomMapSerializer
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("RelationshipExtensions")
 @Description("Extensions for a relationship.")
-data class RelationshipExtensions(
+data class RelationshipExtensions @JvmOverloads constructor(
     @Description("Indexes on this relationship keyed by id.")
     val indexes: MutableMap<String, RelationshipIndex> = mutableMapOf(),
     @Description("User-defined arbitrary data.")

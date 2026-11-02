@@ -25,12 +25,13 @@ import org.neo4j.spec.graph.model.type.IndexType
 import org.neo4j.spec.graph.model.type.Named
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("NodeIndex")
 @Description("An index on a node.")
-data class NodeIndex(
+data class NodeIndex @JvmOverloads constructor(
     @Description("Type of the index.")
     var type: IndexType,
     @Description("Labels the index covers.")

@@ -59,6 +59,7 @@ import org.neo4j.spec.graph.validate.table.TableColumnEmptyName
 import org.neo4j.spec.graph.validate.table.TableColumnType
 import kotlin.js.JsExport
 import kotlin.js.JsStatic
+import kotlin.jvm.JvmStatic
 
 @JsExport
 class Validations {
@@ -66,6 +67,7 @@ class Validations {
         // The rules a model must follow beyond its JSON Schema to be valid: references resolve, constraint and
         // index details are consistent, relationship counts make sense and text is within length limits.
         @JsStatic
+        @JvmStatic
         val core: List<Validation> = listOf(
             NodeTypeConstraint,
             RelationshipTypeConstraint,
@@ -87,6 +89,7 @@ class Validations {
 
         // Every node has an identifier label and every relationship a type.
         @JsStatic
+        @JvmStatic
         val labelled: List<Validation> = listOf(
             NodeLabel,
             RelationshipType
@@ -96,6 +99,7 @@ class Validations {
         // properties, composite constraints don't repeat a property set or overlap an existence constraint, and index
         // and constraint names are unique.
         @JsStatic
+        @JvmStatic
         val consistentSchema: List<Validation> = listOf(
             NodePropertyEmptyName,
             NodePropertyDuplicateName,
@@ -112,6 +116,7 @@ class Validations {
         // Node mappings have a key, mapping ids are unique and dependencies resolve without cycles, and data source
         // table columns have a unique name and, outside local tables, a type.
         @JsStatic
+        @JvmStatic
         val mappable: List<Validation> = listOf(
             NodeMappingKey,
             MappingDependencies,
@@ -123,6 +128,7 @@ class Validations {
         // Neo4j bulk import restrictions: labels and types don't contain invalid characters and node mapping keys and
         // composite constraint properties must be valid types.
         @JsStatic
+        @JvmStatic
         val bulkImportable: List<Validation> = listOf(
             NodeLabelToken,
             RelationshipTypeToken,
@@ -133,6 +139,7 @@ class Validations {
         // Opinionated checks the format doesn't require: every node has properties and a constraint, and no UNIQUE
         // or EXISTS constraint repeats the properties of a KEY constraint.
         @JsStatic
+        @JvmStatic
         val wellConstrained: List<Validation> = listOf(
             NodeProperties,
             NodeConstraintCoverage,
@@ -142,6 +149,7 @@ class Validations {
 
         // Every built-in validator.
         @JsStatic
+        @JvmStatic
         val all: List<Validation> =
             (core + labelled + consistentSchema + mappable + bulkImportable + wellConstrained).distinct()
     }

@@ -28,11 +28,13 @@ import org.neo4j.spec.graph.validate.Validation
 import org.neo4j.spec.graph.validate.ValidationTree
 import kotlin.js.JsExport
 import kotlin.js.JsStatic
+import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
 
 @JsExport
 @Serializable
 @SerialName("GraphModel")
-data class GraphModel(
+data class GraphModel @JvmOverloads constructor(
     @Description("Schema specification uri used.")
     @Required
     val schema: String = Version.schemaUrl(Version.LATEST),
@@ -80,12 +82,15 @@ data class GraphModel(
 
     companion object {
         @JsStatic
+        @JvmStatic
         fun validate(model: GraphModel, validators: List<Validation>) = model.validate(validators)
 
         @JsStatic
+        @JvmStatic
         fun longhand(model: GraphModel) = model.longhand()
 
         @JsStatic
+        @JvmStatic
         fun shorthand(model: GraphModel) = model.shorthand()
     }
 }

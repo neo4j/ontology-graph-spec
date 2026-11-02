@@ -16,8 +16,13 @@
  */
 package org.neo4j.spec.graph.codec.schema
 
-class SchemaLiteral(override val string: String, path: String = "", override val isString: Boolean = true) :
-    SchemaPrimitive() {
+import kotlin.jvm.JvmOverloads
+
+class SchemaLiteral @JvmOverloads constructor(
+    override val string: String,
+    path: String = "",
+    override val isString: Boolean = true
+) : SchemaPrimitive() {
 
     override var parent: SchemaElement? = null
     override var identifier: String = path

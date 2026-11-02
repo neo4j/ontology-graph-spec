@@ -14,6 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:JvmName("GraphSpecs")
+@file:JvmMultifileClass
+
 package org.neo4j.spec.graph
 
 import org.neo4j.spec.graph.codec.format.Format
@@ -32,11 +35,16 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.Type
 import org.neo4j.spec.graph.model.Version
 import kotlin.js.JsExport
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
+import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
 
 @JsExport
 sealed class GraphSpec(val configuration: GraphSpecConfig) {
     private val path = MigrationPath(configuration.migrations)
 
+    @JvmOverloads
     fun encodeToString(
         model: GraphModel,
         targetType: String = Type.GRAPH_SPEC,
@@ -54,6 +62,7 @@ sealed class GraphSpec(val configuration: GraphSpecConfig) {
         return configuration.format.encodeToString(map)
     }
 
+    @JvmOverloads
     fun decodeFromString(content: String, type: String = Type.GRAPH_SPEC): GraphModel {
         val graphModel = decodeModel(content, type)
         graphModel.longhand()
@@ -76,6 +85,22 @@ sealed class GraphSpec(val configuration: GraphSpecConfig) {
     object Json : GraphSpec(defaultConfig(JsonFormat.default))
 
     object Yaml : GraphSpec(defaultConfig(YamlFormat.default))
+
+    /**
+     * Static accessors for the default instances, so Java can call `GraphSpec.getJson()` rather than
+     * `GraphSpec.Json.INSTANCE`.
+     */
+    companion object {
+        @JsExport.Ignore
+        @JvmStatic
+        val json: GraphSpec
+            get() = Json
+
+        @JsExport.Ignore
+        @JvmStatic
+        val yaml: GraphSpec
+            get() = Yaml
+    }
 }
 
 fun defaultConfig(format: Format): GraphSpecConfig {

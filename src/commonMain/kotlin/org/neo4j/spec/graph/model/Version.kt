@@ -16,6 +16,8 @@
  */
 package org.neo4j.spec.graph.model
 
+import kotlin.jvm.JvmStatic
+
 object Version {
     /*
         Data model versions
@@ -54,6 +56,7 @@ object Version {
      *    - `docs/modules/format/pages/reference/model.adoc`
      *    - `docs/modules/libraries/pages/migration.adoc`
      */
+    @JvmStatic
     val GRAPH_SPEC_VERSIONS = listOf(V1, LATEST)
 
     /*
@@ -63,8 +66,10 @@ object Version {
 
     const val SCHEMA_FILE = "schema.json"
 
+    @JvmStatic
     fun schemaUrl(version: String): String = "$SCHEMA_BASE$version/$SCHEMA_FILE"
 
+    @JvmStatic
     fun parseSchemaVersion(schema: String): String {
         val version = schema.trim().trimEnd('/').removeSuffix(SCHEMA_FILE).trimEnd('/').substringAfterLast('/')
         require(version.isNotBlank()) { "Unable to determine version from schema '$schema'" }

@@ -18,10 +18,11 @@ package org.neo4j.spec.graph.validate
 
 import kotlinx.serialization.Serializable
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @Serializable
 @JsExport
-data class Issue(
+data class Issue @JvmOverloads constructor(
     val code: String,
     val message: String,
     val path: String? = null, // e.g. "nodes.Person.labels"

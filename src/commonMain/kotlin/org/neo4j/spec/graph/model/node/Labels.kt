@@ -21,12 +21,13 @@ import kotlinx.serialization.Serializable
 import org.neo4j.spec.graph.model.node.extension.LabelsExtensions
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("Labels")
 @Description("The labels of a node.")
-data class Labels(
+data class Labels @JvmOverloads constructor(
     @Description("The label which identifies the node.")
     var identifier: String? = null,
     @Description("Labels implied by the node in addition to the identifier.")

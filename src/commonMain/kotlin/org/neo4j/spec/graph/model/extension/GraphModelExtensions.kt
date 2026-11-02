@@ -24,6 +24,7 @@ import org.neo4j.spec.graph.model.extension.mapping.Mapping
 import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 /**
  * Extensions for a [GraphModel].
@@ -32,7 +33,7 @@ import kotlin.js.JsExport
 @Serializable
 @SerialName("GraphModelExtensions")
 @Description("Extensions for a graph model.")
-data class GraphModelExtensions(
+data class GraphModelExtensions @JvmOverloads constructor(
     @Description("Data source table schemas keyed by table id.")
     @SerialName("data_source_tables")
     val dataSourceTables: MutableMap<String, Table> = mutableMapOf(),

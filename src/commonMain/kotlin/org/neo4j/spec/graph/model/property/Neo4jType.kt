@@ -20,6 +20,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmStatic
 
 @JsExport
 @Serializable
@@ -125,6 +126,7 @@ enum class Neo4jType {
     companion object {
         // Ideally we'd have these as values inside the enum however
         // this would break the js union conversion
+        @JvmStatic
         fun fromString(string: String): Neo4jType? = when (string) {
             "ANY" -> ANY
             "LIST<ANY>" -> LIST_ANY
@@ -168,6 +170,7 @@ enum class Neo4jType {
             else -> null
         }
 
+        @JvmStatic
         fun toString(type: Neo4jType): String = when (type) {
             ANY -> "ANY"
             LIST_ANY -> "LIST<ANY>"
@@ -210,6 +213,7 @@ enum class Neo4jType {
             UUID -> "UUID"
         }
 
+        @JvmStatic
         fun isVector(type: Neo4jType): Boolean = when (type) {
             VECTOR_FLOAT,
             VECTOR_FLOAT32,

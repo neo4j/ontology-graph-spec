@@ -25,12 +25,13 @@ import org.neo4j.spec.graph.model.type.IndexType
 import org.neo4j.spec.graph.model.type.Named
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("RelationshipIndex")
 @Description("An index on a relationship.")
-data class RelationshipIndex(
+data class RelationshipIndex @JvmOverloads constructor(
     @Description("Type of the index.")
     var type: IndexType,
     @Description("Ids of the properties the index covers.")

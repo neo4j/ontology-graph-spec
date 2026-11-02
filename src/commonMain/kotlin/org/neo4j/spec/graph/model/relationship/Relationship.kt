@@ -22,12 +22,13 @@ import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipExtensions
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("Relationship")
 @Description("A relationship of the graph.")
-data class Relationship(
+data class Relationship @JvmOverloads constructor(
     @Description("Type of the relationship.")
     var type: String,
     @Description("The node the relationship starts at.")

@@ -22,12 +22,13 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions
 import org.neo4j.spec.graph.model.extension.custom.CustomMapSerializer
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("ForeignKey")
 @Description("A foreign key of a table.")
-data class ForeignKey(
+data class ForeignKey @JvmOverloads constructor(
     @Description("Names of the columns in this table which make up the key.")
     val columns: MutableList<String>,
     @Description("The table and columns the key refers to.")

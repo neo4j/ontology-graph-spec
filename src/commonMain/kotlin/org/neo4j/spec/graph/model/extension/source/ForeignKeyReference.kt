@@ -22,12 +22,13 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions
 import org.neo4j.spec.graph.model.extension.custom.CustomMapSerializer
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("ForeignKeyReference")
 @Description("The target of a foreign key.")
-data class ForeignKeyReference(
+data class ForeignKeyReference @JvmOverloads constructor(
     @Description("Id of the referenced table.")
     var table: String,
     @Description("Names of the referenced columns.")

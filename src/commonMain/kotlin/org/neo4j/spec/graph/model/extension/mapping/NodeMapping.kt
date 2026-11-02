@@ -20,12 +20,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName(MappingType.NODE)
 @Description("Maps rows of a table to nodes.")
-data class NodeMapping(
+data class NodeMapping @JvmOverloads constructor(
     @Description("Id of the node being mapped.")
     var node: String,
     @Description("Id of the source table.")

@@ -20,6 +20,8 @@ import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.model.type.IndexType
 import kotlin.js.JsExport
 import kotlin.js.JsStatic
+import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
 
 /**
  * Builds constraint and index names in the importer's expected form, `<property>_<label>_<suffix>`.
@@ -30,10 +32,13 @@ class NameFormat {
         private const val MAX_LENGTH = 800
 
         @JsStatic
+        @JvmStatic
         fun constraintName(properties: List<String>, entity: String, type: ConstraintType): String =
             build(properties, entity, suffixFrom(type))
 
         @JsStatic
+        @JvmStatic
+        @JvmOverloads
         fun indexName(properties: List<String>, entity: String, type: IndexType? = null): String =
             build(properties, entity, suffixFrom(type))
 

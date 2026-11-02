@@ -22,12 +22,13 @@ import org.neo4j.spec.graph.model.property.extension.PropertyExtensions
 import org.neo4j.spec.graph.model.type.Named
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("Property")
 @Description("A property of a node or relationship.")
-data class Property(
+data class Property @JvmOverloads constructor(
     @Description("Neo4j type of the property.")
     var type: Neo4jType = Neo4jType.ANY,
     @Description("Dimension of the property when it holds a vector.")

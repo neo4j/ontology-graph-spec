@@ -32,6 +32,7 @@ import org.neo4j.spec.graph.codec.schema.SchemaLiteral
 import org.neo4j.spec.graph.codec.schema.SchemaMap
 import org.neo4j.spec.graph.codec.schema.SchemaNull
 import org.neo4j.spec.graph.model.GraphModel
+import kotlin.jvm.JvmStatic
 
 class JsonFormat(private val json: Json) : Format {
     override fun encodeToString(element: SchemaElement) = json.encodeToString(element.toJson())
@@ -63,6 +64,7 @@ class JsonFormat(private val json: Json) : Format {
     }
 
     companion object {
+        @JvmStatic
         val default = JsonFormat(
             Json {
                 ignoreUnknownKeys = true

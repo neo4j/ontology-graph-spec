@@ -24,12 +24,13 @@ import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.model.type.Named
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("RelationshipConstraint")
 @Description("A constraint on a relationship.")
-data class RelationshipConstraint(
+data class RelationshipConstraint @JvmOverloads constructor(
     @Description("Type of the constraint.")
     override var type: ConstraintType,
     @Description("Ids of the properties the constraint covers.")

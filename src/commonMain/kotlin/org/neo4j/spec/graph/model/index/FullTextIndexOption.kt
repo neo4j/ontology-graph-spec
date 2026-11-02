@@ -21,6 +21,7 @@ import kotlinx.serialization.Serializable
 import org.neo4j.spec.graph.model.type.IndexType
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 /**
  * https://neo4j.com/docs/cypher-manual/current/indexes/semantic-indexes/full-text-indexes/#configuration-settings
@@ -31,7 +32,7 @@ import kotlin.js.JsExport
 @Serializable
 @SerialName("FULLTEXT")
 @Description("Configuration of a full-text index.")
-data class FullTextIndexOption(
+data class FullTextIndexOption @JvmOverloads constructor(
     @SerialName("fulltext.default_analyzer")
     @Description("Analyzer used when the index doesn't specify one.")
     val defaultAnalyzer: String = "standard-no-stop-words",

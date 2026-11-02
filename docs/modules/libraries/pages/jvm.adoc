@@ -41,11 +41,34 @@ val json = GraphSpec.Json.encodeToString(model)
 ----
 import org.neo4j.spec.graph.GraphSpec;
 import org.neo4j.spec.graph.model.GraphModel;
-import org.neo4j.spec.graph.model.Type;
-import org.neo4j.spec.graph.model.Version;
 
-GraphModel model = GraphSpec.Yaml.INSTANCE.decodeFromString(yaml, Type.GRAPH_SPEC);
-String json = GraphSpec.Json.INSTANCE.encodeToString(model, Type.GRAPH_SPEC, Version.LATEST);
+GraphModel model = GraphSpec.getYaml().decodeFromString(yaml);
+String json = GraphSpec.getJson().encodeToString(model);
+----
+
+== Customise the library
+
+`GraphSpec` builds a configured copy of `GraphSpec.Json` or `GraphSpec.Yaml`. From Java, `GraphSpecs.graphSpec` takes a `Consumer` so no `Unit` needs returning.
+
+[.tabs]
+.Kotlin
+[source,kotlin]
+----
+import org.neo4j.spec.graph.GraphSpec
+
+val spec = GraphSpec(GraphSpec.Json) {
+    json { prettyPrint = false }
+}
+----
+
+.Java
+[source,java]
+----
+import org.neo4j.spec.graph.GraphSpec;
+import org.neo4j.spec.graph.GraphSpecs;
+
+GraphSpec spec = GraphSpecs.graphSpec(GraphSpec.getJson(), builder ->
+    GraphSpecs.json(builder, json -> json.setPrettyPrint(false)));
 ----
 
 == Validate models
@@ -65,7 +88,7 @@ val issues = model.validate(Validations.core)
 import org.neo4j.spec.graph.validate.Issue;
 import org.neo4j.spec.graph.validate.Validations;
 
-List<Issue> issues = model.validate(Validations.Companion.getCore());
+List<Issue> issues = model.validate(Validations.getCore());
 ----
 
 See xref:validation.adoc[] for the validator sets and issues.

@@ -117,6 +117,14 @@ kotlin {
     }
 }
 
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(11)
+}
+
+tasks.named<Jar>("jvmJar") {
+    manifest { attributes("Automatic-Module-Name" to "org.neo4j.spec.graph") }
+}
+
 tasks.withType<Kotlin2JsCompile>().configureEach {
     compilerOptions {
         target = "es2015"

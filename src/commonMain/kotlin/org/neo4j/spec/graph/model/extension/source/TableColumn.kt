@@ -23,12 +23,13 @@ import org.neo4j.spec.graph.model.extension.custom.CustomMapSerializer
 import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("TableColumn")
 @Description("A column of a data source table.")
-data class TableColumn(
+data class TableColumn @JvmOverloads constructor(
     @Description("Name of the column in the source. Unique within the table.")
     val name: String = "",
     @Description("Data type of the column in the source.")

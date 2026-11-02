@@ -14,6 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:JvmName("Compositeness")
+
 package org.neo4j.spec.graph.validate.constraint
+
+import kotlin.jvm.JvmName
 
 fun isCompositeConstraint(properties: Set<String>): Boolean = properties.size >= 2

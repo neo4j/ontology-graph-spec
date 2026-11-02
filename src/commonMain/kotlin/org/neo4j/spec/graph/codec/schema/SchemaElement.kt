@@ -14,7 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:JvmName("SchemaElements")
+@file:JvmMultifileClass
+
 package org.neo4j.spec.graph.codec.schema
+
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 /**
  * A format agnostic AST used for transforms and migrations.

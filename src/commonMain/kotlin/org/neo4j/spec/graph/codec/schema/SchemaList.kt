@@ -14,9 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:JvmName("SchemaElements")
+@file:JvmMultifileClass
+
 package org.neo4j.spec.graph.codec.schema
 
-class SchemaList(val content: MutableList<SchemaElement>, path: String = "") :
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
+import kotlin.jvm.JvmOverloads
+
+class SchemaList @JvmOverloads constructor(val content: MutableList<SchemaElement>, path: String = "") :
     SchemaElement,
     MutableList<SchemaElement> by content {
 

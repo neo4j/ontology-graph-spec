@@ -20,12 +20,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("RelationshipTarget")
 @Description("One end of a relationship.")
-data class RelationshipTarget(
+data class RelationshipTarget @JvmOverloads constructor(
     @Description("Id of the node at this end.")
     var node: String = "",
     @Description("Label of the node at this end.")

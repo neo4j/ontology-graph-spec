@@ -20,12 +20,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("TargetMapping")
 @Description("Identifies a node at one end of a mapped relationship.")
-data class TargetMapping(
+data class TargetMapping @JvmOverloads constructor(
     @Description("Label of the node.")
     var label: String = "",
     @Description("Mappings from property ids to source columns used to match the node.")

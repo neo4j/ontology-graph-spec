@@ -21,6 +21,7 @@ import kotlinx.serialization.Serializable
 import org.neo4j.spec.graph.model.type.IndexType
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 /**
  * https://neo4j.com/docs/cypher-manual/current/indexes/semantic-indexes/vector-indexes/#configuration-settings
@@ -29,7 +30,7 @@ import kotlin.js.JsExport
 @Serializable
 @SerialName("VECTOR")
 @Description("Configuration of a vector index.")
-data class VectorIndexOption(
+data class VectorIndexOption @JvmOverloads constructor(
     @SerialName("vector.dimensions")
     @Description("Number of dimensions of the indexed vectors.")
     val dimensions: Int? = null,

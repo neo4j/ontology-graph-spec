@@ -27,3 +27,6 @@ out/
 
 ### gbuild ###
 .gbuild/
+
+### Yarn ###
+yarn.lock

@@ -14,11 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:JvmName("SchemaElements")
+@file:JvmMultifileClass
+
 package org.neo4j.spec.graph.codec.schema
 
 import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.collections.iterator
+import kotlin.jvm.JvmMultifileClass
+import kotlin.jvm.JvmName
 
 class SchemaMap(val content: MutableMap<String, SchemaElement> = mutableMapOf(), path: String = "") :
     SchemaElement,

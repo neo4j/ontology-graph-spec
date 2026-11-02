@@ -46,6 +46,7 @@ import org.neo4j.spec.graph.validate.table.TableColumnEmptyName
 import org.neo4j.spec.graph.validate.table.TableColumnType
 import kotlin.js.JsExport
 import kotlin.js.JsStatic
+import kotlin.jvm.JvmStatic
 
 // TEMPORARY: these sets exist only to ease UPX's migration onto graph-spec validation, and will be removed once UPX
 // has moved to the functional sets in Validations. Each one keeps the exact validators and order of an existing UPX
@@ -62,6 +63,7 @@ class UpxMigrationValidations {
         // Validations.labelled + Validations.wellConstrained, plus NodeExistenceConstraint,
         // RelationshipExistenceConstraint and RelationshipNodes from Validations.core.
         @JsStatic
+        @JvmStatic
         val kgbuilderComplete: List<Validation> = listOf(
             NodeLabel,
             NodeProperties,
@@ -79,6 +81,7 @@ class UpxMigrationValidations {
         //
         // Validations.labelled + Validations.consistentSchema + Validations.mappable.
         @JsStatic
+        @JvmStatic
         val importComplete: List<Validation> = listOf(
             NodeLabel,
             RelationshipType,
@@ -104,6 +107,7 @@ class UpxMigrationValidations {
         //
         // Validations.labelled.
         @JsStatic
+        @JvmStatic
         val draft: List<Validation> = listOf(
             NodeLabel,
             RelationshipType
@@ -113,6 +117,7 @@ class UpxMigrationValidations {
         //
         // Validations.bulkImportable.
         @JsStatic
+        @JvmStatic
         val bulkImportComplete: List<Validation> = listOf(
             NodeLabelToken,
             RelationshipTypeToken,

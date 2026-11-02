@@ -22,12 +22,13 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions
 import org.neo4j.spec.graph.model.extension.custom.CustomMapSerializer
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("Table")
 @Description("A data source table schema.")
-data class Table(
+data class Table @JvmOverloads constructor(
     @Description("Where the table's data comes from.")
     var source: String,
     @Description("Columns of the table in their source order.")

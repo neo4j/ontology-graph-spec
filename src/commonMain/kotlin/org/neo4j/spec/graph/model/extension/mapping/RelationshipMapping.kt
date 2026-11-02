@@ -20,12 +20,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName(MappingType.RELATIONSHIP)
 @Description("Maps rows of a table to relationships.")
-data class RelationshipMapping(
+data class RelationshipMapping @JvmOverloads constructor(
     @Description("Id of the relationship being mapped.")
     var relationship: String,
     @Description("Id of the source table.")
