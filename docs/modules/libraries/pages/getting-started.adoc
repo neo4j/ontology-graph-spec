@@ -83,7 +83,7 @@ import org.neo4j.spec.graph.validate.Validations;
 public class GettingStarted {
     public static void main(String[] args) throws Exception {
         String content = Files.readString(Path.of("movies.json"));
-        GraphModel model = GraphSpec.Json.INSTANCE.decodeFromString(content);
+        GraphModel model = GraphSpec.getJson().decodeFromString(content);
         List<Issue> issues = model.validate(Validations.getCore());
         if (issues.isEmpty()) {
             System.out.println("No issues found");

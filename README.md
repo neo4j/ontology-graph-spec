@@ -150,8 +150,8 @@ import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.validate.Issue;
 import org.neo4j.spec.graph.validate.Validations;
 
-// Decode (use GraphSpec.Yaml.INSTANCE for YAML)
-GraphModel model = GraphSpec.Json.INSTANCE.decodeFromString(json);
+// Decode (use GraphSpec.getYaml() for YAML)
+GraphModel model = GraphSpec.getJson().decodeFromString(json);
 
 // Validate
 for (Issue issue : model.validate(Validations.getCore())) {
@@ -159,7 +159,7 @@ for (Issue issue : model.validate(Validations.getCore())) {
 }
 
 // Encode
-String encoded = GraphSpec.Yaml.INSTANCE.encodeToString(model);
+String encoded = GraphSpec.getYaml().encodeToString(model);
 ```
 
 ### JavaScript / TypeScript

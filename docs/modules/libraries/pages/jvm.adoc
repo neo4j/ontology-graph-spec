@@ -42,8 +42,8 @@ val json = GraphSpec.Json.encodeToString(model)
 import org.neo4j.spec.graph.GraphSpec;
 import org.neo4j.spec.graph.model.GraphModel;
 
-GraphModel model = GraphSpec.Yaml.INSTANCE.decodeFromString(yaml);
-String json = GraphSpec.Json.INSTANCE.encodeToString(model);
+GraphModel model = GraphSpec.getYaml().decodeFromString(yaml);
+String json = GraphSpec.getJson().encodeToString(model);
 ----
 
 == Validate models

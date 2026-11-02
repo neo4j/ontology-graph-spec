@@ -33,6 +33,7 @@ import org.neo4j.spec.graph.model.Type
 import org.neo4j.spec.graph.model.Version
 import kotlin.js.JsExport
 import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
 
 @JsExport
 sealed class GraphSpec(val configuration: GraphSpecConfig) {
@@ -79,6 +80,22 @@ sealed class GraphSpec(val configuration: GraphSpecConfig) {
     object Json : GraphSpec(defaultConfig(JsonFormat.default))
 
     object Yaml : GraphSpec(defaultConfig(YamlFormat.default))
+
+    /**
+     * Static accessors for the default instances, so Java can call `GraphSpec.getJson()` rather than
+     * `GraphSpec.Json.INSTANCE`.
+     */
+    companion object {
+        @JsExport.Ignore
+        @JvmStatic
+        val json: GraphSpec
+            get() = Json
+
+        @JsExport.Ignore
+        @JvmStatic
+        val yaml: GraphSpec
+            get() = Yaml
+    }
 }
 
 fun defaultConfig(format: Format): GraphSpecConfig {
