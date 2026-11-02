@@ -22,12 +22,13 @@ import org.neo4j.spec.graph.model.node.extension.NodeExtensions
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("Node")
 @Description("A node of the graph.")
-data class Node(
+data class Node @JvmOverloads constructor(
     @Description("Shorthand for the identifying label. Expanded into labels when the model is decoded.")
     var label: String? = null,
     @Description("Labels of the node.")

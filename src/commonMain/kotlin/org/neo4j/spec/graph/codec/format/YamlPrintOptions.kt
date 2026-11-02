@@ -17,8 +17,9 @@
 package org.neo4j.spec.graph.codec.format
 
 import org.neo4j.spec.graph.codec.schema.SchemaElement
+import kotlin.jvm.JvmOverloads
 
-class YamlPrintOptions(
+class YamlPrintOptions @JvmOverloads constructor(
     val indent: Int = 2,
     val alwaysQuoteStrings: Boolean = false,
     val inlinePaths: Set<String> = emptySet()

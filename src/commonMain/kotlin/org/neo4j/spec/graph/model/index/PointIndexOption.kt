@@ -21,6 +21,7 @@ import kotlinx.serialization.Serializable
 import org.neo4j.spec.graph.model.type.IndexType
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 /**
  * https://neo4j.com/docs/cypher-manual/current/indexes/search-performance-indexes/create-indexes/#point-indexes-examples
@@ -29,7 +30,7 @@ import kotlin.js.JsExport
 @Serializable
 @SerialName("POINT")
 @Description("Configuration of a point index.")
-data class PointIndexOption(
+data class PointIndexOption @JvmOverloads constructor(
     @SerialName("spatial.cartesian.min")
     @Description("Lower bounds of the 2D cartesian space.")
     val cartesianMin: List<Double> = listOf(-1000000.0, -1000000.0),

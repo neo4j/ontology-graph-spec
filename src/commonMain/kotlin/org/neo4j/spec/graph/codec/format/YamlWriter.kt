@@ -21,13 +21,14 @@ import org.neo4j.spec.graph.codec.schema.SchemaList
 import org.neo4j.spec.graph.codec.schema.SchemaLiteral
 import org.neo4j.spec.graph.codec.schema.SchemaMap
 import org.neo4j.spec.graph.codec.schema.SchemaNull
+import kotlin.jvm.JvmOverloads
 
 /**
  * YamlWriter pretty prints yaml according to [YamlPrintOptions]
  * It replaces [net.mamoe.yamlkt.Yaml]'s encodeToString as it doesn't have the flexibility
  * with inlining the lines that we want for a pretty graph spec format.
  */
-class YamlWriter(private val options: YamlPrintOptions = YamlPrintOptions()) {
+class YamlWriter @JvmOverloads constructor(private val options: YamlPrintOptions = YamlPrintOptions()) {
 
     fun write(element: SchemaElement): String {
         val builder = StringBuilder()

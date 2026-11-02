@@ -22,12 +22,13 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions
 import org.neo4j.spec.graph.model.extension.custom.CustomMapSerializer
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("NodeDisplay")
 @Description("Visual information for a node.")
-data class NodeDisplay(
+data class NodeDisplay @JvmOverloads constructor(
     @Description("Horizontal position.")
     var x: Double,
     @Description("Vertical position.")

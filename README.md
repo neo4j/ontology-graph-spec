@@ -147,21 +147,19 @@ val encoded: String = GraphSpec.Yaml.encodeToString(model)
 ```java
 import org.neo4j.spec.graph.GraphSpec;
 import org.neo4j.spec.graph.model.GraphModel;
-import org.neo4j.spec.graph.model.Type;
-import org.neo4j.spec.graph.model.Version;
 import org.neo4j.spec.graph.validate.Issue;
 import org.neo4j.spec.graph.validate.Validations;
 
 // Decode (use GraphSpec.Yaml.INSTANCE for YAML)
-GraphModel model = GraphSpec.Json.INSTANCE.decodeFromString(json, Type.GRAPH_SPEC);
+GraphModel model = GraphSpec.Json.INSTANCE.decodeFromString(json);
 
 // Validate
-for (Issue issue : model.validate(Validations.Companion.getCore())) {
+for (Issue issue : model.validate(Validations.getCore())) {
     System.out.println(issue.getCode() + ": " + issue.getMessage());
 }
 
 // Encode
-String encoded = GraphSpec.Yaml.INSTANCE.encodeToString(model, Type.GRAPH_SPEC, Version.LATEST);
+String encoded = GraphSpec.Yaml.INSTANCE.encodeToString(model);
 ```
 
 ### JavaScript / TypeScript

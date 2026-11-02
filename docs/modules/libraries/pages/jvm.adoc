@@ -41,11 +41,9 @@ val json = GraphSpec.Json.encodeToString(model)
 ----
 import org.neo4j.spec.graph.GraphSpec;
 import org.neo4j.spec.graph.model.GraphModel;
-import org.neo4j.spec.graph.model.Type;
-import org.neo4j.spec.graph.model.Version;
 
-GraphModel model = GraphSpec.Yaml.INSTANCE.decodeFromString(yaml, Type.GRAPH_SPEC);
-String json = GraphSpec.Json.INSTANCE.encodeToString(model, Type.GRAPH_SPEC, Version.LATEST);
+GraphModel model = GraphSpec.Yaml.INSTANCE.decodeFromString(yaml);
+String json = GraphSpec.Json.INSTANCE.encodeToString(model);
 ----
 
 == Validate models
@@ -65,7 +63,7 @@ val issues = model.validate(Validations.core)
 import org.neo4j.spec.graph.validate.Issue;
 import org.neo4j.spec.graph.validate.Validations;
 
-List<Issue> issues = model.validate(Validations.Companion.getCore());
+List<Issue> issues = model.validate(Validations.getCore());
 ----
 
 See xref:validation.adoc[] for the validator sets and issues.

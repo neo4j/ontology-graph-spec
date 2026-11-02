@@ -16,7 +16,9 @@
  */
 package org.neo4j.spec.graph.codec.schema
 
-class SchemaList(val content: MutableList<SchemaElement>, path: String = "") :
+import kotlin.jvm.JvmOverloads
+
+class SchemaList @JvmOverloads constructor(val content: MutableList<SchemaElement>, path: String = "") :
     SchemaElement,
     MutableList<SchemaElement> by content {
 

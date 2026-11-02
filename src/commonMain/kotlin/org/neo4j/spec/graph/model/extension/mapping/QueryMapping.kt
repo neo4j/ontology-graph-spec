@@ -20,12 +20,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName(MappingType.QUERY)
 @Description("Maps the results of a query run against a table.")
-data class QueryMapping(
+data class QueryMapping @JvmOverloads constructor(
     @Description("Id of the source table.")
     var table: String,
     @Description("The query to run.")

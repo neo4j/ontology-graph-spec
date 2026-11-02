@@ -23,6 +23,7 @@ import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.relationship.RelationshipConstraint
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.model.type.Named
+import kotlin.jvm.JvmStatic
 
 /**
  * Converts a [GraphModel] between its longhand and shorthand notations.
@@ -33,6 +34,7 @@ import org.neo4j.spec.graph.model.type.Named
  * [longhand] expands shorthand, [shorthand] collapses longhand back where doing so loses no information.
  */
 object Notation {
+    @JvmStatic
     fun longhand(model: GraphModel) {
         model.nodes.values.forEach { node ->
             val label = node.label
@@ -65,6 +67,7 @@ object Notation {
         }
     }
 
+    @JvmStatic
     fun shorthand(model: GraphModel) {
         model.nodes.values.forEach { node ->
             collapse(node.constraints, node.properties, node.labels.identifier ?: "", { it.extensions })

@@ -16,7 +16,9 @@
  */
 package org.neo4j.spec.graph.codec.schema
 
-class SchemaNull(path: String = "") : SchemaPrimitive() {
+import kotlin.jvm.JvmOverloads
+
+class SchemaNull @JvmOverloads constructor(path: String = "") : SchemaPrimitive() {
     override var parent: SchemaElement? = null
     override var identifier: String = path
 

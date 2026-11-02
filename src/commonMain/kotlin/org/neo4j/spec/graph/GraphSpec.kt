@@ -32,11 +32,13 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.Type
 import org.neo4j.spec.graph.model.Version
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 sealed class GraphSpec(val configuration: GraphSpecConfig) {
     private val path = MigrationPath(configuration.migrations)
 
+    @JvmOverloads
     fun encodeToString(
         model: GraphModel,
         targetType: String = Type.GRAPH_SPEC,
@@ -54,6 +56,7 @@ sealed class GraphSpec(val configuration: GraphSpecConfig) {
         return configuration.format.encodeToString(map)
     }
 
+    @JvmOverloads
     fun decodeFromString(content: String, type: String = Type.GRAPH_SPEC): GraphModel {
         val graphModel = decodeModel(content, type)
         graphModel.longhand()

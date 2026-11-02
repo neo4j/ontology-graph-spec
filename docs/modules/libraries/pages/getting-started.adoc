@@ -77,15 +77,14 @@ import java.nio.file.Path;
 import java.util.List;
 import org.neo4j.spec.graph.GraphSpec;
 import org.neo4j.spec.graph.model.GraphModel;
-import org.neo4j.spec.graph.model.Type;
 import org.neo4j.spec.graph.validate.Issue;
 import org.neo4j.spec.graph.validate.Validations;
 
 public class GettingStarted {
     public static void main(String[] args) throws Exception {
         String content = Files.readString(Path.of("movies.json"));
-        GraphModel model = GraphSpec.Json.INSTANCE.decodeFromString(content, Type.GRAPH_SPEC);
-        List<Issue> issues = model.validate(Validations.Companion.getCore());
+        GraphModel model = GraphSpec.Json.INSTANCE.decodeFromString(content);
+        List<Issue> issues = model.validate(Validations.getCore());
         if (issues.isEmpty()) {
             System.out.println("No issues found");
         }

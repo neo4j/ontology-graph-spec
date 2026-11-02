@@ -22,12 +22,13 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions
 import org.neo4j.spec.graph.model.extension.custom.CustomMapSerializer
 import org.neo4j.spec.graph.schema.Description
 import kotlin.js.JsExport
+import kotlin.jvm.JvmOverloads
 
 @JsExport
 @Serializable
 @SerialName("NodeExtensions")
 @Description("Extensions for a node.")
-data class NodeExtensions(
+data class NodeExtensions @JvmOverloads constructor(
     @Description("Database indexes on this node keyed by id.")
     val indexes: MutableMap<String, NodeIndex> = mutableMapOf(),
     @Description("Optional visual information of this node.")

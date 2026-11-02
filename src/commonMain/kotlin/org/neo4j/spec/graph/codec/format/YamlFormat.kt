@@ -30,6 +30,7 @@ import org.neo4j.spec.graph.codec.schema.SchemaNull
 import org.neo4j.spec.graph.model.GraphModel
 import kotlin.collections.component1
 import kotlin.collections.component2
+import kotlin.jvm.JvmStatic
 
 class YamlFormat(private val yaml: Yaml, private val json: JsonFormat, options: YamlPrintOptions) : Format {
 
@@ -90,6 +91,7 @@ class YamlFormat(private val yaml: Yaml, private val json: JsonFormat, options: 
     private val number = Regex("-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][-+]?[0-9]+)?")
 
     companion object {
+        @JvmStatic
         val default = YamlFormat(
             Yaml {
                 encodeDefaultValues = false
