@@ -32,6 +32,7 @@ import org.neo4j.spec.graph.validate.node.NodeMappingMissing
 import org.neo4j.spec.graph.validate.node.NodeProperties
 import org.neo4j.spec.graph.validate.node.NodePropertyDuplicateName
 import org.neo4j.spec.graph.validate.node.NodePropertyEmptyName
+import org.neo4j.spec.graph.validate.node.NodePropertyMappingMissing
 import org.neo4j.spec.graph.validate.node.NodePropertyPatternOneOf
 import org.neo4j.spec.graph.validate.node.NodePropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.node.constraint.NodeCompositeConstraintPropertyType
@@ -125,6 +126,7 @@ class Validations {
             NodeMappingKey,
             NodeMappingMissing,
             RelationshipMappingMissing,
+            NodePropertyMappingMissing,
             MappingDependencies,
             TableColumnEmptyName,
             TableColumnDuplicateName,
