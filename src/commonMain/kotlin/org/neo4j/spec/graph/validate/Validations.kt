@@ -23,6 +23,7 @@ import org.neo4j.spec.graph.validate.node.NodeConstraints
 import org.neo4j.spec.graph.validate.node.NodeIndexConstraintNameConflict
 import org.neo4j.spec.graph.validate.node.NodeIndexOptions
 import org.neo4j.spec.graph.validate.node.NodeIndexProperties
+import org.neo4j.spec.graph.validate.node.NodeIndexVectorDimension
 import org.neo4j.spec.graph.validate.node.NodeIndexesExists
 import org.neo4j.spec.graph.validate.node.NodeLabel
 import org.neo4j.spec.graph.validate.node.NodeLabelToken
@@ -112,6 +113,7 @@ class Validations {
             RelationshipPropertyEmptyName,
             RelationshipPropertyDuplicateName,
             NodeIndexProperties,
+            NodeIndexVectorDimension,
             RelationshipIndexProperties,
             NodeConstraintProperties,
             NodeConstraintDuplicatePropertySet,
