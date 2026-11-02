@@ -48,11 +48,11 @@ fun duplicatePropertyName(
     property: Property,
     entityPath: String
 ): Issue? {
-    val name = property.name ?: return null
+    val name = property.name?.takeUnless { it.isBlank() } ?: propertyId
     if (name.isBlank()) return null
     // UPX findArrayDuplicates + includes flags ALL properties with a duplicated name
     val isDuplicate = properties.any { (otherId, other) ->
-        otherId != propertyId && other.name == name
+        otherId != propertyId && (other.name?.takeUnless { it.isBlank() } ?: otherId) == name
     }
     if (isDuplicate) {
         return Issue(

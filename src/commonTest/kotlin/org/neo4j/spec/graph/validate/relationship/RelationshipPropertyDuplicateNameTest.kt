@@ -90,4 +90,26 @@ class RelationshipPropertyDuplicateNameTest {
 
         assertTrue(issues.isEmpty())
     }
+
+    @Test
+    fun `fail when a name override collides with another property's key`() {
+        val rel = Relationship(
+            type = "KNOWS",
+            from = target,
+            to = target,
+            properties = mutableMapOf(
+                "since" to Property(),
+                "p:2" to Property(name = "since")
+            )
+        )
+        val issuesFirst = mutableListOf<Issue>()
+        val issuesSecond = mutableListOf<Issue>()
+
+        validator.validateProperty(model, "r:1", rel, "since", rel.properties["since"]!!, issuesFirst)
+        validator.validateProperty(model, "r:1", rel, "p:2", rel.properties["p:2"]!!, issuesSecond)
+
+        assertEquals(1, issuesFirst.size, "The key-named property collides too")
+        assertEquals(1, issuesSecond.size)
+        assertEquals("duplicate_property_name", issuesSecond.first().code)
+    }
 }

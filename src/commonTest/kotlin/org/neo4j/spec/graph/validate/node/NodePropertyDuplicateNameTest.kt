@@ -84,4 +84,24 @@ class NodePropertyDuplicateNameTest {
 
         assertTrue(issues.isEmpty())
     }
+
+    @Test
+    fun `fail when a name override collides with another property's key`() {
+        val node = Node(
+            labels = Labels(identifier = "Person"),
+            properties = mutableMapOf(
+                "email" to Property(),
+                "p:2" to Property(name = "email")
+            )
+        )
+        val issuesFirst = mutableListOf<Issue>()
+        val issuesSecond = mutableListOf<Issue>()
+
+        validator.validateProperty(model, "n:1", node, "email", node.properties["email"]!!, issuesFirst)
+        validator.validateProperty(model, "n:1", node, "p:2", node.properties["p:2"]!!, issuesSecond)
+
+        assertEquals(1, issuesFirst.size, "The key-named property collides too")
+        assertEquals(1, issuesSecond.size)
+        assertEquals("duplicate_property_name", issuesSecond.first().code)
+    }
 }
