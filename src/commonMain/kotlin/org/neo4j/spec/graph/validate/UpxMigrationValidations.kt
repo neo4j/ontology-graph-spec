@@ -27,6 +27,7 @@ import org.neo4j.spec.graph.validate.node.NodeMappingKeyType
 import org.neo4j.spec.graph.validate.node.NodeProperties
 import org.neo4j.spec.graph.validate.node.NodePropertyDuplicateName
 import org.neo4j.spec.graph.validate.node.NodePropertyEmptyName
+import org.neo4j.spec.graph.validate.node.NodePropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.node.constraint.NodeCompositeConstraintPropertyType
 import org.neo4j.spec.graph.validate.node.constraint.NodeConstraintDuplicatePropertySet
 import org.neo4j.spec.graph.validate.node.constraint.NodeConstraintProperties
@@ -97,6 +98,7 @@ class UpxMigrationValidations {
             TableColumnType,
             NodePropertyEmptyName,
             NodePropertyDuplicateName,
+            NodePropertyUnsupportedLocalImportType,
             RelationshipPropertyEmptyName,
             RelationshipPropertyDuplicateName,
             MappingDependencies
