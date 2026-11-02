@@ -21,7 +21,9 @@ import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.property.emptyPropertyName
+import kotlin.js.JsExport
 
+@JsExport
 object RelationshipPropertyEmptyName : RelationshipValidation {
     override fun validateProperty(
         model: GraphModel,

@@ -23,7 +23,9 @@ import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.constraint.isCompositeConstraint
 import org.neo4j.spec.graph.validate.node.NodeValidation
+import kotlin.js.JsExport
 
+@JsExport
 object NodeCompositeConstraintPropertyType : NodeValidation {
     override fun validateConstraint(
         model: GraphModel,

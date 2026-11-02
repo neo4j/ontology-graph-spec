@@ -20,6 +20,8 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.extension.source.TableColumn
 import org.neo4j.spec.graph.validate.Issue
+import kotlin.js.JsExport
+@JsExport
 object TableColumnType : TableValidation {
     override fun validateTableColumn(
         model: GraphModel,

@@ -20,6 +20,8 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.validate.Issue
+import kotlin.js.JsExport
+@JsExport
 object NodeMappingKeyType : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
         for ((mappingId, index, nodeMapping) in findNodeMappings(model, nodeId)) {

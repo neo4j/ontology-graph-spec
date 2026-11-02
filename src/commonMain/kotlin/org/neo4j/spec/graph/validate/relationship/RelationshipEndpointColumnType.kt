@@ -23,7 +23,9 @@ import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.node.findNodeMappings
+import kotlin.js.JsExport
 
+@JsExport
 object RelationshipEndpointColumnType : RelationshipValidation {
     override fun validateRelationship(
         model: GraphModel,

@@ -21,7 +21,9 @@ import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.node.NodeValidation
+import kotlin.js.JsExport
 
+@JsExport
 object NodeConstraintProperties : NodeValidation {
     override fun validateConstraint(
         model: GraphModel,

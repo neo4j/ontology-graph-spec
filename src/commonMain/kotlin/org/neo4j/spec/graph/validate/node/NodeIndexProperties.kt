@@ -20,6 +20,8 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
+import kotlin.js.JsExport
+@JsExport
 object NodeIndexProperties : NodeValidation {
     override fun validateIndex(
         model: GraphModel,

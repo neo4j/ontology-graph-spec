@@ -23,7 +23,9 @@ import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.node.NodeConstraints
 import org.neo4j.spec.graph.validate.relationship.RelationshipValidation
+import kotlin.js.JsExport
 
+@JsExport
 object RelationshipExistenceConstraint : RelationshipValidation {
     override fun dependsOn() = listOf(NodeConstraints)
 

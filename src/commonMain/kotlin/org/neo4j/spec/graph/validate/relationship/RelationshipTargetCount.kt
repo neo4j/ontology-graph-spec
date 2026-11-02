@@ -20,10 +20,12 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.RelationshipTarget
 import org.neo4j.spec.graph.validate.Issue
+import kotlin.js.JsExport
 
 /**
  * A relationship target may define an exact `count` or a `minCount`/`maxCount` range, but not both.
  */
+@JsExport
 object RelationshipTargetCount : RelationshipValidation {
     override fun validateRelationship(
         model: GraphModel,

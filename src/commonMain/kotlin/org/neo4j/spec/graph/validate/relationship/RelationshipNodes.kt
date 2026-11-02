@@ -19,7 +19,9 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import kotlin.js.JsExport
 
+@JsExport
 object RelationshipNodes : RelationshipValidation {
     override fun validateRelationship(
         model: GraphModel,

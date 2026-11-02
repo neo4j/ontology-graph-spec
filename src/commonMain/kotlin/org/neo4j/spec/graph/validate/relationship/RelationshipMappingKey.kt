@@ -20,11 +20,13 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import kotlin.js.JsExport
 
 /**
  * The key of a relationship mapping identifies the relationship so may only contain the relationship's own
  * properties.
  */
+@JsExport
 object RelationshipMappingKey : RelationshipValidation {
     override fun validateRelationship(
         model: GraphModel,

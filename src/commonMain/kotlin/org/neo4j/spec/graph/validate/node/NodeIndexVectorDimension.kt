@@ -21,7 +21,9 @@ import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.property.vectorIndexDimensionIssue
+import kotlin.js.JsExport
 
+@JsExport
 object NodeIndexVectorDimension : NodeValidation {
     override fun validateIndex(
         model: GraphModel,

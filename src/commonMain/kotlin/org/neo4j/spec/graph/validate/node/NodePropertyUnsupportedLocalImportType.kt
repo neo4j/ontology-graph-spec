@@ -20,7 +20,9 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.property.unsupportedLocalImportType
+import kotlin.js.JsExport
 
+@JsExport
 object NodePropertyUnsupportedLocalImportType : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
         // UPX gates on a local data source (errors.ts#L538); graph-spec uses the mapped table's source.

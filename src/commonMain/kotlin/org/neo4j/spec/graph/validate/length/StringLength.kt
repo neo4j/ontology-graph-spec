@@ -21,10 +21,12 @@ import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.type.Named
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.Validation
+import kotlin.js.JsExport
 
 /**
  * Restricts the length of names and descriptions throughout the model.
  */
+@JsExport
 object StringLength : Validation {
 
     const val MAX_NAME_LENGTH = 256

@@ -21,7 +21,9 @@ import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
 import org.neo4j.spec.graph.validate.property.missingPropertyMapping
+import kotlin.js.JsExport
 
+@JsExport
 object RelationshipPropertyMappingMissing : RelationshipValidation {
     override fun validateRelationship(
         model: GraphModel,

@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import kotlin.js.JsExport
 
 /**
  * Index and constraint names must be unique across the whole model. Any name used by more than one
@@ -29,6 +30,7 @@ import org.neo4j.spec.graph.validate.Issue
  * mapping multiple files or columns to the same node natively, so it does not carry UPX's
  * "identical definition may reuse a name" exception - all duplicate names are flagged.
  */
+@JsExport
 object NodeIndexConstraintNameConflict : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
         val duplicateNames = duplicateNames(model)

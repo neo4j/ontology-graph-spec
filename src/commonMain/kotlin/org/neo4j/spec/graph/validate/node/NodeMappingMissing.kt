@@ -20,7 +20,9 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
+import kotlin.js.JsExport
 
+@JsExport
 object NodeMappingMissing : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
         // UPX: tableSchemaError when a node has no mapping (errors.ts#L511-L514), structured sources only.

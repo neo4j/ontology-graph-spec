@@ -23,11 +23,13 @@ import org.neo4j.spec.graph.model.extension.mapping.QueryMapping
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.Validation
+import kotlin.js.JsExport
 
 /**
  * A mapping's `depends_on` must reference the `id` of another mapping in the same list. Ids must be unique within
  * their list and the dependencies free of cycles so an import order can be derived.
  */
+@JsExport
 object MappingDependencies : Validation {
     override fun validate(model: GraphModel, issues: MutableList<Issue>) {
         val lists = model.extensions.dataSourceMappings

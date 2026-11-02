@@ -22,7 +22,9 @@ import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.constraint.isCompositeConstraint
 import org.neo4j.spec.graph.validate.node.NodeValidation
+import kotlin.js.JsExport
 
+@JsExport
 object NodeExistenceCompositeConflict : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
         val compositeConstraints = node.constraints.values.filter {

@@ -21,7 +21,9 @@ import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.property.duplicatePropertyName
+import kotlin.js.JsExport
 
+@JsExport
 object NodePropertyDuplicateName : NodeValidation {
     override fun validateProperty(
         model: GraphModel,
