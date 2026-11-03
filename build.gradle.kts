@@ -177,7 +177,11 @@ tasks.register<JavaExec>("generateGraphModelJsonSchema") {
 
 mavenPublishing {
     publishToMavenCentral()
-    signAllPublications()
+    if (providers.gradleProperty("signingInMemoryKey").isPresent ||
+        providers.gradleProperty("signing.keyId").isPresent
+    ) {
+        signAllPublications()
+    }
     coordinates(group.toString(), "ontology-graph-spec", version.toString())
     pom {
         name = "ontology-graph-spec"
