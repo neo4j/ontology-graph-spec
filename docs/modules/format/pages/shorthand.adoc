@@ -18,6 +18,10 @@ and longhand can express things shorthand can't, such as a constraint with a cus
 A constraint written as shorthand covers that one property. On a node, it applies to the node's identifying label. On a
 relationship, it is a constraint on the relationship.
 
+Shorthand adds to the constraints written in longhand, it doesn't replace them. A property with `key: true` and a `KEY`
+constraint on only that property has two identical constraints, which the
+xref:libraries:validation.adoc[Consistent Schema validators] report as duplicates.
+
 == Example
 
 The following nodes use shorthand:

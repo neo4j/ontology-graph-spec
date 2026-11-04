@@ -51,6 +51,7 @@ import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyPatternOne
 import org.neo4j.spec.graph.validate.relationship.RelationshipTargetCount
 import org.neo4j.spec.graph.validate.relationship.RelationshipType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTypeToken
+import org.neo4j.spec.graph.validate.relationship.constraint.RelationshipConstraintDuplicatePropertySet
 import org.neo4j.spec.graph.validate.relationship.constraint.RelationshipExistenceConstraint
 import org.neo4j.spec.graph.validate.relationship.constraint.RelationshipKeyOverlap
 import org.neo4j.spec.graph.validate.relationship.constraint.RelationshipTypeConstraint
@@ -96,8 +97,8 @@ class Validations {
         )
 
         // Property names are set and unique within their node or relationship, indexes and constraints have
-        // properties, composite constraints don't repeat a property set or overlap an existence constraint, and index
-        // and constraint names are unique.
+        // properties, constraints aren't duplicated, composite constraints don't overlap an existence constraint, and
+        // index and constraint names are unique.
         @JsStatic
         @JvmStatic
         val consistentSchema: List<Validation> = listOf(
@@ -109,6 +110,7 @@ class Validations {
             RelationshipIndexProperties,
             NodeConstraintProperties,
             NodeConstraintDuplicatePropertySet,
+            RelationshipConstraintDuplicatePropertySet,
             NodeExistenceCompositeConflict,
             NodeIndexConstraintNameConflict
         )
