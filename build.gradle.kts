@@ -177,7 +177,23 @@ tasks.register<JavaExec>("generateGraphModelJsonSchema") {
 
 mavenPublishing {
     publishToMavenCentral()
-    signAllPublications()
+    val inCi = providers.environmentVariable("CI").map { it.isNotBlank() && it != "false" }.getOrElse(false)
+    val signingConfigured =
+        listOf("signingInMemoryKey", "signing.keyId").any {
+            providers.gradleProperty(it).map(String::isNotBlank).getOrElse(false)
+        }
+    if (inCi || signingConfigured) {
+        signAllPublications()
+    }
+    if (inCi && !signingConfigured) {
+        gradle.taskGraph.whenReady {
+            if (allTasks.any { it.name.startsWith("sign") && it.name.endsWith("Publication") }) {
+                throw GradleException(
+                    "Running in CI without a signing key: set signingInMemoryKey (or signing.keyId) to publish"
+                )
+            }
+        }
+    }
     coordinates(group.toString(), "ontology-graph-spec", version.toString())
     pom {
         name = "ontology-graph-spec"
