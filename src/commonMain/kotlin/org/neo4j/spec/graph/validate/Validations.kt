@@ -64,6 +64,7 @@ import org.neo4j.spec.graph.validate.node.NodeIndexPropertyDuplicate
 import org.neo4j.spec.graph.validate.node.NodeLabelDuplicate
 import org.neo4j.spec.graph.validate.node.NodePropertyAliasDuplicate
 import org.neo4j.spec.graph.validate.relationship.RelationshipAliasDuplicate
+import org.neo4j.spec.graph.validate.relationship.RelationshipIndexPropertyDuplicate
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyAliasDuplicate
 import kotlin.js.JsExport
 import kotlin.js.JsStatic
@@ -100,7 +101,8 @@ class Validations {
             RelationshipPropertyAliasDuplicate,
             NodeLabelDuplicate,
             NodeIndexLabelDuplicate,
-            NodeIndexPropertyDuplicate
+            NodeIndexPropertyDuplicate,
+            RelationshipIndexPropertyDuplicate
         )
 
         // Every node has an identifier label and every relationship a type.

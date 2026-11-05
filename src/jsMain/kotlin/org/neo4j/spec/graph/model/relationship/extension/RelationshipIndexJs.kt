@@ -63,7 +63,7 @@ fun RelationshipIndex.toJs() = relationshipIndexJs(
 
 fun RelationshipIndexJs.toClass() = RelationshipIndex(
     type = IndexType.valueOf(type),
-    properties = properties.toMutableSet(),
+    properties = properties.toMutableList(),
     options = options?.toClass(),
     custom = custom.toCustomClass(),
     name = name
