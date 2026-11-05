@@ -53,7 +53,7 @@ fun Labels.toJs() = labelsJs(
 
 fun LabelsJs.toClass(): Labels = Labels(
     identifier = identifier,
-    implied = implied.toMutableSet(),
-    optional = optional.toMutableSet(),
+    implied = implied.toMutableList(),
+    optional = optional.toMutableList(),
     extensions = extensions.toClass()
 )

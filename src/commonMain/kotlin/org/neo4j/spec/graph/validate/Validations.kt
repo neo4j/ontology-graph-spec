@@ -59,6 +59,7 @@ import org.neo4j.spec.graph.validate.table.TableColumnDuplicateName
 import org.neo4j.spec.graph.validate.table.TableColumnEmptyName
 import org.neo4j.spec.graph.validate.table.TableColumnType
 import org.neo4j.spec.graph.validate.node.NodeAliasDuplicate
+import org.neo4j.spec.graph.validate.node.NodeLabelDuplicate
 import org.neo4j.spec.graph.validate.node.NodePropertyAliasDuplicate
 import org.neo4j.spec.graph.validate.relationship.RelationshipAliasDuplicate
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyAliasDuplicate
@@ -94,7 +95,8 @@ class Validations {
             NodeAliasDuplicate,
             RelationshipAliasDuplicate,
             NodePropertyAliasDuplicate,
-            RelationshipPropertyAliasDuplicate
+            RelationshipPropertyAliasDuplicate,
+            NodeLabelDuplicate
         )
 
         // Every node has an identifier label and every relationship a type.
