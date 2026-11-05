@@ -203,8 +203,8 @@ class JsonFormatTest {
                         indexes = mutableMapOf(
                             "idx0" to NodeIndex(
                                 type = IndexType.FULLTEXT,
-                                labels = mutableSetOf("Document"),
-                                properties = mutableSetOf("body"),
+                                labels = mutableListOf("Document"),
+                                properties = mutableListOf("body"),
                                 options = FullTextIndexOption()
                             )
                         )

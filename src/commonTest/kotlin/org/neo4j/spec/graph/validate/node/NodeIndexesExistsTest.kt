@@ -45,8 +45,8 @@ class NodeIndexesExistsTest {
         )
         val index = NodeIndex(
             type = IndexType.TEXT,
-            labels = mutableSetOf(),
-            properties = mutableSetOf("email", "status")
+            labels = mutableListOf(),
+            properties = mutableListOf("email", "status")
         )
 
         val issues = mutableListOf<Issue>()
@@ -65,8 +65,8 @@ class NodeIndexesExistsTest {
         )
         val index = NodeIndex(
             type = IndexType.TEXT,
-            labels = mutableSetOf(),
-            properties = mutableSetOf("email")
+            labels = mutableListOf(),
+            properties = mutableListOf("email")
         )
 
         val issues = mutableListOf<Issue>()
@@ -89,8 +89,8 @@ class NodeIndexesExistsTest {
         )
         val index = NodeIndex(
             type = IndexType.TEXT,
-            labels = mutableSetOf(),
-            properties = mutableSetOf("email", "status", "age")
+            labels = mutableListOf(),
+            properties = mutableListOf("email", "status", "age")
         )
 
         val issues = mutableListOf<Issue>()
@@ -117,8 +117,8 @@ class NodeIndexesExistsTest {
         )
         val index = NodeIndex(
             type = IndexType.TEXT,
-            labels = mutableSetOf(),
-            properties = mutableSetOf()
+            labels = mutableListOf(),
+            properties = mutableListOf()
         )
 
         val issues = mutableListOf<Issue>()

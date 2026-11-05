@@ -13,7 +13,7 @@ class RelationshipMappingJsTest : JsMappingTest<RelationshipMapping, Relationshi
         properties = mutableMapOf("prop" to PropertyMapping("field")),
         mode = MappingMode.MERGE,
         matchLabel = "matchLabel",
-        key = mutableSetOf("key"),
+        key = mutableListOf("key"),
         dependsOn = "other",
         id = "mapping-id"
     )

@@ -41,7 +41,7 @@ class RelationshipTypeConstraintTest {
     fun `ignore constraint when type is not PROPERTY_TYPE`() {
         val constraint = RelationshipConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("roles", "year")
+            properties = mutableListOf("roles", "year")
         )
         val issues = mutableListOf<Issue>()
 
@@ -54,7 +54,7 @@ class RelationshipTypeConstraintTest {
     fun `pass when PROPERTY_TYPE constraint has exactly one property`() {
         val constraint = RelationshipConstraint(
             type = ConstraintType.PROPERTY_TYPE,
-            properties = mutableSetOf("rating")
+            properties = mutableListOf("rating")
         )
         val issues = mutableListOf<Issue>()
 
@@ -67,7 +67,7 @@ class RelationshipTypeConstraintTest {
     fun `fail when PROPERTY_TYPE constraint has multiple properties`() {
         val constraint = RelationshipConstraint(
             type = ConstraintType.PROPERTY_TYPE,
-            properties = mutableSetOf("rating", "reviewCount")
+            properties = mutableListOf("rating", "reviewCount")
         )
         val issues = mutableListOf<Issue>()
 

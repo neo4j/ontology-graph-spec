@@ -41,7 +41,7 @@ class NodeKeyOverlapTest {
             constraints = mutableMapOf(
                 "uniq_email" to NodeConstraint(
                     type = ConstraintType.UNIQUE,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 )
             )
         )
@@ -60,11 +60,11 @@ class NodeKeyOverlapTest {
             constraints = mutableMapOf(
                 "key_email" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 ),
                 "uniq_name" to NodeConstraint(
                     type = ConstraintType.UNIQUE,
-                    properties = mutableSetOf("name")
+                    properties = mutableListOf("name")
                 )
             )
         )
@@ -83,11 +83,11 @@ class NodeKeyOverlapTest {
             constraints = mutableMapOf(
                 "key_email" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 ),
                 "uniq_email" to NodeConstraint(
                     type = ConstraintType.UNIQUE,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 )
             )
         )
@@ -107,11 +107,11 @@ class NodeKeyOverlapTest {
             constraints = mutableMapOf(
                 "key_email" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 ),
                 "exist_email" to NodeConstraint(
                     type = ConstraintType.EXISTS,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 )
             )
         )

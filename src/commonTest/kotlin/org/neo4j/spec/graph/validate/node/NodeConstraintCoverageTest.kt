@@ -41,7 +41,7 @@ class NodeConstraintCoverageTest {
             constraints = mutableMapOf(
                 "uniq_email" to NodeConstraint(
                     type = ConstraintType.UNIQUE,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 )
             )
         )

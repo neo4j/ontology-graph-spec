@@ -44,7 +44,7 @@ class NodeConstraintsTest {
         )
         val constraint = NodeConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("email")
+            properties = mutableListOf("email")
         )
 
         val issues = mutableListOf<Issue>()
@@ -59,12 +59,12 @@ class NodeConstraintsTest {
         val constraintId = "uniq_user_email"
 
         val node = Node(
-            labels = Labels(implied = mutableSetOf("Person", "User")),
+            labels = Labels(implied = mutableListOf("Person", "User")),
             properties = mutableMapOf("email" to Property())
         )
         val constraint = NodeConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("email")
+            properties = mutableListOf("email")
         )
 
         val issues = mutableListOf<Issue>()
@@ -84,7 +84,7 @@ class NodeConstraintsTest {
         )
         val constraint = NodeConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("email")
+            properties = mutableListOf("email")
         )
 
         val issues = mutableListOf<Issue>()
@@ -107,7 +107,7 @@ class NodeConstraintsTest {
         )
         val constraint = NodeConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("email", "name")
+            properties = mutableListOf("email", "name")
         )
 
         val issues = mutableListOf<Issue>()

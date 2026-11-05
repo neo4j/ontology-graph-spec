@@ -45,7 +45,7 @@ class NodeCompositeConstraintPropertyTypeTest {
             constraints = mutableMapOf(
                 "comp" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("email", "age")
+                    properties = mutableListOf("email", "age")
                 )
             )
         )
@@ -67,7 +67,7 @@ class NodeCompositeConstraintPropertyTypeTest {
             constraints = mutableMapOf(
                 "comp" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("email", "score")
+                    properties = mutableListOf("email", "score")
                 )
             )
         )
@@ -91,7 +91,7 @@ class NodeCompositeConstraintPropertyTypeTest {
             constraints = mutableMapOf(
                 "comp" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("score", "rating")
+                    properties = mutableListOf("score", "rating")
                 )
             )
         )
@@ -114,7 +114,7 @@ class NodeCompositeConstraintPropertyTypeTest {
             constraints = mutableMapOf(
                 "comp" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("score")
+                    properties = mutableListOf("score")
                 )
             )
         )
@@ -140,7 +140,7 @@ class NodeCompositeConstraintPropertyTypeTest {
             constraints = mutableMapOf(
                 "comp" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("email", "tags")
+                    properties = mutableListOf("email", "tags")
                 )
             )
         )
@@ -161,7 +161,7 @@ class NodeCompositeConstraintPropertyTypeTest {
             constraints = mutableMapOf(
                 "comp" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("email", "missing")
+                    properties = mutableListOf("email", "missing")
                 )
             )
         )

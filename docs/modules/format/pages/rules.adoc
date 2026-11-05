@@ -38,6 +38,17 @@ TIP: The xref:libraries:validation.adoc[libraries] check these rules when they v
 * `count` and `min_count` must not be negative.
 * `min_count` must not be greater than `max_count`.
 
+== Repeated entries
+
+These lists must not repeat an entry:
+
+* The `aliases` of a node, relationship or property.
+* The `implied` and `optional` labels of a node.
+* The `labels` and `properties` of a node index, and the `properties` of a relationship index.
+* The `properties` of a node or relationship constraint.
+* The `key` of a node or relationship mapping.
+* The `supported` types of a table column.
+
 == Lengths
 
 [cols="2,1"]

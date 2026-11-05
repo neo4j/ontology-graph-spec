@@ -20,12 +20,12 @@ class RelationshipJsTest : JsMappingTest<Relationship, RelationshipJs>() {
         from = RelationshipTarget("from_node"),
         to = RelationshipTarget("to_node"),
         properties = mutableMapOf("prop" to Property(Neo4jType.STRING, name = "property_name")),
-        constraints = mutableMapOf("constraint" to RelationshipConstraint(ConstraintType.KEY, mutableSetOf("prop"))),
+        constraints = mutableMapOf("constraint" to RelationshipConstraint(ConstraintType.KEY, mutableListOf("prop"))),
         extensions = RelationshipExtensions(
             custom = mutableMapOf("key1" to "val1"),
-            indexes = mutableMapOf("index" to RelationshipIndex(IndexType.POINT, mutableSetOf("prop")))
+            indexes = mutableMapOf("index" to RelationshipIndex(IndexType.POINT, mutableListOf("prop")))
         ),
-        aliases = mutableSetOf("alias1", "alias2"),
+        aliases = mutableListOf("alias1", "alias2"),
         reference = "rel-ref"
     )
 

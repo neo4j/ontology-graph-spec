@@ -50,7 +50,7 @@ class RelationshipIndexesTest {
         )
         val index = RelationshipIndex(
             type = IndexType.TEXT,
-            properties = mutableSetOf("roles", "year")
+            properties = mutableListOf("roles", "year")
         )
 
         val issues = mutableListOf<Issue>()
@@ -74,7 +74,7 @@ class RelationshipIndexesTest {
         )
         val index = RelationshipIndex(
             type = IndexType.TEXT,
-            properties = mutableSetOf("roles")
+            properties = mutableListOf("roles")
         )
 
         val issues = mutableListOf<Issue>()
@@ -100,7 +100,7 @@ class RelationshipIndexesTest {
         )
         val index = RelationshipIndex(
             type = IndexType.TEXT,
-            properties = mutableSetOf("roles", "year")
+            properties = mutableListOf("roles", "year")
         )
 
         val issues = mutableListOf<Issue>()
@@ -126,7 +126,7 @@ class RelationshipIndexesTest {
         )
         val index = RelationshipIndex(
             type = IndexType.TEXT,
-            properties = mutableSetOf()
+            properties = mutableListOf()
         )
 
         val issues = mutableListOf<Issue>()

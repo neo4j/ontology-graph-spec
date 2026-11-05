@@ -48,8 +48,8 @@ class NodeIndexOptionsTest {
         )
         val index = NodeIndex(
             type = IndexType.TEXT,
-            labels = mutableSetOf(),
-            properties = mutableSetOf("email", "status"),
+            labels = mutableListOf(),
+            properties = mutableListOf("email", "status"),
             options = null
         )
 
@@ -72,8 +72,8 @@ class NodeIndexOptionsTest {
         )
         val index = NodeIndex(
             type = IndexType.FULLTEXT,
-            labels = mutableSetOf(),
-            properties = mutableSetOf("email", "status"),
+            labels = mutableListOf(),
+            properties = mutableListOf("email", "status"),
             options = FullTextIndexOption()
         )
 
@@ -96,8 +96,8 @@ class NodeIndexOptionsTest {
         )
         val index = NodeIndex(
             type = IndexType.TEXT,
-            labels = mutableSetOf(),
-            properties = mutableSetOf("email", "status"),
+            labels = mutableListOf(),
+            properties = mutableListOf("email", "status"),
             options = PointIndexOption()
         )
 
@@ -128,8 +128,8 @@ class NodeIndexOptionsTest {
                 val node = Node(properties = mutableMapOf())
                 val index = NodeIndex(
                     type = indexType,
-                    labels = mutableSetOf(),
-                    properties = mutableSetOf(),
+                    labels = mutableListOf(),
+                    properties = mutableListOf(),
                     options = options
                 )
 
@@ -155,8 +155,8 @@ class NodeIndexOptionsTest {
                 val node = Node(properties = mutableMapOf())
                 val index = NodeIndex(
                     type = indexType,
-                    labels = mutableSetOf(),
-                    properties = mutableSetOf(),
+                    labels = mutableListOf(),
+                    properties = mutableListOf(),
                     options = options
                 )
 

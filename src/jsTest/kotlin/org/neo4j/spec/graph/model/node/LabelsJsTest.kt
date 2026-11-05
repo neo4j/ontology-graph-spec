@@ -10,8 +10,8 @@ class LabelsJsTest : JsMappingTest<Labels, LabelsJs>() {
 
     override fun createClass() = Labels(
         identifier = "test-id",
-        implied = mutableSetOf("a", "b"),
-        optional = mutableSetOf("c"),
+        implied = mutableListOf("a", "b"),
+        optional = mutableListOf("c"),
         extensions = LabelsExtensions(mutableMapOf("key1" to "val1"))
     )
 

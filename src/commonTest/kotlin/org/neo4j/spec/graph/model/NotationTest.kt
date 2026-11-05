@@ -112,7 +112,7 @@ class NotationTest {
         val constraint = node.constraints["key_User_id"]
         assertNotNull(constraint, "A key constraint should be generated for the property")
         assertEquals(ConstraintType.KEY, constraint.type)
-        assertEquals(mutableSetOf("id"), constraint.properties)
+        assertEquals(mutableListOf("id"), constraint.properties)
         assertEquals("id_User_key", constraint.name)
     }
 
@@ -130,7 +130,7 @@ class NotationTest {
         val constraint = node.constraints["unique_User_email"]
         assertNotNull(constraint, "A unique constraint should be generated for the property")
         assertEquals(ConstraintType.UNIQUE, constraint.type)
-        assertEquals(mutableSetOf("email"), constraint.properties)
+        assertEquals(mutableListOf("email"), constraint.properties)
         assertEquals("email_uniq", constraint.name)
     }
 
@@ -148,7 +148,7 @@ class NotationTest {
         val constraint = node.constraints["exists_User_email"]
         assertNotNull(constraint, "An exists constraint should be generated for the property")
         assertEquals(ConstraintType.EXISTS, constraint.type)
-        assertEquals(mutableSetOf("email"), constraint.properties)
+        assertEquals(mutableListOf("email"), constraint.properties)
         assertEquals("email_exists", constraint.name)
     }
 
@@ -166,7 +166,7 @@ class NotationTest {
         model.longhand()
 
         val constraint = model.nodes["User"]!!.constraints["unique_User_email"]!!
-        assertEquals(mutableSetOf("p0"), constraint.properties)
+        assertEquals(mutableListOf("p0"), constraint.properties)
         assertEquals("email_User_uniq", constraint.name)
     }
 
@@ -176,7 +176,7 @@ class NotationTest {
             nodes = mutableMapOf(
                 "User" to Node(
                     constraints = mutableMapOf(
-                        "c1" to NodeConstraint(ConstraintType.UNIQUE, properties = mutableSetOf(), name = "custom")
+                        "c1" to NodeConstraint(ConstraintType.UNIQUE, properties = mutableListOf(), name = "custom")
                     ),
                     properties = mutableMapOf("id" to Property(key = true))
                 )
@@ -212,7 +212,7 @@ class NotationTest {
         val constraint: RelationshipConstraint? = relationship.constraints["key_KNOWS_since"]
         assertNotNull(constraint, "A key constraint should be generated for the property")
         assertEquals(ConstraintType.KEY, constraint.type)
-        assertEquals(mutableSetOf("since"), constraint.properties)
+        assertEquals(mutableListOf("since"), constraint.properties)
         assertEquals("since_KNOWS_key", constraint.name)
     }
 
@@ -288,11 +288,11 @@ class NotationTest {
         val node = Node(
             properties = mutableMapOf("id" to Property(), "a" to Property(), "b" to Property()),
             constraints = mutableMapOf(
-                "custom" to NodeConstraint(ConstraintType.UNIQUE, mutableSetOf("id"), name = "my_name"),
-                "composite" to NodeConstraint(ConstraintType.KEY, mutableSetOf("a", "b")),
+                "custom" to NodeConstraint(ConstraintType.UNIQUE, mutableListOf("id"), name = "my_name"),
+                "composite" to NodeConstraint(ConstraintType.KEY, mutableListOf("a", "b")),
                 "extended" to NodeConstraint(
                     ConstraintType.EXISTS,
-                    mutableSetOf("b"),
+                    mutableListOf("b"),
                     NodeConstraintExtensions(custom = mutableMapOf("owner" to "team"))
                 )
             )

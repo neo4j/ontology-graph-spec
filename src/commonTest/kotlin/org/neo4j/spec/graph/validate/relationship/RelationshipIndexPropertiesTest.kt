@@ -47,7 +47,7 @@ class RelationshipIndexPropertiesTest {
         )
         val index = RelationshipIndex(
             type = IndexType.TEXT,
-            properties = mutableSetOf("roles")
+            properties = mutableListOf("roles")
         )
 
         // ACT
@@ -71,7 +71,7 @@ class RelationshipIndexPropertiesTest {
         )
         val index = RelationshipIndex(
             type = IndexType.TEXT,
-            properties = mutableSetOf()
+            properties = mutableListOf()
         )
 
         // ACT

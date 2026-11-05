@@ -50,7 +50,7 @@ class RelationshipConstraintsTest {
         )
         val constraint = RelationshipConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("roles", "year")
+            properties = mutableListOf("roles", "year")
         )
 
         val issues = mutableListOf<Issue>()
@@ -74,7 +74,7 @@ class RelationshipConstraintsTest {
         )
         val constraint = RelationshipConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("roles")
+            properties = mutableListOf("roles")
         )
 
         val issues = mutableListOf<Issue>()
@@ -100,7 +100,7 @@ class RelationshipConstraintsTest {
         )
         val constraint = RelationshipConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("roles", "year")
+            properties = mutableListOf("roles", "year")
         )
 
         val issues = mutableListOf<Issue>()
@@ -126,7 +126,7 @@ class RelationshipConstraintsTest {
         )
         val constraint = RelationshipConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf()
+            properties = mutableListOf()
         )
 
         val issues = mutableListOf<Issue>()

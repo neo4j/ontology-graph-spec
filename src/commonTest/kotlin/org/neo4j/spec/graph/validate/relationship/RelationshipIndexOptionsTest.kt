@@ -53,7 +53,7 @@ class RelationshipIndexOptionsTest {
         )
         val index = RelationshipIndex(
             type = IndexType.TEXT,
-            properties = mutableSetOf("roles", "year"),
+            properties = mutableListOf("roles", "year"),
             options = null
         )
 
@@ -79,7 +79,7 @@ class RelationshipIndexOptionsTest {
         )
         val index = RelationshipIndex(
             type = IndexType.FULLTEXT,
-            properties = mutableSetOf("roles", "year"),
+            properties = mutableListOf("roles", "year"),
             options = FullTextIndexOption()
         )
 
@@ -105,7 +105,7 @@ class RelationshipIndexOptionsTest {
         )
         val index = RelationshipIndex(
             type = IndexType.TEXT,
-            properties = mutableSetOf("roles", "year"),
+            properties = mutableListOf("roles", "year"),
             options = PointIndexOption()
         )
 
@@ -141,7 +141,7 @@ class RelationshipIndexOptionsTest {
                 )
                 val index = RelationshipIndex(
                     type = indexType,
-                    properties = mutableSetOf(),
+                    properties = mutableListOf(),
                     options = options
                 )
 
@@ -172,7 +172,7 @@ class RelationshipIndexOptionsTest {
                 )
                 val index = RelationshipIndex(
                     type = indexType,
-                    properties = mutableSetOf(),
+                    properties = mutableListOf(),
                     options = options
                 )
 

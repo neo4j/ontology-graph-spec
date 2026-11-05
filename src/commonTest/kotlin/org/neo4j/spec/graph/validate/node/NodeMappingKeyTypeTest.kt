@@ -45,7 +45,7 @@ class NodeMappingKeyTypeTest {
                 node = "person",
                 table = "people.csv",
                 properties = mutableMapOf(),
-                key = mutableSetOf("id")
+                key = mutableListOf("id")
             )
         )
         val issues = mutableListOf<Issue>()
@@ -67,7 +67,7 @@ class NodeMappingKeyTypeTest {
                 node = "person",
                 table = "people.csv",
                 properties = mutableMapOf(),
-                key = mutableSetOf("id")
+                key = mutableListOf("id")
             )
         )
         val issues = mutableListOf<Issue>()
@@ -89,7 +89,7 @@ class NodeMappingKeyTypeTest {
                 node = "person",
                 table = "people.csv",
                 properties = mutableMapOf(),
-                key = mutableSetOf("id")
+                key = mutableListOf("id")
             )
         )
         val issues = mutableListOf<Issue>()
