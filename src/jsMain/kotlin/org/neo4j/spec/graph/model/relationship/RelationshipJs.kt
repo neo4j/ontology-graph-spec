@@ -92,6 +92,6 @@ fun RelationshipJs.toClass(id: String) = Relationship(
     constraints = constraints.associateBy { _, constraint -> constraint.toClass() },
     extensions = extensions.toClass(),
     description = description,
-    aliases = aliases.toMutableSet(),
+    aliases = aliases.toMutableList(),
     reference = reference
 )

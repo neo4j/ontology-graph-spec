@@ -44,7 +44,7 @@ data class Relationship @JvmOverloads constructor(
     @Description("Description of the relationship.")
     val description: String = "",
     @Description("Alternative names for the relationship.")
-    val aliases: MutableSet<String> = mutableSetOf(),
+    val aliases: MutableList<String> = mutableListOf(),
     @Description("Reference or URI of an external resource describing the relationship.")
     val reference: String = ""
 )
