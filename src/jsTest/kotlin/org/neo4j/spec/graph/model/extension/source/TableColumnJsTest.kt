@@ -11,7 +11,7 @@ class TableColumnJsTest : JsMappingTest<TableColumn, TableColumnJs>() {
         type = "field_type",
         size = 10,
         suggested = Neo4jType.VECTOR_FLOAT,
-        supported = setOf(Neo4jType.VECTOR_FLOAT, Neo4jType.VECTOR_FLOAT32),
+        supported = listOf(Neo4jType.VECTOR_FLOAT, Neo4jType.VECTOR_FLOAT32),
         nullable = false,
         dimension = 8,
         custom = mutableMapOf("key1" to "val1"),

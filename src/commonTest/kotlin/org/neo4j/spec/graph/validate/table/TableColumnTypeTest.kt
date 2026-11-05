@@ -37,7 +37,7 @@ class TableColumnTypeTest {
         val table = Table(
             source = "sql/postgres",
             columns = mutableListOf(
-                TableColumn(name = "email", suggested = Neo4jType.STRING, supported = emptySet())
+                TableColumn(name = "email", suggested = Neo4jType.STRING, supported = emptyList())
             )
         )
         val issues = mutableListOf<Issue>()
@@ -56,7 +56,7 @@ class TableColumnTypeTest {
                 TableColumn(
                     name = "email",
                     suggested = Neo4jType.STRING,
-                    supported = setOf(Neo4jType.STRING)
+                    supported = listOf(Neo4jType.STRING)
                 )
             )
         )
@@ -72,7 +72,7 @@ class TableColumnTypeTest {
         // rule skipped for local tables - only cloud columns are checked
         val table = Table(
             source = "local",
-            columns = mutableListOf(TableColumn(name = "email", supported = emptySet()))
+            columns = mutableListOf(TableColumn(name = "email", supported = emptyList()))
         )
         val issues = mutableListOf<Issue>()
 
@@ -86,7 +86,7 @@ class TableColumnTypeTest {
         // type check is independent of name check - both can fire
         val table = Table(
             source = "sql/postgres",
-            columns = mutableListOf(TableColumn(name = "", supported = emptySet()))
+            columns = mutableListOf(TableColumn(name = "", supported = emptyList()))
         )
         val issues = mutableListOf<Issue>()
 

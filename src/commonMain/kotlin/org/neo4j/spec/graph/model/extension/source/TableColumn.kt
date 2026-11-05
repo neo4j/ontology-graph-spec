@@ -39,7 +39,7 @@ data class TableColumn @JvmOverloads constructor(
     @Description("Neo4j type suggested for values of this column.")
     val suggested: Neo4jType = Neo4jType.ANY,
     @Description("Neo4j types values of this column can be converted to when using the import tool.")
-    val supported: Set<Neo4jType> = emptySet(),
+    val supported: List<Neo4jType> = emptyList(),
     @Description("Whether the column can hold null values.")
     val nullable: Boolean = true,
     @Description("Dimension of the column when it holds vectors.")
