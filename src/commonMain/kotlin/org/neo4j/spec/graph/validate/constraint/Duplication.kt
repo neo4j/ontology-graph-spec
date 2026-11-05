@@ -26,7 +26,7 @@ internal fun <C : Constraint> duplicateConstraintIds(constraintId: String, const
     val constraint = constraints.getValue(constraintId)
     return constraints.filter { (otherId, other) ->
         otherId != constraintId &&
-            other.properties == constraint.properties &&
+            other.properties.toSet() == constraint.properties.toSet() &&
             (other.type == constraint.type || isCompositeConstraint(constraint.properties))
     }.keys.toList()
 }

@@ -44,7 +44,7 @@ class RelationshipConstraintDuplicatePropertySetTest {
     }
 
     private fun constraint(type: ConstraintType, vararg properties: String) =
-        RelationshipConstraint(type, properties.toMutableSet())
+        RelationshipConstraint(type, properties.toMutableList())
 
     @Test
     fun `pass when constraints cover different properties`() {

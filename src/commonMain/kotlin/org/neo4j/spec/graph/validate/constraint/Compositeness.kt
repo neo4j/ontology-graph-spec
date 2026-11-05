@@ -20,4 +20,4 @@ package org.neo4j.spec.graph.validate.constraint
 
 import kotlin.jvm.JvmName
 
-fun isCompositeConstraint(properties: List<String>): Boolean = properties.size >= 2
+fun isCompositeConstraint(properties: List<String>): Boolean = properties.distinct().size >= 2

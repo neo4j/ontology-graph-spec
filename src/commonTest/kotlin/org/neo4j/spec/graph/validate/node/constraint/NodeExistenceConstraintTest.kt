@@ -59,6 +59,19 @@ class NodeExistenceConstraintTest {
     }
 
     @Test
+    fun `repeating the same property is not counted as multiple properties`() {
+        val constraint = NodeConstraint(
+            type = ConstraintType.EXISTS,
+            properties = mutableListOf("email", "email")
+        )
+        val issues = mutableListOf<Issue>()
+
+        validator.validateConstraint(model, "user", nodeDummy, "exist_email", constraint, issues)
+
+        assertTrue(issues.isEmpty(), "Duplicate properties are reported by the duplicate property validation")
+    }
+
+    @Test
     fun `fail when EXISTS constraint has multiple properties`() {
         val constraint = NodeConstraint(
             type = ConstraintType.EXISTS,

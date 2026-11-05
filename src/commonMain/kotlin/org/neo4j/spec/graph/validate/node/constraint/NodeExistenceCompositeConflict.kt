@@ -29,7 +29,7 @@ object NodeExistenceCompositeConflict : NodeValidation {
             it.type != ConstraintType.EXISTS && isCompositeConstraint(it.properties)
         }
         for ((constraintId, constraint) in node.constraints) {
-            if (constraint.type != ConstraintType.EXISTS || constraint.properties.size != 1) continue
+            if (constraint.type != ConstraintType.EXISTS || constraint.properties.distinct().size != 1) continue
             val propertyId = constraint.properties.first()
             val conflictsWithComposite = compositeConstraints.any { other ->
                 other.properties.contains(propertyId)
