@@ -58,6 +58,7 @@ import org.neo4j.spec.graph.validate.relationship.constraint.RelationshipTypeCon
 import org.neo4j.spec.graph.validate.table.TableColumnDuplicateName
 import org.neo4j.spec.graph.validate.table.TableColumnEmptyName
 import org.neo4j.spec.graph.validate.table.TableColumnType
+import org.neo4j.spec.graph.validate.node.NodeAliasDuplicate
 import kotlin.js.JsExport
 import kotlin.js.JsStatic
 import kotlin.jvm.JvmStatic
@@ -66,7 +67,8 @@ import kotlin.jvm.JvmStatic
 class Validations {
     companion object {
         // The rules a model must follow beyond its JSON Schema to be valid: references resolve, constraint and
-        // index details are consistent, relationship counts make sense and text is within length limits.
+        // index details are consistent, relationship counts make sense, text is within length limits and lists such as
+        // aliases, labels and index, constraint and mapping key properties don't repeat an entry.
         @JsStatic
         @JvmStatic
         val core: List<Validation> = listOf(
@@ -85,7 +87,8 @@ class Validations {
             NodePropertyPatternOneOf,
             RelationshipPropertyPatternOneOf,
             RelationshipMappingKey,
-            StringLength
+            StringLength,
+            NodeAliasDuplicate
         )
 
         // Every node has an identifier label and every relationship a type.
