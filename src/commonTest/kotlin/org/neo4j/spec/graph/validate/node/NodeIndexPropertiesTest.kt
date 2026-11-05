@@ -42,8 +42,8 @@ class NodeIndexPropertiesTest {
         )
         val index = NodeIndex(
             type = IndexType.TEXT,
-            labels = mutableSetOf(),
-            properties = mutableSetOf("email")
+            labels = mutableListOf(),
+            properties = mutableListOf("email")
         )
 
         // ACT
@@ -64,8 +64,8 @@ class NodeIndexPropertiesTest {
         )
         val index = NodeIndex(
             type = IndexType.TEXT,
-            labels = mutableSetOf(),
-            properties = mutableSetOf()
+            labels = mutableListOf(),
+            properties = mutableListOf()
         )
 
         // ACT

@@ -35,9 +35,9 @@ data class NodeIndex @JvmOverloads constructor(
     @Description("Type of the index.")
     var type: IndexType,
     @Description("Labels the index covers.")
-    val labels: MutableSet<String>,
+    val labels: MutableList<String>,
     @Description("Ids of the properties the index covers.")
-    val properties: MutableSet<String>,
+    val properties: MutableList<String>,
     @Description("Configuration specific to the type of index.")
     val options: IndexOption? = null,
     @Description("User-defined arbitrary data.")

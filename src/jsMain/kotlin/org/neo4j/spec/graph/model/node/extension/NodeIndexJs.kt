@@ -67,8 +67,8 @@ fun NodeIndex.toJs() = nodeIndexJs(
 
 fun NodeIndexJs.toClass() = NodeIndex(
     type = IndexType.valueOf(type),
-    labels = labels.toMutableSet(),
-    properties = properties.toMutableSet(),
+    labels = labels.toMutableList(),
+    properties = properties.toMutableList(),
     options = options?.toClass(),
     custom = custom.toCustomClass(),
     name = name
