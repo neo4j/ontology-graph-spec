@@ -125,12 +125,12 @@ object Notation {
         properties: MutableMap<String, Property>,
         entity: String,
         label: String,
-        constraint: (type: ConstraintType, properties: MutableSet<String>) -> C
+        constraint: (type: ConstraintType, properties: MutableList<String>) -> C
     ) where C : Constraint, C : Named {
         for ((key, property) in properties) {
             fun add(type: ConstraintType) {
                 val token = property.name ?: key
-                val created = constraint(type, mutableSetOf(key))
+                val created = constraint(type, mutableListOf(key))
                 val name = NameFormat.constraintName(listOf(token), label, type)
                 if (name.isNotBlank()) {
                     created.name = name

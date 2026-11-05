@@ -53,7 +53,7 @@ fun NodeConstraint.toJs() = nodeConstraintJs(
 
 fun NodeConstraintJs.toClass() = NodeConstraint(
     type = ConstraintType.valueOf(type),
-    properties = properties.toMutableSet(),
+    properties = properties.toMutableList(),
     extensions = extensions.toClass(),
     name = name
 )
