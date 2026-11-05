@@ -51,7 +51,7 @@ data class Property @JvmOverloads constructor(
     @Description("Description of the property.")
     val description: String = "",
     @Description("Alternative names for the property.")
-    val aliases: MutableSet<String> = mutableSetOf(),
+    val aliases: MutableList<String> = mutableListOf(),
     @Description("Reference or URI of an external resource describing the property.")
     val reference: String = "",
     @Description("Pattern values of the property are expected to match.")

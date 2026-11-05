@@ -100,7 +100,7 @@ fun PropertyJs.toClass(parent: String, property: String): Property {
         extensions = extensions.toClass(),
         name = name,
         description = description,
-        aliases = aliases.toMutableSet(),
+        aliases = aliases.toMutableList(),
         reference = reference,
         pattern = pattern,
         oneOf = oneOf.toMutableList()
