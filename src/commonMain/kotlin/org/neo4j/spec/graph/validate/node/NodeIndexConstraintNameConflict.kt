@@ -22,7 +22,7 @@ import org.neo4j.spec.graph.validate.Issue
 
 /**
  * Index and constraint names must be unique across the whole model. Any name used by more than one
- * index or constraint is a `duplicate_index_constraint_name`, attached to every index and constraint
+ * index or constraint is a `duplicate_node_index_constraint_name`, attached to every index and constraint
  * carrying that name. Blank and missing names are skipped.
  *
  * Ported from UPX `getNonUniqueNames` (import-shared/src/data-model/errors.ts). Graph-spec supports
@@ -38,7 +38,7 @@ object NodeIndexConstraintNameConflict : NodeValidation {
             if (!name.isNullOrEmpty() && name in duplicateNames) {
                 issues.add(
                     Issue(
-                        code = "duplicate_index_constraint_name",
+                        code = "duplicate_node_index_constraint_name",
                         message = "Index '$indexId' on node '$nodeId' reuses name '$name' " +
                             "already used by another index or constraint",
                         path = "nodes.$nodeId.extensions.indexes.$indexId.name"
@@ -52,7 +52,7 @@ object NodeIndexConstraintNameConflict : NodeValidation {
             if (!name.isNullOrEmpty() && name in duplicateNames) {
                 issues.add(
                     Issue(
-                        code = "duplicate_index_constraint_name",
+                        code = "duplicate_node_index_constraint_name",
                         message = "Constraint '$constraintId' on node '$nodeId' reuses name '$name' " +
                             "already used by another index or constraint",
                         path = "nodes.$nodeId.constraints.$constraintId.name"

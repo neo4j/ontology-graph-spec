@@ -45,7 +45,7 @@ class NodePropertyAliasDuplicateTest {
         val issues = validate(mutableListOf("a", "a", "b"))
 
         assertEquals(1, issues.size)
-        assertEquals("duplicate_property_alias", issues.first().code)
+        assertEquals("duplicate_node_property_alias", issues.first().code)
         assertEquals("nodes.n.properties.p.aliases[1]", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }

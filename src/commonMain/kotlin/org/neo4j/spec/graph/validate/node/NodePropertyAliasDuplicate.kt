@@ -35,7 +35,7 @@ object NodePropertyAliasDuplicate : NodeValidation {
         issues: MutableList<Issue>
     ) {
         issues += duplicateEntryIssues(
-            code = "duplicate_property_alias",
+            code = "duplicate_node_property_alias",
             kind = "alias",
             owner = "property '$propertyId' of node '$nodeId'",
             values = property.aliases,

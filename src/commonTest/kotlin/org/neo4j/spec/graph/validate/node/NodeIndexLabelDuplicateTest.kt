@@ -47,7 +47,7 @@ class NodeIndexLabelDuplicateTest {
         val issues = validate(mutableListOf("a", "a", "b"))
 
         assertEquals(1, issues.size)
-        assertEquals("duplicate_index_label", issues.first().code)
+        assertEquals("duplicate_node_index_label", issues.first().code)
         assertEquals("nodes.n.extensions.indexes.i.labels[1]", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }

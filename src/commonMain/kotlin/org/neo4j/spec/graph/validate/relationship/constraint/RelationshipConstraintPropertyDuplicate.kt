@@ -36,7 +36,7 @@ object RelationshipConstraintPropertyDuplicate : RelationshipValidation {
         issues: MutableList<Issue>
     ) {
         issues += duplicateEntryIssues(
-            code = "duplicate_constraint_property",
+            code = "duplicate_relationship_constraint_property",
             kind = "property",
             owner = "constraint '$constraintId' on relationship '$relationshipId'",
             values = constraint.properties,

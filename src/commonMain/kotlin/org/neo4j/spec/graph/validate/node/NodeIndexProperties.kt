@@ -32,7 +32,7 @@ object NodeIndexProperties : NodeValidation {
         if (index.properties.isEmpty()) {
             issues.add(
                 Issue(
-                    code = "missing_index_properties",
+                    code = "missing_node_index_properties",
                     message = "Index '$indexId' on node '$nodeId' must have at least one property",
                     path = "nodes.$nodeId.extensions.indexes.$indexId.properties"
                 )

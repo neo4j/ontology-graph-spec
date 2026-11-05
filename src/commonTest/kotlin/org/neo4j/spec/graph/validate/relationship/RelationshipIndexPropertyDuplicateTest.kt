@@ -50,7 +50,7 @@ class RelationshipIndexPropertyDuplicateTest {
         val issues = validate(mutableListOf("a", "a", "b"))
 
         assertEquals(1, issues.size)
-        assertEquals("duplicate_index_property", issues.first().code)
+        assertEquals("duplicate_relationship_index_property", issues.first().code)
         assertEquals("relationships.r.extensions.indexes.i.properties[1]", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }

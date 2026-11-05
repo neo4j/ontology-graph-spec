@@ -35,7 +35,7 @@ object RelationshipPropertyAliasDuplicate : RelationshipValidation {
         issues: MutableList<Issue>
     ) {
         issues += duplicateEntryIssues(
-            code = "duplicate_property_alias",
+            code = "duplicate_relationship_property_alias",
             kind = "alias",
             owner = "property '$propertyId' of relationship '$relationshipId'",
             values = property.aliases,

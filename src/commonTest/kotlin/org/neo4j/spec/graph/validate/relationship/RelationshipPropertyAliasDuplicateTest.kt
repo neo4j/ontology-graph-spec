@@ -48,7 +48,7 @@ class RelationshipPropertyAliasDuplicateTest {
         val issues = validate(mutableListOf("a", "a", "b"))
 
         assertEquals(1, issues.size)
-        assertEquals("duplicate_property_alias", issues.first().code)
+        assertEquals("duplicate_relationship_property_alias", issues.first().code)
         assertEquals("relationships.r.properties.p.aliases[1]", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }

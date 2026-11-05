@@ -35,7 +35,7 @@ object NodeIndexPropertyDuplicate : NodeValidation {
         issues: MutableList<Issue>
     ) {
         issues += duplicateEntryIssues(
-            code = "duplicate_index_property",
+            code = "duplicate_node_index_property",
             kind = "property",
             owner = "index '$indexId' on node '$nodeId'",
             values = index.properties,

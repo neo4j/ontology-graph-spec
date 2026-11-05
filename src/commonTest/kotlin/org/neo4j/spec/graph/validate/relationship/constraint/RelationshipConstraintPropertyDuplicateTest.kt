@@ -49,7 +49,7 @@ class RelationshipConstraintPropertyDuplicateTest {
         val issues = validate(mutableListOf("a", "a", "b"))
 
         assertEquals(1, issues.size)
-        assertEquals("duplicate_constraint_property", issues.first().code)
+        assertEquals("duplicate_relationship_constraint_property", issues.first().code)
         assertEquals("relationships.r.constraints.c.properties[1]", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }

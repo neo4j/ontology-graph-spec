@@ -35,7 +35,7 @@ object RelationshipIndexPropertyDuplicate : RelationshipValidation {
         issues: MutableList<Issue>
     ) {
         issues += duplicateEntryIssues(
-            code = "duplicate_index_property",
+            code = "duplicate_relationship_index_property",
             kind = "property",
             owner = "index '$indexId' on relationship '$relationshipId'",
             values = index.properties,

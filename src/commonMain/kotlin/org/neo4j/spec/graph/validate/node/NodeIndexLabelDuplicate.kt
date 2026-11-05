@@ -35,7 +35,7 @@ object NodeIndexLabelDuplicate : NodeValidation {
         issues: MutableList<Issue>
     ) {
         issues += duplicateEntryIssues(
-            code = "duplicate_index_label",
+            code = "duplicate_node_index_label",
             kind = "label",
             owner = "index '$indexId' on node '$nodeId'",
             values = index.labels,

@@ -46,7 +46,7 @@ class NodeConstraintPropertyDuplicateTest {
         val issues = validate(mutableListOf("a", "a", "b"))
 
         assertEquals(1, issues.size)
-        assertEquals("duplicate_constraint_property", issues.first().code)
+        assertEquals("duplicate_node_constraint_property", issues.first().code)
         assertEquals("nodes.n.constraints.c.properties[1]", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }

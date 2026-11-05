@@ -36,7 +36,7 @@ object NodeConstraintPropertyDuplicate : NodeValidation {
         issues: MutableList<Issue>
     ) {
         issues += duplicateEntryIssues(
-            code = "duplicate_constraint_property",
+            code = "duplicate_node_constraint_property",
             kind = "property",
             owner = "constraint '$constraintId' on node '$nodeId'",
             values = constraint.properties,
