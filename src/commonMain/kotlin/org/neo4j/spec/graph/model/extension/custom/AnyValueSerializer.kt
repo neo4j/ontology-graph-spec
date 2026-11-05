@@ -41,7 +41,8 @@ internal const val MAX_CUSTOM_DEPTH = 128
 
 /**
  * Serializes an untyped custom extension value with an implicit type:
- * a [String], [Boolean], [Long], [Double], [List] or [Map] of string keys, nested arbitrarily.
+ * a [String], [Boolean], [Long], [Double], [List], [Set] or [Map] of string keys, nested arbitrarily.
+ * A [Set] is encoded as a list and decodes as a [List].
  *
  * Integral numbers decode as [Long] and decimals as [Double].
  */
@@ -64,6 +65,7 @@ object AnyValueSerializer : KSerializer<Any> {
             // Checked before lists and maps as JsonArray and JsonObject are also a List and Map
             is JsonElement -> throw unsupported(value)
             is List<*> -> encoder.encodeSerializableValue(listSerializer, value.map { it.requireValue() })
+            is Set<*> -> encoder.encodeSerializableValue(listSerializer, value.map { it.requireValue() })
             is Map<*, *> -> encoder.encodeSerializableValue(
                 mapSerializer,
                 value.entries.associate { (key, value) ->
@@ -84,7 +86,7 @@ object AnyValueSerializer : KSerializer<Any> {
     private fun unsupported(value: Any) = SerializationException(
         "Unsupported custom value type: ${value::class.simpleName}. " +
             "Use setSerializable(key, value) to store @Serializable objects, " +
-            "otherwise only String, Boolean, Long, Double, List and Map values are supported."
+            "otherwise only String, Boolean, Long, Double, List, Set and Map values are supported."
     )
 
     private fun Any?.requireValue(): Any = this ?: throw SerializationException("Custom values cannot be null")
@@ -118,6 +120,10 @@ object AnyValueSerializer : KSerializer<Any> {
     internal fun Any?.checkDepth(depth: Int = 1) {
         when (this) {
             is List<*> -> {
+                requireDepth(depth)
+                forEach { it.checkDepth(depth + 1) }
+            }
+            is Set<*> -> {
                 requireDepth(depth)
                 forEach { it.checkDepth(depth + 1) }
             }

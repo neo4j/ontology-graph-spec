@@ -36,6 +36,9 @@ import kotlin.test.assertNull
 private data class Point(val x: Int, val y: Double, val label: String = "origin", val tags: List<String> = emptyList())
 
 @Serializable
+private data class Tagged(val tags: Set<String>, val nested: Set<Point> = emptySet())
+
+@Serializable
 private data class Chain(val next: Chain? = null)
 
 @Serializable
@@ -110,6 +113,27 @@ class CustomExtensionsTest {
         assertEquals(1, (extensions.custom["points"] as List<*>).size)
         assertEquals(5L, extensions.custom["number"])
         assertEquals("a", (extensions.custom["explicit"] as Map<*, *>)["value"])
+    }
+
+    @Test
+    fun `sets are stored as lists and read back as sets`() {
+        extensions.setSerializable("tags", setOf("b", "a"))
+        extensions.setSerializable("tagged", Tagged(setOf("x", "y"), setOf(Point(1, 1.0))))
+
+        assertEquals(listOf("b", "a"), extensions.custom["tags"])
+        assertEquals(setOf("b", "a"), extensions.getSerializable<Set<String>>("tags"))
+        assertEquals(Tagged(setOf("x", "y"), setOf(Point(1, 1.0))), extensions.getSerializable<Tagged>("tagged"))
+        assertEquals(listOf("x", "y"), (extensions.custom["tagged"] as Map<*, *>)["tags"])
+    }
+
+    @Test
+    fun `sets survive a round trip through a file`() {
+        extensions.setSerializable("section", "tagged", Tagged(setOf("x", "y")))
+        val format = JsonFormat.default
+        val model = GraphModel(version = "1", id = "test", extensions = extensions)
+        val decoded = format.decodeModelFromString(format.encodeModelToString(model)).extensions
+
+        assertEquals(Tagged(setOf("x", "y")), decoded.getSerializable<Tagged>("section", "tagged"))
     }
 
     @Test
