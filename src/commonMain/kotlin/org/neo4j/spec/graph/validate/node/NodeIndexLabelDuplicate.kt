@@ -18,9 +18,9 @@ package org.neo4j.spec.graph.validate.node
 
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
+import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
-import org.neo4j.spec.graph.model.node.extension.NodeIndex
 
 /**
  * A node index must list each label once.

@@ -28,10 +28,10 @@ class NodeLabelDuplicateOptionalTest {
 
     private fun validate(values: MutableList<String>): List<Issue> {
         val model = GraphModel(
-        version = "1",
-        id = "test",
-        nodes = mutableMapOf("n" to Node(labels = Labels(optional = values)))
-    )
+            version = "1",
+            id = "test",
+            nodes = mutableMapOf("n" to Node(labels = Labels(optional = values)))
+        )
         return mutableListOf<Issue>().also { NodeLabelDuplicate.validate(model, it) }
     }
 

@@ -30,11 +30,17 @@ class NodeMappingKeyDuplicateTest {
 
     private fun validate(values: MutableList<String>): List<Issue> {
         val model = GraphModel(
-        version = "1",
-        id = "test",
-        nodes = mutableMapOf("n" to Node()),
-        extensions = GraphModelExtensions(dataSourceMappings = mutableMapOf("m" to mutableListOf<Mapping>(NodeMapping(node = "n", table = "t", properties = mutableMapOf(), key = values))))
-    )
+            version = "1",
+            id = "test",
+            nodes = mutableMapOf("n" to Node()),
+            extensions = GraphModelExtensions(
+                dataSourceMappings = mutableMapOf(
+                    "m" to mutableListOf<Mapping>(
+                        NodeMapping(node = "n", table = "t", properties = mutableMapOf(), key = values)
+                    )
+                )
+            )
+        )
         return mutableListOf<Issue>().also { NodeMappingKeyDuplicate.validate(model, it) }
     }
 

@@ -33,12 +33,30 @@ class RelationshipMappingKeyDuplicateTest {
 
     private fun validate(values: MutableList<String>): List<Issue> {
         val model = GraphModel(
-        version = "1",
-        id = "test",
-        nodes = mutableMapOf("n" to Node()),
-        relationships = mutableMapOf("r" to Relationship(type = "T", from = RelationshipTarget(node = "n"), to = RelationshipTarget(node = "n"))),
-        extensions = GraphModelExtensions(dataSourceMappings = mutableMapOf("m" to mutableListOf<Mapping>(RelationshipMapping(relationship = "r", table = "t", fromNode = TargetMapping(), toNode = TargetMapping(), key = values))))
-    )
+            version = "1",
+            id = "test",
+            nodes = mutableMapOf("n" to Node()),
+            relationships = mutableMapOf(
+                "r" to Relationship(
+                    type = "T",
+                    from = RelationshipTarget(node = "n"),
+                    to = RelationshipTarget(node = "n")
+                )
+            ),
+            extensions = GraphModelExtensions(
+                dataSourceMappings = mutableMapOf(
+                    "m" to mutableListOf<Mapping>(
+                        RelationshipMapping(
+                            relationship = "r",
+                            table = "t",
+                            fromNode = TargetMapping(),
+                            toNode = TargetMapping(),
+                            key = values
+                        )
+                    )
+                )
+            )
+        )
         return mutableListOf<Issue>().also { RelationshipMappingKeyDuplicate.validate(model, it) }
     }
 

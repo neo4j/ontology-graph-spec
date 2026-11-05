@@ -18,9 +18,9 @@ package org.neo4j.spec.graph.validate.node.constraint
 
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
+import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
-import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.validate.node.NodeValidation
 
 /**

@@ -122,7 +122,9 @@ class CustomMapSerializerTest {
     @Test
     fun `raw sets encode as lists and decode as lists`() {
         val format = JsonFormat.default
-        val encoded = format.encodeModelToString(model(mutableMapOf("tags" to setOf("a", "b"), "n" to setOf(setOf(1L)))))
+        val encoded = format.encodeModelToString(
+            model(mutableMapOf("tags" to setOf("a", "b"), "n" to setOf(setOf(1L))))
+        )
         val decoded = format.decodeModelFromString(encoded).extensions.custom
 
         assertEquals(listOf("a", "b"), decoded["tags"])

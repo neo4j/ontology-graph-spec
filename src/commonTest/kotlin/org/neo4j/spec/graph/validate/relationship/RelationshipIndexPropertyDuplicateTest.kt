@@ -32,11 +32,20 @@ class RelationshipIndexPropertyDuplicateTest {
 
     private fun validate(values: MutableList<String>): List<Issue> {
         val model = GraphModel(
-        version = "1",
-        id = "test",
-        nodes = mutableMapOf("n" to Node()),
-        relationships = mutableMapOf("r" to Relationship(type = "T", from = RelationshipTarget(node = "n"), to = RelationshipTarget(node = "n"), extensions = RelationshipExtensions(indexes = mutableMapOf("i" to RelationshipIndex(type = IndexType.RANGE, properties = values)))))
-    )
+            version = "1",
+            id = "test",
+            nodes = mutableMapOf("n" to Node()),
+            relationships = mutableMapOf(
+                "r" to Relationship(
+                    type = "T",
+                    from = RelationshipTarget(node = "n"),
+                    to = RelationshipTarget(node = "n"),
+                    extensions = RelationshipExtensions(
+                        indexes = mutableMapOf("i" to RelationshipIndex(type = IndexType.RANGE, properties = values))
+                    )
+                )
+            )
+        )
         return mutableListOf<Issue>().also { RelationshipIndexPropertyDuplicate.validate(model, it) }
     }
 

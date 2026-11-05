@@ -28,10 +28,10 @@ class NodePropertyAliasDuplicateTest {
 
     private fun validate(values: MutableList<String>): List<Issue> {
         val model = GraphModel(
-        version = "1",
-        id = "test",
-        nodes = mutableMapOf("n" to Node(properties = mutableMapOf("p" to Property(aliases = values))))
-    )
+            version = "1",
+            id = "test",
+            nodes = mutableMapOf("n" to Node(properties = mutableMapOf("p" to Property(aliases = values))))
+        )
         return mutableListOf<Issue>().also { NodePropertyAliasDuplicate.validate(model, it) }
     }
 

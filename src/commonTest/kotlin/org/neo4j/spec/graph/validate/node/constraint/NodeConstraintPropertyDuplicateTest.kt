@@ -29,10 +29,14 @@ class NodeConstraintPropertyDuplicateTest {
 
     private fun validate(values: MutableList<String>): List<Issue> {
         val model = GraphModel(
-        version = "1",
-        id = "test",
-        nodes = mutableMapOf("n" to Node(constraints = mutableMapOf("c" to NodeConstraint(type = ConstraintType.UNIQUE, properties = values))))
-    )
+            version = "1",
+            id = "test",
+            nodes = mutableMapOf(
+                "n" to Node(
+                    constraints = mutableMapOf("c" to NodeConstraint(type = ConstraintType.UNIQUE, properties = values))
+                )
+            )
+        )
         return mutableListOf<Issue>().also { NodeConstraintPropertyDuplicate.validate(model, it) }
     }
 

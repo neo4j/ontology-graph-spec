@@ -30,10 +30,18 @@ class NodeIndexLabelDuplicateTest {
 
     private fun validate(values: MutableList<String>): List<Issue> {
         val model = GraphModel(
-        version = "1",
-        id = "test",
-        nodes = mutableMapOf("n" to Node(extensions = NodeExtensions(indexes = mutableMapOf("i" to NodeIndex(type = IndexType.RANGE, labels = values, properties = mutableListOf("p"))))))
-    )
+            version = "1",
+            id = "test",
+            nodes = mutableMapOf(
+                "n" to Node(
+                    extensions = NodeExtensions(
+                        indexes = mutableMapOf(
+                            "i" to NodeIndex(type = IndexType.RANGE, labels = values, properties = mutableListOf("p"))
+                        )
+                    )
+                )
+            )
+        )
         return mutableListOf<Issue>().also { NodeIndexLabelDuplicate.validate(model, it) }
     }
 

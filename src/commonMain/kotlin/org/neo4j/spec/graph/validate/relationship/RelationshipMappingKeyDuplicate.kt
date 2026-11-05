@@ -17,10 +17,10 @@
 package org.neo4j.spec.graph.validate.relationship
 
 import org.neo4j.spec.graph.model.GraphModel
+import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
-import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 
 /**
  * A relationship mapping key must list each property once.
