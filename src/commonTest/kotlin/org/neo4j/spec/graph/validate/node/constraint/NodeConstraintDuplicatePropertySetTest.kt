@@ -29,102 +29,117 @@ import kotlin.test.assertTrue
 
 class NodeConstraintDuplicatePropertySetTest {
 
-    private val validator = NodeConstraintDuplicatePropertySet
-    private val model =
-        GraphModel(version = "1", id = "test")
-
-    @Test
-    fun `pass when no duplicate composite property sets`() {
+    private fun validate(constraints: Map<String, NodeConstraint>): List<Issue> {
         val node = Node(
             labels = Labels(identifier = "Person"),
             properties = mutableMapOf("email" to Property(), "name" to Property()),
-            constraints = mutableMapOf(
-                "key_email_name" to NodeConstraint(
-                    type = ConstraintType.KEY,
-                    properties = mutableSetOf("email", "name")
-                ),
-                "uniq_email" to NodeConstraint(
-                    type = ConstraintType.UNIQUE,
-                    properties = mutableSetOf("email")
-                )
+            constraints = constraints.toMutableMap()
+        )
+        val model = GraphModel(version = "1", id = "test", nodes = mutableMapOf("person" to node))
+        val issues = mutableListOf<Issue>()
+        NodeConstraintDuplicatePropertySet.validate(model, issues)
+        return issues
+    }
+
+    private fun constraint(type: ConstraintType, vararg properties: String) =
+        NodeConstraint(type, properties.toMutableSet())
+
+    @Test
+    fun `pass when single property constraints of different types cover the same property`() {
+        val issues = validate(
+            mapOf(
+                "exists_email" to constraint(ConstraintType.EXISTS, "email"),
+                "unique_email" to constraint(ConstraintType.UNIQUE, "email"),
+                "type_email" to constraint(ConstraintType.PROPERTY_TYPE, "email")
             )
         )
-        val issues = mutableListOf<Issue>()
 
-        validator.validateNode(model, "personNode", node, issues)
-
-        assertTrue(issues.isEmpty(), "Expected no issues when no duplicate property sets")
+        assertTrue(issues.isEmpty())
     }
 
     @Test
-    fun `fail when two composite constraints share same property set`() {
-        val node = Node(
-            labels = Labels(identifier = "Person"),
-            properties = mutableMapOf("email" to Property(), "name" to Property()),
-            constraints = mutableMapOf(
-                "key1" to NodeConstraint(
-                    type = ConstraintType.KEY,
-                    properties = mutableSetOf("email", "name")
-                ),
-                "key2" to NodeConstraint(
-                    type = ConstraintType.UNIQUE,
-                    properties = mutableSetOf("email", "name")
-                )
+    fun `pass when constraints cover different properties`() {
+        val issues = validate(
+            mapOf(
+                "key_email_name" to constraint(ConstraintType.KEY, "email", "name"),
+                "unique_email" to constraint(ConstraintType.UNIQUE, "email"),
+                "key_name" to constraint(ConstraintType.KEY, "name")
             )
         )
-        val issues = mutableListOf<Issue>()
 
-        validator.validateNode(model, "personNode", node, issues)
+        assertTrue(issues.isEmpty())
+    }
 
-        assertEquals(2, issues.size)
-        assertEquals("duplicate_node_constraint_property_set", issues.first().code)
+    @Test
+    fun `fail when two single property constraints of the same type cover the same property`() {
+        val issues = validate(
+            mapOf(
+                "key1" to constraint(ConstraintType.KEY, "email"),
+                "key2" to constraint(ConstraintType.KEY, "email")
+            )
+        )
+
+        assertEquals(
+            listOf(
+                Issue(
+                    code = "duplicate_node_constraint_property_set",
+                    message = "Constraint 'key1' (KEY on email) on node 'person' duplicates 'key2'",
+                    path = "nodes.person.constraints.key1.properties"
+                ),
+                Issue(
+                    code = "duplicate_node_constraint_property_set",
+                    message = "Constraint 'key2' (KEY on email) on node 'person' duplicates 'key1'",
+                    path = "nodes.person.constraints.key2.properties"
+                )
+            ),
+            issues
+        )
+    }
+
+    @Test
+    fun `fail when two composite constraints cover the same properties`() {
+        val issues = validate(
+            mapOf(
+                "key1" to constraint(ConstraintType.KEY, "email", "name"),
+                "unique1" to constraint(ConstraintType.UNIQUE, "email", "name")
+            )
+        )
+
+        assertEquals(
+            listOf(
+                "Constraint 'key1' (KEY on email, name) on node 'person' duplicates 'unique1'",
+                "Constraint 'unique1' (UNIQUE on email, name) on node 'person' duplicates 'key1'"
+            ),
+            issues.map { it.message }
+        )
     }
 
     @Test
     fun `fail when property sets are equal in different order`() {
-        // order-independent comparison like UPX isSamePropertyList
-        val node = Node(
-            labels = Labels(identifier = "Person"),
-            properties = mutableMapOf("email" to Property(), "name" to Property()),
-            constraints = mutableMapOf(
-                "key1" to NodeConstraint(
-                    type = ConstraintType.KEY,
-                    properties = mutableSetOf("email", "name")
-                ),
-                "key2" to NodeConstraint(
-                    type = ConstraintType.KEY,
-                    properties = mutableSetOf("name", "email")
-                )
+        val issues = validate(
+            mapOf(
+                "key1" to constraint(ConstraintType.KEY, "email", "name"),
+                "key2" to constraint(ConstraintType.KEY, "name", "email")
             )
         )
-        val issues = mutableListOf<Issue>()
-
-        validator.validateNode(model, "personNode", node, issues)
 
         assertEquals(2, issues.size)
     }
 
     @Test
-    fun `pass when two single-property constraints share the same property`() {
-        // 1-prop constraints are never checked (UPX: propertyIds.length < 2 returns false)
-        val node = Node(
-            labels = Labels(identifier = "Person"),
-            properties = mutableMapOf("email" to Property()),
-            constraints = mutableMapOf(
-                "key1" to NodeConstraint(
-                    type = ConstraintType.KEY,
-                    properties = mutableSetOf("email")
-                ),
-                "key2" to NodeConstraint(
-                    type = ConstraintType.UNIQUE,
-                    properties = mutableSetOf("email")
-                )
+    fun `names every duplicate`() {
+        val issues = validate(
+            mapOf(
+                "unique1" to constraint(ConstraintType.UNIQUE, "email"),
+                "unique2" to constraint(ConstraintType.UNIQUE, "email"),
+                "unique3" to constraint(ConstraintType.UNIQUE, "email")
             )
         )
-        val issues = mutableListOf<Issue>()
 
-        validator.validateNode(model, "personNode", node, issues)
-
-        assertTrue(issues.isEmpty(), "1-prop constraints are never checked for duplicates")
+        assertEquals(3, issues.size)
+        assertEquals(
+            "Constraint 'unique1' (UNIQUE on email) on node 'person' duplicates 'unique2', 'unique3'",
+            issues.first().message
+        )
     }
 }

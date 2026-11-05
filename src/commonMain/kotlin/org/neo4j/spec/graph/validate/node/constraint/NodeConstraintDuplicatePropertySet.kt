@@ -18,28 +18,31 @@ package org.neo4j.spec.graph.validate.node.constraint
 
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
+import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.constraint.isCompositeConstraint
+import org.neo4j.spec.graph.validate.constraint.duplicateConstraintIds
 import org.neo4j.spec.graph.validate.node.NodeValidation
 
 object NodeConstraintDuplicatePropertySet : NodeValidation {
-    override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
-        val compositeConstraints = node.constraints.values.filter { isCompositeConstraint(it.properties) }
-        for ((constraintId, constraint) in node.constraints) {
-            if (!isCompositeConstraint(constraint.properties)) continue
-            val isDuplicate = compositeConstraints.any { other ->
-                other !== constraint && other.properties.toSet() == constraint.properties.toSet()
-            }
-            if (isDuplicate) {
-                issues.add(
-                    Issue(
-                        code = "duplicate_node_constraint_property_set",
-                        message = "Constraint '$constraintId' property set duplicates " +
-                            "another composite constraint on node '$nodeId'",
-                        path = "nodes.$nodeId.constraints.$constraintId.properties"
-                    )
+    override fun validateConstraint(
+        model: GraphModel,
+        nodeId: String,
+        node: Node,
+        constraintId: String,
+        constraint: NodeConstraint,
+        issues: MutableList<Issue>
+    ) {
+        val duplicates = duplicateConstraintIds(constraintId, node.constraints)
+        if (duplicates.isNotEmpty()) {
+            val properties = constraint.properties.joinToString()
+            issues.add(
+                Issue(
+                    code = "duplicate_node_constraint_property_set",
+                    message = "Constraint '$constraintId' (${constraint.type} on $properties) on node '$nodeId' " +
+                        "duplicates ${duplicates.joinToString { "'$it'" }}",
+                    path = "nodes.$nodeId.constraints.$constraintId.properties"
                 )
-            }
+            )
         }
     }
 }
