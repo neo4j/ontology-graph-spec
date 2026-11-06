@@ -27,14 +27,14 @@ import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
 object NodeLabelDuplicate : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
         issues += duplicateEntryIssues(
-            code = "duplicate_implied_label",
+            code = "duplicate_node_implied_label",
             kind = "implied label",
             owner = "node '$nodeId'",
             values = node.labels.implied,
             path = "nodes.$nodeId.labels.implied"
         )
         issues += duplicateEntryIssues(
-            code = "duplicate_optional_label",
+            code = "duplicate_node_optional_label",
             kind = "optional label",
             owner = "node '$nodeId'",
             values = node.labels.optional,
