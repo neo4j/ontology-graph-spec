@@ -1,0 +1,2659 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1.0.0",
+    "id": "graph-model",
+    "nodes": {
+        "n:0": {
+            "labels": {
+                "identifier": "Comment"
+            },
+            "properties": {
+                "p:0_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:0_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                },
+                "p:0_2": {
+                    "type": "BOOLEAN",
+                    "name": "explicitlyDeleted"
+                },
+                "p:0_3": {
+                    "type": "INTEGER",
+                    "name": "id"
+                },
+                "p:0_4": {
+                    "type": "STRING",
+                    "name": "locationIP"
+                },
+                "p:0_5": {
+                    "type": "STRING",
+                    "name": "browserUsed"
+                },
+                "p:0_6": {
+                    "type": "STRING",
+                    "name": "content"
+                },
+                "p:0_7": {
+                    "type": "INTEGER",
+                    "name": "length"
+                }
+            },
+            "constraints": {
+                "c:0": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:0_3"
+                    ],
+                    "name": "Comment"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:0": {
+                        "type": "TEXT",
+                        "labels": [
+                            "Comment"
+                        ],
+                        "properties": [
+                            "p:0_3"
+                        ],
+                        "name": "Comment"
+                    }
+                }
+            }
+        },
+        "n:1": {
+            "labels": {
+                "identifier": "Forum"
+            },
+            "properties": {
+                "p:1_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:1_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                },
+                "p:1_2": {
+                    "type": "BOOLEAN",
+                    "name": "explicitlyDeleted"
+                },
+                "p:1_3": {
+                    "type": "INTEGER",
+                    "name": "id"
+                },
+                "p:1_4": {
+                    "type": "STRING",
+                    "name": "title"
+                }
+            },
+            "constraints": {
+                "c:1": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:1_3"
+                    ],
+                    "name": "Forum"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:1": {
+                        "type": "TEXT",
+                        "labels": [
+                            "Forum"
+                        ],
+                        "properties": [
+                            "p:1_3"
+                        ],
+                        "name": "Forum"
+                    }
+                }
+            }
+        },
+        "n:2": {
+            "labels": {
+                "identifier": "Organisation"
+            },
+            "properties": {
+                "p:2_0": {
+                    "type": "INTEGER",
+                    "name": "id"
+                },
+                "p:2_1": {
+                    "type": "STRING",
+                    "name": "type"
+                },
+                "p:2_2": {
+                    "type": "STRING",
+                    "name": "name"
+                },
+                "p:2_3": {
+                    "type": "STRING",
+                    "name": "url"
+                }
+            },
+            "constraints": {
+                "c:2": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:2_0"
+                    ],
+                    "name": "Organisation"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:2": {
+                        "type": "TEXT",
+                        "labels": [
+                            "Organisation"
+                        ],
+                        "properties": [
+                            "p:2_0"
+                        ],
+                        "name": "Organisation"
+                    }
+                }
+            }
+        },
+        "n:3": {
+            "labels": {
+                "identifier": "Person"
+            },
+            "properties": {
+                "p:3_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:3_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                },
+                "p:3_2": {
+                    "type": "BOOLEAN",
+                    "name": "explicitlyDeleted"
+                },
+                "p:3_3": {
+                    "type": "INTEGER",
+                    "name": "id"
+                },
+                "p:3_4": {
+                    "type": "STRING",
+                    "name": "firstName"
+                },
+                "p:3_5": {
+                    "type": "STRING",
+                    "name": "lastName"
+                },
+                "p:3_6": {
+                    "type": "STRING",
+                    "name": "gender"
+                },
+                "p:3_7": {
+                    "type": "INTEGER",
+                    "name": "birthday"
+                },
+                "p:3_8": {
+                    "type": "STRING",
+                    "name": "locationIP"
+                },
+                "p:3_9": {
+                    "type": "STRING",
+                    "name": "browserUsed"
+                },
+                "p:3_11": {
+                    "type": "STRING",
+                    "name": "language"
+                },
+                "p:3_12": {
+                    "type": "STRING",
+                    "name": "email"
+                }
+            },
+            "constraints": {
+                "c:3": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:3_3"
+                    ],
+                    "name": "Person"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:3": {
+                        "type": "TEXT",
+                        "labels": [
+                            "Person"
+                        ],
+                        "properties": [
+                            "p:3_3"
+                        ],
+                        "name": "Person"
+                    }
+                }
+            }
+        },
+        "n:4": {
+            "labels": {
+                "identifier": "Place"
+            },
+            "properties": {
+                "p:4_0": {
+                    "type": "INTEGER",
+                    "name": "id"
+                },
+                "p:4_1": {
+                    "type": "STRING",
+                    "name": "name"
+                },
+                "p:4_2": {
+                    "type": "STRING",
+                    "name": "url"
+                },
+                "p:4_3": {
+                    "type": "STRING",
+                    "name": "type"
+                }
+            },
+            "constraints": {
+                "c:4": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:4_0"
+                    ],
+                    "name": "Place"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:4": {
+                        "type": "TEXT",
+                        "labels": [
+                            "Place"
+                        ],
+                        "properties": [
+                            "p:4_0"
+                        ],
+                        "name": "Place"
+                    }
+                }
+            }
+        },
+        "n:5": {
+            "labels": {
+                "identifier": "Post"
+            },
+            "properties": {
+                "p:5_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:5_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                },
+                "p:5_2": {
+                    "type": "BOOLEAN",
+                    "name": "explicitlyDeleted"
+                },
+                "p:5_3": {
+                    "type": "INTEGER",
+                    "name": "id"
+                },
+                "p:5_4": {
+                    "type": "STRING",
+                    "name": "imageFile"
+                },
+                "p:5_5": {
+                    "type": "STRING",
+                    "name": "locationIP"
+                },
+                "p:5_6": {
+                    "type": "STRING",
+                    "name": "browserUsed"
+                },
+                "p:5_7": {
+                    "type": "STRING",
+                    "name": "language"
+                },
+                "p:5_8": {
+                    "type": "STRING",
+                    "name": "content"
+                },
+                "p:5_9": {
+                    "type": "INTEGER",
+                    "name": "length"
+                }
+            },
+            "constraints": {
+                "c:5": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:5_3"
+                    ],
+                    "name": "Post"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:5": {
+                        "type": "TEXT",
+                        "labels": [
+                            "Post"
+                        ],
+                        "properties": [
+                            "p:5_3"
+                        ],
+                        "name": "Post"
+                    }
+                }
+            }
+        },
+        "n:6": {
+            "labels": {
+                "identifier": "Tag"
+            },
+            "properties": {
+                "p:6_0": {
+                    "type": "INTEGER",
+                    "name": "id"
+                },
+                "p:6_1": {
+                    "type": "STRING",
+                    "name": "name"
+                },
+                "p:6_2": {
+                    "type": "STRING",
+                    "name": "url"
+                }
+            },
+            "constraints": {
+                "c:6": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:6_0"
+                    ],
+                    "name": "Tag"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:6": {
+                        "type": "TEXT",
+                        "labels": [
+                            "Tag"
+                        ],
+                        "properties": [
+                            "p:6_0"
+                        ],
+                        "name": "Tag"
+                    }
+                }
+            }
+        },
+        "n:7": {
+            "labels": {
+                "identifier": "TagClass"
+            },
+            "properties": {
+                "p:7_0": {
+                    "type": "INTEGER",
+                    "name": "id"
+                },
+                "p:7_1": {
+                    "type": "STRING",
+                    "name": "name"
+                },
+                "p:7_2": {
+                    "type": "STRING",
+                    "name": "url"
+                }
+            },
+            "constraints": {
+                "c:7": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:7_0"
+                    ],
+                    "name": "TagClass"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:7": {
+                        "type": "TEXT",
+                        "labels": [
+                            "TagClass"
+                        ],
+                        "properties": [
+                            "p:7_0"
+                        ],
+                        "name": "TagClass"
+                    }
+                }
+            }
+        }
+    },
+    "relationships": {
+        "r:0": {
+            "type": "AUTHORED_BY",
+            "from": {
+                "node": "n:0"
+            },
+            "to": {
+                "node": "n:3"
+            }
+        },
+        "r:1": {
+            "type": "AUTHORED_AT",
+            "from": {
+                "node": "n:0"
+            },
+            "to": {
+                "node": "n:4"
+            }
+        },
+        "r:2": {
+            "type": "REPLIED_TO",
+            "from": {
+                "node": "n:0"
+            },
+            "to": {
+                "node": "n:5"
+            }
+        },
+        "r:3": {
+            "type": "REPLIED_TO",
+            "from": {
+                "node": "n:0"
+            },
+            "to": {
+                "node": "n:0"
+            }
+        },
+        "r:4": {
+            "type": "HAS_TAG",
+            "from": {
+                "node": "n:0"
+            },
+            "to": {
+                "node": "n:6"
+            },
+            "properties": {
+                "p:4_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:4_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                }
+            }
+        },
+        "r:5": {
+            "type": "MODERATED_BY",
+            "from": {
+                "node": "n:1"
+            },
+            "to": {
+                "node": "n:3"
+            }
+        },
+        "r:6": {
+            "type": "MEMBER_OF",
+            "from": {
+                "node": "n:3"
+            },
+            "to": {
+                "node": "n:1"
+            },
+            "properties": {
+                "p:6_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:6_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                },
+                "p:6_2": {
+                    "type": "BOOLEAN",
+                    "name": "explicitlyDeleted"
+                }
+            }
+        },
+        "r:7": {
+            "type": "HAS_TAG",
+            "from": {
+                "node": "n:1"
+            },
+            "to": {
+                "node": "n:6"
+            },
+            "properties": {
+                "p:7_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:7_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                }
+            }
+        },
+        "r:8": {
+            "type": "LOCATED_IN",
+            "from": {
+                "node": "n:2"
+            },
+            "to": {
+                "node": "n:4"
+            }
+        },
+        "r:9": {
+            "type": "LIVES_IN",
+            "from": {
+                "node": "n:3"
+            },
+            "to": {
+                "node": "n:4"
+            }
+        },
+        "r:10": {
+            "type": "INTERESTED_IN",
+            "from": {
+                "node": "n:3"
+            },
+            "to": {
+                "node": "n:6"
+            },
+            "properties": {
+                "p:10_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:10_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                }
+            }
+        },
+        "r:11": {
+            "type": "KNOWS",
+            "from": {
+                "node": "n:3"
+            },
+            "to": {
+                "node": "n:3"
+            },
+            "properties": {
+                "p:11_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:11_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                },
+                "p:11_2": {
+                    "type": "BOOLEAN",
+                    "name": "explicitlyDeleted"
+                }
+            }
+        },
+        "r:12": {
+            "type": "LIKED",
+            "from": {
+                "node": "n:3"
+            },
+            "to": {
+                "node": "n:0"
+            },
+            "properties": {
+                "p:12_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:12_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                },
+                "p:12_2": {
+                    "type": "BOOLEAN",
+                    "name": "explicitlyDeleted"
+                }
+            }
+        },
+        "r:13": {
+            "type": "LIKED",
+            "from": {
+                "node": "n:3"
+            },
+            "to": {
+                "node": "n:5"
+            },
+            "properties": {
+                "p:13_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:13_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                },
+                "p:13_2": {
+                    "type": "BOOLEAN",
+                    "name": "explicitlyDeleted"
+                }
+            }
+        },
+        "r:14": {
+            "type": "STUDIES_AT",
+            "from": {
+                "node": "n:3"
+            },
+            "to": {
+                "node": "n:2"
+            },
+            "properties": {
+                "p:14_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:14_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                },
+                "p:14_2": {
+                    "type": "INTEGER",
+                    "name": "classYear"
+                }
+            }
+        },
+        "r:15": {
+            "type": "WORKS_AT",
+            "from": {
+                "node": "n:3"
+            },
+            "to": {
+                "node": "n:2"
+            },
+            "properties": {
+                "p:15_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:15_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                },
+                "p:15_2": {
+                    "type": "INTEGER",
+                    "name": "workFrom"
+                }
+            }
+        },
+        "r:16": {
+            "type": "IS_SIMILAR_TO",
+            "from": {
+                "node": "n:4"
+            },
+            "to": {
+                "node": "n:4"
+            }
+        },
+        "r:17": {
+            "type": "AUTHORED_BY",
+            "from": {
+                "node": "n:5"
+            },
+            "to": {
+                "node": "n:3"
+            }
+        },
+        "r:18": {
+            "type": "POSTED_IN",
+            "from": {
+                "node": "n:5"
+            },
+            "to": {
+                "node": "n:1"
+            }
+        },
+        "r:19": {
+            "type": "AUTHORED_AT",
+            "from": {
+                "node": "n:5"
+            },
+            "to": {
+                "node": "n:4"
+            }
+        },
+        "r:20": {
+            "type": "HAS_TAG",
+            "from": {
+                "node": "n:5"
+            },
+            "to": {
+                "node": "n:6"
+            },
+            "properties": {
+                "p:20_0": {
+                    "type": "INTEGER",
+                    "name": "creationDate"
+                },
+                "p:20_1": {
+                    "type": "INTEGER",
+                    "name": "deletionDate"
+                }
+            }
+        },
+        "r:21": {
+            "type": "HAS_CLASS",
+            "from": {
+                "node": "n:6"
+            },
+            "to": {
+                "node": "n:7"
+            }
+        },
+        "r:22": {
+            "type": "IS_SUBCLASS",
+            "from": {
+                "node": "n:7"
+            },
+            "to": {
+                "node": "n:7"
+            }
+        }
+    },
+    "extensions": {
+        "data_source_tables": {
+            "Comment": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "explicitlyDeleted",
+                        "type": "BOOLEAN",
+                        "suggested": "BOOLEAN",
+                        "supported": [
+                            "STRING",
+                            "BOOLEAN"
+                        ]
+                    },
+                    {
+                        "name": "id",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "locationIP",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "browserUsed",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "content",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "length",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "CreatorPersonId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "LocationCountryId",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "ParentPostId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "ParentCommentId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "CommentHasTag": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "CommentId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "TagId",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "Forum": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "explicitlyDeleted",
+                        "type": "BOOLEAN",
+                        "suggested": "BOOLEAN",
+                        "supported": [
+                            "STRING",
+                            "BOOLEAN"
+                        ]
+                    },
+                    {
+                        "name": "id",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "title",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "ModeratorPersonId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "ForumHasMember": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "explicitlyDeleted",
+                        "type": "BOOLEAN",
+                        "suggested": "BOOLEAN",
+                        "supported": [
+                            "STRING",
+                            "BOOLEAN"
+                        ]
+                    },
+                    {
+                        "name": "ForumId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "PersonId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "ForumHasTag": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "ForumId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "TagId",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "Organisation": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "id",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "type",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "url",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "LocationPlaceId",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "Person": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "explicitlyDeleted",
+                        "type": "BOOLEAN",
+                        "suggested": "BOOLEAN",
+                        "supported": [
+                            "STRING",
+                            "BOOLEAN"
+                        ]
+                    },
+                    {
+                        "name": "id",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "firstName",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "lastName",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "gender",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "birthday",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "locationIP",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "browserUsed",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "LocationCityId",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "language",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "email",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    }
+                ]
+            },
+            "PersonHasInterest": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "PersonId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "TagId",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "PersonKnowsPerson": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "explicitlyDeleted",
+                        "type": "BOOLEAN",
+                        "suggested": "BOOLEAN",
+                        "supported": [
+                            "STRING",
+                            "BOOLEAN"
+                        ]
+                    },
+                    {
+                        "name": "Person1Id",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "Person2Id",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "PersonLikesComment": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "explicitlyDeleted",
+                        "type": "BOOLEAN",
+                        "suggested": "BOOLEAN",
+                        "supported": [
+                            "STRING",
+                            "BOOLEAN"
+                        ]
+                    },
+                    {
+                        "name": "PersonId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "CommentId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "PersonLikesPost": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "explicitlyDeleted",
+                        "type": "BOOLEAN",
+                        "suggested": "BOOLEAN",
+                        "supported": [
+                            "STRING",
+                            "BOOLEAN"
+                        ]
+                    },
+                    {
+                        "name": "PersonId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "PostId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "PersonStudiesAt": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "PersonId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "UniversityId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "classYear",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "PersonWorksAt": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "PersonId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "CompanyId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "workFrom",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "Place": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "id",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "url",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "type",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "PartOfPlaceId",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "Post": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "explicitlyDeleted",
+                        "type": "BOOLEAN",
+                        "suggested": "BOOLEAN",
+                        "supported": [
+                            "STRING",
+                            "BOOLEAN"
+                        ]
+                    },
+                    {
+                        "name": "id",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "imageFile",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "locationIP",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "browserUsed",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "language",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "content",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "length",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "CreatorPersonId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "ContainerForumId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "LocationCountryId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "PostHasTag": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creationDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "deletionDate",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "PostId",
+                        "type": "BIGINT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "TagId",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "Tag": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "id",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "url",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "TypeTagClassId",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "TagClass": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "id",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "url",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "SubclassOfTagClassId",
+                        "type": "INTEGER",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            }
+        },
+        "data_source_mappings": {
+            "mapping0": [
+                {
+                    "type": "NODE",
+                    "node": "n:0",
+                    "table": "Comment",
+                    "properties": {
+                        "p:0_0": {
+                            "column": "creationDate"
+                        },
+                        "p:0_1": {
+                            "column": "deletionDate"
+                        },
+                        "p:0_2": {
+                            "column": "explicitlyDeleted"
+                        },
+                        "p:0_3": {
+                            "column": "id"
+                        },
+                        "p:0_4": {
+                            "column": "locationIP"
+                        },
+                        "p:0_5": {
+                            "column": "browserUsed"
+                        },
+                        "p:0_6": {
+                            "column": "content"
+                        },
+                        "p:0_7": {
+                            "column": "length"
+                        }
+                    },
+                    "key": [
+                        "p:0_3"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:1",
+                    "table": "Forum",
+                    "properties": {
+                        "p:1_0": {
+                            "column": "creationDate"
+                        },
+                        "p:1_1": {
+                            "column": "deletionDate"
+                        },
+                        "p:1_2": {
+                            "column": "explicitlyDeleted"
+                        },
+                        "p:1_3": {
+                            "column": "id"
+                        },
+                        "p:1_4": {
+                            "column": "title"
+                        }
+                    },
+                    "key": [
+                        "p:1_3"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:2",
+                    "table": "Organisation",
+                    "properties": {
+                        "p:2_0": {
+                            "column": "id"
+                        },
+                        "p:2_1": {
+                            "column": "type"
+                        },
+                        "p:2_2": {
+                            "column": "name"
+                        },
+                        "p:2_3": {
+                            "column": "url"
+                        }
+                    },
+                    "key": [
+                        "p:2_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:3",
+                    "table": "Person",
+                    "properties": {
+                        "p:3_0": {
+                            "column": "creationDate"
+                        },
+                        "p:3_1": {
+                            "column": "deletionDate"
+                        },
+                        "p:3_2": {
+                            "column": "explicitlyDeleted"
+                        },
+                        "p:3_3": {
+                            "column": "id"
+                        },
+                        "p:3_4": {
+                            "column": "firstName"
+                        },
+                        "p:3_5": {
+                            "column": "lastName"
+                        },
+                        "p:3_6": {
+                            "column": "gender"
+                        },
+                        "p:3_7": {
+                            "column": "birthday"
+                        },
+                        "p:3_8": {
+                            "column": "locationIP"
+                        },
+                        "p:3_9": {
+                            "column": "browserUsed"
+                        },
+                        "p:3_11": {
+                            "column": "language"
+                        },
+                        "p:3_12": {
+                            "column": "email"
+                        }
+                    },
+                    "key": [
+                        "p:3_3"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:4",
+                    "table": "Place",
+                    "properties": {
+                        "p:4_0": {
+                            "column": "id"
+                        },
+                        "p:4_1": {
+                            "column": "name"
+                        },
+                        "p:4_2": {
+                            "column": "url"
+                        },
+                        "p:4_3": {
+                            "column": "type"
+                        }
+                    },
+                    "key": [
+                        "p:4_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:5",
+                    "table": "Post",
+                    "properties": {
+                        "p:5_0": {
+                            "column": "creationDate"
+                        },
+                        "p:5_1": {
+                            "column": "deletionDate"
+                        },
+                        "p:5_2": {
+                            "column": "explicitlyDeleted"
+                        },
+                        "p:5_3": {
+                            "column": "id"
+                        },
+                        "p:5_4": {
+                            "column": "imageFile"
+                        },
+                        "p:5_5": {
+                            "column": "locationIP"
+                        },
+                        "p:5_6": {
+                            "column": "browserUsed"
+                        },
+                        "p:5_7": {
+                            "column": "language"
+                        },
+                        "p:5_8": {
+                            "column": "content"
+                        },
+                        "p:5_9": {
+                            "column": "length"
+                        }
+                    },
+                    "key": [
+                        "p:5_3"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:6",
+                    "table": "Tag",
+                    "properties": {
+                        "p:6_0": {
+                            "column": "id"
+                        },
+                        "p:6_1": {
+                            "column": "name"
+                        },
+                        "p:6_2": {
+                            "column": "url"
+                        }
+                    },
+                    "key": [
+                        "p:6_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:7",
+                    "table": "TagClass",
+                    "properties": {
+                        "p:7_0": {
+                            "column": "id"
+                        },
+                        "p:7_1": {
+                            "column": "name"
+                        },
+                        "p:7_2": {
+                            "column": "url"
+                        }
+                    },
+                    "key": [
+                        "p:7_0"
+                    ]
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:0",
+                    "table": "Comment",
+                    "from_node": {
+                        "properties": {
+                            "p:0_3": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "CreatorPersonId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:1",
+                    "table": "Comment",
+                    "from_node": {
+                        "properties": {
+                            "p:0_3": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "LocationCountryId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:2",
+                    "table": "Comment",
+                    "from_node": {
+                        "properties": {
+                            "p:0_3": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:5_3": {
+                                "column": "ParentPostId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:3",
+                    "table": "Comment",
+                    "from_node": {
+                        "properties": {
+                            "p:0_3": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:0_3": {
+                                "column": "ParentCommentId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:4",
+                    "table": "CommentHasTag",
+                    "from_node": {
+                        "properties": {
+                            "p:0_3": {
+                                "column": "CommentId"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:6_0": {
+                                "column": "TagId"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:4_0": {
+                            "column": "creationDate"
+                        },
+                        "p:4_1": {
+                            "column": "deletionDate"
+                        }
+                    },
+                    "key": [
+                        "p:4_0"
+                    ]
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:5",
+                    "table": "Forum",
+                    "from_node": {
+                        "properties": {
+                            "p:1_3": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "ModeratorPersonId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:6",
+                    "table": "ForumHasMember",
+                    "from_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "PersonId"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:1_3": {
+                                "column": "ForumId"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:6_0": {
+                            "column": "creationDate"
+                        },
+                        "p:6_1": {
+                            "column": "deletionDate"
+                        },
+                        "p:6_2": {
+                            "column": "explicitlyDeleted"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:7",
+                    "table": "ForumHasTag",
+                    "from_node": {
+                        "properties": {
+                            "p:1_3": {
+                                "column": "ForumId"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:6_0": {
+                                "column": "TagId"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:7_0": {
+                            "column": "creationDate"
+                        },
+                        "p:7_1": {
+                            "column": "deletionDate"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:8",
+                    "table": "Organisation",
+                    "from_node": {
+                        "properties": {
+                            "p:2_0": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "LocationPlaceId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:9",
+                    "table": "Person",
+                    "from_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "LocationCityId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:10",
+                    "table": "PersonHasInterest",
+                    "from_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "PersonId"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:6_0": {
+                                "column": "TagId"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:10_0": {
+                            "column": "creationDate"
+                        },
+                        "p:10_1": {
+                            "column": "deletionDate"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:11",
+                    "table": "PersonKnowsPerson",
+                    "from_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "Person1Id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "Person2Id"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:11_0": {
+                            "column": "creationDate"
+                        },
+                        "p:11_1": {
+                            "column": "deletionDate"
+                        },
+                        "p:11_2": {
+                            "column": "explicitlyDeleted"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:12",
+                    "table": "PersonLikesComment",
+                    "from_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "PersonId"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:0_3": {
+                                "column": "CommentId"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:12_0": {
+                            "column": "creationDate"
+                        },
+                        "p:12_1": {
+                            "column": "deletionDate"
+                        },
+                        "p:12_2": {
+                            "column": "explicitlyDeleted"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:13",
+                    "table": "PersonLikesPost",
+                    "from_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "PersonId"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:5_3": {
+                                "column": "PostId"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:13_0": {
+                            "column": "creationDate"
+                        },
+                        "p:13_1": {
+                            "column": "deletionDate"
+                        },
+                        "p:13_2": {
+                            "column": "explicitlyDeleted"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:14",
+                    "table": "PersonStudiesAt",
+                    "from_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "PersonId"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:2_0": {
+                                "column": "UniversityId"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:14_0": {
+                            "column": "creationDate"
+                        },
+                        "p:14_1": {
+                            "column": "deletionDate"
+                        },
+                        "p:14_2": {
+                            "column": "classYear"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:15",
+                    "table": "PersonWorksAt",
+                    "from_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "PersonId"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:2_0": {
+                                "column": "CompanyId"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:15_0": {
+                            "column": "creationDate"
+                        },
+                        "p:15_1": {
+                            "column": "deletionDate"
+                        },
+                        "p:15_2": {
+                            "column": "workFrom"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:16",
+                    "table": "Place",
+                    "from_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "PartOfPlaceId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:17",
+                    "table": "Post",
+                    "from_node": {
+                        "properties": {
+                            "p:5_3": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:3_3": {
+                                "column": "CreatorPersonId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:18",
+                    "table": "Post",
+                    "from_node": {
+                        "properties": {
+                            "p:5_3": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:1_3": {
+                                "column": "ContainerForumId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:19",
+                    "table": "Post",
+                    "from_node": {
+                        "properties": {
+                            "p:5_3": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "LocationCountryId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:20",
+                    "table": "PostHasTag",
+                    "from_node": {
+                        "properties": {
+                            "p:5_3": {
+                                "column": "PostId"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:6_0": {
+                                "column": "TagId"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:20_0": {
+                            "column": "creationDate"
+                        },
+                        "p:20_1": {
+                            "column": "deletionDate"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:21",
+                    "table": "Tag",
+                    "from_node": {
+                        "properties": {
+                            "p:6_0": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:7_0": {
+                                "column": "TypeTagClassId"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:22",
+                    "table": "TagClass",
+                    "from_node": {
+                        "properties": {
+                            "p:7_0": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:7_0": {
+                                "column": "SubclassOfTagClassId"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

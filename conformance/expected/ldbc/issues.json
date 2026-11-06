@@ -1,0 +1,98 @@
+[
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:0' on node 'n:0' reuses name 'Comment' already used by another index or constraint",
+        "path": "nodes.n:0.extensions.indexes.i:0.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:0' on node 'n:0' reuses name 'Comment' already used by another index or constraint",
+        "path": "nodes.n:0.constraints.c:0.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:1' on node 'n:1' reuses name 'Forum' already used by another index or constraint",
+        "path": "nodes.n:1.extensions.indexes.i:1.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:1' on node 'n:1' reuses name 'Forum' already used by another index or constraint",
+        "path": "nodes.n:1.constraints.c:1.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:2' on node 'n:2' reuses name 'Organisation' already used by another index or constraint",
+        "path": "nodes.n:2.extensions.indexes.i:2.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:2' on node 'n:2' reuses name 'Organisation' already used by another index or constraint",
+        "path": "nodes.n:2.constraints.c:2.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:3' on node 'n:3' reuses name 'Person' already used by another index or constraint",
+        "path": "nodes.n:3.extensions.indexes.i:3.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:3' on node 'n:3' reuses name 'Person' already used by another index or constraint",
+        "path": "nodes.n:3.constraints.c:3.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:4' on node 'n:4' reuses name 'Place' already used by another index or constraint",
+        "path": "nodes.n:4.extensions.indexes.i:4.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:4' on node 'n:4' reuses name 'Place' already used by another index or constraint",
+        "path": "nodes.n:4.constraints.c:4.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:5' on node 'n:5' reuses name 'Post' already used by another index or constraint",
+        "path": "nodes.n:5.extensions.indexes.i:5.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:5' on node 'n:5' reuses name 'Post' already used by another index or constraint",
+        "path": "nodes.n:5.constraints.c:5.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:6' on node 'n:6' reuses name 'Tag' already used by another index or constraint",
+        "path": "nodes.n:6.extensions.indexes.i:6.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:6' on node 'n:6' reuses name 'Tag' already used by another index or constraint",
+        "path": "nodes.n:6.constraints.c:6.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:7' on node 'n:7' reuses name 'TagClass' already used by another index or constraint",
+        "path": "nodes.n:7.extensions.indexes.i:7.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:7' on node 'n:7' reuses name 'TagClass' already used by another index or constraint",
+        "path": "nodes.n:7.constraints.c:7.name",
+        "details": {}
+    }
+]

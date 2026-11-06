@@ -1,0 +1,182 @@
+[
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:0' on node 'n:0' reuses name 'actor' already used by another index or constraint",
+        "path": "nodes.n:0.extensions.indexes.i:0.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:0' on node 'n:0' reuses name 'actor' already used by another index or constraint",
+        "path": "nodes.n:0.constraints.c:0.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:1' on node 'n:1' reuses name 'address' already used by another index or constraint",
+        "path": "nodes.n:1.extensions.indexes.i:1.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:1' on node 'n:1' reuses name 'address' already used by another index or constraint",
+        "path": "nodes.n:1.constraints.c:1.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:2' on node 'n:2' reuses name 'category' already used by another index or constraint",
+        "path": "nodes.n:2.extensions.indexes.i:2.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:2' on node 'n:2' reuses name 'category' already used by another index or constraint",
+        "path": "nodes.n:2.constraints.c:2.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:3' on node 'n:3' reuses name 'city' already used by another index or constraint",
+        "path": "nodes.n:3.extensions.indexes.i:3.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:3' on node 'n:3' reuses name 'city' already used by another index or constraint",
+        "path": "nodes.n:3.constraints.c:3.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:4' on node 'n:4' reuses name 'country' already used by another index or constraint",
+        "path": "nodes.n:4.extensions.indexes.i:4.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:4' on node 'n:4' reuses name 'country' already used by another index or constraint",
+        "path": "nodes.n:4.constraints.c:4.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:5' on node 'n:5' reuses name 'customer' already used by another index or constraint",
+        "path": "nodes.n:5.extensions.indexes.i:5.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:5' on node 'n:5' reuses name 'customer' already used by another index or constraint",
+        "path": "nodes.n:5.constraints.c:5.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:6' on node 'n:6' reuses name 'film' already used by another index or constraint",
+        "path": "nodes.n:6.extensions.indexes.i:6.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:6' on node 'n:6' reuses name 'film' already used by another index or constraint",
+        "path": "nodes.n:6.constraints.c:6.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:7' on node 'n:7' reuses name 'inventory' already used by another index or constraint",
+        "path": "nodes.n:7.extensions.indexes.i:7.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:7' on node 'n:7' reuses name 'inventory' already used by another index or constraint",
+        "path": "nodes.n:7.constraints.c:7.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:8' on node 'n:8' reuses name 'language' already used by another index or constraint",
+        "path": "nodes.n:8.extensions.indexes.i:8.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:8' on node 'n:8' reuses name 'language' already used by another index or constraint",
+        "path": "nodes.n:8.constraints.c:8.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:9' on node 'n:9' reuses name 'payment' already used by another index or constraint",
+        "path": "nodes.n:9.extensions.indexes.i:9.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:9' on node 'n:9' reuses name 'payment' already used by another index or constraint",
+        "path": "nodes.n:9.constraints.c:9.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:10' on node 'n:10' reuses name 'rental' already used by another index or constraint",
+        "path": "nodes.n:10.extensions.indexes.i:10.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:10' on node 'n:10' reuses name 'rental' already used by another index or constraint",
+        "path": "nodes.n:10.constraints.c:10.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:11' on node 'n:11' reuses name 'staff' already used by another index or constraint",
+        "path": "nodes.n:11.extensions.indexes.i:11.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:11' on node 'n:11' reuses name 'staff' already used by another index or constraint",
+        "path": "nodes.n:11.constraints.c:11.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:12' on node 'n:12' reuses name 'store' already used by another index or constraint",
+        "path": "nodes.n:12.extensions.indexes.i:12.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:12' on node 'n:12' reuses name 'store' already used by another index or constraint",
+        "path": "nodes.n:12.constraints.c:12.name",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'release_year'",
+        "path": "extensions.data_source_tables.film.columns[3].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'special_features'",
+        "path": "extensions.data_source_tables.film.columns[11].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'fulltext'",
+        "path": "extensions.data_source_tables.film.columns[12].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'picture'",
+        "path": "extensions.data_source_tables.staff.columns[10].type",
+        "details": {}
+    }
+]

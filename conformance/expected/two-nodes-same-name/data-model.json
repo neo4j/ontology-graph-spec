@@ -1,0 +1,1842 @@
+{
+    "version": "3.0.0",
+    "graphSchemaRepresentation": {
+        "version": "1.0.0",
+        "graphSchema": {
+            "nodeLabels": [
+                {
+                    "$id": "nl:0",
+                    "token": "Conflict",
+                    "properties": [
+                        {
+                            "$id": "p:1",
+                            "token": "id",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:2",
+                            "token": "year",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:3",
+                            "token": "start_year",
+                            "type": {
+                                "type": "integer"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:4",
+                            "token": "end_year",
+                            "type": {
+                                "type": "integer"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:5",
+                            "token": "active_year",
+                            "type": {
+                                "type": "integer"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:6",
+                            "token": "conflict_dset_id",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:7",
+                            "token": "conflict_new_id",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:8",
+                            "token": "conflict_name",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:9",
+                            "token": "dyad_dset_id",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:10",
+                            "token": "dyad_new_id",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:11",
+                            "token": "dyad_name",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:12",
+                            "token": "deaths_civilians",
+                            "type": {
+                                "type": "integer"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:13",
+                            "token": "deaths_unknown",
+                            "type": {
+                                "type": "integer"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:14",
+                            "token": "best",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:15",
+                            "token": "high",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:16",
+                            "token": "low",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:17",
+                            "token": "deaths_a",
+                            "type": {
+                                "type": "integer"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:18",
+                            "token": "deaths_b",
+                            "type": {
+                                "type": "integer"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                },
+                {
+                    "$id": "nl:1",
+                    "token": "ConflictStatus",
+                    "properties": [
+                        {
+                            "$id": "p:19",
+                            "token": "code_status",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                },
+                {
+                    "$id": "nl:2",
+                    "token": "Side",
+                    "properties": [
+                        {
+                            "$id": "p:20",
+                            "token": "dset_id",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:21",
+                            "token": "new_id",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:22",
+                            "token": "name",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:23",
+                            "token": "gwno",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                },
+                {
+                    "$id": "nl:3",
+                    "token": "SourceArticle",
+                    "properties": [
+                        {
+                            "$id": "p:28",
+                            "token": "source_article",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:29",
+                            "token": "source_office",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:30",
+                            "token": "source_date",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:31",
+                            "token": "source_headline",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:32",
+                            "token": "source_original",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                },
+                {
+                    "$id": "nl:4",
+                    "token": "Location",
+                    "properties": [
+                        {
+                            "$id": "p:33",
+                            "token": "where_prec",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:34",
+                            "token": "where_coordinates",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:35",
+                            "token": "where_description",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:36",
+                            "token": "adm_1",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:37",
+                            "token": "adm_2",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:38",
+                            "token": "latitude",
+                            "type": {
+                                "type": "float"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:39",
+                            "token": "longitude",
+                            "type": {
+                                "type": "float"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                },
+                {
+                    "$id": "nl:5",
+                    "token": "Country",
+                    "properties": [
+                        {
+                            "$id": "p:40",
+                            "token": "iso3",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:41",
+                            "token": "country",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:42",
+                            "token": "country_id",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                },
+                {
+                    "$id": "nl:6",
+                    "token": "Region",
+                    "properties": [
+                        {
+                            "$id": "p:43",
+                            "token": "name",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                }
+            ],
+            "relationshipTypes": [
+                {
+                    "$id": "rt:0",
+                    "token": "HAS_STATUS",
+                    "properties": []
+                },
+                {
+                    "$id": "rt:1",
+                    "token": "HAS_SIDE",
+                    "properties": [
+                        {
+                            "$id": "p:44",
+                            "token": "nr_of_deaths",
+                            "type": {
+                                "type": "integer"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                },
+                {
+                    "$id": "rt:2",
+                    "token": "HAS_SIDE",
+                    "properties": [
+                        {
+                            "$id": "p:45",
+                            "token": "nr_of_deaths",
+                            "type": {
+                                "type": "integer"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                },
+                {
+                    "$id": "rt:3",
+                    "token": "INFO_FROM",
+                    "properties": []
+                },
+                {
+                    "$id": "rt:4",
+                    "token": "LOCATED_IN",
+                    "properties": []
+                },
+                {
+                    "$id": "rt:5",
+                    "token": "LOCATED_IN",
+                    "properties": []
+                },
+                {
+                    "$id": "rt:6",
+                    "token": "PART_OF",
+                    "properties": []
+                }
+            ],
+            "nodeObjectTypes": [
+                {
+                    "$id": "n:n0",
+                    "labels": [
+                        {
+                            "$ref": "#nl:0"
+                        }
+                    ]
+                },
+                {
+                    "$id": "n:n1",
+                    "labels": [
+                        {
+                            "$ref": "#nl:1"
+                        }
+                    ]
+                },
+                {
+                    "$id": "n:n2",
+                    "labels": [
+                        {
+                            "$ref": "#nl:2"
+                        }
+                    ]
+                },
+                {
+                    "$id": "n:n3",
+                    "labels": [
+                        {
+                            "$ref": "#nl:2"
+                        }
+                    ]
+                },
+                {
+                    "$id": "n:n4",
+                    "labels": [
+                        {
+                            "$ref": "#nl:3"
+                        }
+                    ]
+                },
+                {
+                    "$id": "n:n5",
+                    "labels": [
+                        {
+                            "$ref": "#nl:4"
+                        }
+                    ]
+                },
+                {
+                    "$id": "n:n6",
+                    "labels": [
+                        {
+                            "$ref": "#nl:5"
+                        }
+                    ]
+                },
+                {
+                    "$id": "n:n7",
+                    "labels": [
+                        {
+                            "$ref": "#nl:6"
+                        }
+                    ]
+                }
+            ],
+            "relationshipObjectTypes": [
+                {
+                    "$id": "r:n0",
+                    "type": {
+                        "$ref": "#rt:0"
+                    },
+                    "from": {
+                        "$ref": "#n:n0"
+                    },
+                    "to": {
+                        "$ref": "#n:n1"
+                    }
+                },
+                {
+                    "$id": "r:n1",
+                    "type": {
+                        "$ref": "#rt:1"
+                    },
+                    "from": {
+                        "$ref": "#n:n0"
+                    },
+                    "to": {
+                        "$ref": "#n:n2"
+                    }
+                },
+                {
+                    "$id": "r:n2",
+                    "type": {
+                        "$ref": "#rt:2"
+                    },
+                    "from": {
+                        "$ref": "#n:n0"
+                    },
+                    "to": {
+                        "$ref": "#n:n3"
+                    }
+                },
+                {
+                    "$id": "r:n3",
+                    "type": {
+                        "$ref": "#rt:3"
+                    },
+                    "from": {
+                        "$ref": "#n:n0"
+                    },
+                    "to": {
+                        "$ref": "#n:n4"
+                    }
+                },
+                {
+                    "$id": "r:n4",
+                    "type": {
+                        "$ref": "#rt:4"
+                    },
+                    "from": {
+                        "$ref": "#n:n0"
+                    },
+                    "to": {
+                        "$ref": "#n:n5"
+                    }
+                },
+                {
+                    "$id": "r:n5",
+                    "type": {
+                        "$ref": "#rt:5"
+                    },
+                    "from": {
+                        "$ref": "#n:n5"
+                    },
+                    "to": {
+                        "$ref": "#n:n6"
+                    }
+                },
+                {
+                    "$id": "r:n6",
+                    "type": {
+                        "$ref": "#rt:6"
+                    },
+                    "from": {
+                        "$ref": "#n:n6"
+                    },
+                    "to": {
+                        "$ref": "#n:n7"
+                    }
+                }
+            ],
+            "constraints": [
+                {
+                    "$id": "c:0",
+                    "name": "id_Conflict_uniq",
+                    "constraintType": "uniqueness",
+                    "entityType": "node",
+                    "nodeLabel": {
+                        "$ref": "#nl:0"
+                    },
+                    "properties": [
+                        {
+                            "$ref": "#p:1"
+                        }
+                    ]
+                },
+                {
+                    "$id": "c:1",
+                    "name": "code_status_ConflictStatus_uniq",
+                    "constraintType": "uniqueness",
+                    "entityType": "node",
+                    "nodeLabel": {
+                        "$ref": "#nl:1"
+                    },
+                    "properties": [
+                        {
+                            "$ref": "#p:19"
+                        }
+                    ]
+                },
+                {
+                    "$id": "c:2",
+                    "name": "name_Side_uniq",
+                    "constraintType": "uniqueness",
+                    "entityType": "node",
+                    "nodeLabel": {
+                        "$ref": "#nl:2"
+                    },
+                    "properties": [
+                        {
+                            "$ref": "#p:22"
+                        }
+                    ]
+                },
+                {
+                    "$id": "c:3",
+                    "name": "name_Side_uniq",
+                    "constraintType": "uniqueness",
+                    "entityType": "node",
+                    "nodeLabel": {
+                        "$ref": "#nl:2"
+                    },
+                    "properties": [
+                        {
+                            "$ref": "#p:26"
+                        }
+                    ]
+                },
+                {
+                    "$id": "c:4",
+                    "name": "source_headline_SourceArticle_uniq",
+                    "constraintType": "uniqueness",
+                    "entityType": "node",
+                    "nodeLabel": {
+                        "$ref": "#nl:3"
+                    },
+                    "properties": [
+                        {
+                            "$ref": "#p:31"
+                        }
+                    ]
+                },
+                {
+                    "$id": "c:5",
+                    "name": "where_coordinates_Location_uniq",
+                    "constraintType": "uniqueness",
+                    "entityType": "node",
+                    "nodeLabel": {
+                        "$ref": "#nl:4"
+                    },
+                    "properties": [
+                        {
+                            "$ref": "#p:34"
+                        }
+                    ]
+                },
+                {
+                    "$id": "c:6",
+                    "name": "country_id_Country_uniq",
+                    "constraintType": "uniqueness",
+                    "entityType": "node",
+                    "nodeLabel": {
+                        "$ref": "#nl:5"
+                    },
+                    "properties": [
+                        {
+                            "$ref": "#p:42"
+                        }
+                    ]
+                },
+                {
+                    "$id": "c:7",
+                    "name": "name_Region_uniq",
+                    "constraintType": "uniqueness",
+                    "entityType": "node",
+                    "nodeLabel": {
+                        "$ref": "#nl:6"
+                    },
+                    "properties": [
+                        {
+                            "$ref": "#p:43"
+                        }
+                    ]
+                }
+            ],
+            "indexes": []
+        }
+    },
+    "graphSchemaExtensionsRepresentation": {
+        "nodeKeyProperties": [
+            {
+                "node": {
+                    "$ref": "#n:n0"
+                },
+                "keyProperties": [
+                    {
+                        "$ref": "#p:1"
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n1"
+                },
+                "keyProperties": [
+                    {
+                        "$ref": "#p:19"
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n2"
+                },
+                "keyProperties": [
+                    {
+                        "$ref": "#p:22"
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n3"
+                },
+                "keyProperties": [
+                    {
+                        "$ref": "#p:26"
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n4"
+                },
+                "keyProperties": [
+                    {
+                        "$ref": "#p:31"
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n5"
+                },
+                "keyProperties": [
+                    {
+                        "$ref": "#p:34"
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n6"
+                },
+                "keyProperties": [
+                    {
+                        "$ref": "#p:42"
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n7"
+                },
+                "keyProperties": [
+                    {
+                        "$ref": "#p:43"
+                    }
+                ]
+            }
+        ]
+    },
+    "graphMappingRepresentation": {
+        "dataSourceSchema": {
+            "type": "sql/postgres",
+            "tableSchemas": [
+                {
+                    "name": "conflict_data_ukr.csv",
+                    "expanded": true,
+                    "fields": [
+                        {
+                            "name": "id",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "relid",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "year",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "start_year",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "end_year",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "active_year",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "boolean"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "boolean"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "code_status",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "type_of_violence",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "conflict_dset_id",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "conflict_new_id",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "conflict_name",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "dyad_dset_id",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "dyad_new_id",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "dyad_name",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "side_a_dset_id",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "side_a_new_id",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "side_a",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "side_b_dset_id",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "side_b_new_id",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "side_b",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "number_of_sources",
+                            "rawType": "int",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "source_article",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "source_office",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "source_date",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "source_headline",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "source_original",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "where_prec",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "where_coordinates",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "where_description",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "adm_1",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "adm_2",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "latitude",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "float"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "float"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "iso3",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "longitude",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "float"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "float"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "geom_wkt",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "priogrid_gid",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "country",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "country_id",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "region",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "event_clarity",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "date_prec",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "date_start",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "date_end",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "deaths_a",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "deaths_b",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "deaths_civilians",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "deaths_unknown",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "best",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "high",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "low",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "gwnoa",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "gwnob",
+                            "rawType": "varchar",
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    ],
+                    "foreignKeys": []
+                }
+            ]
+        },
+        "nodeMappings": [
+            {
+                "node": {
+                    "$ref": "#n:n0"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "propertyMappings": [
+                    {
+                        "fieldName": "id",
+                        "property": {
+                            "$ref": "#p:1"
+                        }
+                    },
+                    {
+                        "fieldName": "year",
+                        "property": {
+                            "$ref": "#p:2"
+                        }
+                    },
+                    {
+                        "fieldName": "start_year",
+                        "property": {
+                            "$ref": "#p:3"
+                        }
+                    },
+                    {
+                        "fieldName": "end_year",
+                        "property": {
+                            "$ref": "#p:4"
+                        }
+                    },
+                    {
+                        "fieldName": "active_year",
+                        "property": {
+                            "$ref": "#p:5"
+                        }
+                    },
+                    {
+                        "fieldName": "conflict_dset_id",
+                        "property": {
+                            "$ref": "#p:6"
+                        }
+                    },
+                    {
+                        "fieldName": "conflict_new_id",
+                        "property": {
+                            "$ref": "#p:7"
+                        }
+                    },
+                    {
+                        "fieldName": "conflict_name",
+                        "property": {
+                            "$ref": "#p:8"
+                        }
+                    },
+                    {
+                        "fieldName": "dyad_dset_id",
+                        "property": {
+                            "$ref": "#p:9"
+                        }
+                    },
+                    {
+                        "fieldName": "dyad_new_id",
+                        "property": {
+                            "$ref": "#p:10"
+                        }
+                    },
+                    {
+                        "fieldName": "dyad_name",
+                        "property": {
+                            "$ref": "#p:11"
+                        }
+                    },
+                    {
+                        "fieldName": "deaths_civilians",
+                        "property": {
+                            "$ref": "#p:12"
+                        }
+                    },
+                    {
+                        "fieldName": "deaths_unknown",
+                        "property": {
+                            "$ref": "#p:13"
+                        }
+                    },
+                    {
+                        "fieldName": "best",
+                        "property": {
+                            "$ref": "#p:14"
+                        }
+                    },
+                    {
+                        "fieldName": "high",
+                        "property": {
+                            "$ref": "#p:15"
+                        }
+                    },
+                    {
+                        "fieldName": "low",
+                        "property": {
+                            "$ref": "#p:16"
+                        }
+                    },
+                    {
+                        "fieldName": "deaths_a",
+                        "property": {
+                            "$ref": "#p:17"
+                        }
+                    },
+                    {
+                        "fieldName": "deaths_b",
+                        "property": {
+                            "$ref": "#p:18"
+                        }
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n1"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "propertyMappings": [
+                    {
+                        "fieldName": "code_status",
+                        "property": {
+                            "$ref": "#p:19"
+                        }
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n2"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "propertyMappings": [
+                    {
+                        "fieldName": "side_a_dset_id",
+                        "property": {
+                            "$ref": "#p:20"
+                        }
+                    },
+                    {
+                        "fieldName": "side_a_new_id",
+                        "property": {
+                            "$ref": "#p:21"
+                        }
+                    },
+                    {
+                        "fieldName": "side_a",
+                        "property": {
+                            "$ref": "#p:22"
+                        }
+                    },
+                    {
+                        "fieldName": "gwnoa",
+                        "property": {
+                            "$ref": "#p:23"
+                        }
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n3"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "propertyMappings": [
+                    {
+                        "fieldName": "side_b_dset_id",
+                        "property": {
+                            "$ref": "#p:24"
+                        }
+                    },
+                    {
+                        "fieldName": "side_b_new_id",
+                        "property": {
+                            "$ref": "#p:25"
+                        }
+                    },
+                    {
+                        "fieldName": "side_b",
+                        "property": {
+                            "$ref": "#p:26"
+                        }
+                    },
+                    {
+                        "fieldName": "gwnob",
+                        "property": {
+                            "$ref": "#p:27"
+                        }
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n4"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "propertyMappings": [
+                    {
+                        "fieldName": "source_article",
+                        "property": {
+                            "$ref": "#p:28"
+                        }
+                    },
+                    {
+                        "fieldName": "source_office",
+                        "property": {
+                            "$ref": "#p:29"
+                        }
+                    },
+                    {
+                        "fieldName": "source_date",
+                        "property": {
+                            "$ref": "#p:30"
+                        }
+                    },
+                    {
+                        "fieldName": "source_headline",
+                        "property": {
+                            "$ref": "#p:31"
+                        }
+                    },
+                    {
+                        "fieldName": "source_original",
+                        "property": {
+                            "$ref": "#p:32"
+                        }
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n5"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "propertyMappings": [
+                    {
+                        "fieldName": "where_prec",
+                        "property": {
+                            "$ref": "#p:33"
+                        }
+                    },
+                    {
+                        "fieldName": "where_coordinates",
+                        "property": {
+                            "$ref": "#p:34"
+                        }
+                    },
+                    {
+                        "fieldName": "where_description",
+                        "property": {
+                            "$ref": "#p:35"
+                        }
+                    },
+                    {
+                        "fieldName": "adm_1",
+                        "property": {
+                            "$ref": "#p:36"
+                        }
+                    },
+                    {
+                        "fieldName": "adm_2",
+                        "property": {
+                            "$ref": "#p:37"
+                        }
+                    },
+                    {
+                        "fieldName": "latitude",
+                        "property": {
+                            "$ref": "#p:38"
+                        }
+                    },
+                    {
+                        "fieldName": "longitude",
+                        "property": {
+                            "$ref": "#p:39"
+                        }
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n6"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "propertyMappings": [
+                    {
+                        "fieldName": "iso3",
+                        "property": {
+                            "$ref": "#p:40"
+                        }
+                    },
+                    {
+                        "fieldName": "country",
+                        "property": {
+                            "$ref": "#p:41"
+                        }
+                    },
+                    {
+                        "fieldName": "country_id",
+                        "property": {
+                            "$ref": "#p:42"
+                        }
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:n7"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "propertyMappings": [
+                    {
+                        "fieldName": "region",
+                        "property": {
+                            "$ref": "#p:43"
+                        }
+                    }
+                ]
+            }
+        ],
+        "relationshipMappings": [
+            {
+                "relationship": {
+                    "$ref": "#r:n0"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "fromMappings": {
+                    "#p:1": "id"
+                },
+                "toMappings": {
+                    "#p:19": "code_status"
+                },
+                "propertyMappings": []
+            },
+            {
+                "relationship": {
+                    "$ref": "#r:n1"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "fromMappings": {
+                    "#p:1": "id"
+                },
+                "toMappings": {
+                    "#p:22": "side_a"
+                },
+                "propertyMappings": [
+                    {
+                        "fieldName": "deaths_a",
+                        "property": {
+                            "$ref": "#p:44"
+                        }
+                    }
+                ]
+            },
+            {
+                "relationship": {
+                    "$ref": "#r:n2"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "fromMappings": {
+                    "#p:1": "id"
+                },
+                "toMappings": {
+                    "#p:26": "side_b"
+                },
+                "propertyMappings": [
+                    {
+                        "fieldName": "deaths_b",
+                        "property": {
+                            "$ref": "#p:45"
+                        }
+                    }
+                ]
+            },
+            {
+                "relationship": {
+                    "$ref": "#r:n3"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "fromMappings": {
+                    "#p:1": "id"
+                },
+                "toMappings": {
+                    "#p:31": "source_headline"
+                },
+                "propertyMappings": []
+            },
+            {
+                "relationship": {
+                    "$ref": "#r:n4"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "fromMappings": {
+                    "#p:1": "id"
+                },
+                "toMappings": {
+                    "#p:34": "where_coordinates"
+                },
+                "propertyMappings": []
+            },
+            {
+                "relationship": {
+                    "$ref": "#r:n5"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "fromMappings": {
+                    "#p:34": "where_coordinates"
+                },
+                "toMappings": {
+                    "#p:42": "country_id"
+                },
+                "propertyMappings": []
+            },
+            {
+                "relationship": {
+                    "$ref": "#r:n6"
+                },
+                "tableName": "conflict_data_ukr.csv",
+                "fromMappings": {
+                    "#p:42": "country_id"
+                },
+                "toMappings": {
+                    "#p:43": "region"
+                },
+                "propertyMappings": []
+            }
+        ]
+    },
+    "configurations": {
+        "idsToIgnore": []
+    }
+}

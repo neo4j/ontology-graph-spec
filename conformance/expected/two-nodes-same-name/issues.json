@@ -1,0 +1,14 @@
+[
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:2' on node 'n:n2' reuses name 'name_Side_uniq' already used by another index or constraint",
+        "path": "nodes.n:n2.constraints.c:2.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:3' on node 'n:n3' reuses name 'name_Side_uniq' already used by another index or constraint",
+        "path": "nodes.n:n3.constraints.c:3.name",
+        "details": {}
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "code": "missing_property_name",
+        "message": "Missing name for property 'name'",
+        "path": "nodes.person.properties.name.name",
+        "details": {}
+    },
+    {
+        "code": "missing_property_name",
+        "message": "Missing name for property 'title'",
+        "path": "nodes.movie.properties.title.name",
+        "details": {}
+    },
+    {
+        "code": "missing_property_name",
+        "message": "Missing name for property 'role'",
+        "path": "relationships.acted-in.properties.role.name",
+        "details": {}
+    }
+]

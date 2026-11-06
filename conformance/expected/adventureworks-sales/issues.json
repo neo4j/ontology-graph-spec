@@ -1,0 +1,374 @@
+[
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:0' on node 'n:0' reuses name 'creditcard' already used by another index or constraint",
+        "path": "nodes.n:0.extensions.indexes.i:0.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:0' on node 'n:0' reuses name 'creditcard' already used by another index or constraint",
+        "path": "nodes.n:0.constraints.c:0.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:2' on node 'n:2' reuses name 'currencyrate' already used by another index or constraint",
+        "path": "nodes.n:2.extensions.indexes.i:2.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:2' on node 'n:2' reuses name 'currencyrate' already used by another index or constraint",
+        "path": "nodes.n:2.constraints.c:2.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:3' on node 'n:3' reuses name 'customer' already used by another index or constraint",
+        "path": "nodes.n:3.extensions.indexes.i:3.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:3' on node 'n:3' reuses name 'customer' already used by another index or constraint",
+        "path": "nodes.n:3.constraints.c:3.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:4' on node 'n:4' reuses name 'salesorderheader' already used by another index or constraint",
+        "path": "nodes.n:4.extensions.indexes.i:4.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:4' on node 'n:4' reuses name 'salesorderheader' already used by another index or constraint",
+        "path": "nodes.n:4.constraints.c:4.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:5' on node 'n:5' reuses name 'salesperson' already used by another index or constraint",
+        "path": "nodes.n:5.extensions.indexes.i:5.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:5' on node 'n:5' reuses name 'salesperson' already used by another index or constraint",
+        "path": "nodes.n:5.constraints.c:5.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:6' on node 'n:6' reuses name 'salesreason' already used by another index or constraint",
+        "path": "nodes.n:6.extensions.indexes.i:6.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:6' on node 'n:6' reuses name 'salesreason' already used by another index or constraint",
+        "path": "nodes.n:6.constraints.c:6.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:7' on node 'n:7' reuses name 'salestaxrate' already used by another index or constraint",
+        "path": "nodes.n:7.extensions.indexes.i:7.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:7' on node 'n:7' reuses name 'salestaxrate' already used by another index or constraint",
+        "path": "nodes.n:7.constraints.c:7.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:8' on node 'n:8' reuses name 'salesterritory' already used by another index or constraint",
+        "path": "nodes.n:8.extensions.indexes.i:8.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:8' on node 'n:8' reuses name 'salesterritory' already used by another index or constraint",
+        "path": "nodes.n:8.constraints.c:8.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:9' on node 'n:9' reuses name 'shoppingcartitem' already used by another index or constraint",
+        "path": "nodes.n:9.extensions.indexes.i:9.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:9' on node 'n:9' reuses name 'shoppingcartitem' already used by another index or constraint",
+        "path": "nodes.n:9.constraints.c:9.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:10' on node 'n:10' reuses name 'specialoffer' already used by another index or constraint",
+        "path": "nodes.n:10.extensions.indexes.i:10.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:10' on node 'n:10' reuses name 'specialoffer' already used by another index or constraint",
+        "path": "nodes.n:10.constraints.c:10.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:11' on node 'n:11' reuses name 'store' already used by another index or constraint",
+        "path": "nodes.n:11.extensions.indexes.i:11.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:11' on node 'n:11' reuses name 'store' already used by another index or constraint",
+        "path": "nodes.n:11.constraints.c:11.name",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'name'",
+        "path": "extensions.data_source_tables.currency.columns[1].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'onlineorderflag'",
+        "path": "extensions.data_source_tables.salesorderheader.columns[6].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'purchaseordernumber'",
+        "path": "extensions.data_source_tables.salesorderheader.columns[7].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'accountnumber'",
+        "path": "extensions.data_source_tables.salesorderheader.columns[8].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'name'",
+        "path": "extensions.data_source_tables.salesreason.columns[1].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'reasontype'",
+        "path": "extensions.data_source_tables.salesreason.columns[2].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'name'",
+        "path": "extensions.data_source_tables.salestaxrate.columns[4].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'name'",
+        "path": "extensions.data_source_tables.salesterritory.columns[1].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'name'",
+        "path": "extensions.data_source_tables.store.columns[1].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'demographics'",
+        "path": "extensions.data_source_tables.store.columns[3].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'firstname'",
+        "path": "extensions.data_source_tables.vindividualcustomer.columns[2].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'middlename'",
+        "path": "extensions.data_source_tables.vindividualcustomer.columns[3].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'lastname'",
+        "path": "extensions.data_source_tables.vindividualcustomer.columns[4].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'phonenumber'",
+        "path": "extensions.data_source_tables.vindividualcustomer.columns[6].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'phonenumbertype'",
+        "path": "extensions.data_source_tables.vindividualcustomer.columns[7].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'addresstype'",
+        "path": "extensions.data_source_tables.vindividualcustomer.columns[10].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'stateprovincename'",
+        "path": "extensions.data_source_tables.vindividualcustomer.columns[14].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'countryregionname'",
+        "path": "extensions.data_source_tables.vindividualcustomer.columns[16].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'demographics'",
+        "path": "extensions.data_source_tables.vindividualcustomer.columns[17].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'firstname'",
+        "path": "extensions.data_source_tables.vsalesperson.columns[2].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'middlename'",
+        "path": "extensions.data_source_tables.vsalesperson.columns[3].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'lastname'",
+        "path": "extensions.data_source_tables.vsalesperson.columns[4].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'phonenumber'",
+        "path": "extensions.data_source_tables.vsalesperson.columns[7].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'phonenumbertype'",
+        "path": "extensions.data_source_tables.vsalesperson.columns[8].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'stateprovincename'",
+        "path": "extensions.data_source_tables.vsalesperson.columns[14].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'countryregionname'",
+        "path": "extensions.data_source_tables.vsalesperson.columns[16].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'territoryname'",
+        "path": "extensions.data_source_tables.vsalesperson.columns[17].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'salesterritory'",
+        "path": "extensions.data_source_tables.vsalespersonsalesbyfiscalyearsdata.columns[3].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'name'",
+        "path": "extensions.data_source_tables.vstorewithaddresses.columns[1].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'addresstype'",
+        "path": "extensions.data_source_tables.vstorewithaddresses.columns[2].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'stateprovincename'",
+        "path": "extensions.data_source_tables.vstorewithaddresses.columns[6].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'countryregionname'",
+        "path": "extensions.data_source_tables.vstorewithaddresses.columns[8].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'name'",
+        "path": "extensions.data_source_tables.vstorewithcontacts.columns[1].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'contacttype'",
+        "path": "extensions.data_source_tables.vstorewithcontacts.columns[2].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'firstname'",
+        "path": "extensions.data_source_tables.vstorewithcontacts.columns[4].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'middlename'",
+        "path": "extensions.data_source_tables.vstorewithcontacts.columns[5].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'lastname'",
+        "path": "extensions.data_source_tables.vstorewithcontacts.columns[6].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'phonenumber'",
+        "path": "extensions.data_source_tables.vstorewithcontacts.columns[8].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'phonenumbertype'",
+        "path": "extensions.data_source_tables.vstorewithcontacts.columns[9].type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_type",
+        "message": "Missing suggested type for table column 'name'",
+        "path": "extensions.data_source_tables.vstorewithdemographics.columns[1].type",
+        "details": {}
+    }
+]

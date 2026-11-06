@@ -1,0 +1,1165 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1.0.0",
+    "id": "graph-model",
+    "nodes": {
+        "n:n0": {
+            "labels": {
+                "identifier": "Conflict"
+            },
+            "properties": {
+                "p:1": {
+                    "type": "STRING",
+                    "name": "id"
+                },
+                "p:2": {
+                    "type": "STRING",
+                    "name": "year"
+                },
+                "p:3": {
+                    "type": "INTEGER",
+                    "name": "start_year"
+                },
+                "p:4": {
+                    "type": "INTEGER",
+                    "name": "end_year"
+                },
+                "p:5": {
+                    "type": "INTEGER",
+                    "name": "active_year"
+                },
+                "p:6": {
+                    "type": "STRING",
+                    "name": "conflict_dset_id"
+                },
+                "p:7": {
+                    "type": "STRING",
+                    "name": "conflict_new_id"
+                },
+                "p:8": {
+                    "type": "STRING",
+                    "name": "conflict_name"
+                },
+                "p:9": {
+                    "type": "STRING",
+                    "name": "dyad_dset_id"
+                },
+                "p:10": {
+                    "type": "STRING",
+                    "name": "dyad_new_id"
+                },
+                "p:11": {
+                    "type": "STRING",
+                    "name": "dyad_name"
+                },
+                "p:12": {
+                    "type": "INTEGER",
+                    "name": "deaths_civilians"
+                },
+                "p:13": {
+                    "type": "INTEGER",
+                    "name": "deaths_unknown"
+                },
+                "p:14": {
+                    "type": "STRING",
+                    "name": "best"
+                },
+                "p:15": {
+                    "type": "STRING",
+                    "name": "high"
+                },
+                "p:16": {
+                    "type": "STRING",
+                    "name": "low"
+                },
+                "p:17": {
+                    "type": "INTEGER",
+                    "name": "deaths_a"
+                },
+                "p:18": {
+                    "type": "INTEGER",
+                    "name": "deaths_b"
+                }
+            },
+            "constraints": {
+                "c:0": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:1"
+                    ],
+                    "name": "id_Conflict_uniq"
+                }
+            }
+        },
+        "n:n1": {
+            "labels": {
+                "identifier": "ConflictStatus"
+            },
+            "properties": {
+                "p:19": {
+                    "type": "STRING",
+                    "name": "code_status"
+                }
+            },
+            "constraints": {
+                "c:1": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:19"
+                    ],
+                    "name": "code_status_ConflictStatus_uniq"
+                }
+            }
+        },
+        "n:n2": {
+            "labels": {
+                "identifier": "Side"
+            },
+            "properties": {
+                "p:20": {
+                    "type": "STRING",
+                    "name": "dset_id"
+                },
+                "p:21": {
+                    "type": "STRING",
+                    "name": "new_id"
+                },
+                "p:22": {
+                    "type": "STRING",
+                    "name": "name"
+                },
+                "p:23": {
+                    "type": "STRING",
+                    "name": "gwno"
+                }
+            },
+            "constraints": {
+                "c:2": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:22"
+                    ],
+                    "name": "name_Side_uniq"
+                }
+            }
+        },
+        "n:n3": {
+            "labels": {
+                "identifier": "Side"
+            },
+            "properties": {
+                "p:24": {
+                    "type": "STRING",
+                    "name": "dset_id"
+                },
+                "p:25": {
+                    "type": "STRING",
+                    "name": "new_id"
+                },
+                "p:26": {
+                    "type": "STRING",
+                    "name": "name"
+                },
+                "p:27": {
+                    "type": "STRING",
+                    "name": "gwno"
+                }
+            },
+            "constraints": {
+                "c:3": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:26"
+                    ],
+                    "name": "name_Side_uniq"
+                }
+            }
+        },
+        "n:n4": {
+            "labels": {
+                "identifier": "SourceArticle"
+            },
+            "properties": {
+                "p:28": {
+                    "type": "STRING",
+                    "name": "source_article"
+                },
+                "p:29": {
+                    "type": "STRING",
+                    "name": "source_office"
+                },
+                "p:30": {
+                    "type": "STRING",
+                    "name": "source_date"
+                },
+                "p:31": {
+                    "type": "STRING",
+                    "name": "source_headline"
+                },
+                "p:32": {
+                    "type": "STRING",
+                    "name": "source_original"
+                }
+            },
+            "constraints": {
+                "c:4": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:31"
+                    ],
+                    "name": "source_headline_SourceArticle_uniq"
+                }
+            }
+        },
+        "n:n5": {
+            "labels": {
+                "identifier": "Location"
+            },
+            "properties": {
+                "p:33": {
+                    "type": "STRING",
+                    "name": "where_prec"
+                },
+                "p:34": {
+                    "type": "STRING",
+                    "name": "where_coordinates"
+                },
+                "p:35": {
+                    "type": "STRING",
+                    "name": "where_description"
+                },
+                "p:36": {
+                    "type": "STRING",
+                    "name": "adm_1"
+                },
+                "p:37": {
+                    "type": "STRING",
+                    "name": "adm_2"
+                },
+                "p:38": {
+                    "type": "FLOAT",
+                    "name": "latitude"
+                },
+                "p:39": {
+                    "type": "FLOAT",
+                    "name": "longitude"
+                }
+            },
+            "constraints": {
+                "c:5": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:34"
+                    ],
+                    "name": "where_coordinates_Location_uniq"
+                }
+            }
+        },
+        "n:n6": {
+            "labels": {
+                "identifier": "Country"
+            },
+            "properties": {
+                "p:40": {
+                    "type": "STRING",
+                    "name": "iso3"
+                },
+                "p:41": {
+                    "type": "STRING",
+                    "name": "country"
+                },
+                "p:42": {
+                    "type": "STRING",
+                    "name": "country_id"
+                }
+            },
+            "constraints": {
+                "c:6": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:42"
+                    ],
+                    "name": "country_id_Country_uniq"
+                }
+            }
+        },
+        "n:n7": {
+            "labels": {
+                "identifier": "Region"
+            },
+            "properties": {
+                "p:43": {
+                    "type": "STRING",
+                    "name": "name"
+                }
+            },
+            "constraints": {
+                "c:7": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:43"
+                    ],
+                    "name": "name_Region_uniq"
+                }
+            }
+        }
+    },
+    "relationships": {
+        "r:n0": {
+            "type": "HAS_STATUS",
+            "from": {
+                "node": "n:n0"
+            },
+            "to": {
+                "node": "n:n1"
+            }
+        },
+        "r:n1": {
+            "type": "HAS_SIDE",
+            "from": {
+                "node": "n:n0"
+            },
+            "to": {
+                "node": "n:n2"
+            },
+            "properties": {
+                "p:44": {
+                    "type": "INTEGER",
+                    "name": "nr_of_deaths"
+                }
+            }
+        },
+        "r:n2": {
+            "type": "HAS_SIDE",
+            "from": {
+                "node": "n:n0"
+            },
+            "to": {
+                "node": "n:n3"
+            },
+            "properties": {
+                "p:45": {
+                    "type": "INTEGER",
+                    "name": "nr_of_deaths"
+                }
+            }
+        },
+        "r:n3": {
+            "type": "INFO_FROM",
+            "from": {
+                "node": "n:n0"
+            },
+            "to": {
+                "node": "n:n4"
+            }
+        },
+        "r:n4": {
+            "type": "LOCATED_IN",
+            "from": {
+                "node": "n:n0"
+            },
+            "to": {
+                "node": "n:n5"
+            }
+        },
+        "r:n5": {
+            "type": "LOCATED_IN",
+            "from": {
+                "node": "n:n5"
+            },
+            "to": {
+                "node": "n:n6"
+            }
+        },
+        "r:n6": {
+            "type": "PART_OF",
+            "from": {
+                "node": "n:n6"
+            },
+            "to": {
+                "node": "n:n7"
+            }
+        }
+    },
+    "extensions": {
+        "data_source_tables": {
+            "conflict_data_ukr.csv": {
+                "source": "sql/postgres",
+                "columns": [
+                    {
+                        "name": "id",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "relid",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "year",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "start_year",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "end_year",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "active_year",
+                        "type": "int",
+                        "suggested": "BOOLEAN",
+                        "supported": [
+                            "BOOLEAN"
+                        ]
+                    },
+                    {
+                        "name": "code_status",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "type_of_violence",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "conflict_dset_id",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "conflict_new_id",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "conflict_name",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "dyad_dset_id",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "dyad_new_id",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "dyad_name",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "side_a_dset_id",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "side_a_new_id",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "side_a",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "side_b_dset_id",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "side_b_new_id",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "side_b",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "number_of_sources",
+                        "type": "int",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "source_article",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "source_office",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "source_date",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "source_headline",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "source_original",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "where_prec",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "where_coordinates",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "where_description",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "adm_1",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "adm_2",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "latitude",
+                        "type": "varchar",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "iso3",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "longitude",
+                        "type": "varchar",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "geom_wkt",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "priogrid_gid",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "country",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "country_id",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "region",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "event_clarity",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "date_prec",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "date_start",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "date_end",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "deaths_a",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "deaths_b",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "deaths_civilians",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "deaths_unknown",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "best",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "high",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "low",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "gwnoa",
+                        "type": "varchar",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "gwnob",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    }
+                ]
+            }
+        },
+        "data_source_mappings": {
+            "mapping0": [
+                {
+                    "type": "NODE",
+                    "node": "n:n0",
+                    "table": "conflict_data_ukr.csv",
+                    "properties": {
+                        "p:1": {
+                            "column": "id"
+                        },
+                        "p:2": {
+                            "column": "year"
+                        },
+                        "p:3": {
+                            "column": "start_year"
+                        },
+                        "p:4": {
+                            "column": "end_year"
+                        },
+                        "p:5": {
+                            "column": "active_year"
+                        },
+                        "p:6": {
+                            "column": "conflict_dset_id"
+                        },
+                        "p:7": {
+                            "column": "conflict_new_id"
+                        },
+                        "p:8": {
+                            "column": "conflict_name"
+                        },
+                        "p:9": {
+                            "column": "dyad_dset_id"
+                        },
+                        "p:10": {
+                            "column": "dyad_new_id"
+                        },
+                        "p:11": {
+                            "column": "dyad_name"
+                        },
+                        "p:12": {
+                            "column": "deaths_civilians"
+                        },
+                        "p:13": {
+                            "column": "deaths_unknown"
+                        },
+                        "p:14": {
+                            "column": "best"
+                        },
+                        "p:15": {
+                            "column": "high"
+                        },
+                        "p:16": {
+                            "column": "low"
+                        },
+                        "p:17": {
+                            "column": "deaths_a"
+                        },
+                        "p:18": {
+                            "column": "deaths_b"
+                        }
+                    },
+                    "key": [
+                        "p:1"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:n1",
+                    "table": "conflict_data_ukr.csv",
+                    "properties": {
+                        "p:19": {
+                            "column": "code_status"
+                        }
+                    },
+                    "key": [
+                        "p:19"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:n2",
+                    "table": "conflict_data_ukr.csv",
+                    "properties": {
+                        "p:20": {
+                            "column": "side_a_dset_id"
+                        },
+                        "p:21": {
+                            "column": "side_a_new_id"
+                        },
+                        "p:22": {
+                            "column": "side_a"
+                        },
+                        "p:23": {
+                            "column": "gwnoa"
+                        }
+                    },
+                    "key": [
+                        "p:22"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:n3",
+                    "table": "conflict_data_ukr.csv",
+                    "properties": {
+                        "p:24": {
+                            "column": "side_b_dset_id"
+                        },
+                        "p:25": {
+                            "column": "side_b_new_id"
+                        },
+                        "p:26": {
+                            "column": "side_b"
+                        },
+                        "p:27": {
+                            "column": "gwnob"
+                        }
+                    },
+                    "key": [
+                        "p:26"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:n4",
+                    "table": "conflict_data_ukr.csv",
+                    "properties": {
+                        "p:28": {
+                            "column": "source_article"
+                        },
+                        "p:29": {
+                            "column": "source_office"
+                        },
+                        "p:30": {
+                            "column": "source_date"
+                        },
+                        "p:31": {
+                            "column": "source_headline"
+                        },
+                        "p:32": {
+                            "column": "source_original"
+                        }
+                    },
+                    "key": [
+                        "p:31"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:n5",
+                    "table": "conflict_data_ukr.csv",
+                    "properties": {
+                        "p:33": {
+                            "column": "where_prec"
+                        },
+                        "p:34": {
+                            "column": "where_coordinates"
+                        },
+                        "p:35": {
+                            "column": "where_description"
+                        },
+                        "p:36": {
+                            "column": "adm_1"
+                        },
+                        "p:37": {
+                            "column": "adm_2"
+                        },
+                        "p:38": {
+                            "column": "latitude"
+                        },
+                        "p:39": {
+                            "column": "longitude"
+                        }
+                    },
+                    "key": [
+                        "p:34"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:n6",
+                    "table": "conflict_data_ukr.csv",
+                    "properties": {
+                        "p:40": {
+                            "column": "iso3"
+                        },
+                        "p:41": {
+                            "column": "country"
+                        },
+                        "p:42": {
+                            "column": "country_id"
+                        }
+                    },
+                    "key": [
+                        "p:42"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:n7",
+                    "table": "conflict_data_ukr.csv",
+                    "properties": {
+                        "p:43": {
+                            "column": "region"
+                        }
+                    },
+                    "key": [
+                        "p:43"
+                    ]
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:n0",
+                    "table": "conflict_data_ukr.csv",
+                    "from_node": {
+                        "properties": {
+                            "p:1": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:19": {
+                                "column": "code_status"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:n1",
+                    "table": "conflict_data_ukr.csv",
+                    "from_node": {
+                        "properties": {
+                            "p:1": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:22": {
+                                "column": "side_a"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:44": {
+                            "column": "deaths_a"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:n2",
+                    "table": "conflict_data_ukr.csv",
+                    "from_node": {
+                        "properties": {
+                            "p:1": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:26": {
+                                "column": "side_b"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:45": {
+                            "column": "deaths_b"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:n3",
+                    "table": "conflict_data_ukr.csv",
+                    "from_node": {
+                        "properties": {
+                            "p:1": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:31": {
+                                "column": "source_headline"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:n4",
+                    "table": "conflict_data_ukr.csv",
+                    "from_node": {
+                        "properties": {
+                            "p:1": {
+                                "column": "id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:34": {
+                                "column": "where_coordinates"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:n5",
+                    "table": "conflict_data_ukr.csv",
+                    "from_node": {
+                        "properties": {
+                            "p:34": {
+                                "column": "where_coordinates"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:42": {
+                                "column": "country_id"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:n6",
+                    "table": "conflict_data_ukr.csv",
+                    "from_node": {
+                        "properties": {
+                            "p:42": {
+                                "column": "country_id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:43": {
+                                "column": "region"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

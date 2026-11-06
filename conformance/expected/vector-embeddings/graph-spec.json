@@ -1,0 +1,107 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1.0.0",
+    "id": "graph-model",
+    "nodes": {
+        "n:0": {
+            "labels": {
+                "identifier": "document"
+            },
+            "properties": {
+                "p:0_0": {
+                    "type": "INTEGER",
+                    "name": "documentid"
+                },
+                "p:0_1": {
+                    "type": "VECTOR<FLOAT>",
+                    "dimension": 123,
+                    "name": "embedding"
+                },
+                "p:0_2": {
+                    "type": "VECTOR<FLOAT>",
+                    "name": "legacyembedding"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:0": {
+                        "type": "VECTOR",
+                        "labels": [
+                            "document"
+                        ],
+                        "properties": [
+                            "p:0_1"
+                        ],
+                        "options": {
+                            "type": "VECTOR",
+                            "vector.dimensions": 123,
+                            "vector.similarity_function": "euclidean"
+                        },
+                        "name": "document_embedding"
+                    }
+                }
+            }
+        }
+    },
+    "extensions": {
+        "data_source_tables": {
+            "document": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "documentid",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER"
+                        ]
+                    },
+                    {
+                        "name": "embedding",
+                        "type": "VECTOR",
+                        "suggested": "VECTOR<FLOAT>",
+                        "supported": [
+                            "VECTOR<FLOAT>",
+                            "VECTOR<FLOAT32>"
+                        ],
+                        "dimension": 123
+                    },
+                    {
+                        "name": "legacyembedding",
+                        "type": "VECTOR",
+                        "suggested": "VECTOR<FLOAT>",
+                        "supported": [
+                            "VECTOR<FLOAT>"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "documentid"
+                ]
+            }
+        },
+        "data_source_mappings": {
+            "mapping0": [
+                {
+                    "type": "NODE",
+                    "node": "n:0",
+                    "table": "document",
+                    "properties": {
+                        "p:0_0": {
+                            "column": "documentid"
+                        },
+                        "p:0_1": {
+                            "column": "embedding"
+                        },
+                        "p:0_2": {
+                            "column": "legacyembedding"
+                        }
+                    },
+                    "key": [
+                        "p:0_0"
+                    ]
+                }
+            ]
+        }
+    }
+}

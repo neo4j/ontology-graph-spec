@@ -4,6 +4,10 @@ kotlin = "2.3.20"
 kotlinx-serialization = "1.10.0"
 spotless = "8.3.0"
 venniktech = "0.36.0"
+# Build-time only: Kotlin -> Java source generator for the java/library artifact
+kotlin-analysis-api = "2.3.20-ij253-119"
+jackson = "2.18.2"
+junit = "5.11.4"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -12,6 +16,19 @@ kotlin-js-plain-objects = { module = "org.jetbrains.kotlin:kotlin-js-plain-objec
 kotlinx-yamlkt = { module = "net.mamoe.yamlkt:yamlkt", version = "0.13.0" }
 kotlin-wrappers-ts = { module = "org.jetbrains.kotlin-wrappers:kotlin-typescript", version = "2026.3.10-6.0.1-rc" }
 kotlinx-schema-generator-json = { module = "org.jetbrains.kotlinx:kotlinx-schema-generator-json", version.ref = "kotlinx-schema" }
+kotlin-analysis-api-standalone = { module = "org.jetbrains.kotlin:analysis-api-standalone-for-ide", version.ref = "kotlin-analysis-api" }
+kotlin-analysis-api-api = { module = "org.jetbrains.kotlin:analysis-api-for-ide", version.ref = "kotlin-analysis-api" }
+kotlin-analysis-api-impl = { module = "org.jetbrains.kotlin:analysis-api-impl-base-for-ide", version.ref = "kotlin-analysis-api" }
+kotlin-analysis-api-k2 = { module = "org.jetbrains.kotlin:analysis-api-k2-for-ide", version.ref = "kotlin-analysis-api" }
+kotlin-analysis-api-platform = { module = "org.jetbrains.kotlin:analysis-api-platform-interface-for-ide", version.ref = "kotlin-analysis-api" }
+kotlin-analysis-low-level-fir = { module = "org.jetbrains.kotlin:low-level-api-fir-for-ide", version.ref = "kotlin-analysis-api" }
+kotlin-analysis-light-classes = { module = "org.jetbrains.kotlin:symbol-light-classes-for-ide", version.ref = "kotlin-analysis-api" }
+kotlin-analysis-common = { module = "org.jetbrains.kotlin:kotlin-compiler-common-for-ide", version.ref = "kotlin-analysis-api" }
+kotlin-analysis-compiler-k2 = { module = "org.jetbrains.kotlin:kotlin-compiler", version.ref = "kotlin-analysis-api" }
+javapoet = { module = "com.squareup:javapoet", version = "1.13.0" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

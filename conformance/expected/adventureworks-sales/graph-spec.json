@@ -1,0 +1,3824 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1.0.0",
+    "id": "graph-model",
+    "nodes": {
+        "n:0": {
+            "labels": {
+                "identifier": "creditcard"
+            },
+            "properties": {
+                "p:0_0": {
+                    "type": "INTEGER",
+                    "name": "creditcardid"
+                },
+                "p:0_1": {
+                    "type": "STRING",
+                    "name": "cardtype"
+                },
+                "p:0_2": {
+                    "type": "STRING",
+                    "name": "cardnumber"
+                },
+                "p:0_3": {
+                    "type": "INTEGER",
+                    "name": "expmonth"
+                },
+                "p:0_4": {
+                    "type": "INTEGER",
+                    "name": "expyear"
+                },
+                "p:0_5": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:0": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:0_0"
+                    ],
+                    "name": "creditcard"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:0": {
+                        "type": "TEXT",
+                        "labels": [
+                            "creditcard"
+                        ],
+                        "properties": [
+                            "p:0_0"
+                        ],
+                        "name": "creditcard"
+                    }
+                }
+            }
+        },
+        "n:1": {
+            "labels": {
+                "identifier": "currency"
+            },
+            "properties": {
+                "p:1_0": {
+                    "type": "STRING",
+                    "name": "currencycode"
+                },
+                "p:1_2": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:1": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:1_0"
+                    ],
+                    "name": "currency"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:1": {
+                        "type": "TEXT",
+                        "labels": [
+                            "currency"
+                        ],
+                        "properties": [
+                            "p:1_0"
+                        ],
+                        "name": "currency-text"
+                    }
+                }
+            }
+        },
+        "n:2": {
+            "labels": {
+                "identifier": "currencyrate"
+            },
+            "properties": {
+                "p:2_0": {
+                    "type": "INTEGER",
+                    "name": "currencyrateid"
+                },
+                "p:2_1": {
+                    "type": "ZONED DATETIME",
+                    "name": "currencyratedate"
+                },
+                "p:2_4": {
+                    "type": "FLOAT",
+                    "name": "averagerate"
+                },
+                "p:2_5": {
+                    "type": "FLOAT",
+                    "name": "endofdayrate"
+                },
+                "p:2_6": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:2": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:2_0"
+                    ],
+                    "name": "currencyrate"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:2": {
+                        "type": "TEXT",
+                        "labels": [
+                            "currencyrate"
+                        ],
+                        "properties": [
+                            "p:2_0"
+                        ],
+                        "name": "currencyrate"
+                    }
+                }
+            }
+        },
+        "n:3": {
+            "labels": {
+                "identifier": "customer"
+            },
+            "properties": {
+                "p:3_0": {
+                    "type": "INTEGER",
+                    "name": "customerid"
+                },
+                "p:3_4": {
+                    "type": "STRING",
+                    "name": "rowguid"
+                },
+                "p:3_5": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:3": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:3_0"
+                    ],
+                    "name": "customer"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:3": {
+                        "type": "TEXT",
+                        "labels": [
+                            "customer"
+                        ],
+                        "properties": [
+                            "p:3_0"
+                        ],
+                        "name": "customer"
+                    }
+                }
+            }
+        },
+        "n:4": {
+            "labels": {
+                "identifier": "salesorderheader"
+            },
+            "properties": {
+                "p:4_0": {
+                    "type": "INTEGER",
+                    "name": "salesorderid"
+                },
+                "p:4_1": {
+                    "type": "INTEGER",
+                    "name": "revisionnumber"
+                },
+                "p:4_2": {
+                    "type": "ZONED DATETIME",
+                    "name": "orderdate"
+                },
+                "p:4_3": {
+                    "type": "ZONED DATETIME",
+                    "name": "duedate"
+                },
+                "p:4_4": {
+                    "type": "ZONED DATETIME",
+                    "name": "shipdate"
+                },
+                "p:4_5": {
+                    "type": "INTEGER",
+                    "name": "status"
+                },
+                "p:4_16": {
+                    "type": "STRING",
+                    "name": "creditcardapprovalcode"
+                },
+                "p:4_18": {
+                    "type": "FLOAT",
+                    "name": "subtotal"
+                },
+                "p:4_19": {
+                    "type": "FLOAT",
+                    "name": "taxamt"
+                },
+                "p:4_20": {
+                    "type": "FLOAT",
+                    "name": "freight"
+                },
+                "p:4_21": {
+                    "type": "FLOAT",
+                    "name": "totaldue"
+                },
+                "p:4_22": {
+                    "type": "STRING",
+                    "name": "comment"
+                },
+                "p:4_23": {
+                    "type": "STRING",
+                    "name": "rowguid"
+                },
+                "p:4_24": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:4": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:4_0"
+                    ],
+                    "name": "salesorderheader"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:4": {
+                        "type": "TEXT",
+                        "labels": [
+                            "salesorderheader"
+                        ],
+                        "properties": [
+                            "p:4_0"
+                        ],
+                        "name": "salesorderheader"
+                    }
+                }
+            }
+        },
+        "n:5": {
+            "labels": {
+                "identifier": "salesperson"
+            },
+            "properties": {
+                "p:5_0": {
+                    "type": "INTEGER",
+                    "name": "businessentityid"
+                },
+                "p:5_2": {
+                    "type": "FLOAT",
+                    "name": "salesquota"
+                },
+                "p:5_3": {
+                    "type": "FLOAT",
+                    "name": "bonus"
+                },
+                "p:5_4": {
+                    "type": "FLOAT",
+                    "name": "commissionpct"
+                },
+                "p:5_5": {
+                    "type": "FLOAT",
+                    "name": "salesytd"
+                },
+                "p:5_6": {
+                    "type": "FLOAT",
+                    "name": "saleslastyear"
+                },
+                "p:5_7": {
+                    "type": "STRING",
+                    "name": "rowguid"
+                },
+                "p:5_8": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:5": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:5_0"
+                    ],
+                    "name": "salesperson"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:5": {
+                        "type": "TEXT",
+                        "labels": [
+                            "salesperson"
+                        ],
+                        "properties": [
+                            "p:5_0"
+                        ],
+                        "name": "salesperson"
+                    }
+                }
+            }
+        },
+        "n:6": {
+            "labels": {
+                "identifier": "salesreason"
+            },
+            "properties": {
+                "p:6_0": {
+                    "type": "INTEGER",
+                    "name": "salesreasonid"
+                },
+                "p:6_3": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:6": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:6_0"
+                    ],
+                    "name": "salesreason"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:6": {
+                        "type": "TEXT",
+                        "labels": [
+                            "salesreason"
+                        ],
+                        "properties": [
+                            "p:6_0"
+                        ],
+                        "name": "salesreason"
+                    }
+                }
+            }
+        },
+        "n:7": {
+            "labels": {
+                "identifier": "salestaxrate"
+            },
+            "properties": {
+                "p:7_0": {
+                    "type": "INTEGER",
+                    "name": "salestaxrateid"
+                },
+                "p:7_2": {
+                    "type": "INTEGER",
+                    "name": "taxtype"
+                },
+                "p:7_3": {
+                    "type": "FLOAT",
+                    "name": "taxrate"
+                },
+                "p:7_5": {
+                    "type": "STRING",
+                    "name": "rowguid"
+                },
+                "p:7_6": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:7": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:7_0"
+                    ],
+                    "name": "salestaxrate"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:7": {
+                        "type": "TEXT",
+                        "labels": [
+                            "salestaxrate"
+                        ],
+                        "properties": [
+                            "p:7_0"
+                        ],
+                        "name": "salestaxrate"
+                    }
+                }
+            }
+        },
+        "n:8": {
+            "labels": {
+                "identifier": "salesterritory"
+            },
+            "properties": {
+                "p:8_0": {
+                    "type": "INTEGER",
+                    "name": "territoryid"
+                },
+                "p:8_3": {
+                    "type": "STRING",
+                    "name": "group"
+                },
+                "p:8_4": {
+                    "type": "FLOAT",
+                    "name": "salesytd"
+                },
+                "p:8_5": {
+                    "type": "FLOAT",
+                    "name": "saleslastyear"
+                },
+                "p:8_6": {
+                    "type": "FLOAT",
+                    "name": "costytd"
+                },
+                "p:8_7": {
+                    "type": "FLOAT",
+                    "name": "costlastyear"
+                },
+                "p:8_8": {
+                    "type": "STRING",
+                    "name": "rowguid"
+                },
+                "p:8_9": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:8": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:8_0"
+                    ],
+                    "name": "salesterritory"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:8": {
+                        "type": "TEXT",
+                        "labels": [
+                            "salesterritory"
+                        ],
+                        "properties": [
+                            "p:8_0"
+                        ],
+                        "name": "salesterritory"
+                    }
+                }
+            }
+        },
+        "n:9": {
+            "labels": {
+                "identifier": "shoppingcartitem"
+            },
+            "properties": {
+                "p:9_0": {
+                    "type": "INTEGER",
+                    "name": "shoppingcartitemid"
+                },
+                "p:9_1": {
+                    "type": "STRING",
+                    "name": "shoppingcartid"
+                },
+                "p:9_2": {
+                    "type": "INTEGER",
+                    "name": "quantity"
+                },
+                "p:9_4": {
+                    "type": "ZONED DATETIME",
+                    "name": "datecreated"
+                },
+                "p:9_5": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:9": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:9_0"
+                    ],
+                    "name": "shoppingcartitem"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:9": {
+                        "type": "TEXT",
+                        "labels": [
+                            "shoppingcartitem"
+                        ],
+                        "properties": [
+                            "p:9_0"
+                        ],
+                        "name": "shoppingcartitem"
+                    }
+                }
+            }
+        },
+        "n:10": {
+            "labels": {
+                "identifier": "specialoffer"
+            },
+            "properties": {
+                "p:10_0": {
+                    "type": "INTEGER",
+                    "name": "specialofferid"
+                },
+                "p:10_1": {
+                    "type": "STRING",
+                    "name": "description"
+                },
+                "p:10_2": {
+                    "type": "FLOAT",
+                    "name": "discountpct"
+                },
+                "p:10_3": {
+                    "type": "STRING",
+                    "name": "type"
+                },
+                "p:10_4": {
+                    "type": "STRING",
+                    "name": "category"
+                },
+                "p:10_5": {
+                    "type": "ZONED DATETIME",
+                    "name": "startdate"
+                },
+                "p:10_6": {
+                    "type": "ZONED DATETIME",
+                    "name": "enddate"
+                },
+                "p:10_7": {
+                    "type": "INTEGER",
+                    "name": "minqty"
+                },
+                "p:10_8": {
+                    "type": "INTEGER",
+                    "name": "maxqty"
+                },
+                "p:10_9": {
+                    "type": "STRING",
+                    "name": "rowguid"
+                },
+                "p:10_10": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:10": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:10_0"
+                    ],
+                    "name": "specialoffer"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:10": {
+                        "type": "TEXT",
+                        "labels": [
+                            "specialoffer"
+                        ],
+                        "properties": [
+                            "p:10_0"
+                        ],
+                        "name": "specialoffer"
+                    }
+                }
+            }
+        },
+        "n:11": {
+            "labels": {
+                "identifier": "store"
+            },
+            "properties": {
+                "p:11_0": {
+                    "type": "INTEGER",
+                    "name": "businessentityid"
+                },
+                "p:11_4": {
+                    "type": "STRING",
+                    "name": "rowguid"
+                },
+                "p:11_5": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            },
+            "constraints": {
+                "c:11": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:11_0"
+                    ],
+                    "name": "store"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:11": {
+                        "type": "TEXT",
+                        "labels": [
+                            "store"
+                        ],
+                        "properties": [
+                            "p:11_0"
+                        ],
+                        "name": "store"
+                    }
+                }
+            }
+        }
+    },
+    "relationships": {
+        "r:0": {
+            "type": "SALESTERRITORY",
+            "from": {
+                "node": "n:3"
+            },
+            "to": {
+                "node": "n:8"
+            }
+        },
+        "r:1": {
+            "type": "STORE",
+            "from": {
+                "node": "n:3"
+            },
+            "to": {
+                "node": "n:11"
+            }
+        },
+        "r:2": {
+            "type": "CREDITCARD",
+            "from": {
+                "node": "n:4"
+            },
+            "to": {
+                "node": "n:0"
+            }
+        },
+        "r:3": {
+            "type": "CURRENCYRATE",
+            "from": {
+                "node": "n:4"
+            },
+            "to": {
+                "node": "n:2"
+            }
+        },
+        "r:4": {
+            "type": "CUSTOMER",
+            "from": {
+                "node": "n:4"
+            },
+            "to": {
+                "node": "n:3"
+            }
+        },
+        "r:5": {
+            "type": "SALESPERSON",
+            "from": {
+                "node": "n:4"
+            },
+            "to": {
+                "node": "n:5"
+            }
+        },
+        "r:6": {
+            "type": "SALESTERRITORY",
+            "from": {
+                "node": "n:4"
+            },
+            "to": {
+                "node": "n:8"
+            }
+        },
+        "r:7": {
+            "type": "SALESREASON",
+            "from": {
+                "node": "n:4"
+            },
+            "to": {
+                "node": "n:6"
+            },
+            "properties": {
+                "p:7_0": {
+                    "type": "ZONED DATETIME",
+                    "name": "modifieddate"
+                }
+            }
+        },
+        "r:8": {
+            "type": "SALESTERRITORY",
+            "from": {
+                "node": "n:5"
+            },
+            "to": {
+                "node": "n:8"
+            }
+        },
+        "r:9": {
+            "type": "SALESPERSON",
+            "from": {
+                "node": "n:11"
+            },
+            "to": {
+                "node": "n:5"
+            }
+        }
+    },
+    "extensions": {
+        "data_source_tables": {
+            "countryregioncurrency": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "countryregioncode",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "currencycode",
+                        "type": "bpchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "countryregioncode",
+                    "currencycode"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "countryregioncode"
+                        ],
+                        "references": {
+                            "table": "countryregion",
+                            "columns": [
+                                "countryregioncode"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "currencycode"
+                        ],
+                        "references": {
+                            "table": "currency",
+                            "columns": [
+                                "currencycode"
+                            ]
+                        }
+                    }
+                }
+            },
+            "creditcard": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "creditcardid",
+                        "type": "serial",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "cardtype",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "cardnumber",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "expmonth",
+                        "type": "int2",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "expyear",
+                        "type": "int2",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "creditcardid"
+                ]
+            },
+            "currency": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "currencycode",
+                        "type": "bpchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "currencycode"
+                ]
+            },
+            "currencyrate": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "currencyrateid",
+                        "type": "serial",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "currencyratedate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    },
+                    {
+                        "name": "fromcurrencycode",
+                        "type": "bpchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "tocurrencycode",
+                        "type": "bpchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "averagerate",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "endofdayrate",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "currencyrateid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "fromcurrencycode",
+                            "tocurrencycode"
+                        ],
+                        "references": {
+                            "table": "currency",
+                            "columns": [
+                                "currencycode",
+                                "currencycode"
+                            ]
+                        }
+                    }
+                }
+            },
+            "customer": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "customerid",
+                        "type": "serial",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "personid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "storeid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "territoryid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "rowguid",
+                        "type": "uuid",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "customerid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "personid"
+                        ],
+                        "references": {
+                            "table": "person",
+                            "columns": [
+                                "businessentityid"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "territoryid"
+                        ],
+                        "references": {
+                            "table": "salesterritory",
+                            "columns": [
+                                "territoryid"
+                            ]
+                        }
+                    },
+                    "foreignKey3": {
+                        "columns": [
+                            "storeid"
+                        ],
+                        "references": {
+                            "table": "store",
+                            "columns": [
+                                "businessentityid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "personcreditcard": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "businessentityid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "creditcardid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "businessentityid",
+                    "creditcardid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "businessentityid"
+                        ],
+                        "references": {
+                            "table": "person",
+                            "columns": [
+                                "businessentityid"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "creditcardid"
+                        ],
+                        "references": {
+                            "table": "creditcard",
+                            "columns": [
+                                "creditcardid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "salesorderdetail": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "salesorderid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "salesorderdetailid",
+                        "type": "serial",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "carriertrackingnumber",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "orderqty",
+                        "type": "int2",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "productid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "specialofferid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "unitprice",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "unitpricediscount",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "rowguid",
+                        "type": "uuid",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "salesorderid",
+                    "salesorderdetailid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "salesorderid"
+                        ],
+                        "references": {
+                            "table": "salesorderheader",
+                            "columns": [
+                                "salesorderid"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "specialofferid",
+                            "productid"
+                        ],
+                        "references": {
+                            "table": "specialofferproduct",
+                            "columns": [
+                                "specialofferid",
+                                "productid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "salesorderheader": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "salesorderid",
+                        "type": "serial",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "revisionnumber",
+                        "type": "int2",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "orderdate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    },
+                    {
+                        "name": "duedate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    },
+                    {
+                        "name": "shipdate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    },
+                    {
+                        "name": "status",
+                        "type": "int2",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "onlineorderflag",
+                        "type": "Flag"
+                    },
+                    {
+                        "name": "purchaseordernumber",
+                        "type": "OrderNumber"
+                    },
+                    {
+                        "name": "accountnumber",
+                        "type": "AccountNumber"
+                    },
+                    {
+                        "name": "customerid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "salespersonid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "territoryid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "billtoaddressid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "shiptoaddressid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "shipmethodid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "creditcardid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "creditcardapprovalcode",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "currencyrateid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "subtotal",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "taxamt",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "freight",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "totaldue",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "comment",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "rowguid",
+                        "type": "uuid",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "salesorderid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "billtoaddressid",
+                            "shiptoaddressid"
+                        ],
+                        "references": {
+                            "table": "address",
+                            "columns": [
+                                "addressid",
+                                "addressid"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "shipmethodid"
+                        ],
+                        "references": {
+                            "table": "shipmethod",
+                            "columns": [
+                                "shipmethodid"
+                            ]
+                        }
+                    },
+                    "foreignKey3": {
+                        "columns": [
+                            "creditcardid"
+                        ],
+                        "references": {
+                            "table": "creditcard",
+                            "columns": [
+                                "creditcardid"
+                            ]
+                        }
+                    },
+                    "foreignKey4": {
+                        "columns": [
+                            "currencyrateid"
+                        ],
+                        "references": {
+                            "table": "currencyrate",
+                            "columns": [
+                                "currencyrateid"
+                            ]
+                        }
+                    },
+                    "foreignKey5": {
+                        "columns": [
+                            "customerid"
+                        ],
+                        "references": {
+                            "table": "customer",
+                            "columns": [
+                                "customerid"
+                            ]
+                        }
+                    },
+                    "foreignKey6": {
+                        "columns": [
+                            "salespersonid"
+                        ],
+                        "references": {
+                            "table": "salesperson",
+                            "columns": [
+                                "businessentityid"
+                            ]
+                        }
+                    },
+                    "foreignKey7": {
+                        "columns": [
+                            "territoryid"
+                        ],
+                        "references": {
+                            "table": "salesterritory",
+                            "columns": [
+                                "territoryid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "salesorderheadersalesreason": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "salesorderid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "salesreasonid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "salesorderid",
+                    "salesreasonid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "salesorderid"
+                        ],
+                        "references": {
+                            "table": "salesorderheader",
+                            "columns": [
+                                "salesorderid"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "salesreasonid"
+                        ],
+                        "references": {
+                            "table": "salesreason",
+                            "columns": [
+                                "salesreasonid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "salesperson": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "businessentityid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "territoryid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "salesquota",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "bonus",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "commissionpct",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "salesytd",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "saleslastyear",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "rowguid",
+                        "type": "uuid",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "businessentityid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "businessentityid"
+                        ],
+                        "references": {
+                            "table": "employee",
+                            "columns": [
+                                "businessentityid"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "territoryid"
+                        ],
+                        "references": {
+                            "table": "salesterritory",
+                            "columns": [
+                                "territoryid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "salespersonquotahistory": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "businessentityid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "quotadate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    },
+                    {
+                        "name": "salesquota",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "rowguid",
+                        "type": "uuid",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "businessentityid",
+                    "quotadate"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "businessentityid"
+                        ],
+                        "references": {
+                            "table": "salesperson",
+                            "columns": [
+                                "businessentityid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "salesreason": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "salesreasonid",
+                        "type": "serial",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "reasontype",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "salesreasonid"
+                ]
+            },
+            "salestaxrate": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "salestaxrateid",
+                        "type": "serial",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "stateprovinceid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "taxtype",
+                        "type": "int2",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "taxrate",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "rowguid",
+                        "type": "uuid",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "salestaxrateid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "stateprovinceid"
+                        ],
+                        "references": {
+                            "table": "stateprovince",
+                            "columns": [
+                                "stateprovinceid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "salesterritory": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "territoryid",
+                        "type": "serial",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "countryregioncode",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "group",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "salesytd",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "saleslastyear",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "costytd",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "costlastyear",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "rowguid",
+                        "type": "uuid",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "territoryid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "countryregioncode"
+                        ],
+                        "references": {
+                            "table": "countryregion",
+                            "columns": [
+                                "countryregioncode"
+                            ]
+                        }
+                    }
+                }
+            },
+            "salesterritoryhistory": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "businessentityid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "territoryid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "startdate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    },
+                    {
+                        "name": "enddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    },
+                    {
+                        "name": "rowguid",
+                        "type": "uuid",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "businessentityid",
+                    "startdate",
+                    "territoryid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "businessentityid"
+                        ],
+                        "references": {
+                            "table": "salesperson",
+                            "columns": [
+                                "businessentityid"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "territoryid"
+                        ],
+                        "references": {
+                            "table": "salesterritory",
+                            "columns": [
+                                "territoryid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "shoppingcartitem": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "shoppingcartitemid",
+                        "type": "serial",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "shoppingcartid",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "quantity",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "productid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "datecreated",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "shoppingcartitemid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "productid"
+                        ],
+                        "references": {
+                            "table": "product",
+                            "columns": [
+                                "productid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "specialoffer": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "specialofferid",
+                        "type": "serial",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "description",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "discountpct",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "type",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "category",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "startdate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    },
+                    {
+                        "name": "enddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    },
+                    {
+                        "name": "minqty",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "maxqty",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "rowguid",
+                        "type": "uuid",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "specialofferid"
+                ]
+            },
+            "specialofferproduct": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "specialofferid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "productid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "rowguid",
+                        "type": "uuid",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "specialofferid",
+                    "productid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "productid"
+                        ],
+                        "references": {
+                            "table": "product",
+                            "columns": [
+                                "productid"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "specialofferid"
+                        ],
+                        "references": {
+                            "table": "specialoffer",
+                            "columns": [
+                                "specialofferid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "store": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "businessentityid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "salespersonid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "demographics",
+                        "type": "xml"
+                    },
+                    {
+                        "name": "rowguid",
+                        "type": "uuid",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "modifieddate",
+                        "type": "timestamp",
+                        "suggested": "ZONED DATETIME",
+                        "supported": [
+                            "DATE",
+                            "ZONED DATETIME",
+                            "LOCAL DATETIME"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "businessentityid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "businessentityid"
+                        ],
+                        "references": {
+                            "table": "businessentity",
+                            "columns": [
+                                "businessentityid"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "salespersonid"
+                        ],
+                        "references": {
+                            "table": "salesperson",
+                            "columns": [
+                                "businessentityid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "vindividualcustomer": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "businessentityid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "title",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "firstname",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "middlename",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "lastname",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "suffix",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "phonenumber",
+                        "type": "Phone"
+                    },
+                    {
+                        "name": "phonenumbertype",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "emailaddress",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "emailpromotion",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "addresstype",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "addressline1",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "addressline2",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "city",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "stateprovincename",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "postalcode",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "countryregionname",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "demographics",
+                        "type": "xml"
+                    }
+                ]
+            },
+            "vpersondemographics": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "businessentityid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "totalpurchaseytd",
+                        "type": "money",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "datefirstpurchase",
+                        "type": "date",
+                        "suggested": "DATE",
+                        "supported": [
+                            "DATE"
+                        ]
+                    },
+                    {
+                        "name": "birthdate",
+                        "type": "date",
+                        "suggested": "DATE",
+                        "supported": [
+                            "DATE"
+                        ]
+                    },
+                    {
+                        "name": "maritalstatus",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "yearlyincome",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "gender",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "totalchildren",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "numberchildrenathome",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "education",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "occupation",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "homeownerflag",
+                        "type": "bool",
+                        "suggested": "BOOLEAN",
+                        "supported": [
+                            "STRING",
+                            "BOOLEAN"
+                        ]
+                    },
+                    {
+                        "name": "numbercarsowned",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "vsalesperson": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "businessentityid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "title",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "firstname",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "middlename",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "lastname",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "suffix",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "jobtitle",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "phonenumber",
+                        "type": "Phone"
+                    },
+                    {
+                        "name": "phonenumbertype",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "emailaddress",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "emailpromotion",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "addressline1",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "addressline2",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "city",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "stateprovincename",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "postalcode",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "countryregionname",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "territoryname",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "territorygroup",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "salesquota",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "salesytd",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "saleslastyear",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "vsalespersonsalesbyfiscalyears": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "SalesPersonID",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "FullName",
+                        "type": "text",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "JobTitle",
+                        "type": "text",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "SalesTerritory",
+                        "type": "text",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "2012",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "2013",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "2014",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "vsalespersonsalesbyfiscalyearsdata": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "salespersonid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "fullname",
+                        "type": "text",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "jobtitle",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "salesterritory",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "salestotal",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "fiscalyear",
+                        "type": "numeric",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "vstorewithaddresses": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "businessentityid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "addresstype",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "addressline1",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "addressline2",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "city",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "stateprovincename",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "postalcode",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "countryregionname",
+                        "type": "Name"
+                    }
+                ]
+            },
+            "vstorewithcontacts": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "businessentityid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "contacttype",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "title",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "firstname",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "middlename",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "lastname",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "suffix",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "phonenumber",
+                        "type": "Phone"
+                    },
+                    {
+                        "name": "phonenumbertype",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "emailaddress",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "emailpromotion",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            },
+            "vstorewithdemographics": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "businessentityid",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "name",
+                        "type": "Name"
+                    },
+                    {
+                        "name": "AnnualSales",
+                        "type": "money",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "AnnualRevenue",
+                        "type": "money",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "BankName",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "BusinessType",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "YearOpened",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "Specialty",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "SquareFeet",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "Brands",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "Internet",
+                        "type": "varchar",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "NumberEmployees",
+                        "type": "int4",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ]
+            }
+        },
+        "data_source_mappings": {
+            "mapping0": [
+                {
+                    "type": "NODE",
+                    "node": "n:0",
+                    "table": "creditcard",
+                    "properties": {
+                        "p:0_0": {
+                            "column": "creditcardid"
+                        },
+                        "p:0_1": {
+                            "column": "cardtype"
+                        },
+                        "p:0_2": {
+                            "column": "cardnumber"
+                        },
+                        "p:0_3": {
+                            "column": "expmonth"
+                        },
+                        "p:0_4": {
+                            "column": "expyear"
+                        },
+                        "p:0_5": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:0_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:1",
+                    "table": "currency",
+                    "properties": {
+                        "p:1_0": {
+                            "column": "currencycode"
+                        },
+                        "p:1_2": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:1_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:2",
+                    "table": "currencyrate",
+                    "properties": {
+                        "p:2_0": {
+                            "column": "currencyrateid"
+                        },
+                        "p:2_1": {
+                            "column": "currencyratedate"
+                        },
+                        "p:2_4": {
+                            "column": "averagerate"
+                        },
+                        "p:2_5": {
+                            "column": "endofdayrate"
+                        },
+                        "p:2_6": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:2_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:3",
+                    "table": "customer",
+                    "properties": {
+                        "p:3_0": {
+                            "column": "customerid"
+                        },
+                        "p:3_4": {
+                            "column": "rowguid"
+                        },
+                        "p:3_5": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:3_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:4",
+                    "table": "salesorderheader",
+                    "properties": {
+                        "p:4_0": {
+                            "column": "salesorderid"
+                        },
+                        "p:4_1": {
+                            "column": "revisionnumber"
+                        },
+                        "p:4_2": {
+                            "column": "orderdate"
+                        },
+                        "p:4_3": {
+                            "column": "duedate"
+                        },
+                        "p:4_4": {
+                            "column": "shipdate"
+                        },
+                        "p:4_5": {
+                            "column": "status"
+                        },
+                        "p:4_16": {
+                            "column": "creditcardapprovalcode"
+                        },
+                        "p:4_18": {
+                            "column": "subtotal"
+                        },
+                        "p:4_19": {
+                            "column": "taxamt"
+                        },
+                        "p:4_20": {
+                            "column": "freight"
+                        },
+                        "p:4_21": {
+                            "column": "totaldue"
+                        },
+                        "p:4_22": {
+                            "column": "comment"
+                        },
+                        "p:4_23": {
+                            "column": "rowguid"
+                        },
+                        "p:4_24": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:4_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:5",
+                    "table": "salesperson",
+                    "properties": {
+                        "p:5_0": {
+                            "column": "businessentityid"
+                        },
+                        "p:5_2": {
+                            "column": "salesquota"
+                        },
+                        "p:5_3": {
+                            "column": "bonus"
+                        },
+                        "p:5_4": {
+                            "column": "commissionpct"
+                        },
+                        "p:5_5": {
+                            "column": "salesytd"
+                        },
+                        "p:5_6": {
+                            "column": "saleslastyear"
+                        },
+                        "p:5_7": {
+                            "column": "rowguid"
+                        },
+                        "p:5_8": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:5_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:6",
+                    "table": "salesreason",
+                    "properties": {
+                        "p:6_0": {
+                            "column": "salesreasonid"
+                        },
+                        "p:6_3": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:6_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:7",
+                    "table": "salestaxrate",
+                    "properties": {
+                        "p:7_0": {
+                            "column": "salestaxrateid"
+                        },
+                        "p:7_2": {
+                            "column": "taxtype"
+                        },
+                        "p:7_3": {
+                            "column": "taxrate"
+                        },
+                        "p:7_5": {
+                            "column": "rowguid"
+                        },
+                        "p:7_6": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:7_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:8",
+                    "table": "salesterritory",
+                    "properties": {
+                        "p:8_0": {
+                            "column": "territoryid"
+                        },
+                        "p:8_3": {
+                            "column": "group"
+                        },
+                        "p:8_4": {
+                            "column": "salesytd"
+                        },
+                        "p:8_5": {
+                            "column": "saleslastyear"
+                        },
+                        "p:8_6": {
+                            "column": "costytd"
+                        },
+                        "p:8_7": {
+                            "column": "costlastyear"
+                        },
+                        "p:8_8": {
+                            "column": "rowguid"
+                        },
+                        "p:8_9": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:8_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:9",
+                    "table": "shoppingcartitem",
+                    "properties": {
+                        "p:9_0": {
+                            "column": "shoppingcartitemid"
+                        },
+                        "p:9_1": {
+                            "column": "shoppingcartid"
+                        },
+                        "p:9_2": {
+                            "column": "quantity"
+                        },
+                        "p:9_4": {
+                            "column": "datecreated"
+                        },
+                        "p:9_5": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:9_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:10",
+                    "table": "specialoffer",
+                    "properties": {
+                        "p:10_0": {
+                            "column": "specialofferid"
+                        },
+                        "p:10_1": {
+                            "column": "description"
+                        },
+                        "p:10_2": {
+                            "column": "discountpct"
+                        },
+                        "p:10_3": {
+                            "column": "type"
+                        },
+                        "p:10_4": {
+                            "column": "category"
+                        },
+                        "p:10_5": {
+                            "column": "startdate"
+                        },
+                        "p:10_6": {
+                            "column": "enddate"
+                        },
+                        "p:10_7": {
+                            "column": "minqty"
+                        },
+                        "p:10_8": {
+                            "column": "maxqty"
+                        },
+                        "p:10_9": {
+                            "column": "rowguid"
+                        },
+                        "p:10_10": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:10_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:11",
+                    "table": "store",
+                    "properties": {
+                        "p:11_0": {
+                            "column": "businessentityid"
+                        },
+                        "p:11_4": {
+                            "column": "rowguid"
+                        },
+                        "p:11_5": {
+                            "column": "modifieddate"
+                        }
+                    },
+                    "key": [
+                        "p:11_0"
+                    ]
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:0",
+                    "table": "customer",
+                    "from_node": {
+                        "properties": {
+                            "p:3_0": {
+                                "column": "customerid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:8_0": {
+                                "column": "territoryid"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:1",
+                    "table": "customer",
+                    "from_node": {
+                        "properties": {
+                            "p:3_0": {
+                                "column": "customerid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:11_0": {
+                                "column": "storeid"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:2",
+                    "table": "salesorderheader",
+                    "from_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "salesorderid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:0_0": {
+                                "column": "creditcardid"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:3",
+                    "table": "salesorderheader",
+                    "from_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "salesorderid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:2_0": {
+                                "column": "currencyrateid"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:4",
+                    "table": "salesorderheader",
+                    "from_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "salesorderid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:3_0": {
+                                "column": "customerid"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:5",
+                    "table": "salesorderheader",
+                    "from_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "salesorderid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:5_0": {
+                                "column": "salespersonid"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:6",
+                    "table": "salesorderheader",
+                    "from_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "salesorderid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:8_0": {
+                                "column": "territoryid"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:7",
+                    "table": "salesorderheadersalesreason",
+                    "from_node": {
+                        "properties": {
+                            "p:4_0": {
+                                "column": "salesorderid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:6_0": {
+                                "column": "salesreasonid"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:7_0": {
+                            "column": "modifieddate"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:8",
+                    "table": "salesperson",
+                    "from_node": {
+                        "properties": {
+                            "p:5_0": {
+                                "column": "businessentityid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:8_0": {
+                                "column": "territoryid"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:9",
+                    "table": "store",
+                    "from_node": {
+                        "properties": {
+                            "p:11_0": {
+                                "column": "businessentityid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:5_0": {
+                                "column": "salespersonid"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

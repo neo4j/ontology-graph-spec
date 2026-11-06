@@ -1,0 +1,137 @@
+{
+    "version": "3.0.0",
+    "graphSchemaRepresentation": {
+        "version": "1.0.0",
+        "graphSchema": {
+            "nodeLabels": [
+                {
+                    "$id": "nl:0",
+                    "token": "Person",
+                    "properties": [
+                        {
+                            "$id": "name",
+                            "token": "name",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false,
+                            "description": "The person's full name."
+                        }
+                    ]
+                },
+                {
+                    "$id": "nl:1",
+                    "token": "Movie",
+                    "properties": [
+                        {
+                            "$id": "title",
+                            "token": "title",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false,
+                            "description": "The title the movie was released under."
+                        }
+                    ]
+                }
+            ],
+            "relationshipTypes": [
+                {
+                    "$id": "rt:0",
+                    "token": "ACTED_IN",
+                    "properties": [
+                        {
+                            "$id": "role",
+                            "token": "role",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false,
+                            "description": "The character the person played."
+                        }
+                    ]
+                }
+            ],
+            "nodeObjectTypes": [
+                {
+                    "$id": "person",
+                    "labels": [
+                        {
+                            "$ref": "#nl:0"
+                        }
+                    ],
+                    "description": "A person who acts in movies."
+                },
+                {
+                    "$id": "movie",
+                    "labels": [
+                        {
+                            "$ref": "#nl:1"
+                        }
+                    ],
+                    "description": "A film released to the public."
+                }
+            ],
+            "relationshipObjectTypes": [
+                {
+                    "$id": "acted-in",
+                    "type": {
+                        "$ref": "#rt:0"
+                    },
+                    "from": {
+                        "$ref": "#person"
+                    },
+                    "to": {
+                        "$ref": "#movie"
+                    },
+                    "description": "The person appeared in the movie as a cast member."
+                }
+            ],
+            "constraints": [
+                {
+                    "$id": "exists_person_name",
+                    "name": "name_Person_exists",
+                    "constraintType": "propertyExistence",
+                    "entityType": "node",
+                    "nodeLabel": {
+                        "$ref": "#nl:0"
+                    },
+                    "properties": [
+                        {
+                            "$ref": "#name"
+                        }
+                    ]
+                },
+                {
+                    "$id": "unique_movie_title",
+                    "name": "title_Movie_uniq",
+                    "constraintType": "uniqueness",
+                    "entityType": "node",
+                    "nodeLabel": {
+                        "$ref": "#nl:1"
+                    },
+                    "properties": [
+                        {
+                            "$ref": "#title"
+                        }
+                    ]
+                }
+            ],
+            "indexes": []
+        }
+    },
+    "graphSchemaExtensionsRepresentation": {
+        "nodeKeyProperties": []
+    },
+    "graphMappingRepresentation": {
+        "dataSourceSchema": {
+            "type": null,
+            "tableSchemas": []
+        },
+        "nodeMappings": [],
+        "relationshipMappings": []
+    },
+    "configurations": {
+        "idsToIgnore": []
+    }
+}

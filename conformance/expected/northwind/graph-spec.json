@@ -1,0 +1,714 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1.0.0",
+    "id": "graph-model",
+    "nodes": {
+        "n:0": {
+            "labels": {
+                "identifier": "categories"
+            },
+            "properties": {
+                "p:0_0": {
+                    "type": "INTEGER",
+                    "name": "categoryid"
+                },
+                "p:0_1": {
+                    "type": "STRING",
+                    "name": "categoryname"
+                },
+                "p:0_2": {
+                    "type": "STRING",
+                    "name": "description"
+                },
+                "p:0_3": {
+                    "type": "STRING",
+                    "name": "picture"
+                }
+            },
+            "constraints": {
+                "c:0": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:0_0"
+                    ],
+                    "name": "categories"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:0": {
+                        "type": "TEXT",
+                        "labels": [
+                            "categories"
+                        ],
+                        "properties": [
+                            "p:0_0"
+                        ],
+                        "name": "categories"
+                    }
+                },
+                "display": {
+                    "x": -100.123,
+                    "y": 200.0
+                }
+            }
+        },
+        "n:1": {
+            "labels": {
+                "identifier": "products"
+            },
+            "properties": {
+                "p:1_0": {
+                    "type": "INTEGER",
+                    "name": "productid"
+                },
+                "p:1_1": {
+                    "type": "STRING",
+                    "name": "productname"
+                },
+                "p:1_4": {
+                    "type": "STRING",
+                    "name": "quantityperunit"
+                },
+                "p:1_5": {
+                    "type": "FLOAT",
+                    "name": "unitprice"
+                },
+                "p:1_6": {
+                    "type": "INTEGER",
+                    "name": "unitsinstock"
+                },
+                "p:1_7": {
+                    "type": "INTEGER",
+                    "name": "unitsonorder"
+                },
+                "p:1_8": {
+                    "type": "INTEGER",
+                    "name": "reorderlevel"
+                },
+                "p:1_9": {
+                    "type": "INTEGER",
+                    "name": "discontinued"
+                }
+            },
+            "constraints": {
+                "c:1": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:1_0"
+                    ],
+                    "name": "products"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:1": {
+                        "type": "TEXT",
+                        "labels": [
+                            "products"
+                        ],
+                        "properties": [
+                            "p:1_0"
+                        ],
+                        "name": "products"
+                    }
+                }
+            }
+        },
+        "n:2": {
+            "labels": {
+                "identifier": "suppliers"
+            },
+            "properties": {
+                "p:2_0": {
+                    "type": "INTEGER",
+                    "name": "supplierid"
+                },
+                "p:2_1": {
+                    "type": "STRING",
+                    "name": "companyname"
+                },
+                "p:2_2": {
+                    "type": "STRING",
+                    "name": "contactname"
+                },
+                "p:2_3": {
+                    "type": "STRING",
+                    "name": "contacttitle"
+                },
+                "p:2_4": {
+                    "type": "STRING",
+                    "name": "address"
+                },
+                "p:2_5": {
+                    "type": "STRING",
+                    "name": "city"
+                },
+                "p:2_6": {
+                    "type": "STRING",
+                    "name": "region"
+                },
+                "p:2_7": {
+                    "type": "STRING",
+                    "name": "postalcode"
+                },
+                "p:2_8": {
+                    "type": "STRING",
+                    "name": "country"
+                },
+                "p:2_9": {
+                    "type": "STRING",
+                    "name": "phone"
+                },
+                "p:2_10": {
+                    "type": "STRING",
+                    "name": "fax"
+                },
+                "p:2_11": {
+                    "type": "STRING",
+                    "name": "homepage"
+                }
+            },
+            "constraints": {
+                "c:2": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "p:2_0"
+                    ],
+                    "name": "suppliers"
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "i:2": {
+                        "type": "TEXT",
+                        "labels": [
+                            "suppliers"
+                        ],
+                        "properties": [
+                            "p:2_0"
+                        ],
+                        "name": "suppliers"
+                    }
+                }
+            }
+        }
+    },
+    "relationships": {
+        "r:0": {
+            "type": "CATEGORIES",
+            "from": {
+                "node": "n:1"
+            },
+            "to": {
+                "node": "n:0"
+            }
+        },
+        "r:1": {
+            "type": "SUPPLIERS",
+            "from": {
+                "node": "n:1"
+            },
+            "to": {
+                "node": "n:2"
+            }
+        }
+    },
+    "extensions": {
+        "data_source_tables": {
+            "categories": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "categoryid",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "categoryname",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "description",
+                        "type": "TEXT",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "picture",
+                        "type": "TEXT",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "categoryid"
+                ]
+            },
+            "orders": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "orderid",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "productid",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "unitprice",
+                        "type": "DOUBLE",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "quantity",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "discount",
+                        "type": "DOUBLE",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "orderid",
+                    "productid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "productid"
+                        ],
+                        "references": {
+                            "table": "products",
+                            "columns": [
+                                "productid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "products": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "productid",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "productname",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "supplierid",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "categoryid",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "quantityperunit",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "unitprice",
+                        "type": "DOUBLE",
+                        "suggested": "FLOAT",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "unitsinstock",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "unitsonorder",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "reorderlevel",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "discontinued",
+                        "type": "BIT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT",
+                            "BOOLEAN"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "productid"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "categoryid"
+                        ],
+                        "references": {
+                            "table": "categories",
+                            "columns": [
+                                "categoryid"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "supplierid"
+                        ],
+                        "references": {
+                            "table": "suppliers",
+                            "columns": [
+                                "supplierid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "suppliers": {
+                "source": "cloud",
+                "columns": [
+                    {
+                        "name": "supplierid",
+                        "type": "INT",
+                        "suggested": "INTEGER",
+                        "supported": [
+                            "INTEGER",
+                            "STRING",
+                            "FLOAT"
+                        ]
+                    },
+                    {
+                        "name": "companyname",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "contactname",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "contacttitle",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "address",
+                        "type": "TEXT",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "city",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "region",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "postalcode",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "country",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "phone",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "fax",
+                        "type": "VARCHAR",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "homepage",
+                        "type": "TEXT",
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "supplierid"
+                ]
+            }
+        },
+        "data_source_mappings": {
+            "mapping0": [
+                {
+                    "type": "NODE",
+                    "node": "n:0",
+                    "table": "categories",
+                    "properties": {
+                        "p:0_0": {
+                            "column": "categoryid"
+                        },
+                        "p:0_1": {
+                            "column": "categoryname"
+                        },
+                        "p:0_2": {
+                            "column": "description"
+                        },
+                        "p:0_3": {
+                            "column": "picture"
+                        }
+                    },
+                    "key": [
+                        "p:0_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:1",
+                    "table": "products",
+                    "properties": {
+                        "p:1_0": {
+                            "column": "productid"
+                        },
+                        "p:1_1": {
+                            "column": "productname"
+                        },
+                        "p:1_4": {
+                            "column": "quantityperunit"
+                        },
+                        "p:1_5": {
+                            "column": "unitprice"
+                        },
+                        "p:1_6": {
+                            "column": "unitsinstock"
+                        },
+                        "p:1_7": {
+                            "column": "unitsonorder"
+                        },
+                        "p:1_8": {
+                            "column": "reorderlevel"
+                        },
+                        "p:1_9": {
+                            "column": "discontinued"
+                        }
+                    },
+                    "key": [
+                        "p:1_0"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:2",
+                    "table": "suppliers",
+                    "properties": {
+                        "p:2_0": {
+                            "column": "supplierid"
+                        },
+                        "p:2_1": {
+                            "column": "companyname"
+                        },
+                        "p:2_2": {
+                            "column": "contactname"
+                        },
+                        "p:2_3": {
+                            "column": "contacttitle"
+                        },
+                        "p:2_4": {
+                            "column": "address"
+                        },
+                        "p:2_5": {
+                            "column": "city"
+                        },
+                        "p:2_6": {
+                            "column": "region"
+                        },
+                        "p:2_7": {
+                            "column": "postalcode"
+                        },
+                        "p:2_8": {
+                            "column": "country"
+                        },
+                        "p:2_9": {
+                            "column": "phone"
+                        },
+                        "p:2_10": {
+                            "column": "fax"
+                        },
+                        "p:2_11": {
+                            "column": "homepage"
+                        }
+                    },
+                    "key": [
+                        "p:2_0"
+                    ]
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:0",
+                    "table": "products",
+                    "from_node": {
+                        "properties": {
+                            "p:1_0": {
+                                "column": "productid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:0_0": {
+                                "column": "categoryid"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:1",
+                    "table": "products",
+                    "from_node": {
+                        "properties": {
+                            "p:1_0": {
+                                "column": "productid"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:2_0": {
+                                "column": "supplierid"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

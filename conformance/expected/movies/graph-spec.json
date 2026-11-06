@@ -1,0 +1,76 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1.0.0",
+    "id": "movies",
+    "name": "Movies",
+    "description": "People and the movies they act in.",
+    "nodes": {
+        "person": {
+            "labels": {
+                "identifier": "Person"
+            },
+            "properties": {
+                "name": {
+                    "type": "STRING",
+                    "description": "The person's full name."
+                }
+            },
+            "constraints": {
+                "exists_person_name": {
+                    "type": "EXISTS",
+                    "properties": [
+                        "name"
+                    ],
+                    "name": "name_Person_exists"
+                }
+            },
+            "description": "A person who acts in movies.",
+            "aliases": [
+                "Actor",
+                "Performer"
+            ]
+        },
+        "movie": {
+            "labels": {
+                "identifier": "Movie"
+            },
+            "properties": {
+                "title": {
+                    "type": "STRING",
+                    "description": "The title the movie was released under."
+                }
+            },
+            "constraints": {
+                "unique_movie_title": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "title"
+                    ],
+                    "name": "title_Movie_uniq"
+                }
+            },
+            "description": "A film released to the public.",
+            "aliases": [
+                "Film"
+            ]
+        }
+    },
+    "relationships": {
+        "acted-in": {
+            "type": "ACTED_IN",
+            "from": {
+                "node": "person"
+            },
+            "to": {
+                "node": "movie"
+            },
+            "properties": {
+                "role": {
+                    "type": "STRING",
+                    "description": "The character the person played."
+                }
+            },
+            "description": "The person appeared in the movie as a cast member."
+        }
+    }
+}

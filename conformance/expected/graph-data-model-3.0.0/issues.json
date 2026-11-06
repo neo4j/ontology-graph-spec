@@ -1,0 +1,14 @@
+[
+    {
+        "code": "missing_node_constraint_coverage",
+        "message": "Node 'n:1' has no constraints — add a KEY, UNIQUENESS, or EXISTENCE constraint.",
+        "path": "nodes.n:1.constraints",
+        "details": {}
+    },
+    {
+        "code": "missing_node_constraint_coverage",
+        "message": "Node 'n:2' has no constraints — add a KEY, UNIQUENESS, or EXISTENCE constraint.",
+        "path": "nodes.n:2.constraints",
+        "details": {}
+    }
+]

@@ -1,0 +1,2828 @@
+[
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:0' on node 'n:0' reuses name 'ACCOUNT' already used by another index or constraint",
+        "path": "nodes.n:0.extensions.indexes.i:0.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:0' on node 'n:0' reuses name 'ACCOUNT' already used by another index or constraint",
+        "path": "nodes.n:0.constraints.c:0.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:1' on node 'n:1' reuses name 'ADMINISTRATIVE_ORGANIZATION_UNIT' already used by another index or constraint",
+        "path": "nodes.n:1.extensions.indexes.i:1.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:1' on node 'n:1' reuses name 'ADMINISTRATIVE_ORGANIZATION_UNIT' already used by another index or constraint",
+        "path": "nodes.n:1.constraints.c:1.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:2' on node 'n:2' reuses name 'AGENCY_CONTRACT' already used by another index or constraint",
+        "path": "nodes.n:2.extensions.indexes.i:2.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:2' on node 'n:2' reuses name 'AGENCY_CONTRACT' already used by another index or constraint",
+        "path": "nodes.n:2.constraints.c:2.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:3' on node 'n:3' reuses name 'AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:3.extensions.indexes.i:3.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:3' on node 'n:3' reuses name 'AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:3.constraints.c:3.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:4' on node 'n:4' reuses name 'ANIMAL' already used by another index or constraint",
+        "path": "nodes.n:4.extensions.indexes.i:4.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:4' on node 'n:4' reuses name 'ANIMAL' already used by another index or constraint",
+        "path": "nodes.n:4.constraints.c:4.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:5' on node 'n:5' reuses name 'APPROVAL' already used by another index or constraint",
+        "path": "nodes.n:5.extensions.indexes.i:5.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:5' on node 'n:5' reuses name 'APPROVAL' already used by another index or constraint",
+        "path": "nodes.n:5.constraints.c:5.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:6' on node 'n:6' reuses name 'ARBITRATION' already used by another index or constraint",
+        "path": "nodes.n:6.extensions.indexes.i:6.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:6' on node 'n:6' reuses name 'ARBITRATION' already used by another index or constraint",
+        "path": "nodes.n:6.constraints.c:6.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:7' on node 'n:7' reuses name 'ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:7.extensions.indexes.i:7.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:7' on node 'n:7' reuses name 'ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:7.constraints.c:7.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:8' on node 'n:8' reuses name 'ASSESSMENT_RESULT' already used by another index or constraint",
+        "path": "nodes.n:8.extensions.indexes.i:8.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:8' on node 'n:8' reuses name 'ASSESSMENT_RESULT' already used by another index or constraint",
+        "path": "nodes.n:8.constraints.c:8.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:9' on node 'n:9' reuses name 'ASSUMED_CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:9.extensions.indexes.i:9.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:9' on node 'n:9' reuses name 'ASSUMED_CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:9.constraints.c:9.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:10' on node 'n:10' reuses name 'ASSUMED_POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:10.extensions.indexes.i:10.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:10' on node 'n:10' reuses name 'ASSUMED_POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:10.constraints.c:10.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:11' on node 'n:11' reuses name 'AUTOMOBILE' already used by another index or constraint",
+        "path": "nodes.n:11.extensions.indexes.i:11.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:11' on node 'n:11' reuses name 'AUTOMOBILE' already used by another index or constraint",
+        "path": "nodes.n:11.constraints.c:11.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:12' on node 'n:12' reuses name 'AUTO_REPAIR_SHOP_CONTRACT' already used by another index or constraint",
+        "path": "nodes.n:12.extensions.indexes.i:12.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:12' on node 'n:12' reuses name 'AUTO_REPAIR_SHOP_CONTRACT' already used by another index or constraint",
+        "path": "nodes.n:12.constraints.c:12.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:13' on node 'n:13' reuses name 'BINDING' already used by another index or constraint",
+        "path": "nodes.n:13.extensions.indexes.i:13.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:13' on node 'n:13' reuses name 'BINDING' already used by another index or constraint",
+        "path": "nodes.n:13.constraints.c:13.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:14' on node 'n:14' reuses name 'BOAT' already used by another index or constraint",
+        "path": "nodes.n:14.extensions.indexes.i:14.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:14' on node 'n:14' reuses name 'BOAT' already used by another index or constraint",
+        "path": "nodes.n:14.constraints.c:14.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:15' on node 'n:15' reuses name 'BODY_OBJECT' already used by another index or constraint",
+        "path": "nodes.n:15.extensions.indexes.i:15.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:15' on node 'n:15' reuses name 'BODY_OBJECT' already used by another index or constraint",
+        "path": "nodes.n:15.constraints.c:15.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:16' on node 'n:16' reuses name 'BROKERAGE_CONTRACT' already used by another index or constraint",
+        "path": "nodes.n:16.extensions.indexes.i:16.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:16' on node 'n:16' reuses name 'BROKERAGE_CONTRACT' already used by another index or constraint",
+        "path": "nodes.n:16.constraints.c:16.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:17' on node 'n:17' reuses name 'BUS' already used by another index or constraint",
+        "path": "nodes.n:17.extensions.indexes.i:17.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:17' on node 'n:17' reuses name 'BUS' already used by another index or constraint",
+        "path": "nodes.n:17.constraints.c:17.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:18' on node 'n:18' reuses name 'BUSINESS_EVENT' already used by another index or constraint",
+        "path": "nodes.n:18.extensions.indexes.i:18.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:18' on node 'n:18' reuses name 'BUSINESS_EVENT' already used by another index or constraint",
+        "path": "nodes.n:18.constraints.c:18.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:19' on node 'n:19' reuses name 'CANCEL' already used by another index or constraint",
+        "path": "nodes.n:19.extensions.indexes.i:19.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:19' on node 'n:19' reuses name 'CANCEL' already used by another index or constraint",
+        "path": "nodes.n:19.constraints.c:19.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:20' on node 'n:20' reuses name 'CATASTROPHE' already used by another index or constraint",
+        "path": "nodes.n:20.extensions.indexes.i:20.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:20' on node 'n:20' reuses name 'CATASTROPHE' already used by another index or constraint",
+        "path": "nodes.n:20.constraints.c:20.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:21' on node 'n:21' reuses name 'CEDED_CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:21.extensions.indexes.i:21.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:21' on node 'n:21' reuses name 'CEDED_CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:21.constraints.c:21.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:22' on node 'n:22' reuses name 'CEDED_POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:22.extensions.indexes.i:22.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:22' on node 'n:22' reuses name 'CEDED_POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:22.constraints.c:22.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:23' on node 'n:23' reuses name 'CHANNEL_SCORE' already used by another index or constraint",
+        "path": "nodes.n:23.extensions.indexes.i:23.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:23' on node 'n:23' reuses name 'CHANNEL_SCORE' already used by another index or constraint",
+        "path": "nodes.n:23.constraints.c:23.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:24' on node 'n:24' reuses name 'CLAIM' already used by another index or constraint",
+        "path": "nodes.n:24.extensions.indexes.i:24.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:24' on node 'n:24' reuses name 'CLAIM' already used by another index or constraint",
+        "path": "nodes.n:24.constraints.c:24.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:25' on node 'n:25' reuses name 'CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:25.extensions.indexes.i:25.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:25' on node 'n:25' reuses name 'CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:25.constraints.c:25.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:26' on node 'n:26' reuses name 'CLAIM_EVALUATION_RESULT' already used by another index or constraint",
+        "path": "nodes.n:26.extensions.indexes.i:26.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:26' on node 'n:26' reuses name 'CLAIM_EVALUATION_RESULT' already used by another index or constraint",
+        "path": "nodes.n:26.constraints.c:26.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:27' on node 'n:27' reuses name 'CLAIM_EVENT' already used by another index or constraint",
+        "path": "nodes.n:27.extensions.indexes.i:27.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:27' on node 'n:27' reuses name 'CLAIM_EVENT' already used by another index or constraint",
+        "path": "nodes.n:27.constraints.c:27.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:28' on node 'n:28' reuses name 'CLAIM_FOLDER' already used by another index or constraint",
+        "path": "nodes.n:28.extensions.indexes.i:28.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:28' on node 'n:28' reuses name 'CLAIM_FOLDER' already used by another index or constraint",
+        "path": "nodes.n:28.constraints.c:28.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:29' on node 'n:29' reuses name 'CLAIM_OFFER' already used by another index or constraint",
+        "path": "nodes.n:29.extensions.indexes.i:29.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:29' on node 'n:29' reuses name 'CLAIM_OFFER' already used by another index or constraint",
+        "path": "nodes.n:29.constraints.c:29.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:30' on node 'n:30' reuses name 'CLAIM_PAYMENT' already used by another index or constraint",
+        "path": "nodes.n:30.extensions.indexes.i:30.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:30' on node 'n:30' reuses name 'CLAIM_PAYMENT' already used by another index or constraint",
+        "path": "nodes.n:30.constraints.c:30.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:31' on node 'n:31' reuses name 'CLAIM_RESERVE' already used by another index or constraint",
+        "path": "nodes.n:31.extensions.indexes.i:31.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:31' on node 'n:31' reuses name 'CLAIM_RESERVE' already used by another index or constraint",
+        "path": "nodes.n:31.constraints.c:31.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:32' on node 'n:32' reuses name 'COMBINATION_STRUCTURE' already used by another index or constraint",
+        "path": "nodes.n:32.extensions.indexes.i:32.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:32' on node 'n:32' reuses name 'COMBINATION_STRUCTURE' already used by another index or constraint",
+        "path": "nodes.n:32.constraints.c:32.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:33' on node 'n:33' reuses name 'COMBINE' already used by another index or constraint",
+        "path": "nodes.n:33.extensions.indexes.i:33.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:33' on node 'n:33' reuses name 'COMBINE' already used by another index or constraint",
+        "path": "nodes.n:33.constraints.c:33.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:34' on node 'n:34' reuses name 'COMMERCIAL_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:34.extensions.indexes.i:34.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:34' on node 'n:34' reuses name 'COMMERCIAL_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:34.constraints.c:34.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:35' on node 'n:35' reuses name 'COMMERCIAL_STRUCTURE' already used by another index or constraint",
+        "path": "nodes.n:35.extensions.indexes.i:35.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:35' on node 'n:35' reuses name 'COMMERCIAL_STRUCTURE' already used by another index or constraint",
+        "path": "nodes.n:35.constraints.c:35.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:36' on node 'n:36' reuses name 'COMMUNICATION_IDENTITY' already used by another index or constraint",
+        "path": "nodes.n:36.extensions.indexes.i:36.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:36' on node 'n:36' reuses name 'COMMUNICATION_IDENTITY' already used by another index or constraint",
+        "path": "nodes.n:36.constraints.c:36.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:37' on node 'n:37' reuses name 'COMMUTATION_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:37.extensions.indexes.i:37.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:37' on node 'n:37' reuses name 'COMMUTATION_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:37.constraints.c:37.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:38' on node 'n:38' reuses name 'COMPANY' already used by another index or constraint",
+        "path": "nodes.n:38.extensions.indexes.i:38.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:38' on node 'n:38' reuses name 'COMPANY' already used by another index or constraint",
+        "path": "nodes.n:38.constraints.c:38.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:39' on node 'n:39' reuses name 'CONSTRUCTION_VEHICLE' already used by another index or constraint",
+        "path": "nodes.n:39.extensions.indexes.i:39.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:39' on node 'n:39' reuses name 'CONSTRUCTION_VEHICLE' already used by another index or constraint",
+        "path": "nodes.n:39.constraints.c:39.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:40' on node 'n:40' reuses name 'CONSULTANT_CONTRACT' already used by another index or constraint",
+        "path": "nodes.n:40.extensions.indexes.i:40.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:40' on node 'n:40' reuses name 'CONSULTANT_CONTRACT' already used by another index or constraint",
+        "path": "nodes.n:40.constraints.c:40.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:41' on node 'n:41' reuses name 'COVERAGE' already used by another index or constraint",
+        "path": "nodes.n:41.extensions.indexes.i:41.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:41' on node 'n:41' reuses name 'COVERAGE' already used by another index or constraint",
+        "path": "nodes.n:41.constraints.c:41.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:42' on node 'n:42' reuses name 'COVERAGE_GROUP' already used by another index or constraint",
+        "path": "nodes.n:42.extensions.indexes.i:42.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:42' on node 'n:42' reuses name 'COVERAGE_GROUP' already used by another index or constraint",
+        "path": "nodes.n:42.constraints.c:42.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:43' on node 'n:43' reuses name 'COVERAGE_LIMIT_TYPE' already used by another index or constraint",
+        "path": "nodes.n:43.extensions.indexes.i:43.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:43' on node 'n:43' reuses name 'COVERAGE_LIMIT_TYPE' already used by another index or constraint",
+        "path": "nodes.n:43.constraints.c:43.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:45' on node 'n:45' reuses name 'COVERAGE_TYPE' already used by another index or constraint",
+        "path": "nodes.n:45.extensions.indexes.i:45.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:45' on node 'n:45' reuses name 'COVERAGE_TYPE' already used by another index or constraint",
+        "path": "nodes.n:45.constraints.c:45.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:46' on node 'n:46' reuses name 'CREDIT_CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:46.extensions.indexes.i:46.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:46' on node 'n:46' reuses name 'CREDIT_CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:46.constraints.c:46.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:47' on node 'n:47' reuses name 'CREDIT_POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:47.extensions.indexes.i:47.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:47' on node 'n:47' reuses name 'CREDIT_POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:47.constraints.c:47.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:48' on node 'n:48' reuses name 'CREDIT_RATING' already used by another index or constraint",
+        "path": "nodes.n:48.extensions.indexes.i:48.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:48' on node 'n:48' reuses name 'CREDIT_RATING' already used by another index or constraint",
+        "path": "nodes.n:48.constraints.c:48.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:49' on node 'n:49' reuses name 'CUSTOMER_SCORE' already used by another index or constraint",
+        "path": "nodes.n:49.extensions.indexes.i:49.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:49' on node 'n:49' reuses name 'CUSTOMER_SCORE' already used by another index or constraint",
+        "path": "nodes.n:49.constraints.c:49.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:50' on node 'n:50' reuses name 'DEBIT_CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:50.extensions.indexes.i:50.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:50' on node 'n:50' reuses name 'DEBIT_CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:50.constraints.c:50.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:51' on node 'n:51' reuses name 'DEBIT_POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:51.extensions.indexes.i:51.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:51' on node 'n:51' reuses name 'DEBIT_POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:51.constraints.c:51.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:52' on node 'n:52' reuses name 'DEDUCTIBLE_RECOVERY' already used by another index or constraint",
+        "path": "nodes.n:52.extensions.indexes.i:52.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:52' on node 'n:52' reuses name 'DEDUCTIBLE_RECOVERY' already used by another index or constraint",
+        "path": "nodes.n:52.constraints.c:52.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:53' on node 'n:53' reuses name 'DEMOGRAPHIC_SCORE' already used by another index or constraint",
+        "path": "nodes.n:53.extensions.indexes.i:53.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:53' on node 'n:53' reuses name 'DEMOGRAPHIC_SCORE' already used by another index or constraint",
+        "path": "nodes.n:53.constraints.c:53.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:54' on node 'n:54' reuses name 'DERIVATIVE_CONTRACT' already used by another index or constraint",
+        "path": "nodes.n:54.extensions.indexes.i:54.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:54' on node 'n:54' reuses name 'DERIVATIVE_CONTRACT' already used by another index or constraint",
+        "path": "nodes.n:54.constraints.c:54.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:55' on node 'n:55' reuses name 'DIRECT_CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:55.extensions.indexes.i:55.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:55' on node 'n:55' reuses name 'DIRECT_CLAIM_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:55.constraints.c:55.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:56' on node 'n:56' reuses name 'DIRECT_POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:56.extensions.indexes.i:56.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:56' on node 'n:56' reuses name 'DIRECT_POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:56.constraints.c:56.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:57' on node 'n:57' reuses name 'DWELLING' already used by another index or constraint",
+        "path": "nodes.n:57.extensions.indexes.i:57.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:57' on node 'n:57' reuses name 'DWELLING' already used by another index or constraint",
+        "path": "nodes.n:57.constraints.c:57.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:58' on node 'n:58' reuses name 'EMPLOYMENT_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:58.extensions.indexes.i:58.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:58' on node 'n:58' reuses name 'EMPLOYMENT_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:58.constraints.c:58.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:59' on node 'n:59' reuses name 'ENDORSEMENT' already used by another index or constraint",
+        "path": "nodes.n:59.extensions.indexes.i:59.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:59' on node 'n:59' reuses name 'ENDORSEMENT' already used by another index or constraint",
+        "path": "nodes.n:59.constraints.c:59.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:60' on node 'n:60' reuses name 'EVENT' already used by another index or constraint",
+        "path": "nodes.n:60.extensions.indexes.i:60.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:60' on node 'n:60' reuses name 'EVENT' already used by another index or constraint",
+        "path": "nodes.n:60.constraints.c:60.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:61' on node 'n:61' reuses name 'EXPENSE_PAYMENT' already used by another index or constraint",
+        "path": "nodes.n:61.extensions.indexes.i:61.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:61' on node 'n:61' reuses name 'EXPENSE_PAYMENT' already used by another index or constraint",
+        "path": "nodes.n:61.constraints.c:61.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:62' on node 'n:62' reuses name 'EXPENSE_RECOVERY' already used by another index or constraint",
+        "path": "nodes.n:62.extensions.indexes.i:62.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:62' on node 'n:62' reuses name 'EXPENSE_RECOVERY' already used by another index or constraint",
+        "path": "nodes.n:62.constraints.c:62.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:63' on node 'n:63' reuses name 'EXPENSE_RESERVE' already used by another index or constraint",
+        "path": "nodes.n:63.extensions.indexes.i:63.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:63' on node 'n:63' reuses name 'EXPENSE_RESERVE' already used by another index or constraint",
+        "path": "nodes.n:63.constraints.c:63.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:64' on node 'n:64' reuses name 'FARM_EQUIPMENT' already used by another index or constraint",
+        "path": "nodes.n:64.extensions.indexes.i:64.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:64' on node 'n:64' reuses name 'FARM_EQUIPMENT' already used by another index or constraint",
+        "path": "nodes.n:64.constraints.c:64.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:65' on node 'n:65' reuses name 'FEE' already used by another index or constraint",
+        "path": "nodes.n:65.extensions.indexes.i:65.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:65' on node 'n:65' reuses name 'FEE' already used by another index or constraint",
+        "path": "nodes.n:65.constraints.c:65.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:66' on node 'n:66' reuses name 'FIELD_ORGANIZATION_UNIT' already used by another index or constraint",
+        "path": "nodes.n:66.extensions.indexes.i:66.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:66' on node 'n:66' reuses name 'FIELD_ORGANIZATION_UNIT' already used by another index or constraint",
+        "path": "nodes.n:66.constraints.c:66.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:67' on node 'n:67' reuses name 'FINANCIAL_ACCOUNT_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:67.extensions.indexes.i:67.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:67' on node 'n:67' reuses name 'FINANCIAL_ACCOUNT_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:67.constraints.c:67.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:68' on node 'n:68' reuses name 'FINANCIAL_SERVICES_ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:68.extensions.indexes.i:68.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:68' on node 'n:68' reuses name 'FINANCIAL_SERVICES_ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:68.constraints.c:68.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:69' on node 'n:69' reuses name 'FINANCIAL_VALUATION' already used by another index or constraint",
+        "path": "nodes.n:69.extensions.indexes.i:69.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:69' on node 'n:69' reuses name 'FINANCIAL_VALUATION' already used by another index or constraint",
+        "path": "nodes.n:69.constraints.c:69.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:70' on node 'n:70' reuses name 'FLAT' already used by another index or constraint",
+        "path": "nodes.n:70.extensions.indexes.i:70.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:70' on node 'n:70' reuses name 'FLAT' already used by another index or constraint",
+        "path": "nodes.n:70.constraints.c:70.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:71' on node 'n:71' reuses name 'FOR_PROFIT_ORGANIZATION' already used by another index or constraint",
+        "path": "nodes.n:71.extensions.indexes.i:71.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:71' on node 'n:71' reuses name 'FOR_PROFIT_ORGANIZATION' already used by another index or constraint",
+        "path": "nodes.n:71.constraints.c:71.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:72' on node 'n:72' reuses name 'FRAUD_ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:72.extensions.indexes.i:72.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:72' on node 'n:72' reuses name 'FRAUD_ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:72.constraints.c:72.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:73' on node 'n:73' reuses name 'FREIGHT_GROUP' already used by another index or constraint",
+        "path": "nodes.n:73.extensions.indexes.i:73.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:73' on node 'n:73' reuses name 'FREIGHT_GROUP' already used by another index or constraint",
+        "path": "nodes.n:73.constraints.c:73.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:74' on node 'n:74' reuses name 'FULL_TERM' already used by another index or constraint",
+        "path": "nodes.n:74.extensions.indexes.i:74.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:74' on node 'n:74' reuses name 'FULL_TERM' already used by another index or constraint",
+        "path": "nodes.n:74.constraints.c:74.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:75' on node 'n:75' reuses name 'GEOGRAPHIC_LOCATION' already used by another index or constraint",
+        "path": "nodes.n:75.extensions.indexes.i:75.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:75' on node 'n:75' reuses name 'GEOGRAPHIC_LOCATION' already used by another index or constraint",
+        "path": "nodes.n:75.constraints.c:75.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:76' on node 'n:76' reuses name 'GOVERNMENT_ORGANIZATION' already used by another index or constraint",
+        "path": "nodes.n:76.extensions.indexes.i:76.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:76' on node 'n:76' reuses name 'GOVERNMENT_ORGANIZATION' already used by another index or constraint",
+        "path": "nodes.n:76.constraints.c:76.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:77' on node 'n:77' reuses name 'GROUPING' already used by another index or constraint",
+        "path": "nodes.n:77.extensions.indexes.i:77.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:77' on node 'n:77' reuses name 'GROUPING' already used by another index or constraint",
+        "path": "nodes.n:77.constraints.c:77.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:78' on node 'n:78' reuses name 'GROUP_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:78.extensions.indexes.i:78.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:78' on node 'n:78' reuses name 'GROUP_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:78.constraints.c:78.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:79' on node 'n:79' reuses name 'HOUSEHOLD' already used by another index or constraint",
+        "path": "nodes.n:79.extensions.indexes.i:79.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:79' on node 'n:79' reuses name 'HOUSEHOLD' already used by another index or constraint",
+        "path": "nodes.n:79.constraints.c:79.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:80' on node 'n:80' reuses name 'HOUSEHOLD_CONTENT' already used by another index or constraint",
+        "path": "nodes.n:80.extensions.indexes.i:80.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:80' on node 'n:80' reuses name 'HOUSEHOLD_CONTENT' already used by another index or constraint",
+        "path": "nodes.n:80.constraints.c:80.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:81' on node 'n:81' reuses name 'INDIVIDUAL_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:81.extensions.indexes.i:81.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:81' on node 'n:81' reuses name 'INDIVIDUAL_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:81.constraints.c:81.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:82' on node 'n:82' reuses name 'INSURABLE_OBJECT' already used by another index or constraint",
+        "path": "nodes.n:82.extensions.indexes.i:82.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:82' on node 'n:82' reuses name 'INSURABLE_OBJECT' already used by another index or constraint",
+        "path": "nodes.n:82.constraints.c:82.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:83' on node 'n:83' reuses name 'INSURANCE_CLASS' already used by another index or constraint",
+        "path": "nodes.n:83.extensions.indexes.i:83.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:83' on node 'n:83' reuses name 'INSURANCE_CLASS' already used by another index or constraint",
+        "path": "nodes.n:83.constraints.c:83.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:84' on node 'n:84' reuses name 'INSURED_ACCOUNT' already used by another index or constraint",
+        "path": "nodes.n:84.extensions.indexes.i:84.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:84' on node 'n:84' reuses name 'INSURED_ACCOUNT' already used by another index or constraint",
+        "path": "nodes.n:84.constraints.c:84.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:85' on node 'n:85' reuses name 'INTERMEDIARY_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:85.extensions.indexes.i:85.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:85' on node 'n:85' reuses name 'INTERMEDIARY_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:85.constraints.c:85.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:86' on node 'n:86' reuses name 'LEGAL_JURISDICTION' already used by another index or constraint",
+        "path": "nodes.n:86.extensions.indexes.i:86.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:86' on node 'n:86' reuses name 'LEGAL_JURISDICTION' already used by another index or constraint",
+        "path": "nodes.n:86.constraints.c:86.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:87' on node 'n:87' reuses name 'LIFE_EVENT' already used by another index or constraint",
+        "path": "nodes.n:87.extensions.indexes.i:87.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:87' on node 'n:87' reuses name 'LIFE_EVENT' already used by another index or constraint",
+        "path": "nodes.n:87.constraints.c:87.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:88' on node 'n:88' reuses name 'LINE_OF_BUSINESS' already used by another index or constraint",
+        "path": "nodes.n:88.extensions.indexes.i:88.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:88' on node 'n:88' reuses name 'LINE_OF_BUSINESS' already used by another index or constraint",
+        "path": "nodes.n:88.constraints.c:88.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:89' on node 'n:89' reuses name 'LINE_OF_BUSINESS_GROUP' already used by another index or constraint",
+        "path": "nodes.n:89.extensions.indexes.i:89.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:89' on node 'n:89' reuses name 'LINE_OF_BUSINESS_GROUP' already used by another index or constraint",
+        "path": "nodes.n:89.constraints.c:89.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:90' on node 'n:90' reuses name 'LITIGATION' already used by another index or constraint",
+        "path": "nodes.n:90.extensions.indexes.i:90.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:90' on node 'n:90' reuses name 'LITIGATION' already used by another index or constraint",
+        "path": "nodes.n:90.constraints.c:90.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:91' on node 'n:91' reuses name 'LOCATION_ADDRESS' already used by another index or constraint",
+        "path": "nodes.n:91.extensions.indexes.i:91.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:91' on node 'n:91' reuses name 'LOCATION_ADDRESS' already used by another index or constraint",
+        "path": "nodes.n:91.constraints.c:91.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:92' on node 'n:92' reuses name 'LOSS_PAYMENT' already used by another index or constraint",
+        "path": "nodes.n:92.extensions.indexes.i:92.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:92' on node 'n:92' reuses name 'LOSS_PAYMENT' already used by another index or constraint",
+        "path": "nodes.n:92.constraints.c:92.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:93' on node 'n:93' reuses name 'LOSS_RECOVERY' already used by another index or constraint",
+        "path": "nodes.n:93.extensions.indexes.i:93.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:93' on node 'n:93' reuses name 'LOSS_RECOVERY' already used by another index or constraint",
+        "path": "nodes.n:93.constraints.c:93.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:94' on node 'n:94' reuses name 'LOSS_RESERVE' already used by another index or constraint",
+        "path": "nodes.n:94.extensions.indexes.i:94.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:94' on node 'n:94' reuses name 'LOSS_RESERVE' already used by another index or constraint",
+        "path": "nodes.n:94.constraints.c:94.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:95' on node 'n:95' reuses name 'MANUFACTURED_OBJECT' already used by another index or constraint",
+        "path": "nodes.n:95.extensions.indexes.i:95.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:95' on node 'n:95' reuses name 'MANUFACTURED_OBJECT' already used by another index or constraint",
+        "path": "nodes.n:95.constraints.c:95.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:96' on node 'n:96' reuses name 'MEDICAL_CONDITION' already used by another index or constraint",
+        "path": "nodes.n:96.extensions.indexes.i:96.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:96' on node 'n:96' reuses name 'MEDICAL_CONDITION' already used by another index or constraint",
+        "path": "nodes.n:96.constraints.c:96.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:97' on node 'n:97' reuses name 'MID_TERM' already used by another index or constraint",
+        "path": "nodes.n:97.extensions.indexes.i:97.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:97' on node 'n:97' reuses name 'MID_TERM' already used by another index or constraint",
+        "path": "nodes.n:97.constraints.c:97.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:98' on node 'n:98' reuses name 'MILKING_MACHINE' already used by another index or constraint",
+        "path": "nodes.n:98.extensions.indexes.i:98.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:98' on node 'n:98' reuses name 'MILKING_MACHINE' already used by another index or constraint",
+        "path": "nodes.n:98.constraints.c:98.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:99' on node 'n:99' reuses name 'MOBILE_HOME' already used by another index or constraint",
+        "path": "nodes.n:99.extensions.indexes.i:99.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:99' on node 'n:99' reuses name 'MOBILE_HOME' already used by another index or constraint",
+        "path": "nodes.n:99.constraints.c:99.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:100' on node 'n:100' reuses name 'MOTORCYCLE' already used by another index or constraint",
+        "path": "nodes.n:100.extensions.indexes.i:100.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:100' on node 'n:100' reuses name 'MOTORCYCLE' already used by another index or constraint",
+        "path": "nodes.n:100.constraints.c:100.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:101' on node 'n:101' reuses name 'NEW_BUSINESS' already used by another index or constraint",
+        "path": "nodes.n:101.extensions.indexes.i:101.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:101' on node 'n:101' reuses name 'NEW_BUSINESS' already used by another index or constraint",
+        "path": "nodes.n:101.constraints.c:101.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:102' on node 'n:102' reuses name 'NOT_FOR_PROFIT_ORGANIZATION' already used by another index or constraint",
+        "path": "nodes.n:102.extensions.indexes.i:102.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:102' on node 'n:102' reuses name 'NOT_FOR_PROFIT_ORGANIZATION' already used by another index or constraint",
+        "path": "nodes.n:102.constraints.c:102.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:103' on node 'n:103' reuses name 'OCCURRENCE' already used by another index or constraint",
+        "path": "nodes.n:103.extensions.indexes.i:103.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:103' on node 'n:103' reuses name 'OCCURRENCE' already used by another index or constraint",
+        "path": "nodes.n:103.constraints.c:103.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:104' on node 'n:104' reuses name 'ORGANIZATION' already used by another index or constraint",
+        "path": "nodes.n:104.extensions.indexes.i:104.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:104' on node 'n:104' reuses name 'ORGANIZATION' already used by another index or constraint",
+        "path": "nodes.n:104.constraints.c:104.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:105' on node 'n:105' reuses name 'ORGANIZATION_UNIT' already used by another index or constraint",
+        "path": "nodes.n:105.extensions.indexes.i:105.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:105' on node 'n:105' reuses name 'ORGANIZATION_UNIT' already used by another index or constraint",
+        "path": "nodes.n:105.constraints.c:105.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:106' on node 'n:106' reuses name 'OTHER_ASSESSMENT_RESULT' already used by another index or constraint",
+        "path": "nodes.n:106.extensions.indexes.i:106.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:106' on node 'n:106' reuses name 'OTHER_ASSESSMENT_RESULT' already used by another index or constraint",
+        "path": "nodes.n:106.constraints.c:106.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:107' on node 'n:107' reuses name 'PARTY' already used by another index or constraint",
+        "path": "nodes.n:107.extensions.indexes.i:107.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:107' on node 'n:107' reuses name 'PARTY' already used by another index or constraint",
+        "path": "nodes.n:107.constraints.c:107.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:108' on node 'n:108' reuses name 'PARTY_PREFERENCE' already used by another index or constraint",
+        "path": "nodes.n:108.extensions.indexes.i:108.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:108' on node 'n:108' reuses name 'PARTY_PREFERENCE' already used by another index or constraint",
+        "path": "nodes.n:108.constraints.c:108.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:110' on node 'n:110' reuses name 'PERSON' already used by another index or constraint",
+        "path": "nodes.n:110.extensions.indexes.i:110.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:110' on node 'n:110' reuses name 'PERSON' already used by another index or constraint",
+        "path": "nodes.n:110.constraints.c:110.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:111' on node 'n:111' reuses name 'PERSON_PROFESSION' already used by another index or constraint",
+        "path": "nodes.n:111.extensions.indexes.i:111.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:111' on node 'n:111' reuses name 'PERSON_PROFESSION' already used by another index or constraint",
+        "path": "nodes.n:111.constraints.c:111.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:112' on node 'n:112' reuses name 'PHYSICAL_LOCATION' already used by another index or constraint",
+        "path": "nodes.n:112.extensions.indexes.i:112.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:112' on node 'n:112' reuses name 'PHYSICAL_LOCATION' already used by another index or constraint",
+        "path": "nodes.n:112.constraints.c:112.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:113' on node 'n:113' reuses name 'PHYSICAL_OBJECT_ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:113.extensions.indexes.i:113.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:113' on node 'n:113' reuses name 'PHYSICAL_OBJECT_ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:113.constraints.c:113.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:114' on node 'n:114' reuses name 'PLACE_ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:114.extensions.indexes.i:114.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:114' on node 'n:114' reuses name 'PLACE_ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:114.constraints.c:114.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:115' on node 'n:115' reuses name 'POLICY' already used by another index or constraint",
+        "path": "nodes.n:115.extensions.indexes.i:115.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:115' on node 'n:115' reuses name 'POLICY' already used by another index or constraint",
+        "path": "nodes.n:115.constraints.c:115.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:116' on node 'n:116' reuses name 'POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:116.extensions.indexes.i:116.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:116' on node 'n:116' reuses name 'POLICY_AMOUNT' already used by another index or constraint",
+        "path": "nodes.n:116.constraints.c:116.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:117' on node 'n:117' reuses name 'POLICY_DEDUCTIBLE' already used by another index or constraint",
+        "path": "nodes.n:117.extensions.indexes.i:117.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:117' on node 'n:117' reuses name 'POLICY_DEDUCTIBLE' already used by another index or constraint",
+        "path": "nodes.n:117.constraints.c:117.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:118' on node 'n:118' reuses name 'POLICY_EVENT' already used by another index or constraint",
+        "path": "nodes.n:118.extensions.indexes.i:118.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:118' on node 'n:118' reuses name 'POLICY_EVENT' already used by another index or constraint",
+        "path": "nodes.n:118.constraints.c:118.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:119' on node 'n:119' reuses name 'POLICY_LIMIT' already used by another index or constraint",
+        "path": "nodes.n:119.extensions.indexes.i:119.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:119' on node 'n:119' reuses name 'POLICY_LIMIT' already used by another index or constraint",
+        "path": "nodes.n:119.constraints.c:119.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:120' on node 'n:120' reuses name 'PREMIUM' already used by another index or constraint",
+        "path": "nodes.n:120.extensions.indexes.i:120.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:120' on node 'n:120' reuses name 'PREMIUM' already used by another index or constraint",
+        "path": "nodes.n:120.constraints.c:120.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:121' on node 'n:121' reuses name 'PRE_QUALIFICATION' already used by another index or constraint",
+        "path": "nodes.n:121.extensions.indexes.i:121.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:121' on node 'n:121' reuses name 'PRE_QUALIFICATION' already used by another index or constraint",
+        "path": "nodes.n:121.constraints.c:121.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:122' on node 'n:122' reuses name 'PRODUCT' already used by another index or constraint",
+        "path": "nodes.n:122.extensions.indexes.i:122.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:122' on node 'n:122' reuses name 'PRODUCT' already used by another index or constraint",
+        "path": "nodes.n:122.constraints.c:122.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:123' on node 'n:123' reuses name 'PROFESSIONAL_GROUP' already used by another index or constraint",
+        "path": "nodes.n:123.extensions.indexes.i:123.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:123' on node 'n:123' reuses name 'PROFESSIONAL_GROUP' already used by another index or constraint",
+        "path": "nodes.n:123.constraints.c:123.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:124' on node 'n:124' reuses name 'PROJECT' already used by another index or constraint",
+        "path": "nodes.n:124.extensions.indexes.i:124.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:124' on node 'n:124' reuses name 'PROJECT' already used by another index or constraint",
+        "path": "nodes.n:124.constraints.c:124.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:125' on node 'n:125' reuses name 'PROPERTY_IN_TRANSIT' already used by another index or constraint",
+        "path": "nodes.n:125.extensions.indexes.i:125.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:125' on node 'n:125' reuses name 'PROPERTY_IN_TRANSIT' already used by another index or constraint",
+        "path": "nodes.n:125.constraints.c:125.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:126' on node 'n:126' reuses name 'PROVIDER_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:126.extensions.indexes.i:126.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:126' on node 'n:126' reuses name 'PROVIDER_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:126.constraints.c:126.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:127' on node 'n:127' reuses name 'PRO_RATA' already used by another index or constraint",
+        "path": "nodes.n:127.extensions.indexes.i:127.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:127' on node 'n:127' reuses name 'PRO_RATA' already used by another index or constraint",
+        "path": "nodes.n:127.constraints.c:127.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:128' on node 'n:128' reuses name 'QUOTE' already used by another index or constraint",
+        "path": "nodes.n:128.extensions.indexes.i:128.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:128' on node 'n:128' reuses name 'QUOTE' already used by another index or constraint",
+        "path": "nodes.n:128.constraints.c:128.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:129' on node 'n:129' reuses name 'RATING_TERRITORY' already used by another index or constraint",
+        "path": "nodes.n:129.extensions.indexes.i:129.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:129' on node 'n:129' reuses name 'RATING_TERRITORY' already used by another index or constraint",
+        "path": "nodes.n:129.constraints.c:129.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:130' on node 'n:130' reuses name 'RECOVERY' already used by another index or constraint",
+        "path": "nodes.n:130.extensions.indexes.i:130.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:130' on node 'n:130' reuses name 'RECOVERY' already used by another index or constraint",
+        "path": "nodes.n:130.constraints.c:130.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:131' on node 'n:131' reuses name 'RECREATIONAL_VEHICLE' already used by another index or constraint",
+        "path": "nodes.n:131.extensions.indexes.i:131.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:131' on node 'n:131' reuses name 'RECREATIONAL_VEHICLE' already used by another index or constraint",
+        "path": "nodes.n:131.constraints.c:131.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:132' on node 'n:132' reuses name 'REINSTATEMENT' already used by another index or constraint",
+        "path": "nodes.n:132.extensions.indexes.i:132.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:132' on node 'n:132' reuses name 'REINSTATEMENT' already used by another index or constraint",
+        "path": "nodes.n:132.constraints.c:132.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:133' on node 'n:133' reuses name 'REINSURANCE_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:133.extensions.indexes.i:133.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:133' on node 'n:133' reuses name 'REINSURANCE_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:133.constraints.c:133.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:134' on node 'n:134' reuses name 'REINSURANCE_RECOVERY' already used by another index or constraint",
+        "path": "nodes.n:134.extensions.indexes.i:134.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:134' on node 'n:134' reuses name 'REINSURANCE_RECOVERY' already used by another index or constraint",
+        "path": "nodes.n:134.constraints.c:134.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:135' on node 'n:135' reuses name 'RENEWAL' already used by another index or constraint",
+        "path": "nodes.n:135.extensions.indexes.i:135.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:135' on node 'n:135' reuses name 'RENEWAL' already used by another index or constraint",
+        "path": "nodes.n:135.constraints.c:135.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:136' on node 'n:136' reuses name 'RESIDENTIAL_STRUCTURE' already used by another index or constraint",
+        "path": "nodes.n:136.extensions.indexes.i:136.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:136' on node 'n:136' reuses name 'RESIDENTIAL_STRUCTURE' already used by another index or constraint",
+        "path": "nodes.n:136.constraints.c:136.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:137' on node 'n:137' reuses name 'RISK_FACTOR_SCORE' already used by another index or constraint",
+        "path": "nodes.n:137.extensions.indexes.i:137.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:137' on node 'n:137' reuses name 'RISK_FACTOR_SCORE' already used by another index or constraint",
+        "path": "nodes.n:137.constraints.c:137.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:138' on node 'n:138' reuses name 'SALVAGE' already used by another index or constraint",
+        "path": "nodes.n:138.extensions.indexes.i:138.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:138' on node 'n:138' reuses name 'SALVAGE' already used by another index or constraint",
+        "path": "nodes.n:138.constraints.c:138.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:139' on node 'n:139' reuses name 'SCHEDULED_ITEM' already used by another index or constraint",
+        "path": "nodes.n:139.extensions.indexes.i:139.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:139' on node 'n:139' reuses name 'SCHEDULED_ITEM' already used by another index or constraint",
+        "path": "nodes.n:139.constraints.c:139.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:140' on node 'n:140' reuses name 'SHORT_RATE' already used by another index or constraint",
+        "path": "nodes.n:140.extensions.indexes.i:140.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:140' on node 'n:140' reuses name 'SHORT_RATE' already used by another index or constraint",
+        "path": "nodes.n:140.constraints.c:140.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:141' on node 'n:141' reuses name 'STAFFING_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:141.extensions.indexes.i:141.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:141' on node 'n:141' reuses name 'STAFFING_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:141.constraints.c:141.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:143' on node 'n:143' reuses name 'STAFF_POSITION' already used by another index or constraint",
+        "path": "nodes.n:143.extensions.indexes.i:143.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:143' on node 'n:143' reuses name 'STAFF_POSITION' already used by another index or constraint",
+        "path": "nodes.n:143.constraints.c:143.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:145' on node 'n:145' reuses name 'STRUCTURE' already used by another index or constraint",
+        "path": "nodes.n:145.extensions.indexes.i:145.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:145' on node 'n:145' reuses name 'STRUCTURE' already used by another index or constraint",
+        "path": "nodes.n:145.constraints.c:145.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:146' on node 'n:146' reuses name 'SUBROGATION' already used by another index or constraint",
+        "path": "nodes.n:146.extensions.indexes.i:146.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:146' on node 'n:146' reuses name 'SUBROGATION' already used by another index or constraint",
+        "path": "nodes.n:146.constraints.c:146.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:147' on node 'n:147' reuses name 'SURCHARGE' already used by another index or constraint",
+        "path": "nodes.n:147.extensions.indexes.i:147.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:147' on node 'n:147' reuses name 'SURCHARGE' already used by another index or constraint",
+        "path": "nodes.n:147.constraints.c:147.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:148' on node 'n:148' reuses name 'TAX' already used by another index or constraint",
+        "path": "nodes.n:148.extensions.indexes.i:148.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:148' on node 'n:148' reuses name 'TAX' already used by another index or constraint",
+        "path": "nodes.n:148.constraints.c:148.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:149' on node 'n:149' reuses name 'TEAM' already used by another index or constraint",
+        "path": "nodes.n:149.extensions.indexes.i:149.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:149' on node 'n:149' reuses name 'TEAM' already used by another index or constraint",
+        "path": "nodes.n:149.constraints.c:149.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:150' on node 'n:150' reuses name 'THIRD_PARTY_STAFFING_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:150.extensions.indexes.i:150.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:150' on node 'n:150' reuses name 'THIRD_PARTY_STAFFING_AGREEMENT' already used by another index or constraint",
+        "path": "nodes.n:150.constraints.c:150.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:151' on node 'n:151' reuses name 'TRACTOR' already used by another index or constraint",
+        "path": "nodes.n:151.extensions.indexes.i:151.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:151' on node 'n:151' reuses name 'TRACTOR' already used by another index or constraint",
+        "path": "nodes.n:151.constraints.c:151.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:152' on node 'n:152' reuses name 'TRAILER' already used by another index or constraint",
+        "path": "nodes.n:152.extensions.indexes.i:152.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:152' on node 'n:152' reuses name 'TRAILER' already used by another index or constraint",
+        "path": "nodes.n:152.constraints.c:152.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:153' on node 'n:153' reuses name 'TRANSPORTATION_CLASS' already used by another index or constraint",
+        "path": "nodes.n:153.extensions.indexes.i:153.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:153' on node 'n:153' reuses name 'TRANSPORTATION_CLASS' already used by another index or constraint",
+        "path": "nodes.n:153.constraints.c:153.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:154' on node 'n:154' reuses name 'TRUCK' already used by another index or constraint",
+        "path": "nodes.n:154.extensions.indexes.i:154.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:154' on node 'n:154' reuses name 'TRUCK' already used by another index or constraint",
+        "path": "nodes.n:154.constraints.c:154.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:155' on node 'n:155' reuses name 'UNDERWRITING_ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:155.extensions.indexes.i:155.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:155' on node 'n:155' reuses name 'UNDERWRITING_ASSESSMENT' already used by another index or constraint",
+        "path": "nodes.n:155.constraints.c:155.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:156' on node 'n:156' reuses name 'VAN' already used by another index or constraint",
+        "path": "nodes.n:156.extensions.indexes.i:156.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:156' on node 'n:156' reuses name 'VAN' already used by another index or constraint",
+        "path": "nodes.n:156.constraints.c:156.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:157' on node 'n:157' reuses name 'VEHICLE' already used by another index or constraint",
+        "path": "nodes.n:157.extensions.indexes.i:157.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:157' on node 'n:157' reuses name 'VEHICLE' already used by another index or constraint",
+        "path": "nodes.n:157.constraints.c:157.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:158' on node 'n:158' reuses name 'WATERCRAFT' already used by another index or constraint",
+        "path": "nodes.n:158.extensions.indexes.i:158.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:158' on node 'n:158' reuses name 'WATERCRAFT' already used by another index or constraint",
+        "path": "nodes.n:158.constraints.c:158.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:159' on node 'n:159' reuses name 'WORKERS_COMP_CLASS' already used by another index or constraint",
+        "path": "nodes.n:159.extensions.indexes.i:159.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:159' on node 'n:159' reuses name 'WORKERS_COMP_CLASS' already used by another index or constraint",
+        "path": "nodes.n:159.constraints.c:159.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:160' on node 'n:160' reuses name 'audit' already used by another index or constraint",
+        "path": "nodes.n:160.extensions.indexes.i:160.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:160' on node 'n:160' reuses name 'audit' already used by another index or constraint",
+        "path": "nodes.n:160.constraints.c:160.name",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:0_0' on node 'n:0' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[0].key.p:0_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:1_0' on node 'n:1' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[1].key.p:1_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:2_0' on node 'n:2' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[2].key.p:2_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:3_0' on node 'n:3' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[3].key.p:3_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:4_0' on node 'n:4' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[4].key.p:4_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:5_0' on node 'n:5' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[5].key.p:5_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:6_0' on node 'n:6' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[6].key.p:6_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:7_0' on node 'n:7' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[7].key.p:7_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:8_0' on node 'n:8' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[8].key.p:8_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:9_0' on node 'n:9' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[9].key.p:9_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:10_0' on node 'n:10' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[10].key.p:10_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:11_0' on node 'n:11' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[11].key.p:11_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:12_0' on node 'n:12' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[12].key.p:12_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:13_0' on node 'n:13' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[13].key.p:13_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:14_0' on node 'n:14' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[14].key.p:14_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:15_0' on node 'n:15' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[15].key.p:15_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:16_0' on node 'n:16' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[16].key.p:16_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:17_0' on node 'n:17' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[17].key.p:17_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:18_0' on node 'n:18' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[18].key.p:18_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:19_0' on node 'n:19' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[19].key.p:19_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:20_0' on node 'n:20' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[20].key.p:20_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:21_0' on node 'n:21' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[21].key.p:21_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:22_0' on node 'n:22' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[22].key.p:22_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:23_0' on node 'n:23' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[23].key.p:23_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:24_0' on node 'n:24' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[24].key.p:24_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:25_0' on node 'n:25' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[25].key.p:25_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:26_0' on node 'n:26' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[26].key.p:26_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:27_0' on node 'n:27' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[27].key.p:27_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:28_0' on node 'n:28' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[28].key.p:28_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:29_0' on node 'n:29' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[29].key.p:29_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:30_0' on node 'n:30' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[30].key.p:30_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:31_0' on node 'n:31' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[31].key.p:31_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:32_0' on node 'n:32' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[32].key.p:32_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:33_0' on node 'n:33' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[33].key.p:33_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:34_0' on node 'n:34' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[34].key.p:34_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:35_0' on node 'n:35' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[35].key.p:35_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:36_0' on node 'n:36' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[36].key.p:36_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:37_0' on node 'n:37' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[37].key.p:37_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:38_0' on node 'n:38' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[38].key.p:38_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:39_0' on node 'n:39' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[39].key.p:39_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:40_0' on node 'n:40' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[40].key.p:40_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:41_0' on node 'n:41' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[41].key.p:41_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:42_0' on node 'n:42' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[42].key.p:42_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:43_0' on node 'n:43' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[43].key.p:43_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:45_0' on node 'n:45' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[45].key.p:45_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:46_0' on node 'n:46' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[46].key.p:46_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:47_0' on node 'n:47' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[47].key.p:47_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:48_0' on node 'n:48' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[48].key.p:48_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:49_0' on node 'n:49' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[49].key.p:49_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:50_0' on node 'n:50' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[50].key.p:50_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:51_0' on node 'n:51' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[51].key.p:51_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:52_0' on node 'n:52' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[52].key.p:52_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:53_0' on node 'n:53' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[53].key.p:53_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:54_0' on node 'n:54' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[54].key.p:54_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:55_0' on node 'n:55' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[55].key.p:55_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:56_0' on node 'n:56' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[56].key.p:56_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:57_0' on node 'n:57' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[57].key.p:57_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:58_0' on node 'n:58' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[58].key.p:58_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:59_0' on node 'n:59' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[59].key.p:59_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:60_0' on node 'n:60' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[60].key.p:60_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:61_0' on node 'n:61' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[61].key.p:61_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:62_0' on node 'n:62' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[62].key.p:62_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:63_0' on node 'n:63' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[63].key.p:63_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:64_0' on node 'n:64' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[64].key.p:64_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:65_0' on node 'n:65' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[65].key.p:65_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:66_0' on node 'n:66' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[66].key.p:66_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:67_0' on node 'n:67' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[67].key.p:67_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:68_0' on node 'n:68' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[68].key.p:68_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:69_0' on node 'n:69' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[69].key.p:69_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:70_0' on node 'n:70' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[70].key.p:70_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:71_0' on node 'n:71' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[71].key.p:71_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:72_0' on node 'n:72' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[72].key.p:72_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:73_0' on node 'n:73' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[73].key.p:73_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:74_0' on node 'n:74' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[74].key.p:74_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:75_0' on node 'n:75' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[75].key.p:75_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:76_0' on node 'n:76' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[76].key.p:76_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:77_0' on node 'n:77' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[77].key.p:77_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:78_0' on node 'n:78' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[78].key.p:78_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:79_0' on node 'n:79' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[79].key.p:79_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:80_0' on node 'n:80' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[80].key.p:80_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:81_0' on node 'n:81' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[81].key.p:81_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:82_0' on node 'n:82' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[82].key.p:82_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:83_0' on node 'n:83' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[83].key.p:83_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:84_0' on node 'n:84' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[84].key.p:84_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:85_0' on node 'n:85' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[85].key.p:85_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:86_0' on node 'n:86' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[86].key.p:86_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:87_0' on node 'n:87' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[87].key.p:87_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:88_0' on node 'n:88' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[88].key.p:88_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:89_0' on node 'n:89' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[89].key.p:89_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:90_0' on node 'n:90' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[90].key.p:90_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:91_0' on node 'n:91' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[91].key.p:91_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:92_0' on node 'n:92' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[92].key.p:92_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:93_0' on node 'n:93' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[93].key.p:93_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:94_0' on node 'n:94' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[94].key.p:94_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:95_0' on node 'n:95' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[95].key.p:95_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:96_0' on node 'n:96' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[96].key.p:96_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:97_0' on node 'n:97' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[97].key.p:97_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:98_0' on node 'n:98' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[98].key.p:98_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:99_0' on node 'n:99' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[99].key.p:99_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:100_0' on node 'n:100' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[100].key.p:100_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:101_0' on node 'n:101' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[101].key.p:101_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:102_0' on node 'n:102' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[102].key.p:102_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:103_0' on node 'n:103' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[103].key.p:103_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:104_0' on node 'n:104' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[104].key.p:104_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:105_0' on node 'n:105' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[105].key.p:105_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:106_0' on node 'n:106' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[106].key.p:106_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:107_0' on node 'n:107' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[107].key.p:107_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:108_0' on node 'n:108' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[108].key.p:108_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:110_0' on node 'n:110' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[110].key.p:110_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:111_0' on node 'n:111' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[111].key.p:111_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:112_0' on node 'n:112' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[112].key.p:112_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:113_0' on node 'n:113' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[113].key.p:113_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:114_0' on node 'n:114' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[114].key.p:114_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:115_0' on node 'n:115' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[115].key.p:115_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:116_0' on node 'n:116' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[116].key.p:116_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:117_0' on node 'n:117' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[117].key.p:117_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:118_0' on node 'n:118' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[118].key.p:118_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:119_0' on node 'n:119' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[119].key.p:119_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:120_0' on node 'n:120' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[120].key.p:120_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:121_0' on node 'n:121' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[121].key.p:121_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:122_0' on node 'n:122' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[122].key.p:122_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:123_0' on node 'n:123' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[123].key.p:123_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:124_0' on node 'n:124' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[124].key.p:124_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:125_0' on node 'n:125' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[125].key.p:125_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:126_0' on node 'n:126' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[126].key.p:126_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:127_0' on node 'n:127' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[127].key.p:127_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:128_0' on node 'n:128' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[128].key.p:128_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:129_0' on node 'n:129' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[129].key.p:129_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:130_0' on node 'n:130' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[130].key.p:130_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:131_0' on node 'n:131' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[131].key.p:131_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:132_0' on node 'n:132' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[132].key.p:132_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:133_0' on node 'n:133' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[133].key.p:133_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:134_0' on node 'n:134' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[134].key.p:134_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:135_0' on node 'n:135' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[135].key.p:135_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:136_0' on node 'n:136' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[136].key.p:136_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:137_0' on node 'n:137' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[137].key.p:137_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:138_0' on node 'n:138' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[138].key.p:138_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:139_0' on node 'n:139' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[139].key.p:139_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:140_0' on node 'n:140' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[140].key.p:140_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:141_0' on node 'n:141' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[141].key.p:141_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:143_0' on node 'n:143' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[143].key.p:143_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:145_0' on node 'n:145' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[145].key.p:145_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:146_0' on node 'n:146' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[146].key.p:146_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:147_0' on node 'n:147' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[147].key.p:147_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:148_0' on node 'n:148' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[148].key.p:148_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:149_0' on node 'n:149' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[149].key.p:149_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:150_0' on node 'n:150' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[150].key.p:150_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:151_0' on node 'n:151' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[151].key.p:151_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:152_0' on node 'n:152' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[152].key.p:152_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:153_0' on node 'n:153' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[153].key.p:153_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:154_0' on node 'n:154' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[154].key.p:154_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:155_0' on node 'n:155' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[155].key.p:155_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:156_0' on node 'n:156' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[156].key.p:156_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:157_0' on node 'n:157' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[157].key.p:157_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:158_0' on node 'n:158' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[158].key.p:158_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:159_0' on node 'n:159' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[159].key.p:159_0",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "message": "Mapping key 'p:160_0' on node 'n:160' must be STRING or INTEGER",
+        "path": "extensions.data_source_mappings.mapping0[160].key.p:160_0",
+        "details": {}
+    }
+]

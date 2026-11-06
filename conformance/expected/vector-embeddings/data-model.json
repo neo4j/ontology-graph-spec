@@ -1,0 +1,201 @@
+{
+    "version": "3.0.0",
+    "graphSchemaRepresentation": {
+        "version": "1.0.0",
+        "graphSchema": {
+            "nodeLabels": [
+                {
+                    "$id": "nl:0",
+                    "token": "document",
+                    "properties": [
+                        {
+                            "$id": "p:0_0",
+                            "token": "documentid",
+                            "type": {
+                                "type": "integer"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:0_1",
+                            "token": "embedding",
+                            "type": {
+                                "type": "vector",
+                                "items": {
+                                    "type": "float"
+                                },
+                                "dimension": 123
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:0_2",
+                            "token": "legacyembedding",
+                            "type": {
+                                "type": "vector",
+                                "items": {
+                                    "type": "float"
+                                }
+                            },
+                            "nullable": false
+                        }
+                    ]
+                }
+            ],
+            "relationshipTypes": [],
+            "nodeObjectTypes": [
+                {
+                    "$id": "n:0",
+                    "labels": [
+                        {
+                            "$ref": "#nl:0"
+                        }
+                    ]
+                }
+            ],
+            "relationshipObjectTypes": [],
+            "constraints": [],
+            "indexes": [
+                {
+                    "$id": "i:0",
+                    "name": "document_embedding",
+                    "indexType": "vector",
+                    "entityType": "node",
+                    "nodeLabel": {
+                        "$ref": "#nl:0"
+                    },
+                    "properties": [
+                        {
+                            "$ref": "#p:0_1"
+                        }
+                    ],
+                    "options": {
+                        "type": "VECTOR",
+                        "vector.dimensions": 123,
+                        "vector.similarity_function": "euclidean"
+                    }
+                }
+            ]
+        }
+    },
+    "graphSchemaExtensionsRepresentation": {
+        "nodeKeyProperties": [
+            {
+                "node": {
+                    "$ref": "#n:0"
+                },
+                "keyProperties": [
+                    {
+                        "$ref": "#p:0_0"
+                    }
+                ]
+            }
+        ]
+    },
+    "graphMappingRepresentation": {
+        "dataSourceSchema": {
+            "type": "cloud",
+            "tableSchemas": [
+                {
+                    "name": "document",
+                    "expanded": true,
+                    "fields": [
+                        {
+                            "name": "documentid",
+                            "rawType": "INT",
+                            "recommendedType": {
+                                "type": "integer"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "embedding",
+                            "rawType": "VECTOR",
+                            "recommendedType": {
+                                "type": "vector",
+                                "items": {
+                                    "type": "float"
+                                },
+                                "dimension": 123
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "vector",
+                                    "items": {
+                                        "type": "float"
+                                    },
+                                    "dimension": 123
+                                },
+                                {
+                                    "type": "vector",
+                                    "items": {
+                                        "type": "float32"
+                                    },
+                                    "dimension": 123
+                                }
+                            ]
+                        },
+                        {
+                            "name": "legacyembedding",
+                            "rawType": "VECTOR",
+                            "recommendedType": {
+                                "type": "vector",
+                                "items": {
+                                    "type": "float"
+                                }
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "vector",
+                                    "items": {
+                                        "type": "float"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "primaryKeys": [
+                        "documentid"
+                    ],
+                    "foreignKeys": []
+                }
+            ]
+        },
+        "nodeMappings": [
+            {
+                "node": {
+                    "$ref": "#n:0"
+                },
+                "tableName": "document",
+                "propertyMappings": [
+                    {
+                        "fieldName": "documentid",
+                        "property": {
+                            "$ref": "#p:0_0"
+                        }
+                    },
+                    {
+                        "fieldName": "embedding",
+                        "property": {
+                            "$ref": "#p:0_1"
+                        }
+                    },
+                    {
+                        "fieldName": "legacyembedding",
+                        "property": {
+                            "$ref": "#p:0_2"
+                        }
+                    }
+                ]
+            }
+        ],
+        "relationshipMappings": []
+    },
+    "configurations": {
+        "idsToIgnore": []
+    }
+}

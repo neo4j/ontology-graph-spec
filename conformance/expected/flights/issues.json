@@ -1,0 +1,14 @@
+[
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:3' on node 'n:3' reuses name 'flights' already used by another index or constraint",
+        "path": "nodes.n:3.extensions.indexes.i:3.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:3' on node 'n:3' reuses name 'flights' already used by another index or constraint",
+        "path": "nodes.n:3.constraints.c:3.name",
+        "details": {}
+    }
+]

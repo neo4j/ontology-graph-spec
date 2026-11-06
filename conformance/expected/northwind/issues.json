@@ -1,0 +1,38 @@
+[
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:0' on node 'n:0' reuses name 'categories' already used by another index or constraint",
+        "path": "nodes.n:0.extensions.indexes.i:0.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:0' on node 'n:0' reuses name 'categories' already used by another index or constraint",
+        "path": "nodes.n:0.constraints.c:0.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:1' on node 'n:1' reuses name 'products' already used by another index or constraint",
+        "path": "nodes.n:1.extensions.indexes.i:1.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:1' on node 'n:1' reuses name 'products' already used by another index or constraint",
+        "path": "nodes.n:1.constraints.c:1.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Index 'i:2' on node 'n:2' reuses name 'suppliers' already used by another index or constraint",
+        "path": "nodes.n:2.extensions.indexes.i:2.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "message": "Constraint 'c:2' on node 'n:2' reuses name 'suppliers' already used by another index or constraint",
+        "path": "nodes.n:2.constraints.c:2.name",
+        "details": {}
+    }
+]

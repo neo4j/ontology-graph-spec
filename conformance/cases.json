@@ -1,0 +1,57 @@
+[
+  {
+    "name": "movies",
+    "input": "docs/modules/ROOT/examples/movies.json",
+    "type": "graph_spec"
+  },
+  {
+    "name": "graph-data-model-3.0.0",
+    "input": "src/jvmTest/resources/org/neo4j/spec/graph/migrate/migration/dataModel/graph-data-model-3.0.0.json",
+    "type": "data_model"
+  },
+  {
+    "name": "adventureworks-sales",
+    "input": "src/jvmTest/resources/org/neo4j/spec/graph/migrate/migration/dataModel/prod-like/adventureworks-sales.json",
+    "type": "data_model"
+  },
+  {
+    "name": "chinook",
+    "input": "src/jvmTest/resources/org/neo4j/spec/graph/migrate/migration/dataModel/prod-like/chinook.json",
+    "type": "data_model"
+  },
+  {
+    "name": "dvd-rental",
+    "input": "src/jvmTest/resources/org/neo4j/spec/graph/migrate/migration/dataModel/prod-like/dvd-rental.json",
+    "type": "data_model"
+  },
+  {
+    "name": "flights",
+    "input": "src/jvmTest/resources/org/neo4j/spec/graph/migrate/migration/dataModel/prod-like/flights.json",
+    "type": "data_model"
+  },
+  {
+    "name": "ldbc",
+    "input": "src/jvmTest/resources/org/neo4j/spec/graph/migrate/migration/dataModel/prod-like/ldbc.json",
+    "type": "data_model"
+  },
+  {
+    "name": "northwind",
+    "input": "src/jvmTest/resources/org/neo4j/spec/graph/migrate/migration/dataModel/prod-like/northwind.json",
+    "type": "data_model"
+  },
+  {
+    "name": "pandc",
+    "input": "src/jvmTest/resources/org/neo4j/spec/graph/migrate/migration/dataModel/prod-like/pandc.json",
+    "type": "data_model"
+  },
+  {
+    "name": "two-nodes-same-name",
+    "input": "src/jvmTest/resources/org/neo4j/spec/graph/migrate/migration/dataModel/prod-like/two-nodes-same-name.json",
+    "type": "data_model"
+  },
+  {
+    "name": "vector-embeddings",
+    "input": "src/jvmTest/resources/org/neo4j/spec/graph/migrate/migration/dataModel/prod-like/vector-embeddings.json",
+    "type": "data_model"
+  }
+]

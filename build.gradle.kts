@@ -30,6 +30,9 @@ kotlin {
                 useJUnitPlatform()
                 // Read by SpecVersionConsistencyTest, so that a change to either reruns the tests.
                 inputs.file("ontology-graph-spec.schema.json")
+                // Read by ConformanceTest, -PupdateConformance rewrites the expected files
+                inputs.dir("conformance")
+                systemProperty("updateConformance", providers.gradleProperty("updateConformance").isPresent.toString())
                 inputs.property(
                     "releaseSpecTags",
                     providers
