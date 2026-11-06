@@ -36,7 +36,7 @@ class NodeTypeConstraintTest {
     fun `ignore constraint when type is not PROPERTY_TYPE`() {
         val constraint = NodeConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("email", "username")
+            properties = mutableListOf("email", "username")
         )
         val issues = mutableListOf<Issue>()
 
@@ -49,7 +49,7 @@ class NodeTypeConstraintTest {
     fun `pass when PROPERTY_TYPE constraint has exactly one property`() {
         val constraint = NodeConstraint(
             type = ConstraintType.PROPERTY_TYPE,
-            properties = mutableSetOf("age")
+            properties = mutableListOf("age")
         )
         val issues = mutableListOf<Issue>()
 
@@ -62,7 +62,7 @@ class NodeTypeConstraintTest {
     fun `fail when PROPERTY_TYPE constraint has multiple properties`() {
         val constraint = NodeConstraint(
             type = ConstraintType.PROPERTY_TYPE,
-            properties = mutableSetOf("age", "score")
+            properties = mutableListOf("age", "score")
         )
         val issues = mutableListOf<Issue>()
 

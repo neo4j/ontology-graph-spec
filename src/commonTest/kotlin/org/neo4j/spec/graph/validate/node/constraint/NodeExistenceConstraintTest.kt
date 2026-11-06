@@ -36,7 +36,7 @@ class NodeExistenceConstraintTest {
     fun `ignore constraint when type is not EXISTS`() {
         val constraint = NodeConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("email", "username") // 2 properties (would fail if it were EXISTS)
+            properties = mutableListOf("email", "username") // 2 properties (would fail if it were EXISTS)
         )
         val issues = mutableListOf<Issue>()
 
@@ -49,7 +49,7 @@ class NodeExistenceConstraintTest {
     fun `pass when EXISTS constraint has exactly one property`() {
         val constraint = NodeConstraint(
             type = ConstraintType.EXISTS,
-            properties = mutableSetOf("email")
+            properties = mutableListOf("email")
         )
         val issues = mutableListOf<Issue>()
 
@@ -59,10 +59,23 @@ class NodeExistenceConstraintTest {
     }
 
     @Test
+    fun `repeating the same property is not counted as multiple properties`() {
+        val constraint = NodeConstraint(
+            type = ConstraintType.EXISTS,
+            properties = mutableListOf("email", "email")
+        )
+        val issues = mutableListOf<Issue>()
+
+        validator.validateConstraint(model, "user", nodeDummy, "exist_email", constraint, issues)
+
+        assertTrue(issues.isEmpty(), "Duplicate properties are reported by the duplicate property validation")
+    }
+
+    @Test
     fun `fail when EXISTS constraint has multiple properties`() {
         val constraint = NodeConstraint(
             type = ConstraintType.EXISTS,
-            properties = mutableSetOf("email", "username")
+            properties = mutableListOf("email", "username")
         )
         val issues = mutableListOf<Issue>()
 
@@ -78,7 +91,7 @@ class NodeExistenceConstraintTest {
     fun `fail when EXISTS constraint has zero properties`() {
         val constraint = NodeConstraint(
             type = ConstraintType.EXISTS,
-            properties = mutableSetOf()
+            properties = mutableListOf()
         )
         val issues = mutableListOf<Issue>()
 

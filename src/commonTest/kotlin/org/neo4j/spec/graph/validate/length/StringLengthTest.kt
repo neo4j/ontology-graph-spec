@@ -67,7 +67,7 @@ class StringLengthTest {
             constraints = mutableMapOf(
                 "c" to NodeConstraint(
                     ConstraintType.UNIQUE,
-                    mutableSetOf("p"),
+                    mutableListOf("p"),
                     name = "a".repeat(MAX_CONSTRAINT_INDEX_NAME_LENGTH)
                 )
             ),
@@ -75,8 +75,8 @@ class StringLengthTest {
                 indexes = mutableMapOf(
                     "i" to NodeIndex(
                         IndexType.RANGE,
-                        mutableSetOf("L"),
-                        mutableSetOf("p"),
+                        mutableListOf("L"),
+                        mutableListOf("p"),
                         name = "a".repeat(MAX_CONSTRAINT_INDEX_NAME_LENGTH)
                     )
                 )
@@ -114,7 +114,7 @@ class StringLengthTest {
             constraints = mutableMapOf(
                 "c" to NodeConstraint(
                     ConstraintType.UNIQUE,
-                    mutableSetOf("p"),
+                    mutableListOf("p"),
                     name = "a".repeat(MAX_CONSTRAINT_INDEX_NAME_LENGTH + 1)
                 )
             ),
@@ -122,8 +122,8 @@ class StringLengthTest {
                 indexes = mutableMapOf(
                     "i" to NodeIndex(
                         IndexType.RANGE,
-                        mutableSetOf("L"),
-                        mutableSetOf("p"),
+                        mutableListOf("L"),
+                        mutableListOf("p"),
                         name = "a".repeat(MAX_CONSTRAINT_INDEX_NAME_LENGTH + 1)
                     )
                 )
@@ -152,7 +152,7 @@ class StringLengthTest {
             constraints = mutableMapOf(
                 "c" to RelationshipConstraint(
                     ConstraintType.UNIQUE,
-                    mutableSetOf("p"),
+                    mutableListOf("p"),
                     name = "a".repeat(MAX_CONSTRAINT_INDEX_NAME_LENGTH + 1)
                 )
             )
@@ -174,7 +174,7 @@ class StringLengthTest {
                 "c" to
                     NodeConstraint(
                         ConstraintType.UNIQUE,
-                        mutableSetOf("p"),
+                        mutableListOf("p"),
                         name = "a".repeat(MAX_NAME_LENGTH + 1)
                     )
             )

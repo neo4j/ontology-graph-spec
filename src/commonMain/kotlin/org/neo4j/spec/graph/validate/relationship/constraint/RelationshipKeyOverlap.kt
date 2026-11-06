@@ -42,7 +42,7 @@ object RelationshipKeyOverlap : RelationshipValidation {
             if (constraint.properties.toSet() in keyPropertySets) {
                 issues.add(
                     Issue(
-                        code = "redundant_relation_constraint_key_overlap",
+                        code = "redundant_relationship_constraint_key_overlap",
                         message = "Constraint '$constraintId' (${constraint.type}) is redundant - " +
                             "a KEY constraint already covers the same properties on relationship '$relationshipId'",
                         path = "relationships.$relationshipId.constraints.$constraintId"

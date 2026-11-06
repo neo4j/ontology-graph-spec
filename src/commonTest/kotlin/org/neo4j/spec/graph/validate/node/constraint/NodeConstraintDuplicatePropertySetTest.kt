@@ -42,7 +42,7 @@ class NodeConstraintDuplicatePropertySetTest {
     }
 
     private fun constraint(type: ConstraintType, vararg properties: String) =
-        NodeConstraint(type, properties.toMutableSet())
+        NodeConstraint(type, properties.toMutableList())
 
     @Test
     fun `pass when single property constraints of different types cover the same property`() {

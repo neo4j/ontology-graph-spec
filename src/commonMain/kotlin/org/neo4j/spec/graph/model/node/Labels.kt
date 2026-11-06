@@ -31,9 +31,9 @@ data class Labels @JvmOverloads constructor(
     @Description("The label which identifies the node.")
     var identifier: String? = null,
     @Description("Labels implied by the node in addition to the identifier.")
-    val implied: MutableSet<String> = mutableSetOf(),
+    val implied: MutableList<String> = mutableListOf(),
     @Description("Labels which may be present on the node but aren't required.")
-    val optional: MutableSet<String> = mutableSetOf(),
+    val optional: MutableList<String> = mutableListOf(),
     @Description("Extensions for the labels.")
     val extensions: LabelsExtensions = LabelsExtensions()
 )

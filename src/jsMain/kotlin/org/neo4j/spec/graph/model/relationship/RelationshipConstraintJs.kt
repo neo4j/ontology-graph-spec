@@ -54,7 +54,7 @@ fun RelationshipConstraint.toJs() = relationshipConstraintJs(
 
 fun RelationshipConstraintJs.toClass() = RelationshipConstraint(
     type = ConstraintType.valueOf(type),
-    properties = properties.toMutableSet(),
+    properties = properties.toMutableList(),
     extensions = extensions.toClass(),
     name = name
 )

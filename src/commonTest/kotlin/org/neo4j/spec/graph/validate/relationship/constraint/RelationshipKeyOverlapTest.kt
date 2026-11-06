@@ -45,7 +45,7 @@ class RelationshipKeyOverlapTest {
             constraints = mutableMapOf(
                 "uniq_roles" to RelationshipConstraint(
                     type = ConstraintType.UNIQUE,
-                    properties = mutableSetOf("roles")
+                    properties = mutableListOf("roles")
                 )
             )
         )
@@ -63,11 +63,11 @@ class RelationshipKeyOverlapTest {
             constraints = mutableMapOf(
                 "key_roles" to RelationshipConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("roles")
+                    properties = mutableListOf("roles")
                 ),
                 "uniq_year" to RelationshipConstraint(
                     type = ConstraintType.UNIQUE,
-                    properties = mutableSetOf("year")
+                    properties = mutableListOf("year")
                 )
             )
         )
@@ -85,11 +85,11 @@ class RelationshipKeyOverlapTest {
             constraints = mutableMapOf(
                 "key_roles" to RelationshipConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("roles")
+                    properties = mutableListOf("roles")
                 ),
                 "uniq_roles" to RelationshipConstraint(
                     type = ConstraintType.UNIQUE,
-                    properties = mutableSetOf("roles")
+                    properties = mutableListOf("roles")
                 )
             )
         )
@@ -98,7 +98,7 @@ class RelationshipKeyOverlapTest {
         validator.validateRelationship(model, "actedIn", relationship, issues)
 
         assertEquals(1, issues.size)
-        assertEquals("redundant_relation_constraint_key_overlap", issues.first().code)
+        assertEquals("redundant_relationship_constraint_key_overlap", issues.first().code)
     }
 
     @Test
@@ -108,11 +108,11 @@ class RelationshipKeyOverlapTest {
             constraints = mutableMapOf(
                 "key_roles" to RelationshipConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("roles")
+                    properties = mutableListOf("roles")
                 ),
                 "exist_roles" to RelationshipConstraint(
                     type = ConstraintType.EXISTS,
-                    properties = mutableSetOf("roles")
+                    properties = mutableListOf("roles")
                 )
             )
         )
@@ -121,6 +121,6 @@ class RelationshipKeyOverlapTest {
         validator.validateRelationship(model, "actedIn", relationship, issues)
 
         assertEquals(1, issues.size)
-        assertEquals("redundant_relation_constraint_key_overlap", issues.first().code)
+        assertEquals("redundant_relationship_constraint_key_overlap", issues.first().code)
     }
 }

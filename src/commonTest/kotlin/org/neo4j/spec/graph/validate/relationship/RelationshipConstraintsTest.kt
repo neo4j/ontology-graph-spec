@@ -50,7 +50,7 @@ class RelationshipConstraintsTest {
         )
         val constraint = RelationshipConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("roles", "year")
+            properties = mutableListOf("roles", "year")
         )
 
         val issues = mutableListOf<Issue>()
@@ -74,7 +74,7 @@ class RelationshipConstraintsTest {
         )
         val constraint = RelationshipConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("roles")
+            properties = mutableListOf("roles")
         )
 
         val issues = mutableListOf<Issue>()
@@ -82,7 +82,7 @@ class RelationshipConstraintsTest {
 
         assertEquals(1, issues.size)
         val issue = issues.first()
-        assertEquals("missing_relation_constraint_property", issue.code)
+        assertEquals("missing_relationship_constraint_property", issue.code)
         assertEquals("Missing property with id 'roles' for relationship constraint 'const_roles'", issue.message)
         assertEquals("relationships.actedIn.constraints.const_roles.properties.roles", issue.path)
     }
@@ -100,7 +100,7 @@ class RelationshipConstraintsTest {
         )
         val constraint = RelationshipConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("roles", "year")
+            properties = mutableListOf("roles", "year")
         )
 
         val issues = mutableListOf<Issue>()
@@ -110,7 +110,7 @@ class RelationshipConstraintsTest {
 
         val missingProperties = issues.map { it.path?.substringAfterLast('.') }.toSet()
         assertEquals(setOf("roles", "year"), missingProperties)
-        assertTrue(issues.all { it.code == "missing_relation_constraint_property" })
+        assertTrue(issues.all { it.code == "missing_relationship_constraint_property" })
     }
 
     @Test
@@ -126,7 +126,7 @@ class RelationshipConstraintsTest {
         )
         val constraint = RelationshipConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf()
+            properties = mutableListOf()
         )
 
         val issues = mutableListOf<Issue>()

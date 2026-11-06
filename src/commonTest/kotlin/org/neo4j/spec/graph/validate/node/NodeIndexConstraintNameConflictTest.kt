@@ -36,20 +36,20 @@ class NodeIndexConstraintNameConflictTest {
 
     private fun index(
         name: String?,
-        properties: Set<String>,
+        properties: List<String>,
         label: String = "Person",
         type: IndexType = IndexType.RANGE
     ) = NodeIndex(
         type = type,
-        labels = mutableSetOf(label),
-        properties = properties.toMutableSet(),
+        labels = mutableListOf(label),
+        properties = properties.toMutableList(),
         name = name
     )
 
-    private fun constraint(name: String?, properties: Set<String>, type: ConstraintType = ConstraintType.UNIQUE) =
+    private fun constraint(name: String?, properties: List<String>, type: ConstraintType = ConstraintType.UNIQUE) =
         NodeConstraint(
             type = type,
-            properties = properties.toMutableSet(),
+            properties = properties.toMutableList(),
             name = name
         )
 
@@ -78,8 +78,8 @@ class NodeIndexConstraintNameConflictTest {
         // ARRANGE
         val node = node(
             indexes = mapOf(
-                "i1" to index("dup", setOf("id")),
-                "i2" to index("dup", setOf("id"))
+                "i1" to index("dup", listOf("id")),
+                "i2" to index("dup", listOf("id"))
             )
         )
 
@@ -88,7 +88,7 @@ class NodeIndexConstraintNameConflictTest {
 
         // ASSERT
         assertEquals(2, issues.size)
-        assertTrue(issues.all { it.code == "duplicate_index_constraint_name" })
+        assertTrue(issues.all { it.code == "duplicate_node_index_constraint_name" })
         assertEquals(
             setOf("nodes.personNode.extensions.indexes.i1.name", "nodes.personNode.extensions.indexes.i2.name"),
             issues.mapNotNull { it.path }.toSet()
@@ -100,8 +100,8 @@ class NodeIndexConstraintNameConflictTest {
         // ARRANGE
         val node = node(
             indexes = mapOf(
-                "i1" to index("dup", linkedSetOf("id", "name")),
-                "i2" to index("dup", linkedSetOf("name", "id"))
+                "i1" to index("dup", listOf("id", "name")),
+                "i2" to index("dup", listOf("name", "id"))
             )
         )
 
@@ -118,8 +118,8 @@ class NodeIndexConstraintNameConflictTest {
         // ARRANGE
         val node = node(
             indexes = mapOf(
-                "i1" to index("dup", setOf("id"), type = IndexType.RANGE),
-                "i2" to index("dup", setOf("id"), type = IndexType.TEXT)
+                "i1" to index("dup", listOf("id"), type = IndexType.RANGE),
+                "i2" to index("dup", listOf("id"), type = IndexType.TEXT)
             )
         )
 
@@ -128,7 +128,7 @@ class NodeIndexConstraintNameConflictTest {
 
         // ASSERT
         assertEquals(2, issues.size, "Every index sharing the bad name is flagged")
-        assertTrue(issues.all { it.code == "duplicate_index_constraint_name" })
+        assertTrue(issues.all { it.code == "duplicate_node_index_constraint_name" })
         assertEquals(
             setOf("nodes.personNode.extensions.indexes.i1.name", "nodes.personNode.extensions.indexes.i2.name"),
             issues.mapNotNull { it.path }.toSet()
@@ -140,9 +140,9 @@ class NodeIndexConstraintNameConflictTest {
         // ARRANGE
         val node = node(
             indexes = mapOf(
-                "i1" to index("dup", setOf("id")),
-                "i2" to index("dup", setOf("id")),
-                "i3" to index("dup", setOf("name"))
+                "i1" to index("dup", listOf("id")),
+                "i2" to index("dup", listOf("id")),
+                "i3" to index("dup", listOf("name"))
             )
         )
 
@@ -157,9 +157,9 @@ class NodeIndexConstraintNameConflictTest {
     fun `fail when indexes on different nodes share a name`() {
         // Name scope is the whole model.
         // ARRANGE
-        val personNode = node(indexes = mapOf("i1" to index("dup", setOf("id"), label = "Person")))
+        val personNode = node(indexes = mapOf("i1" to index("dup", listOf("id"), label = "Person")))
         val movieNode = node(
-            indexes = mapOf("i2" to index("dup", setOf("id"), label = "Movie")),
+            indexes = mapOf("i2" to index("dup", listOf("id"), label = "Movie")),
             label = "Movie"
         )
 
@@ -179,8 +179,8 @@ class NodeIndexConstraintNameConflictTest {
         // ARRANGE
         val node = node(
             constraints = mapOf(
-                "c1" to constraint("dup", setOf("id")),
-                "c2" to constraint("dup", setOf("id"))
+                "c1" to constraint("dup", listOf("id")),
+                "c2" to constraint("dup", listOf("id"))
             )
         )
 
@@ -201,8 +201,8 @@ class NodeIndexConstraintNameConflictTest {
         // ARRANGE
         val node = node(
             constraints = mapOf(
-                "c1" to constraint("dup", setOf("id"), type = ConstraintType.UNIQUE),
-                "c2" to constraint("dup", setOf("id"), type = ConstraintType.KEY)
+                "c1" to constraint("dup", listOf("id"), type = ConstraintType.UNIQUE),
+                "c2" to constraint("dup", listOf("id"), type = ConstraintType.KEY)
             )
         )
 
@@ -222,8 +222,8 @@ class NodeIndexConstraintNameConflictTest {
         // UPX probe case H: always an error, even with the same properties and label
         // ARRANGE
         val node = node(
-            indexes = mapOf("i1" to index("dup", setOf("id"))),
-            constraints = mapOf("c1" to constraint("dup", setOf("id")))
+            indexes = mapOf("i1" to index("dup", listOf("id"))),
+            constraints = mapOf("c1" to constraint("dup", listOf("id")))
         )
 
         // ACT
@@ -242,10 +242,10 @@ class NodeIndexConstraintNameConflictTest {
         // UPX probe case I: all three are flagged
         // ARRANGE
         val node = node(
-            indexes = mapOf("i1" to index("dup", setOf("id"))),
+            indexes = mapOf("i1" to index("dup", listOf("id"))),
             constraints = mapOf(
-                "c1" to constraint("dup", setOf("id")),
-                "c2" to constraint("dup", setOf("id"))
+                "c1" to constraint("dup", listOf("id")),
+                "c2" to constraint("dup", listOf("id"))
             )
         )
 
@@ -262,10 +262,10 @@ class NodeIndexConstraintNameConflictTest {
         // ARRANGE
         val node = node(
             indexes = mapOf(
-                "i1" to index(null, setOf("id")),
-                "i2" to index(null, setOf("name")),
-                "i3" to index("", setOf("id")),
-                "i4" to index("", setOf("name"))
+                "i1" to index(null, listOf("id")),
+                "i2" to index(null, listOf("name")),
+                "i3" to index("", listOf("id")),
+                "i4" to index("", listOf("name"))
             )
         )
 
@@ -282,10 +282,10 @@ class NodeIndexConstraintNameConflictTest {
         // ARRANGE
         val node = node(
             indexes = mapOf(
-                "i1" to index("a", setOf("id")),
-                "i2" to index("b", setOf("name"))
+                "i1" to index("a", listOf("id")),
+                "i2" to index("b", listOf("name"))
             ),
-            constraints = mapOf("c1" to constraint("c", setOf("id")))
+            constraints = mapOf("c1" to constraint("c", listOf("id")))
         )
 
         // ACT

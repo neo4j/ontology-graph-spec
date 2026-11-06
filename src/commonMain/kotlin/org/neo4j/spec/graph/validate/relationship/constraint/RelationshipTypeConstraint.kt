@@ -35,10 +35,10 @@ object RelationshipTypeConstraint : RelationshipValidation {
         constraint: RelationshipConstraint,
         issues: MutableList<Issue>
     ) {
-        if (constraint.type == ConstraintType.PROPERTY_TYPE && constraint.properties.size != 1) {
+        if (constraint.type == ConstraintType.PROPERTY_TYPE && constraint.properties.distinct().size != 1) {
             issues.add(
                 Issue(
-                    code = "invalid_relation_type_constraint_property_count",
+                    code = "invalid_relationship_type_constraint_property_count",
                     message = "Relationship type constraint '$constraintId' must have exactly one property.",
                     path = "relationships.$relationshipId.constraints.$constraintId.properties"
                 )

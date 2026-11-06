@@ -12,7 +12,7 @@ class NodeConstraintJsTest : JsMappingTest<NodeConstraint, NodeConstraintJs>() {
 
     override fun createClass() = NodeConstraint(
         type = ConstraintType.KEY,
-        properties = mutableSetOf("property_1", "property_2"),
+        properties = mutableListOf("property_1", "property_2"),
         extensions = NodeConstraintExtensions(
             mutableMapOf("key1" to "val1")
         )

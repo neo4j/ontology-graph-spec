@@ -39,7 +39,7 @@ data class NodeMapping @JvmOverloads constructor(
     @Description("Label used to match existing nodes.")
     var matchLabel: String? = null,
     @Description("Ids of the properties which identify a node.")
-    val key: MutableSet<String> = mutableSetOf(),
+    val key: MutableList<String> = mutableListOf(),
     @SerialName("depends_on")
     @Description(
         "Id of another mapping in the same list which must be imported before this one. " +

@@ -32,7 +32,7 @@ object RelationshipIndexProperties : RelationshipValidation {
         if (index.properties.isEmpty()) {
             issues.add(
                 Issue(
-                    code = "missing_index_properties",
+                    code = "missing_relationship_index_properties",
                     message = "Index '$indexId' on relationship '$relationshipId' must have at least one property",
                     path = "relationships.$relationshipId.extensions.indexes.$indexId.properties"
                 )

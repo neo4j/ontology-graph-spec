@@ -47,7 +47,7 @@ class RelationshipIndexPropertiesTest {
         )
         val index = RelationshipIndex(
             type = IndexType.TEXT,
-            properties = mutableSetOf("roles")
+            properties = mutableListOf("roles")
         )
 
         // ACT
@@ -71,7 +71,7 @@ class RelationshipIndexPropertiesTest {
         )
         val index = RelationshipIndex(
             type = IndexType.TEXT,
-            properties = mutableSetOf()
+            properties = mutableListOf()
         )
 
         // ACT
@@ -81,7 +81,7 @@ class RelationshipIndexPropertiesTest {
         // ASSERT
         assertEquals(1, issues.size)
         val issue = issues.first()
-        assertEquals("missing_index_properties", issue.code)
+        assertEquals("missing_relationship_index_properties", issue.code)
         assertEquals("relationships.actedIn.extensions.indexes.idx_empty.properties", issue.path)
     }
 }

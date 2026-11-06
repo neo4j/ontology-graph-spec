@@ -41,11 +41,11 @@ class NodeExistenceCompositeConflictTest {
             constraints = mutableMapOf(
                 "exist_email" to NodeConstraint(
                     type = ConstraintType.EXISTS,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 ),
                 "key_name" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("name")
+                    properties = mutableListOf("name")
                 )
             )
         )
@@ -64,11 +64,11 @@ class NodeExistenceCompositeConflictTest {
             constraints = mutableMapOf(
                 "exist_email" to NodeConstraint(
                     type = ConstraintType.EXISTS,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 ),
                 "comp_email_name" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("email", "name")
+                    properties = mutableListOf("email", "name")
                 )
             )
         )
@@ -89,11 +89,11 @@ class NodeExistenceCompositeConflictTest {
             constraints = mutableMapOf(
                 "exist_email" to NodeConstraint(
                     type = ConstraintType.EXISTS,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 ),
                 "key_email" to NodeConstraint(
                     type = ConstraintType.KEY,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 )
             )
         )
@@ -113,11 +113,11 @@ class NodeExistenceCompositeConflictTest {
             constraints = mutableMapOf(
                 "exist_email" to NodeConstraint(
                     type = ConstraintType.EXISTS,
-                    properties = mutableSetOf("email")
+                    properties = mutableListOf("email")
                 ),
                 "exist_email_name" to NodeConstraint(
                     type = ConstraintType.EXISTS,
-                    properties = mutableSetOf("email", "name")
+                    properties = mutableListOf("email", "name")
                 )
             )
         )

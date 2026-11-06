@@ -13,8 +13,8 @@ class NodeIndexJsTest : JsMappingTest<NodeIndex, NodeIndexJs>() {
 
     override fun createClass() = NodeIndex(
         type = IndexType.TEXT,
-        labels = mutableSetOf("node_label"),
-        properties = mutableSetOf("property_1", "property_2"),
+        labels = mutableListOf("node_label"),
+        properties = mutableListOf("property_1", "property_2"),
         options = VectorIndexOption(
             similarityFunction = "test",
         ),

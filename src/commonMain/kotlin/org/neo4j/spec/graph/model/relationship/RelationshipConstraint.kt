@@ -34,7 +34,7 @@ data class RelationshipConstraint @JvmOverloads constructor(
     @Description("Type of the constraint.")
     override var type: ConstraintType,
     @Description("Ids of the properties the constraint covers.")
-    override val properties: MutableSet<String>,
+    override val properties: MutableList<String>,
     @Description("Extensions for the constraint.")
     val extensions: RelationshipConstraintExtensions = RelationshipConstraintExtensions(),
     @Description("Name of the constraint in the database.")

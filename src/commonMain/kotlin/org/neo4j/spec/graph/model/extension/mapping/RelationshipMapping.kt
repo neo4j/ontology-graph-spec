@@ -45,7 +45,7 @@ data class RelationshipMapping @JvmOverloads constructor(
     @Description("Whether relationships are merged with existing relationships or always created.")
     var mode: MappingMode = MappingMode.MERGE,
     @Description("Ids of the properties which identify a relationship.")
-    val key: MutableSet<String> = mutableSetOf(),
+    val key: MutableList<String> = mutableListOf(),
     @SerialName("depends_on")
     @Description(
         "Id of another mapping in the same list which must be imported before this one. " +

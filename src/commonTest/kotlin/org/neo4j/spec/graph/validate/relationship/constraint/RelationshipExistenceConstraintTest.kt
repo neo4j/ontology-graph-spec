@@ -41,7 +41,7 @@ class RelationshipExistenceConstraintTest {
     fun `ignore constraint when type is not EXISTS`() {
         val constraint = RelationshipConstraint(
             type = ConstraintType.UNIQUE,
-            properties = mutableSetOf("roles", "year")
+            properties = mutableListOf("roles", "year")
         )
         val issues = mutableListOf<Issue>()
 
@@ -54,7 +54,7 @@ class RelationshipExistenceConstraintTest {
     fun `pass when EXISTS constraint has exactly one property`() {
         val constraint = RelationshipConstraint(
             type = ConstraintType.EXISTS,
-            properties = mutableSetOf("roles")
+            properties = mutableListOf("roles")
         )
         val issues = mutableListOf<Issue>()
 
@@ -67,7 +67,7 @@ class RelationshipExistenceConstraintTest {
     fun `fail when EXISTS constraint has multiple properties`() {
         val constraint = RelationshipConstraint(
             type = ConstraintType.EXISTS,
-            properties = mutableSetOf("roles", "year")
+            properties = mutableListOf("roles", "year")
         )
         val issues = mutableListOf<Issue>()
 
@@ -75,7 +75,7 @@ class RelationshipExistenceConstraintTest {
 
         assertEquals(1, issues.size)
         val issue = issues.first()
-        assertEquals("invalid_relation_exist_constraint_property_count", issue.code)
+        assertEquals("invalid_relationship_exist_constraint_property_count", issue.code)
         assertEquals("relationships.actedIn.constraints.exist_multi.properties", issue.path)
     }
 
@@ -83,13 +83,13 @@ class RelationshipExistenceConstraintTest {
     fun `fail when EXISTS constraint has zero properties`() {
         val constraint = RelationshipConstraint(
             type = ConstraintType.EXISTS,
-            properties = mutableSetOf()
+            properties = mutableListOf()
         )
         val issues = mutableListOf<Issue>()
 
         validator.validateConstraint(model, "actedIn", relationshipDummy, "exist_empty", constraint, issues)
 
         assertEquals(1, issues.size)
-        assertEquals("invalid_relation_exist_constraint_property_count", issues.first().code)
+        assertEquals("invalid_relationship_exist_constraint_property_count", issues.first().code)
     }
 }

@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.neo4j.spec.graph.codec.format.JsonFormat;
 import org.neo4j.spec.graph.codec.schema.SchemaElements;
@@ -75,7 +74,7 @@ class JavaApiTest {
     void facadeClassesAreNamed() {
         assertNotNull(GraphSpecs.defaultConfig(JsonFormat.getDefault()));
         assertTrue(Compositeness.isCompositeConstraint(
-            Set.of("a", "b")));
+            List.of("a", "b")));
         assertNotNull(SchemaElements.schemaListOf("a", 1));
     }
 

@@ -120,6 +120,27 @@ class CustomMapSerializerTest {
     }
 
     @Test
+    fun `raw sets encode as lists and decode as lists`() {
+        val format = JsonFormat.default
+        val encoded = format.encodeModelToString(
+            model(mutableMapOf("tags" to setOf("a", "b"), "n" to setOf(setOf(1L))))
+        )
+        val decoded = format.decodeModelFromString(encoded).extensions.custom
+
+        assertEquals(listOf("a", "b"), decoded["tags"])
+        assertEquals(listOf(listOf(1L)), decoded["n"])
+    }
+
+    @Test
+    fun `deeply nested sets fail to encode`() {
+        var value: Any = "x"
+        repeat(MAX_CUSTOM_DEPTH + 1) { value = setOf(value) }
+        assertFailsWith<SerializationException> {
+            JsonFormat.default.encodeModelToString(model(mutableMapOf("deep" to value)))
+        }
+    }
+
+    @Test
     fun `unsupported value type error points to setSerializable`() {
         val values = listOf(Pair(1, 2), JsonObject(mapOf("a" to JsonPrimitive(1))), JsonArray(listOf(JsonPrimitive(1))))
         for (value in values) {

@@ -19,13 +19,13 @@ class NodeJsTest : JsMappingTest<Node, NodeJs>() {
     override fun createClass() = Node(
         labels = Labels("label"),
         properties = mutableMapOf("prop" to Property(Neo4jType.STRING, name = "propertyName")),
-        constraints = mutableMapOf("constraint" to NodeConstraint(ConstraintType.EXISTS, mutableSetOf("prop"))),
+        constraints = mutableMapOf("constraint" to NodeConstraint(ConstraintType.EXISTS, mutableListOf("prop"))),
         extensions = NodeExtensions(
             custom = mutableMapOf("key1" to "val1"),
-            indexes = mutableMapOf("index" to NodeIndex(IndexType.RANGE, mutableSetOf("label"), mutableSetOf("prop"))),
+            indexes = mutableMapOf("index" to NodeIndex(IndexType.RANGE, mutableListOf("label"), mutableListOf("prop"))),
             display = NodeDisplay(1.0, 2.0, "#FF8800")
         ),
-        aliases = mutableSetOf("alias1", "alias2"),
+        aliases = mutableListOf("alias1", "alias2"),
         reference = "node-ref"
     )
 

@@ -20,5 +20,5 @@ import org.neo4j.spec.graph.model.type.ConstraintType
 
 interface Constraint {
     val type: ConstraintType
-    val properties: MutableSet<String>
+    val properties: MutableList<String>
 }

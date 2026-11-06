@@ -15,7 +15,7 @@ class RelationshipIndexJsTest : JsMappingTest<RelationshipIndex, RelationshipInd
 
     override fun createClass() = RelationshipIndex(
         type = IndexType.POINT,
-        properties = mutableSetOf("property_1", "property_2"),
+        properties = mutableListOf("property_1", "property_2"),
         options = FullTextIndexOption(
             analyzer = "test"
         ),

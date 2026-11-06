@@ -35,7 +35,7 @@ data class RelationshipIndex @JvmOverloads constructor(
     @Description("Type of the index.")
     var type: IndexType,
     @Description("Ids of the properties the index covers.")
-    val properties: MutableSet<String>,
+    val properties: MutableList<String>,
     @Description("Configuration specific to the type of index.")
     val options: IndexOption? = null,
     @Description("User-defined arbitrary data.")

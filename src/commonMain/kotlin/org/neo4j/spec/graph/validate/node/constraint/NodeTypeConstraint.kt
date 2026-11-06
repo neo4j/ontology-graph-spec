@@ -35,7 +35,7 @@ object NodeTypeConstraint : NodeValidation {
         constraint: NodeConstraint,
         issues: MutableList<Issue>
     ) {
-        if (constraint.type == ConstraintType.PROPERTY_TYPE && constraint.properties.size != 1) {
+        if (constraint.type == ConstraintType.PROPERTY_TYPE && constraint.properties.distinct().size != 1) {
             issues.add(
                 Issue(
                     code = "invalid_node_type_constraint_property_count",

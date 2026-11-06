@@ -84,6 +84,6 @@ fun NodeJs.toClass(id: String): Node = Node(
     constraints = constraints.associateBy { _, value -> value.toClass() },
     extensions = extensions.toClass(),
     description = description,
-    aliases = aliases.toMutableSet(),
+    aliases = aliases.toMutableList(),
     reference = reference
 )

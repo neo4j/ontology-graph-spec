@@ -33,7 +33,7 @@ mistake, but means fixing an issue can reveal new ones.
 |===
 | Field | Description
 
-| `code` | A stable identifier for the kind of issue, such as `missing_relation_to_node`.
+| `code` | A stable identifier for the kind of issue, such as `missing_relationship_to_node`.
 | `message` | A human-readable description.
 | `path` | Where the issue is, as a dot-separated path such as `relationships.acted-in.to.film`. Optional.
 | `details` | Extra information as string keys and values. Often empty.

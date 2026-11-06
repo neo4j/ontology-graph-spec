@@ -32,7 +32,7 @@ import kotlin.test.assertTrue
 
 class RelationshipMappingKeyTest {
 
-    private fun model(key: Set<String>, relationship: String = "rel0") = GraphModel(
+    private fun model(key: List<String>, relationship: String = "rel0") = GraphModel(
         version = "1",
         id = "test",
         nodes = mutableMapOf("node0" to Node(properties = mutableMapOf("shared" to Property(), "age" to Property()))),
@@ -47,13 +47,13 @@ class RelationshipMappingKeyTest {
         extensions = GraphModelExtensions(
             dataSourceMappings = mutableMapOf(
                 "m0" to mutableListOf(
-                    NodeMapping(node = "node0", table = "t", properties = mutableMapOf(), key = mutableSetOf("age")),
+                    NodeMapping(node = "node0", table = "t", properties = mutableMapOf(), key = mutableListOf("age")),
                     RelationshipMapping(
                         relationship = relationship,
                         table = "t",
                         fromNode = TargetMapping(),
                         toNode = TargetMapping(),
-                        key = key.toMutableSet()
+                        key = key.toMutableList()
                     )
                 )
             )
@@ -64,17 +64,17 @@ class RelationshipMappingKeyTest {
 
     @Test
     fun `pass when key only contains relationship properties`() {
-        assertTrue(validate(model(setOf("since", "shared"))).isEmpty())
+        assertTrue(validate(model(listOf("since", "shared"))).isEmpty())
     }
 
     @Test
     fun `pass when there is no key`() {
-        assertTrue(validate(model(emptySet())).isEmpty())
+        assertTrue(validate(model(emptyList())).isEmpty())
     }
 
     @Test
     fun `fail when key contains a property of a node at either end`() {
-        val issues = validate(model(setOf("since", "age")))
+        val issues = validate(model(listOf("since", "age")))
 
         assertEquals(1, issues.size)
         assertEquals("invalid_relationship_mapping_key", issues.first().code)
@@ -84,13 +84,13 @@ class RelationshipMappingKeyTest {
 
     @Test
     fun `fail when key contains an unknown property`() {
-        val issues = validate(model(setOf("missing")))
+        val issues = validate(model(listOf("missing")))
 
         assertEquals(listOf("missing"), issues.map { it.details["property"] })
     }
 
     @Test
     fun `ignore mappings of other relationships`() {
-        assertTrue(validate(model(setOf("age"), relationship = "other")).isEmpty())
+        assertTrue(validate(model(listOf("age"), relationship = "other")).isEmpty())
     }
 }

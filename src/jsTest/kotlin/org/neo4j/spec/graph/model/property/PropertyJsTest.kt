@@ -17,7 +17,7 @@ class PropertyJsTest : JsMappingTest<Property, PropertyJs>() {
         key = true,
         extensions = PropertyExtensions(mutableMapOf("key1" to "val1")),
         name = "propertyName",
-        aliases = mutableSetOf("alias1", "alias2"),
+        aliases = mutableListOf("alias1", "alias2"),
         reference = "ref",
         pattern = "^a.*",
         oneOf = mutableListOf("a", "b")

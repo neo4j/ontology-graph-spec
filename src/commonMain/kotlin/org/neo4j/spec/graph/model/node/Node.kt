@@ -42,7 +42,7 @@ data class Node @JvmOverloads constructor(
     @Description("Description of the node.")
     val description: String = "",
     @Description("Alternative names for the node.")
-    val aliases: MutableSet<String> = mutableSetOf(),
+    val aliases: MutableList<String> = mutableListOf(),
     @Description("Reference or URI of an external resource describing the node.")
     val reference: String = ""
 )

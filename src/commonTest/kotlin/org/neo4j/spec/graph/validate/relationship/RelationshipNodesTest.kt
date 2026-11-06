@@ -84,7 +84,7 @@ class RelationshipNodesTest {
 
         assertEquals(1, issues.size)
         val issue = issues.first()
-        assertEquals("missing_relation_from_node", issue.code)
+        assertEquals("missing_relationship_from_node", issue.code)
         assertEquals("Missing node with id 'Person' for relationship 'actedIn'", issue.message)
         assertEquals("relationships.actedIn.from.Person", issue.path)
     }
@@ -108,7 +108,7 @@ class RelationshipNodesTest {
 
         assertEquals(1, issues.size)
         val issue = issues.first()
-        assertEquals("missing_relation_to_node", issue.code)
+        assertEquals("missing_relationship_to_node", issue.code)
 
         assertEquals("Missing node with id 'Movie' for relationship 'actedIn'", issue.message)
         assertEquals("relationships.actedIn.to.Movie", issue.path)
@@ -127,7 +127,7 @@ class RelationshipNodesTest {
         validator.validateRelationship(model, "actedIn", relationship, issues)
 
         assertEquals(2, issues.size)
-        assertEquals("missing_relation_from_node", issues[0].code)
-        assertEquals("missing_relation_to_node", issues[1].code)
+        assertEquals("missing_relationship_from_node", issues[0].code)
+        assertEquals("missing_relationship_to_node", issues[1].code)
     }
 }

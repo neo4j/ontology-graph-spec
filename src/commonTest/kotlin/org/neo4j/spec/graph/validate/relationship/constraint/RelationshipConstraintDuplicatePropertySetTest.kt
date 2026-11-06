@@ -44,7 +44,7 @@ class RelationshipConstraintDuplicatePropertySetTest {
     }
 
     private fun constraint(type: ConstraintType, vararg properties: String) =
-        RelationshipConstraint(type, properties.toMutableSet())
+        RelationshipConstraint(type, properties.toMutableList())
 
     @Test
     fun `pass when constraints cover different properties`() {
@@ -71,12 +71,12 @@ class RelationshipConstraintDuplicatePropertySetTest {
         assertEquals(
             listOf(
                 Issue(
-                    code = "duplicate_relation_constraint_property_set",
+                    code = "duplicate_relationship_constraint_property_set",
                     message = "Constraint 'exists1' (EXISTS on role) on relationship 'actedIn' duplicates 'exists2'",
                     path = "relationships.actedIn.constraints.exists1.properties"
                 ),
                 Issue(
-                    code = "duplicate_relation_constraint_property_set",
+                    code = "duplicate_relationship_constraint_property_set",
                     message = "Constraint 'exists2' (EXISTS on role) on relationship 'actedIn' duplicates 'exists1'",
                     path = "relationships.actedIn.constraints.exists2.properties"
                 )

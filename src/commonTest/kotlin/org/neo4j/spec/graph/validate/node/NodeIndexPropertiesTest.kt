@@ -42,8 +42,8 @@ class NodeIndexPropertiesTest {
         )
         val index = NodeIndex(
             type = IndexType.TEXT,
-            labels = mutableSetOf(),
-            properties = mutableSetOf("email")
+            labels = mutableListOf(),
+            properties = mutableListOf("email")
         )
 
         // ACT
@@ -64,8 +64,8 @@ class NodeIndexPropertiesTest {
         )
         val index = NodeIndex(
             type = IndexType.TEXT,
-            labels = mutableSetOf(),
-            properties = mutableSetOf()
+            labels = mutableListOf(),
+            properties = mutableListOf()
         )
 
         // ACT
@@ -75,7 +75,7 @@ class NodeIndexPropertiesTest {
         // ASSERT
         assertEquals(1, issues.size)
         val issue = issues.first()
-        assertEquals("missing_index_properties", issue.code)
+        assertEquals("missing_node_index_properties", issue.code)
         assertEquals("nodes.userNode.extensions.indexes.idx_empty.properties", issue.path)
     }
 }

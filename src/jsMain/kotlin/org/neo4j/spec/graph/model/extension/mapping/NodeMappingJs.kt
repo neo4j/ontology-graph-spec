@@ -73,7 +73,7 @@ fun NodeMappingJs.toClass() = NodeMapping(
     properties = properties.associateBy { _, value -> value.toClass() },
     mode = MappingMode.valueOf(mode),
     matchLabel = matchLabel,
-    key = key.toMutableSet(),
+    key = key.toMutableList(),
     dependsOn = dependsOn,
     id = id
 )

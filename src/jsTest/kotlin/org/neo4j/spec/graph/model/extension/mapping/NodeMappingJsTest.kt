@@ -11,7 +11,7 @@ class NodeMappingJsTest : JsMappingTest<NodeMapping, NodeMappingJs>() {
         properties = mutableMapOf("property" to PropertyMapping("field")),
         mode = MappingMode.CREATE,
         matchLabel = "label_name",
-        key = mutableSetOf("key1", "key2"),
+        key = mutableListOf("key1", "key2"),
         dependsOn = "other",
         id = "mapping-id"
     )
