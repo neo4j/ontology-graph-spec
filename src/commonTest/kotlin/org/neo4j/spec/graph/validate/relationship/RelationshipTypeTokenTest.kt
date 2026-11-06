@@ -53,7 +53,7 @@ class RelationshipTypeTokenTest {
         validator.validateRelationship(model, "actedIn", relationship, issues)
 
         assertEquals(1, issues.size)
-        assertEquals("invalid_relation_type_token", issues.first().code)
+        assertEquals("invalid_relationship_type_token", issues.first().code)
     }
 
     @Test
@@ -64,6 +64,6 @@ class RelationshipTypeTokenTest {
         validator.validateRelationship(model, "actedIn", relationship, issues)
 
         assertEquals(1, issues.size)
-        assertEquals("invalid_relation_type_token", issues.first().code)
+        assertEquals("invalid_relationship_type_token", issues.first().code)
     }
 }

@@ -38,7 +38,7 @@ object RelationshipExistenceConstraint : RelationshipValidation {
         if (constraint.type == ConstraintType.EXISTS && constraint.properties.distinct().size != 1) {
             issues.add(
                 Issue(
-                    code = "invalid_relation_exist_constraint_property_count",
+                    code = "invalid_relationship_exist_constraint_property_count",
                     message = "Relationship existence constraint '$constraintId' must have exactly one property.",
                     path = "relationships.$relationshipId.constraints.$constraintId.properties"
                 )

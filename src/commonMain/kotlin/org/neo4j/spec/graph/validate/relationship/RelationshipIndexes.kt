@@ -33,7 +33,7 @@ object RelationshipIndexes : RelationshipValidation {
             if (!relationship.properties.containsKey(property)) {
                 issues.add(
                     Issue(
-                        code = "missing_relation_index_property",
+                        code = "missing_relationship_index_property",
                         message = "Missing property with id '$property' for relationship index '$indexId'",
                         path = "relationships.$relationshipId.extensions.indexes.$indexId.properties.$property"
                     )

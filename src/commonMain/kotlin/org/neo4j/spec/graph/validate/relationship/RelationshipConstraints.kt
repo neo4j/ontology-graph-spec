@@ -34,7 +34,7 @@ object RelationshipConstraints : RelationshipValidation {
             if (!relationship.properties.containsKey(property)) {
                 issues.add(
                     Issue(
-                        code = "missing_relation_constraint_property",
+                        code = "missing_relationship_constraint_property",
                         message = "Missing property with id '$property' for relationship constraint '$constraintId'",
                         path = "relationships.$relationshipId.constraints.$constraintId.properties.$property"
                     )

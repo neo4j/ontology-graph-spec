@@ -75,7 +75,7 @@ class RelationshipTypeConstraintTest {
 
         assertEquals(1, issues.size)
         val issue = issues.first()
-        assertEquals("invalid_relation_type_constraint_property_count", issue.code)
+        assertEquals("invalid_relationship_type_constraint_property_count", issue.code)
         assertEquals("relationships.actedIn.constraints.type_multi.properties", issue.path)
     }
 }

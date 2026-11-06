@@ -31,7 +31,7 @@ object RelationshipTypeToken : RelationshipValidation {
         if (type.contains(":") || type.contains("=")) {
             issues.add(
                 Issue(
-                    code = "invalid_relation_type_token",
+                    code = "invalid_relationship_type_token",
                     message = "Relationship type '$type' contains invalid characters (: or =) for bulk import",
                     path = "relationships.$relationshipId.type"
                 )

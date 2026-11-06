@@ -37,7 +37,7 @@ object RelationshipConstraintDuplicatePropertySet : RelationshipValidation {
             val properties = constraint.properties.joinToString()
             issues.add(
                 Issue(
-                    code = "duplicate_relation_constraint_property_set",
+                    code = "duplicate_relationship_constraint_property_set",
                     message = "Constraint '$constraintId' (${constraint.type} on $properties) " +
                         "on relationship '$relationshipId' duplicates ${duplicates.joinToString { "'$it'" }}",
                     path = "relationships.$relationshipId.constraints.$constraintId.properties"

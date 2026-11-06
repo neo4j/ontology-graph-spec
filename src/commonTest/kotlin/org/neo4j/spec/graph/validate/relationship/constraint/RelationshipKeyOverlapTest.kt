@@ -98,7 +98,7 @@ class RelationshipKeyOverlapTest {
         validator.validateRelationship(model, "actedIn", relationship, issues)
 
         assertEquals(1, issues.size)
-        assertEquals("redundant_relation_constraint_key_overlap", issues.first().code)
+        assertEquals("redundant_relationship_constraint_key_overlap", issues.first().code)
     }
 
     @Test
@@ -121,6 +121,6 @@ class RelationshipKeyOverlapTest {
         validator.validateRelationship(model, "actedIn", relationship, issues)
 
         assertEquals(1, issues.size)
-        assertEquals("redundant_relation_constraint_key_overlap", issues.first().code)
+        assertEquals("redundant_relationship_constraint_key_overlap", issues.first().code)
     }
 }
