@@ -12,4 +12,4 @@ rootProject.name = "ontology-graph-spec"
 includeBuild("build-logic")
 
 // Pure-Java artifact generated from the Kotlin sources, see java/README.md
-include(":java:generator", ":java:library")
+include(":java:generator", ":java:library", ":java:consumer-test")
