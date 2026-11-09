@@ -20,6 +20,7 @@ package org.neo4j.spec.graph.validate.property
 
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.pathOf
 import kotlin.jvm.JvmName
@@ -39,7 +40,7 @@ fun emptyPropertyName(propertyId: String, property: Property, entityPath: String
             code = "missing_property_name",
             message = "Missing name for property '$propertyId'",
             path = "$entityPath${pathOf("properties", propertyId, "name")}",
-            details = issueDetails("property", propertyId)
+            details = issueDetails(IssueKeyType.PROPERTY, propertyId)
         )
     }
     return null
@@ -62,7 +63,7 @@ fun duplicatePropertyName(
             code = "duplicate_property_name",
             message = "Duplicate property name '$name'",
             path = "$entityPath${pathOf("properties", propertyId, "name")}",
-            details = issueDetails("property", propertyId)
+            details = issueDetails(IssueKeyType.PROPERTY, propertyId)
         )
     }
     return null
@@ -77,7 +78,7 @@ fun patternOneOfConflict(propertyId: String, property: Property, entityPath: Str
             code = "property_pattern_one_of_conflict",
             message = "Property '$propertyId' can't set both pattern and one_of",
             path = "$entityPath${pathOf("properties", propertyId)}",
-            details = issueDetails("property", propertyId)
+            details = issueDetails(IssueKeyType.PROPERTY, propertyId)
         )
     }
     return null

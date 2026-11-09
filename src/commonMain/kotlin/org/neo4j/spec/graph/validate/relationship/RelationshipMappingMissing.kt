@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
 import org.neo4j.spec.graph.validate.pathOf
@@ -40,7 +41,7 @@ object RelationshipMappingMissing : RelationshipValidation {
                     code = "missing_relationship_mapping",
                     message = "Relationship '$relationshipId' has no data source mapping",
                     path = pathOf("relationships", relationshipId),
-                    details = issueDetails("relationship", relationshipId)
+                    details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
                 )
             )
         }

@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
@@ -32,7 +33,7 @@ object NodeConstraintCoverage : NodeValidation {
                     code = "missing_node_constraint_coverage",
                     message = "Node '$nodeId' has no constraints — add a KEY, UNIQUENESS, or EXISTENCE constraint.",
                     path = pathOf("nodes", nodeId, "constraints"),
-                    details = issueDetails("node", nodeId)
+                    details = issueDetails(IssueKeyType.NODE, nodeId)
                 )
             )
         }

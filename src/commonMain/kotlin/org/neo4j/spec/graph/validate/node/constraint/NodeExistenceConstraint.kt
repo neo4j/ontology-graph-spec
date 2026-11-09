@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.node.NodeConstraints
 import org.neo4j.spec.graph.validate.node.NodeValidation
@@ -45,7 +46,7 @@ object NodeExistenceConstraint : NodeValidation {
                     code = "invalid_node_exist_constraint_property_count",
                     message = "Node existence constraint '$constraintId' must have exactly one property.",
                     path = pathOf("nodes", nodeId, "constraints", constraintId, "properties"),
-                    details = issueDetails("constraint", constraintId)
+                    details = issueDetails(IssueKeyType.CONSTRAINT, constraintId)
                 )
             )
         }

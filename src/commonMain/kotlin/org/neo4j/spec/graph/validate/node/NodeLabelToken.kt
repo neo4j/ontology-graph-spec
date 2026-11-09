@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
@@ -33,7 +34,7 @@ object NodeLabelToken : NodeValidation {
                     code = "invalid_node_label_token",
                     message = "Node label '$token' contains invalid characters (: or =) for bulk import",
                     path = pathOf("nodes", nodeId, "labels", "identifier"),
-                    details = issueDetails("node", nodeId)
+                    details = issueDetails(IssueKeyType.NODE, nodeId)
                 )
             )
         }

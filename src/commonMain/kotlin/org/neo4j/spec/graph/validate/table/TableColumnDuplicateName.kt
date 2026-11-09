@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.extension.source.TableColumn
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
@@ -45,7 +46,7 @@ object TableColumnDuplicateName : TableValidation {
                     code = "duplicate_table_column_name",
                     message = "Duplicate column name '$name' in table '$tableId'",
                     path = pathOf("extensions", "data_source_tables", tableId, "columns", columnIndex, "name"),
-                    details = issueDetails("column", column.name)
+                    details = issueDetails(IssueKeyType.COLUMN, column.name)
                 )
             )
         }

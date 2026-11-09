@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
 import org.neo4j.spec.graph.validate.pathOf
@@ -68,6 +69,6 @@ object RelationshipEndpointMapping : RelationshipValidation {
         code = code,
         message = "Relationship '$relationshipId' mapping has no $end node mapping",
         path = path ?: pathOf("relationships", relationshipId),
-        details = issueDetails("relationship", relationshipId)
+        details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
     )
 }

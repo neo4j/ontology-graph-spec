@@ -52,6 +52,14 @@ class IssueDetailsTest {
     }
 
     @Test
+    fun `key types serialize as lowercase names`() {
+        assertEquals(
+            listOf("model", "node", "relationship", "property", "index", "constraint", "table", "column", "mapping"),
+            IssueKeyType.entries.map { issueDetails(it, "k")["keyType"] }
+        )
+    }
+
+    @Test
     fun `node issue carries the node key`() {
         val model = GraphModel(
             version = "1",

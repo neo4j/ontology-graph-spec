@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
@@ -37,7 +38,7 @@ object RelationshipNodes : RelationshipValidation {
                     code = "missing_relation_from_node",
                     message = "Missing node with id '${relationship.from.node}' for relationship '$relationshipId'",
                     path = pathOf("relationships", relationshipId, "from", relationship.from.node),
-                    details = issueDetails("relationship", relationshipId)
+                    details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
                 )
             )
         }
@@ -47,7 +48,7 @@ object RelationshipNodes : RelationshipValidation {
                     code = "missing_relation_to_node",
                     message = "Missing node with id '${relationship.to.node}' for relationship '$relationshipId'",
                     path = pathOf("relationships", relationshipId, "to", relationship.to.node),
-                    details = issueDetails("relationship", relationshipId)
+                    details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
                 )
             )
         }

@@ -22,6 +22,7 @@ import org.neo4j.spec.graph.model.extension.mapping.NodeMapping
 import org.neo4j.spec.graph.model.extension.mapping.QueryMapping
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.Validation
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.pathOf
@@ -58,7 +59,7 @@ object MappingDependencies : Validation {
                         code = "mapping_id_duplicate",
                         message = "Mapping id '$id' is used by more than one mapping in '$listId'",
                         path = pathOf("extensions", "data_source_mappings", listId, index, "id"),
-                        details = issueDetails("mapping", id)
+                        details = issueDetails(IssueKeyType.MAPPING, id)
                     )
                 )
             } else {
@@ -81,7 +82,7 @@ object MappingDependencies : Validation {
                         code = "mapping_depends_on_self",
                         message = "Mapping '$dependsOn' can't depend on itself",
                         path = path,
-                        details = issueDetails("mapping", dependsOn)
+                        details = issueDetails(IssueKeyType.MAPPING, dependsOn)
                     )
                 )
                 target != null -> next[index] = target
@@ -92,7 +93,7 @@ object MappingDependencies : Validation {
                             message = "Mapping depends on '$dependsOn' which is in a different list of mappings, " +
                                 "mappings can only depend on others in the same list",
                             path = path,
-                            details = issueDetails("mapping", dependsOn)
+                            details = issueDetails(IssueKeyType.MAPPING, dependsOn)
                         )
                     )
                 else -> issues.add(
@@ -100,7 +101,7 @@ object MappingDependencies : Validation {
                         code = "mapping_depends_on_unknown",
                         message = "Mapping depends on '$dependsOn' which isn't the id of any mapping in '$listId'",
                         path = path,
-                        details = issueDetails("mapping", dependsOn)
+                        details = issueDetails(IssueKeyType.MAPPING, dependsOn)
                     )
                 )
             }
@@ -130,7 +131,7 @@ object MappingDependencies : Validation {
                             "[$it]"
                         }} in '$listId' depend on each other in a cycle",
                         path = pathOf("extensions", "data_source_mappings", listId, first, "depends_on"),
-                        details = issueDetails("mapping", listId)
+                        details = issueDetails(IssueKeyType.MAPPING, listId)
                     )
                 )
             }

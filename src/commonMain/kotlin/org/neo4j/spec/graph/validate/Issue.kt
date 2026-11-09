@@ -30,12 +30,29 @@ data class Issue @JvmOverloads constructor(
 )
 
 /**
- * Machine anchor for an issue: `keyType` says what kind of thing the issue concerns
- * (model, node, relationship, property, index, constraint, table, column or mapping) and `key` is its
+ * What kind of thing an [Issue] concerns. Serialized as the lowercase name in [Issue.details];
+ * TypeScript consumers mirror this as a string union.
+ */
+@JsExport
+enum class IssueKeyType {
+    MODEL,
+    NODE,
+    RELATIONSHIP,
+    PROPERTY,
+    INDEX,
+    CONSTRAINT,
+    TABLE,
+    COLUMN,
+    MAPPING
+}
+
+/**
+ * Machine anchor for an issue: `keyType` says what kind of thing the issue concerns and `key` is its
  * key in the model (entity key, property id, column name, index or constraint id). Unlike [Issue.path],
  * this is safe to read programmatically.
  */
-fun issueDetails(keyType: String, key: String): Map<String, String> = mapOf("keyType" to keyType, "key" to key)
+fun issueDetails(keyType: IssueKeyType, key: String): Map<String, String> =
+    mapOf("keyType" to keyType.name.lowercase(), "key" to key)
 
 /**
  * Builds an RFC 6901 JSON Pointer for [Issue.path]. Segments are escaped (`~` to `~0`, `/` to `~1`), so

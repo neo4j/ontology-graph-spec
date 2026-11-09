@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
@@ -48,7 +49,7 @@ object RelationshipMappingKey : RelationshipValidation {
                             message = "Mapping key '$propertyId' is not a property of relationship '$relationshipId'",
                             path = pathOf("extensions", "data_source_mappings", mappingId, index, "key"),
                             details = mapOf("relationship" to relationshipId, "property" to propertyId) +
-                                issueDetails("relationship", relationshipId)
+                                issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
                         )
                     )
                 }

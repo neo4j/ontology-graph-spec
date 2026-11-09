@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
@@ -36,7 +37,7 @@ object NodeMappingKeyType : NodeValidation {
                             code = "invalid_node_mapping_key_type",
                             message = "Mapping key '$propertyId' on node '$nodeId' must be STRING or INTEGER",
                             path = pathOf("extensions", "data_source_mappings", mappingId, index, "key", propertyId),
-                            details = issueDetails("node", nodeId)
+                            details = issueDetails(IssueKeyType.NODE, nodeId)
                         )
                     )
                 }

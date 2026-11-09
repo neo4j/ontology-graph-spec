@@ -21,6 +21,7 @@ package org.neo4j.spec.graph.validate.property
 import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.pathOf
 import kotlin.jvm.JvmName
@@ -58,7 +59,7 @@ fun unsupportedLocalImportType(propertyId: String, property: Property, entityPat
             message = "Property '$propertyId' type '${Neo4jType.toString(property.type)}' is not supported " +
                 "in local imports",
             path = "$entityPath${pathOf("properties", propertyId, "type")}",
-            details = issueDetails("property", propertyId)
+            details = issueDetails(IssueKeyType.PROPERTY, propertyId)
         )
     }
     return null

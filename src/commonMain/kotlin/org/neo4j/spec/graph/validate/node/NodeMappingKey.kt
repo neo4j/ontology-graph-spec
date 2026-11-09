@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
@@ -33,7 +34,7 @@ object NodeMappingKey : NodeValidation {
                         code = "missing_node_mapping_key",
                         message = "Node '$nodeId' has no mapping key defined",
                         path = pathOf("extensions", "data_source_mappings", mappingId, index, "key"),
-                        details = issueDetails("node", nodeId)
+                        details = issueDetails(IssueKeyType.NODE, nodeId)
                     )
                 )
             }

@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.type.Named
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.Validation
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.pathOf
@@ -37,13 +38,13 @@ object StringLength : Validation {
     const val MAX_DESCRIPTION_LENGTH = 1024
 
     override fun validate(model: GraphModel, issues: MutableList<Issue>) {
-        check("name", model.name, MAX_NAME_LENGTH, pathOf("name"), "model", model.id, issues)
+        check("name", model.name, MAX_NAME_LENGTH, pathOf("name"), IssueKeyType.MODEL, model.id, issues)
         check(
             "description",
             model.description,
             MAX_MODEL_DESCRIPTION_LENGTH,
             pathOf("description"),
-            "model",
+            IssueKeyType.MODEL,
             model.id,
             issues
         )
@@ -51,7 +52,7 @@ object StringLength : Validation {
         for ((nodeId, node) in model.nodes) {
             checkEntity(
                 path = pathOf("nodes", nodeId),
-                entityType = "node",
+                entityType = IssueKeyType.NODE,
                 entityId = nodeId,
                 description = node.description,
                 properties = node.properties,
@@ -64,7 +65,7 @@ object StringLength : Validation {
         for ((relationshipId, relationship) in model.relationships) {
             checkEntity(
                 path = pathOf("relationships", relationshipId),
-                entityType = "relationship",
+                entityType = IssueKeyType.RELATIONSHIP,
                 entityId = relationshipId,
                 description = relationship.description,
                 properties = relationship.properties,
@@ -77,7 +78,7 @@ object StringLength : Validation {
 
     private fun checkEntity(
         path: String,
-        entityType: String,
+        entityType: IssueKeyType,
         entityId: String,
         description: String,
         properties: Map<String, Property>,
@@ -101,7 +102,7 @@ object StringLength : Validation {
                 property.name,
                 MAX_NAME_LENGTH,
                 "$propertyPath${pathOf("name")}",
-                "property",
+                IssueKeyType.PROPERTY,
                 propertyId,
                 issues
             )
@@ -110,7 +111,7 @@ object StringLength : Validation {
                 property.description,
                 MAX_DESCRIPTION_LENGTH,
                 "$propertyPath${pathOf("description")}",
-                "property",
+                IssueKeyType.PROPERTY,
                 propertyId,
                 issues
             )
@@ -122,14 +123,14 @@ object StringLength : Validation {
                 constraint.name,
                 MAX_CONSTRAINT_INDEX_NAME_LENGTH,
                 constraintPath,
-                "constraint",
+                IssueKeyType.CONSTRAINT,
                 constraintId,
                 issues
             )
         }
         for ((indexId, index) in indexes) {
             val indexPath = "$path${pathOf("extensions", "indexes", indexId, "name")}"
-            check("name", index.name, MAX_CONSTRAINT_INDEX_NAME_LENGTH, indexPath, "index", indexId, issues)
+            check("name", index.name, MAX_CONSTRAINT_INDEX_NAME_LENGTH, indexPath, IssueKeyType.INDEX, indexId, issues)
         }
     }
 
@@ -138,7 +139,7 @@ object StringLength : Validation {
         value: String?,
         max: Int,
         path: String,
-        keyType: String,
+        keyType: IssueKeyType,
         key: String,
         issues: MutableList<Issue>
     ) {
