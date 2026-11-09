@@ -93,7 +93,7 @@ class NodeMappingMissingTest {
 
         assertEquals(1, issues.size)
         assertEquals("missing_node_mapping", issues.first().code)
-        assertEquals("nodes.person", issues.first().path)
+        assertEquals("/nodes/person", issues.first().path)
     }
 
     @Test

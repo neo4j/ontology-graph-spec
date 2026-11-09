@@ -87,7 +87,7 @@ class RelationshipEndpointMappingTest {
 
         assertEquals(1, issues.size)
         assertEquals("missing_relationship_source_mapping", issues.first().code)
-        assertEquals("extensions.data_source_mappings.mapping0[0].from_node", issues.first().path)
+        assertEquals("/extensions/data_source_mappings/mapping0/0/from_node", issues.first().path)
     }
 
     @Test
@@ -98,7 +98,7 @@ class RelationshipEndpointMappingTest {
 
         assertEquals(1, issues.size)
         assertEquals("missing_relationship_target_mapping", issues.first().code)
-        assertEquals("extensions.data_source_mappings.mapping0[0].to_node", issues.first().path)
+        assertEquals("/extensions/data_source_mappings/mapping0/0/to_node", issues.first().path)
     }
 
     @Test
@@ -116,7 +116,7 @@ class RelationshipEndpointMappingTest {
         assertEquals(2, issues.size)
         assertEquals("missing_relationship_source_mapping", issues[0].code)
         assertEquals("missing_relationship_target_mapping", issues[1].code)
-        assertEquals("relationships.rel0", issues[0].path)
+        assertEquals("/relationships/rel0", issues[0].path)
     }
 
     @Test
@@ -131,6 +131,6 @@ class RelationshipEndpointMappingTest {
         val issues = validate(model)
 
         assertEquals(1, issues.size)
-        assertEquals("extensions.data_source_mappings.mapping0[1].from_node", issues.first().path)
+        assertEquals("/extensions/data_source_mappings/mapping0/1/from_node", issues.first().path)
     }
 }

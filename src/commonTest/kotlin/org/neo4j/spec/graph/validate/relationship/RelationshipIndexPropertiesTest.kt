@@ -82,6 +82,6 @@ class RelationshipIndexPropertiesTest {
         assertEquals(1, issues.size)
         val issue = issues.first()
         assertEquals("missing_index_properties", issue.code)
-        assertEquals("relationships.actedIn.extensions.indexes.idx_empty.properties", issue.path)
+        assertEquals("/relationships/actedIn/extensions/indexes/idx_empty/properties", issue.path)
     }
 }

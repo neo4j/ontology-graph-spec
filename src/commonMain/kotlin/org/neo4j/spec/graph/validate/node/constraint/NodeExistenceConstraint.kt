@@ -24,6 +24,7 @@ import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.node.NodeConstraints
 import org.neo4j.spec.graph.validate.node.NodeValidation
+import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
 
 @JsExport
@@ -43,7 +44,7 @@ object NodeExistenceConstraint : NodeValidation {
                 Issue(
                     code = "invalid_node_exist_constraint_property_count",
                     message = "Node existence constraint '$constraintId' must have exactly one property.",
-                    path = "nodes.$nodeId.constraints.$constraintId.properties",
+                    path = pathOf("nodes", nodeId, "constraints", constraintId, "properties"),
                     details = issueDetails("constraint", constraintId)
                 )
             )

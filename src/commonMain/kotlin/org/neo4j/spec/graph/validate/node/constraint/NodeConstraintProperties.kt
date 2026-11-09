@@ -22,6 +22,7 @@ import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.node.NodeValidation
+import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
 
 @JsExport
@@ -39,7 +40,7 @@ object NodeConstraintProperties : NodeValidation {
                 Issue(
                     code = "missing_node_constraint_properties",
                     message = "Constraint '$constraintId' on node '$nodeId' has no properties",
-                    path = "nodes.$nodeId.constraints.$constraintId.properties",
+                    path = pathOf("nodes", nodeId, "constraints", constraintId, "properties"),
                     details = issueDetails("constraint", constraintId)
                 )
             )

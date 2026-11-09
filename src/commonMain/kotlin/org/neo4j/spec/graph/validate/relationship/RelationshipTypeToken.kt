@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.issueDetails
+import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
 
 @JsExport
@@ -36,7 +37,7 @@ object RelationshipTypeToken : RelationshipValidation {
                 Issue(
                     code = "invalid_relation_type_token",
                     message = "Relationship type '$type' contains invalid characters (: or =) for bulk import",
-                    path = "relationships.$relationshipId.type",
+                    path = pathOf("relationships", relationshipId, "type"),
                     details = issueDetails("relationship", relationshipId)
                 )
             )

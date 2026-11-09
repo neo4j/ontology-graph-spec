@@ -25,7 +25,7 @@ import kotlin.jvm.JvmOverloads
 data class Issue @JvmOverloads constructor(
     val code: String,
     val message: String,
-    val path: String? = null, // e.g. "nodes.Person.labels"
+    val path: String? = null, // RFC 6901 JSON Pointer, e.g. "/nodes/Person/labels"
     val details: Map<String, String> = emptyMap()
 )
 
@@ -36,3 +36,10 @@ data class Issue @JvmOverloads constructor(
  * this is safe to read programmatically.
  */
 fun issueDetails(keyType: String, key: String): Map<String, String> = mapOf("keyType" to keyType, "key" to key)
+
+/**
+ * Builds an RFC 6901 JSON Pointer for [Issue.path]. Segments are escaped (`~` to `~0`, `/` to `~1`), so
+ * keys containing dots, slashes or brackets stay unambiguous to machine readers.
+ */
+fun pathOf(vararg segments: Any): String =
+    segments.joinToString("") { "/" + it.toString().replace("~", "~0").replace("/", "~1") }

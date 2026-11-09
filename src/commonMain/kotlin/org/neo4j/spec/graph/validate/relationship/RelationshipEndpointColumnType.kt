@@ -24,6 +24,7 @@ import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.node.findNodeMappings
+import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
 
 @JsExport
@@ -36,7 +37,7 @@ object RelationshipEndpointColumnType : RelationshipValidation {
     ) {
         for ((mappingId, index, mapping) in findRelationshipMappings(model, relationshipId)) {
             val table = model.extensions.dataSourceTables[mapping.table] ?: continue
-            val base = "extensions.data_source_mappings.$mappingId[$index]"
+            val base = pathOf("extensions", "data_source_mappings", mappingId, index)
             validateEndpoint(
                 model,
                 relationshipId,
@@ -44,7 +45,7 @@ object RelationshipEndpointColumnType : RelationshipValidation {
                 mapping.table,
                 table,
                 mapping.fromNode,
-                "$base.from_node",
+                "$base${pathOf("from_node")}",
                 issues
             )
             validateEndpoint(
@@ -54,7 +55,7 @@ object RelationshipEndpointColumnType : RelationshipValidation {
                 mapping.table,
                 table,
                 mapping.toNode,
-                "$base.to_node",
+                "$base${pathOf("to_node")}",
                 issues
             )
         }
@@ -92,7 +93,7 @@ object RelationshipEndpointColumnType : RelationshipValidation {
                             "table '$tableId' cannot be converted to the '$propertyId' " +
                             "(${Neo4jType.toString(property.type)}) property on the '${node.labels.identifier}' " +
                             "node.",
-                        path = "$endPath.properties.$propertyId",
+                        path = "$endPath${pathOf("properties", propertyId)}",
                         details = issueDetails("relationship", relationshipId)
                     )
                 )

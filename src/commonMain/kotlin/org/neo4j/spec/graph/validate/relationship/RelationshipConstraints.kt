@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.RelationshipConstraint
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.issueDetails
+import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
 
 @JsExport
@@ -39,7 +40,14 @@ object RelationshipConstraints : RelationshipValidation {
                     Issue(
                         code = "missing_relation_constraint_property",
                         message = "Missing property with id '$property' for relationship constraint '$constraintId'",
-                        path = "relationships.$relationshipId.constraints.$constraintId.properties.$property",
+                        path = pathOf(
+                            "relationships",
+                            relationshipId,
+                            "constraints",
+                            constraintId,
+                            "properties",
+                            property
+                        ),
                         details = issueDetails("constraint", constraintId)
                     )
                 )

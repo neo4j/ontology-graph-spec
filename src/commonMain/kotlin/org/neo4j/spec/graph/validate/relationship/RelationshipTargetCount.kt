@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.RelationshipTarget
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.issueDetails
+import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
 
 /**
@@ -44,7 +45,7 @@ object RelationshipTargetCount : RelationshipValidation {
         target: RelationshipTarget,
         issues: MutableList<Issue>
     ) {
-        val path = "relationships.$relationshipId.$side"
+        val path = pathOf("relationships", relationshipId, side)
         val count = target.count
         val minCount = target.minCount
         val maxCount = target.maxCount
@@ -65,7 +66,7 @@ object RelationshipTargetCount : RelationshipValidation {
                 Issue(
                     code = "relationship_count_negative",
                     message = "Relationship '$relationshipId' $side count must not be negative",
-                    path = "$path.count",
+                    path = "$path${pathOf("count")}",
                     details = issueDetails("relationship", relationshipId)
                 )
             )
@@ -75,7 +76,7 @@ object RelationshipTargetCount : RelationshipValidation {
                 Issue(
                     code = "relationship_min_count_negative",
                     message = "Relationship '$relationshipId' $side min count must not be negative",
-                    path = "$path.min_count",
+                    path = "$path${pathOf("min_count")}",
                     details = issueDetails("relationship", relationshipId)
                 )
             )

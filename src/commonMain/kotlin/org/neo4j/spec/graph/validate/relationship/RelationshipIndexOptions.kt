@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipIndex
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.issueDetails
+import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
 @JsExport
 object RelationshipIndexOptions : RelationshipValidation {
@@ -38,7 +39,7 @@ object RelationshipIndexOptions : RelationshipValidation {
                     code = "relationship_index_type_options_mismatch",
                     message = "Cannot use options type '${index.options.type}' with relationship index '$indexId' " +
                         "type '${index.type}'",
-                    path = "relationships.$relationshipId.extensions.indexes.$indexId.options",
+                    path = pathOf("relationships", relationshipId, "extensions", "indexes", indexId, "options"),
                     details = issueDetails("index", indexId)
                 )
             )

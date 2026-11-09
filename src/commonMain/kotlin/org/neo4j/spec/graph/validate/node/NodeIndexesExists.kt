@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.issueDetails
+import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
 @JsExport
 object NodeIndexesExists : NodeValidation {
@@ -38,7 +39,7 @@ object NodeIndexesExists : NodeValidation {
                     Issue(
                         code = "missing_node_index_property",
                         message = "Missing property with id '$property' for node index '$indexId'",
-                        path = "nodes.$nodeId.extensions.indexes.$indexId.properties.$property",
+                        path = pathOf("nodes", nodeId, "extensions", "indexes", indexId, "properties", property),
                         details = issueDetails("index", indexId)
                     )
                 )

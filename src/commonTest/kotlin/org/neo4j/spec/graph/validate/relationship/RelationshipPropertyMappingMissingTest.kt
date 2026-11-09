@@ -90,7 +90,7 @@ class RelationshipPropertyMappingMissingTest {
 
         assertEquals(1, issues.size)
         assertEquals("missing_property_mapping", issues.first().code)
-        assertEquals("relationships.rel0.properties.weight", issues.first().path)
+        assertEquals("/relationships/rel0/properties/weight", issues.first().path)
     }
 
     @Test

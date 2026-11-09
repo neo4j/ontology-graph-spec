@@ -182,7 +182,7 @@ class RelationshipEndpointColumnTypeTest {
         // Replaced legacy code: NO_SUPPORTED_TYPES
         assertEquals(1, issues.size)
         assertEquals("incompatible_relationship_endpoint_column_type", issues.first().code)
-        assertEquals("extensions.data_source_mappings.mapping0[1].from_node.properties.name", issues.first().path)
+        assertEquals("/extensions/data_source_mappings/mapping0/1/from_node/properties/name", issues.first().path)
         assertTrue("src" in issues.first().message && "rels" in issues.first().message)
     }
 
@@ -197,6 +197,6 @@ class RelationshipEndpointColumnTypeTest {
         val issues = validate(model)
 
         assertEquals(1, issues.size)
-        assertEquals("extensions.data_source_mappings.mapping0[1].to_node.properties.name", issues.first().path)
+        assertEquals("/extensions/data_source_mappings/mapping0/1/to_node/properties/name", issues.first().path)
     }
 }

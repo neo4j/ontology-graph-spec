@@ -102,7 +102,7 @@ class NodeIndexVectorDimensionTest {
         // Replaced legacy code: MISSING_VECTOR_INDEX_DIMENSION
         assertEquals(1, issues.size)
         assertEquals("missing_vector_index_dimension", issues.first().code)
-        assertEquals("nodes.person.extensions.indexes.idx0", issues.first().path)
+        assertEquals("/nodes/person/extensions/indexes/idx0", issues.first().path)
     }
 
     @Test

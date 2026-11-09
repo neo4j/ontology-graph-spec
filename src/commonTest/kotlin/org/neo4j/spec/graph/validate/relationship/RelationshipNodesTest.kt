@@ -86,7 +86,7 @@ class RelationshipNodesTest {
         val issue = issues.first()
         assertEquals("missing_relation_from_node", issue.code)
         assertEquals("Missing node with id 'Person' for relationship 'actedIn'", issue.message)
-        assertEquals("relationships.actedIn.from.Person", issue.path)
+        assertEquals("/relationships/actedIn/from/Person", issue.path)
     }
 
     @Test
@@ -111,7 +111,7 @@ class RelationshipNodesTest {
         assertEquals("missing_relation_to_node", issue.code)
 
         assertEquals("Missing node with id 'Movie' for relationship 'actedIn'", issue.message)
-        assertEquals("relationships.actedIn.to.Movie", issue.path)
+        assertEquals("/relationships/actedIn/to/Movie", issue.path)
     }
 
     @Test

@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
+import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
 
 @JsExport
@@ -46,7 +47,7 @@ object RelationshipEndpointMapping : RelationshipValidation {
                         "missing_relationship_source_mapping",
                         relationshipId,
                         "source",
-                        "extensions.data_source_mappings.$mappingId[$index].from_node"
+                        pathOf("extensions", "data_source_mappings", mappingId, index, "from_node")
                     )
                 )
             }
@@ -56,7 +57,7 @@ object RelationshipEndpointMapping : RelationshipValidation {
                         "missing_relationship_target_mapping",
                         relationshipId,
                         "target",
-                        "extensions.data_source_mappings.$mappingId[$index].to_node"
+                        pathOf("extensions", "data_source_mappings", mappingId, index, "to_node")
                     )
                 )
             }
@@ -66,7 +67,7 @@ object RelationshipEndpointMapping : RelationshipValidation {
     private fun missingEndpoint(code: String, relationshipId: String, end: String, path: String?) = Issue(
         code = code,
         message = "Relationship '$relationshipId' mapping has no $end node mapping",
-        path = path ?: "relationships.$relationshipId",
+        path = path ?: pathOf("relationships", relationshipId),
         details = issueDetails("relationship", relationshipId)
     )
 }

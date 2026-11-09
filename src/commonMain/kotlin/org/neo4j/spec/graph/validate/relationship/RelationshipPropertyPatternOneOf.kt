@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 import org.neo4j.spec.graph.validate.property.patternOneOfConflict
 import kotlin.js.JsExport
 
@@ -33,6 +34,6 @@ object RelationshipPropertyPatternOneOf : RelationshipValidation {
         property: Property,
         issues: MutableList<Issue>
     ) {
-        patternOneOfConflict(propertyId, property, "relationships.$relationshipId")?.let { issues.add(it) }
+        patternOneOfConflict(propertyId, property, pathOf("relationships", relationshipId))?.let { issues.add(it) }
     }
 }

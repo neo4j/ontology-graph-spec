@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 import org.neo4j.spec.graph.validate.property.unsupportedLocalImportType
 import kotlin.js.JsExport
 
@@ -36,7 +37,9 @@ object RelationshipPropertyUnsupportedLocalImportType : RelationshipValidation {
         }
         if (!local) return
         for ((propertyId, property) in relationship.properties) {
-            unsupportedLocalImportType(propertyId, property, "relationships.$relationshipId")?.let { issues.add(it) }
+            unsupportedLocalImportType(propertyId, property, pathOf("relationships", relationshipId))?.let {
+                issues.add(it)
+            }
         }
     }
 }

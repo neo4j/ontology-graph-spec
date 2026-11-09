@@ -84,7 +84,7 @@ class RelationshipIndexesTest {
         val issue = issues.first()
         assertEquals("missing_relation_index_property", issue.code)
         assertEquals("Missing property with id 'roles' for relationship index 'idx_roles'", issue.message)
-        assertEquals("relationships.actedIn.extensions.indexes.idx_roles.properties.roles", issue.path)
+        assertEquals("/relationships/actedIn/extensions/indexes/idx_roles/properties/roles", issue.path)
     }
 
     @Test
@@ -108,7 +108,7 @@ class RelationshipIndexesTest {
 
         assertEquals(2, issues.size)
 
-        val missingProperties = issues.map { it.path?.substringAfterLast('.') }.toSet()
+        val missingProperties = issues.map { it.path?.substringAfterLast('/') }.toSet()
         assertEquals(setOf("roles", "year"), missingProperties)
         assertTrue(issues.all { it.code == "missing_relation_index_property" })
     }

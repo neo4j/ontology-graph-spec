@@ -112,7 +112,7 @@ class NodePropertyUnsupportedLocalImportTypeTest {
         // Replaced legacy code: UNSUPPORTED_TYPE_FOR_IMPORT
         assertEquals(1, issues.size)
         assertEquals("unsupported_local_import_property_type", issues.first().code)
-        assertEquals("nodes.person.properties.name.type", issues.first().path)
+        assertEquals("/nodes/person/properties/name/type", issues.first().path)
     }
 
     @Test

@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
+import org.neo4j.spec.graph.validate.pathOf
 import org.neo4j.spec.graph.validate.property.missingPropertyMapping
 import kotlin.js.JsExport
 
@@ -31,7 +32,7 @@ object NodePropertyMappingMissing : NodeValidation {
         val covered = findNodeMappings(model, nodeId).flatMap { it.mapping.properties.keys }.toSet()
         for (propertyId in node.properties.keys) {
             if (propertyId !in covered) {
-                issues.add(missingPropertyMapping(propertyId, "nodes.$nodeId"))
+                issues.add(missingPropertyMapping(propertyId, pathOf("nodes", nodeId)))
             }
         }
     }

@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipIndex
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.issueDetails
+import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
 @JsExport
 object RelationshipIndexProperties : RelationshipValidation {
@@ -37,7 +38,7 @@ object RelationshipIndexProperties : RelationshipValidation {
                 Issue(
                     code = "missing_index_properties",
                     message = "Index '$indexId' on relationship '$relationshipId' must have at least one property",
-                    path = "relationships.$relationshipId.extensions.indexes.$indexId.properties",
+                    path = pathOf("relationships", relationshipId, "extensions", "indexes", indexId, "properties"),
                     details = issueDetails("index", indexId)
                 )
             )

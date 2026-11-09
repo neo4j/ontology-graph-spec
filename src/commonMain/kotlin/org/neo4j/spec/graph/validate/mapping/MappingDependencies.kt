@@ -24,6 +24,7 @@ import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.Validation
 import org.neo4j.spec.graph.validate.issueDetails
+import org.neo4j.spec.graph.validate.pathOf
 import kotlin.js.JsExport
 
 /**
@@ -56,7 +57,7 @@ object MappingDependencies : Validation {
                     Issue(
                         code = "mapping_id_duplicate",
                         message = "Mapping id '$id' is used by more than one mapping in '$listId'",
-                        path = "extensions.data_source_mappings.$listId[$index].id",
+                        path = pathOf("extensions", "data_source_mappings", listId, index, "id"),
                         details = issueDetails("mapping", id)
                     )
                 )
@@ -73,7 +74,7 @@ object MappingDependencies : Validation {
                 continue
             }
             val target = indexById[dependsOn]
-            val path = "extensions.data_source_mappings.$listId[$index].depends_on"
+            val path = pathOf("extensions", "data_source_mappings", listId, index, "depends_on")
             when {
                 target == index -> issues.add(
                     Issue(
@@ -128,7 +129,7 @@ object MappingDependencies : Validation {
                         message = "Mappings ${cycle.sorted().joinToString(", ") {
                             "[$it]"
                         }} in '$listId' depend on each other in a cycle",
-                        path = "extensions.data_source_mappings.$listId[$first].depends_on",
+                        path = pathOf("extensions", "data_source_mappings", listId, first, "depends_on"),
                         details = issueDetails("mapping", listId)
                     )
                 )

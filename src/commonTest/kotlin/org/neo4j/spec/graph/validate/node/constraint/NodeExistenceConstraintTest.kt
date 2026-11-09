@@ -71,7 +71,7 @@ class NodeExistenceConstraintTest {
         assertEquals(1, issues.size)
         val issue = issues.first()
         assertEquals("invalid_node_exist_constraint_property_count", issue.code)
-        assertEquals("nodes.user.constraints.exist_fields.properties", issue.path)
+        assertEquals("/nodes/user/constraints/exist_fields/properties", issue.path)
     }
 
     @Test

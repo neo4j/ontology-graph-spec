@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipIndex
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 import org.neo4j.spec.graph.validate.property.vectorIndexDimensionIssue
 import kotlin.js.JsExport
 
@@ -39,7 +40,7 @@ object RelationshipIndexVectorDimension : RelationshipValidation {
             index.properties,
             index.options,
             relationship.properties,
-            "relationships.$relationshipId.extensions.indexes.$indexId"
+            pathOf("relationships", relationshipId, "extensions", "indexes", indexId)
         )?.let { issues.add(it) }
     }
 }

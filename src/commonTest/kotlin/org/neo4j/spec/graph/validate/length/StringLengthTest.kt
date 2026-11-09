@@ -97,7 +97,7 @@ class StringLengthTest {
             description = "a".repeat(MAX_MODEL_DESCRIPTION_LENGTH + 1)
         )
 
-        assertEquals(listOf<String?>("name", "description"), paths(model))
+        assertEquals(listOf<String?>("/name", "/description"), paths(model))
         assertEquals(listOf("name_too_long", "description_too_long"), validate(model).map { it.code })
     }
 
@@ -132,11 +132,11 @@ class StringLengthTest {
 
         assertEquals(
             listOf<String?>(
-                "nodes.n.description",
-                "nodes.n.properties.p.name",
-                "nodes.n.properties.p.description",
-                "nodes.n.constraints.c.name",
-                "nodes.n.extensions.indexes.i.name"
+                "/nodes/n/description",
+                "/nodes/n/properties/p/name",
+                "/nodes/n/properties/p/description",
+                "/nodes/n/constraints/c/name",
+                "/nodes/n/extensions/indexes/i/name"
             ),
             paths(model(nodes = mapOf("n" to node)))
         )
@@ -160,8 +160,8 @@ class StringLengthTest {
 
         assertEquals(
             listOf<String?>(
-                "relationships.r.description",
-                "relationships.r.constraints.c.name"
+                "/relationships/r/description",
+                "/relationships/r/constraints/c/name"
             ),
             paths(model(relationships = mapOf("r" to relationship)))
         )

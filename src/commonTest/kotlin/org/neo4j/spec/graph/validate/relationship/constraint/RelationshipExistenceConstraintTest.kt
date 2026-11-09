@@ -76,7 +76,7 @@ class RelationshipExistenceConstraintTest {
         assertEquals(1, issues.size)
         val issue = issues.first()
         assertEquals("invalid_relation_exist_constraint_property_count", issue.code)
-        assertEquals("relationships.actedIn.constraints.exist_multi.properties", issue.path)
+        assertEquals("/relationships/actedIn/constraints/exist_multi/properties", issue.path)
     }
 
     @Test

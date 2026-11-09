@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 import org.neo4j.spec.graph.validate.property.unsupportedLocalImportType
 import kotlin.js.JsExport
 
@@ -32,7 +33,7 @@ object NodePropertyUnsupportedLocalImportType : NodeValidation {
         }
         if (!local) return
         for ((propertyId, property) in node.properties) {
-            unsupportedLocalImportType(propertyId, property, "nodes.$nodeId")?.let { issues.add(it) }
+            unsupportedLocalImportType(propertyId, property, pathOf("nodes", nodeId))?.let { issues.add(it) }
         }
     }
 }
