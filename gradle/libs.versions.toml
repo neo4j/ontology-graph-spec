@@ -7,6 +7,7 @@ venniktech = "0.36.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+json-schema-validator = { module = "com.networknt:json-schema-validator", version = "1.5.8" }
 kotlinx-serializer-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlin-js-plain-objects = { module = "org.jetbrains.kotlin:kotlin-js-plain-objects", version.ref = "kotlin" }
 kotlinx-yamlkt = { module = "net.mamoe.yamlkt:yamlkt", version = "0.13.0" }

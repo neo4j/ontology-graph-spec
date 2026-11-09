@@ -28,5 +28,8 @@ out/
 ### gbuild ###
 .gbuild/
 
+### Node ###
+node_modules/
+
 ### Yarn ###
 yarn.lock

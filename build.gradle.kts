@@ -28,6 +28,11 @@ kotlin {
         testRuns.named("test") {
             executionTask.configure {
                 useJUnitPlatform()
+                // Read by SpecTests. With -PspecTests.update=true the goldens are rewritten instead of asserted.
+                inputs.dir("spec-tests/cases")
+                val specTestsUpdate = providers.gradleProperty("specTests.update").getOrElse("false")
+                inputs.property("specTestsUpdate", specTestsUpdate)
+                systemProperty("specTests.update", specTestsUpdate)
                 // Read by SpecVersionConsistencyTest, so that a change to either reruns the tests.
                 inputs.file("ontology-graph-spec.schema.json")
                 inputs.property(
@@ -104,6 +109,7 @@ kotlin {
             implementation(libs.kotlin.wrappers.ts)
         }
         commonTest.dependencies { implementation(libs.kotlin.test) }
+        jvmTest.dependencies { implementation(libs.json.schema.validator) }
     }
 
     compilerOptions {
