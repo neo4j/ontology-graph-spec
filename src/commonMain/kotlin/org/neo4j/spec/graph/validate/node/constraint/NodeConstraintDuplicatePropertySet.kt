@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.constraint.isCompositeConstraint
+import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.node.NodeValidation
 import kotlin.js.JsExport
 
@@ -38,7 +39,8 @@ object NodeConstraintDuplicatePropertySet : NodeValidation {
                         code = "duplicate_node_constraint_property_set",
                         message = "Constraint '$constraintId' property set duplicates " +
                             "another composite constraint on node '$nodeId'",
-                        path = "nodes.$nodeId.constraints.$constraintId.properties"
+                        path = "nodes.$nodeId.constraints.$constraintId.properties",
+                        details = issueDetails("constraint", constraintId)
                     )
                 )
             }

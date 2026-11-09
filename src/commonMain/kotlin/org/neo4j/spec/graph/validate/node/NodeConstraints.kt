@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.js.JsExport
 
 @JsExport
@@ -38,7 +39,8 @@ object NodeConstraints : NodeValidation {
                     Issue(
                         code = "missing_node_constraint_property",
                         message = "Missing property with id '$property' for node constraint '$constraintId'",
-                        path = "nodes.$nodeId.constraints.$constraintId.properties.$property"
+                        path = "nodes.$nodeId.constraints.$constraintId.properties.$property",
+                        details = issueDetails("constraint", constraintId)
                     )
                 )
             }

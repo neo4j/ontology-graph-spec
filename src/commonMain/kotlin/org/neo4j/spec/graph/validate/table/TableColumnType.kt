@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.extension.source.TableColumn
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.js.JsExport
 @JsExport
 object TableColumnType : TableValidation {
@@ -41,7 +42,8 @@ object TableColumnType : TableValidation {
                 Issue(
                     code = "missing_table_column_type",
                     message = "Missing suggested type for table column '${column.name}'",
-                    path = "extensions.data_source_tables.$tableId.columns[$columnIndex].type"
+                    path = "extensions.data_source_tables.$tableId.columns[$columnIndex].type",
+                    details = issueDetails("column", column.name)
                 )
             )
         }

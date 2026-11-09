@@ -21,6 +21,7 @@ package org.neo4j.spec.graph.validate.property
 import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.jvm.JvmName
 
 // UPX SUPPORTED_CSV_TYPE_OPTIONS_COMPLETED (data-model.types.ts#L79-L83): string, integer, float,
@@ -55,7 +56,8 @@ fun unsupportedLocalImportType(propertyId: String, property: Property, entityPat
             code = "unsupported_local_import_property_type",
             message = "Property '$propertyId' type '${Neo4jType.toString(property.type)}' is not supported " +
                 "in local imports",
-            path = "$entityPath.properties.$propertyId.type"
+            path = "$entityPath.properties.$propertyId.type",
+            details = issueDetails("property", propertyId)
         )
     }
     return null

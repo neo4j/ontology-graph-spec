@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.js.JsExport
 
 /**
@@ -43,7 +44,8 @@ object NodeIndexConstraintNameConflict : NodeValidation {
                         code = "duplicate_index_constraint_name",
                         message = "Index '$indexId' on node '$nodeId' reuses name '$name' " +
                             "already used by another index or constraint",
-                        path = "nodes.$nodeId.extensions.indexes.$indexId.name"
+                        path = "nodes.$nodeId.extensions.indexes.$indexId.name",
+                        details = issueDetails("index", indexId)
                     )
                 )
             }
@@ -57,7 +59,8 @@ object NodeIndexConstraintNameConflict : NodeValidation {
                         code = "duplicate_index_constraint_name",
                         message = "Constraint '$constraintId' on node '$nodeId' reuses name '$name' " +
                             "already used by another index or constraint",
-                        path = "nodes.$nodeId.constraints.$constraintId.name"
+                        path = "nodes.$nodeId.constraints.$constraintId.name",
+                        details = issueDetails("constraint", constraintId)
                     )
                 )
             }

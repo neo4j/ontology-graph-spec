@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.js.JsExport
 
 @JsExport
@@ -29,7 +30,8 @@ object NodeProperties : NodeValidation {
                 Issue(
                     code = "missing_node_properties",
                     message = "Node '$nodeId' has no properties",
-                    path = "nodes.$nodeId.properties"
+                    path = "nodes.$nodeId.properties",
+                    details = issueDetails("node", nodeId)
                 )
             )
         }

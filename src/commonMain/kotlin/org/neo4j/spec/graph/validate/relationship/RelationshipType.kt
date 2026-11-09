@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.js.JsExport
 
 @JsExport
@@ -34,7 +35,8 @@ object RelationshipType : RelationshipValidation {
                 Issue(
                     code = "missing_relation_type",
                     message = "Missing type for relationship '$relationshipId'",
-                    path = "relationships.$relationshipId.type"
+                    path = "relationships.$relationshipId.type",
+                    details = issueDetails("relationship", relationshipId)
                 )
             )
         }

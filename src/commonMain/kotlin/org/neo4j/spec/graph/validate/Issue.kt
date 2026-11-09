@@ -28,3 +28,11 @@ data class Issue @JvmOverloads constructor(
     val path: String? = null, // e.g. "nodes.Person.labels"
     val details: Map<String, String> = emptyMap()
 )
+
+/**
+ * Machine anchor for an issue: `keyType` says what kind of thing the issue concerns
+ * (model, node, relationship, property, index, constraint, table, column or mapping) and `key` is its
+ * key in the model (entity key, property id, column name, index or constraint id). Unlike [Issue.path],
+ * this is safe to read programmatically.
+ */
+fun issueDetails(keyType: String, key: String): Map<String, String> = mapOf("keyType" to keyType, "key" to key)

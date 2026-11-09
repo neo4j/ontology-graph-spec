@@ -22,6 +22,7 @@ import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.node.findNodeMappings
 import kotlin.js.JsExport
 
@@ -38,6 +39,7 @@ object RelationshipEndpointColumnType : RelationshipValidation {
             val base = "extensions.data_source_mappings.$mappingId[$index]"
             validateEndpoint(
                 model,
+                relationshipId,
                 relationship.from.node,
                 mapping.table,
                 table,
@@ -45,7 +47,16 @@ object RelationshipEndpointColumnType : RelationshipValidation {
                 "$base.from_node",
                 issues
             )
-            validateEndpoint(model, relationship.to.node, mapping.table, table, mapping.toNode, "$base.to_node", issues)
+            validateEndpoint(
+                model,
+                relationshipId,
+                relationship.to.node,
+                mapping.table,
+                table,
+                mapping.toNode,
+                "$base.to_node",
+                issues
+            )
         }
     }
 
@@ -54,6 +65,7 @@ object RelationshipEndpointColumnType : RelationshipValidation {
     // columns are skipped.
     private fun validateEndpoint(
         model: GraphModel,
+        relationshipId: String,
         nodeId: String,
         tableId: String,
         table: Table,
@@ -80,7 +92,8 @@ object RelationshipEndpointColumnType : RelationshipValidation {
                             "table '$tableId' cannot be converted to the '$propertyId' " +
                             "(${Neo4jType.toString(property.type)}) property on the '${node.labels.identifier}' " +
                             "node.",
-                        path = "$endPath.properties.$propertyId"
+                        path = "$endPath.properties.$propertyId",
+                        details = issueDetails("relationship", relationshipId)
                     )
                 )
             }

@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.js.JsExport
 @JsExport
 object NodeIndexProperties : NodeValidation {
@@ -36,7 +37,8 @@ object NodeIndexProperties : NodeValidation {
                 Issue(
                     code = "missing_index_properties",
                     message = "Index '$indexId' on node '$nodeId' must have at least one property",
-                    path = "nodes.$nodeId.extensions.indexes.$indexId.properties"
+                    path = "nodes.$nodeId.extensions.indexes.$indexId.properties",
+                    details = issueDetails("index", indexId)
                 )
             )
         }

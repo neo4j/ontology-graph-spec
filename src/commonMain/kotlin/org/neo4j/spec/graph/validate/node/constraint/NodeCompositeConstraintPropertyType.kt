@@ -22,6 +22,7 @@ import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.constraint.isCompositeConstraint
+import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.node.NodeValidation
 import kotlin.js.JsExport
 
@@ -47,7 +48,8 @@ object NodeCompositeConstraintPropertyType : NodeValidation {
                     code = "invalid_node_composite_constraint_property_type",
                     message = "Composite constraint '$constraintId' on node '$nodeId' " +
                         "properties must be STRING or INTEGER for bulk import",
-                    path = "nodes.$nodeId.constraints.$constraintId"
+                    path = "nodes.$nodeId.constraints.$constraintId",
+                    details = issueDetails("constraint", constraintId)
                 )
             )
         }

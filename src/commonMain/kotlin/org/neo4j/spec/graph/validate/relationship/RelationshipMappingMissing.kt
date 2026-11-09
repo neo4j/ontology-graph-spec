@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
 import kotlin.js.JsExport
 
@@ -37,7 +38,8 @@ object RelationshipMappingMissing : RelationshipValidation {
                 Issue(
                     code = "missing_relationship_mapping",
                     message = "Relationship '$relationshipId' has no data source mapping",
-                    path = "relationships.$relationshipId"
+                    path = "relationships.$relationshipId",
+                    details = issueDetails("relationship", relationshipId)
                 )
             )
         }

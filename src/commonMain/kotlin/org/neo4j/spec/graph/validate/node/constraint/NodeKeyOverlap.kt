@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.node.NodeValidation
 import kotlin.js.JsExport
 
@@ -42,7 +43,8 @@ object NodeKeyOverlap : NodeValidation {
                         code = "redundant_node_constraint_key_overlap",
                         message = "Constraint '$constraintId' (${constraint.type}) is redundant - " +
                             "a KEY constraint already covers the same properties on node '$nodeId'",
-                        path = "nodes.$nodeId.constraints.$constraintId"
+                        path = "nodes.$nodeId.constraints.$constraintId",
+                        details = issueDetails("constraint", constraintId)
                     )
                 )
             }

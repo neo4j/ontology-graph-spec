@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.js.JsExport
 
 @JsExport
@@ -29,7 +30,8 @@ object NodeLabel : NodeValidation {
                 Issue(
                     code = "missing_node_identifier_label",
                     message = "Missing identifier label for node '$nodeId'",
-                    path = "nodes.$nodeId.labels.identifier"
+                    path = "nodes.$nodeId.labels.identifier",
+                    details = issueDetails("node", nodeId)
                 )
             )
         }

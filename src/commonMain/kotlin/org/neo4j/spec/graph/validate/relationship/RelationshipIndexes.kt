@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipIndex
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.js.JsExport
 @JsExport
 object RelationshipIndexes : RelationshipValidation {
@@ -37,7 +38,8 @@ object RelationshipIndexes : RelationshipValidation {
                     Issue(
                         code = "missing_relation_index_property",
                         message = "Missing property with id '$property' for relationship index '$indexId'",
-                        path = "relationships.$relationshipId.extensions.indexes.$indexId.properties.$property"
+                        path = "relationships.$relationshipId.extensions.indexes.$indexId.properties.$property",
+                        details = issueDetails("index", indexId)
                     )
                 )
             }

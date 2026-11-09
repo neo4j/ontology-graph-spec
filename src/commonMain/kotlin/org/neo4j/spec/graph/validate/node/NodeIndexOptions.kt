@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.js.JsExport
 @JsExport
 object NodeIndexOptions : NodeValidation {
@@ -37,7 +38,8 @@ object NodeIndexOptions : NodeValidation {
                     code = "node_index_type_options_mismatch",
                     message = "Cannot use options type '${index.options.type}' with node index '$indexId' " +
                         "type '${index.type}'",
-                    path = "nodes.$nodeId.extensions.indexes.$indexId.options"
+                    path = "nodes.$nodeId.extensions.indexes.$indexId.options",
+                    details = issueDetails("index", indexId)
                 )
             )
         }
