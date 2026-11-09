@@ -39,13 +39,13 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
- * Reference runner for the spec tests under `spec-tests/cases`. Run from the project directory.
- *
- * With `-PspecTests.update=true` the expected files are rewritten from this implementation instead of asserted.
+ * Reference runner for the spec tests. The cases directory and the JSON Schema are passed as the `specTests.cases`
+ * and `specTests.schema` system properties. With `-PspecTests.update=true` the expected files are rewritten from this
+ * implementation instead of asserted.
  */
 class SpecTests {
 
-    private val cases = File("spec-tests/cases")
+    private val cases = File(System.getProperty("specTests.cases"))
     private val update = System.getProperty("specTests.update").toBoolean()
     private val pretty = Json { prettyPrint = true }
 
@@ -83,7 +83,7 @@ class SpecTests {
     @TestFactory
     fun schema(): List<DynamicTest> {
         val schema = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V202012)
-            .getSchema(File("ontology-graph-spec.schema.json").inputStream())
+            .getSchema(File(System.getProperty("specTests.schema")).inputStream())
         val mapper = ObjectMapper()
         return caseDirs("documents").flatMap(::documentFiles)
             .filter { it.extension == "json" }

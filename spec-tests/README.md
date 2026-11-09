@@ -9,10 +9,10 @@ spec-tests/
   cases/
     documents/<name>/              model.json, model.yaml and alternative forms such as shorthand.yaml
     validate/<set>/<code>/<name>/  input.json or input.yaml, issues.json
-  runners/                         go, java and js, each consuming a local build or a published version
+  runners/
+    kotlin/                        the reference, built against this project, regenerates expected files
+    go/ java/ js/                  each consuming a local build or a published version
 ```
-
-The Kotlin runner is `src/jvmTest/kotlin/org/neo4j/spec/graph/spectests/SpecTests.kt`.
 
 ## Cases
 
@@ -37,7 +37,7 @@ Each case is formed of an input model and a list of expected validation issues (
 
 ```bash
 # Kotlin, add -PspecTests.update=true to regenerate the expected files
-./gradlew jvmTest --tests 'org.neo4j.spec.graph.spectests.SpecTests'
+./gradlew :spec-tests-kotlin:test
 
 # Go, local checkout via go.work; GOWORK=off uses the version in go.mod
 cd spec-tests/runners/go && go test ./...
