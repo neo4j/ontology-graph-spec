@@ -60,7 +60,7 @@ class RelationshipConstraintPropertyDuplicateTest {
 
         assertEquals(1, issues.size)
         assertEquals("duplicate_relationship_constraint_property", issues.first().code)
-        assertEquals("relationships.r.constraints.c.properties[1]", issues.first().path)
+        assertEquals("/relationships/r/constraints/c/properties/1", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }
 }

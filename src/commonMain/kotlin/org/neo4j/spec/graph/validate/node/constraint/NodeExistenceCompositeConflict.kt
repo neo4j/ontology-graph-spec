@@ -22,6 +22,7 @@ import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.constraint.isCompositeConstraint
 import org.neo4j.spec.graph.validate.node.NodeValidation
+import org.neo4j.spec.graph.validate.pathOf
 
 object NodeExistenceCompositeConflict : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
@@ -40,7 +41,7 @@ object NodeExistenceCompositeConflict : NodeValidation {
                         code = "node_existence_composite_conflict",
                         message = "Existence constraint '$constraintId' on property " +
                             "'$propertyId' conflicts with a composite constraint on node '$nodeId'",
-                        path = "nodes.$nodeId.constraints.$constraintId"
+                        path = pathOf("nodes", nodeId, "constraints", constraintId)
                     )
                 )
             }

@@ -73,12 +73,12 @@ class RelationshipConstraintDuplicatePropertySetTest {
                 Issue(
                     code = "duplicate_relationship_constraint_property_set",
                     message = "Constraint 'exists1' (EXISTS on role) on relationship 'actedIn' duplicates 'exists2'",
-                    path = "relationships.actedIn.constraints.exists1.properties"
+                    path = "/relationships/actedIn/constraints/exists1/properties"
                 ),
                 Issue(
                     code = "duplicate_relationship_constraint_property_set",
                     message = "Constraint 'exists2' (EXISTS on role) on relationship 'actedIn' duplicates 'exists1'",
-                    path = "relationships.actedIn.constraints.exists2.properties"
+                    path = "/relationships/actedIn/constraints/exists2/properties"
                 )
             ),
             issues

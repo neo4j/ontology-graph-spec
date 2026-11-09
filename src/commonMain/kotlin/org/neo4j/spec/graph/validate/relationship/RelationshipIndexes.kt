@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipIndex
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 object RelationshipIndexes : RelationshipValidation {
     override fun validateIndex(
         model: GraphModel,
@@ -29,13 +30,21 @@ object RelationshipIndexes : RelationshipValidation {
         index: RelationshipIndex,
         issues: MutableList<Issue>
     ) {
-        for (property in index.properties) {
+        for ((propertyIndex, property) in index.properties.withIndex()) {
             if (!relationship.properties.containsKey(property)) {
                 issues.add(
                     Issue(
                         code = "missing_relationship_index_property",
                         message = "Missing property with id '$property' for relationship index '$indexId'",
-                        path = "relationships.$relationshipId.extensions.indexes.$indexId.properties.$property"
+                        path = pathOf(
+                            "relationships",
+                            relationshipId,
+                            "extensions",
+                            "indexes",
+                            indexId,
+                            "properties",
+                            propertyIndex
+                        )
                     )
                 )
             }

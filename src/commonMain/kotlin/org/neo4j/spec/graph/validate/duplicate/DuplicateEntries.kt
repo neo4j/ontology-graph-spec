@@ -17,6 +17,7 @@
 package org.neo4j.spec.graph.validate.duplicate
 
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 
 /**
  * Finds the repeated entries of an ordered collection that must not repeat, such as aliases or constraint
@@ -46,7 +47,7 @@ internal fun duplicateEntryIssues(
                 Issue(
                     code = code,
                     message = "Duplicate $kind '$value' on $owner",
-                    path = "$path[$index]",
+                    path = "$path${pathOf(index)}",
                     details = details + ("value" to value.toString())
                 )
             )

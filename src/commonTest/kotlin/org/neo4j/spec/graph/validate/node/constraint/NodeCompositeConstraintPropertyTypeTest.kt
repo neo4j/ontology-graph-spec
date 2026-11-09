@@ -102,7 +102,7 @@ class NodeCompositeConstraintPropertyTypeTest {
         // one issue per constraint, not per property
         assertEquals(1, issues.size)
         assertEquals("invalid_node_composite_constraint_property_type", issues.first().code)
-        assertEquals("nodes.personNode.constraints.comp", issues.first().path)
+        assertEquals("/nodes/personNode/constraints/comp", issues.first().path)
     }
 
     @Test

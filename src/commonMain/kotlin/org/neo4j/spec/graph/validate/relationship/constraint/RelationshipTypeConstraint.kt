@@ -22,6 +22,7 @@ import org.neo4j.spec.graph.model.relationship.RelationshipConstraint
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.node.NodeConstraints
+import org.neo4j.spec.graph.validate.pathOf
 import org.neo4j.spec.graph.validate.relationship.RelationshipValidation
 
 object RelationshipTypeConstraint : RelationshipValidation {
@@ -40,7 +41,7 @@ object RelationshipTypeConstraint : RelationshipValidation {
                 Issue(
                     code = "invalid_relationship_type_constraint_property_count",
                     message = "Relationship type constraint '$constraintId' must have exactly one property.",
-                    path = "relationships.$relationshipId.constraints.$constraintId.properties"
+                    path = pathOf("relationships", relationshipId, "constraints", constraintId, "properties")
                 )
             )
         }

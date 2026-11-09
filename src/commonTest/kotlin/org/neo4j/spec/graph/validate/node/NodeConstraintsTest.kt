@@ -93,7 +93,7 @@ class NodeConstraintsTest {
         assertEquals(1, issues.size)
         val issue = issues.first()
         assertEquals("missing_node_constraint_property", issue.code)
-        assertEquals("nodes.userNode.constraints.uniq_user_email.properties.email", issue.path)
+        assertEquals("/nodes/userNode/constraints/uniq_user_email/properties/0", issue.path)
     }
 
     @Test

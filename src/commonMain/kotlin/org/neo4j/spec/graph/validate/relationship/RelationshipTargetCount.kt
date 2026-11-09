@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.RelationshipTarget
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 
 /**
  * A relationship target may define an exact `count` or a `minCount`/`maxCount` range, but not both.
@@ -41,7 +42,7 @@ object RelationshipTargetCount : RelationshipValidation {
         target: RelationshipTarget,
         issues: MutableList<Issue>
     ) {
-        val path = "relationships.$relationshipId.$side"
+        val path = pathOf("relationships", relationshipId, side)
         val count = target.count
         val minCount = target.minCount
         val maxCount = target.maxCount
@@ -61,7 +62,7 @@ object RelationshipTargetCount : RelationshipValidation {
                 Issue(
                     code = "relationship_count_negative",
                     message = "Relationship '$relationshipId' $side count must not be negative",
-                    path = "$path.count"
+                    path = "$path${pathOf("count")}"
                 )
             )
         }
@@ -70,7 +71,7 @@ object RelationshipTargetCount : RelationshipValidation {
                 Issue(
                     code = "relationship_min_count_negative",
                     message = "Relationship '$relationshipId' $side min count must not be negative",
-                    path = "$path.min_count"
+                    path = "$path${pathOf("min_count")}"
                 )
             )
         }
