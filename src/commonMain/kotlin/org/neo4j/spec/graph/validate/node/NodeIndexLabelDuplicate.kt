@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
+import org.neo4j.spec.graph.validate.pathOf
 
 /**
  * A node index must list each label once.
@@ -39,7 +40,7 @@ object NodeIndexLabelDuplicate : NodeValidation {
             kind = "label",
             owner = "index '$indexId' on node '$nodeId'",
             values = index.labels,
-            path = "nodes.$nodeId.extensions.indexes.$indexId.labels"
+            path = pathOf("nodes", nodeId, "extensions", "indexes", indexId, "labels")
         )
     }
 }

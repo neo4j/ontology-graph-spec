@@ -71,6 +71,6 @@ class NodeTypeConstraintTest {
         assertEquals(1, issues.size)
         val issue = issues.first()
         assertEquals("invalid_node_type_constraint_property_count", issue.code)
-        assertEquals("nodes.user.constraints.type_multi.properties", issue.path)
+        assertEquals("/nodes/user/constraints/type_multi/properties", issue.path)
     }
 }

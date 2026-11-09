@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.RelationshipConstraint
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.constraint.duplicateConstraintIds
+import org.neo4j.spec.graph.validate.pathOf
 import org.neo4j.spec.graph.validate.relationship.RelationshipValidation
 
 object RelationshipConstraintDuplicatePropertySet : RelationshipValidation {
@@ -40,7 +41,7 @@ object RelationshipConstraintDuplicatePropertySet : RelationshipValidation {
                     code = "duplicate_relationship_constraint_property_set",
                     message = "Constraint '$constraintId' (${constraint.type} on $properties) " +
                         "on relationship '$relationshipId' duplicates ${duplicates.joinToString { "'$it'" }}",
-                    path = "relationships.$relationshipId.constraints.$constraintId.properties"
+                    path = pathOf("relationships", relationshipId, "constraints", constraintId, "properties")
                 )
             )
         }

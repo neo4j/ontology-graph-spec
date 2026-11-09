@@ -56,7 +56,7 @@ class RelationshipAliasDuplicateTest {
 
         assertEquals(1, issues.size)
         assertEquals("duplicate_relationship_alias", issues.first().code)
-        assertEquals("relationships.r.aliases[1]", issues.first().path)
+        assertEquals("/relationships/r/aliases/1", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }
 }

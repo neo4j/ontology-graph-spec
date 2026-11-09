@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 
 object NodeProperties : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
@@ -27,7 +28,7 @@ object NodeProperties : NodeValidation {
                 Issue(
                     code = "missing_node_properties",
                     message = "Node '$nodeId' has no properties",
-                    path = "nodes.$nodeId.properties"
+                    path = pathOf("nodes", nodeId, "properties")
                 )
             )
         }

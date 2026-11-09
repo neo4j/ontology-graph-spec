@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 
 /**
  * Index and constraint names must be unique across the whole model. Any name used by more than one
@@ -41,7 +42,7 @@ object NodeIndexConstraintNameConflict : NodeValidation {
                         code = "duplicate_node_index_constraint_name",
                         message = "Index '$indexId' on node '$nodeId' reuses name '$name' " +
                             "already used by another index or constraint",
-                        path = "nodes.$nodeId.extensions.indexes.$indexId.name"
+                        path = pathOf("nodes", nodeId, "extensions", "indexes", indexId, "name")
                     )
                 )
             }
@@ -55,7 +56,7 @@ object NodeIndexConstraintNameConflict : NodeValidation {
                         code = "duplicate_node_index_constraint_name",
                         message = "Constraint '$constraintId' on node '$nodeId' reuses name '$name' " +
                             "already used by another index or constraint",
-                        path = "nodes.$nodeId.constraints.$constraintId.name"
+                        path = pathOf("nodes", nodeId, "constraints", constraintId, "name")
                     )
                 )
             }

@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 
 object RelationshipType : RelationshipValidation {
     override fun validateRelationship(
@@ -32,7 +33,7 @@ object RelationshipType : RelationshipValidation {
                 Issue(
                     code = "missing_relationship_type",
                     message = "Missing type for relationship '$relationshipId'",
-                    path = "relationships.$relationshipId.type"
+                    path = pathOf("relationships", relationshipId, "type")
                 )
             )
         }
