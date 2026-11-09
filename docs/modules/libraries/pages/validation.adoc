@@ -35,7 +35,7 @@ mistake, but means fixing an issue can reveal new ones.
 
 | `code` | A stable identifier for the kind of issue, such as `missing_relationship_to_node`.
 | `message` | A human-readable description.
-| `path` | Where the issue is, as a dot-separated path such as `relationships.acted-in.to.film`. Optional.
+| `path` | Where the issue is, as an RFC 6901 JSON Pointer such as `/relationships/acted-in/to/node`. Segments are escaped (`~` becomes `~0`, `/` becomes `~1`) and positions in arrays are numeric tokens, so the path always resolves programmatically. Optional.
 | `details` | Extra information as string keys and values. Often empty.
 |===
 

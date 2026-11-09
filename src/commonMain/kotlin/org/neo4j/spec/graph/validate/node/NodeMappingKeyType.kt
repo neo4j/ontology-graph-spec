@@ -20,10 +20,11 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 object NodeMappingKeyType : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
         for ((mappingId, index, nodeMapping) in findNodeMappings(model, nodeId)) {
-            for (propertyId in nodeMapping.key) {
+            for ((keyIndex, propertyId) in nodeMapping.key.withIndex()) {
                 val property = node.properties[propertyId] ?: continue
                 if (property.type != Neo4jType.STRING && property.type != Neo4jType.INTEGER) {
                     issues.add(
@@ -31,7 +32,7 @@ object NodeMappingKeyType : NodeValidation {
                             // Replaced legacy code: invalid_node_key_property_type
                             code = "invalid_node_mapping_key_type",
                             message = "Mapping key '$propertyId' on node '$nodeId' must be STRING or INTEGER",
-                            path = "extensions.data_source_mappings.$mappingId[$index].key.$propertyId"
+                            path = pathOf("extensions", "data_source_mappings", mappingId, index, "key", keyIndex)
                         )
                     )
                 }

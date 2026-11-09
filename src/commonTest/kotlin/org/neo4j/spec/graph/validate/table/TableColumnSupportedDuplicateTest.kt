@@ -57,6 +57,6 @@ class TableColumnSupportedDuplicateTest {
 
         assertEquals(1, issues.size)
         assertEquals("duplicate_table_column_supported_type", issues.first().code)
-        assertEquals("extensions.data_source_tables.t.columns[0].supported[1]", issues.first().path)
+        assertEquals("/extensions/data_source_tables/t/columns/0/supported/1", issues.first().path)
     }
 }

@@ -74,7 +74,7 @@ class MappingDependenciesTest {
     fun `unknown dependency is invalid`() {
         val issues = validate(node("a"), rel(dependsOn = "missing"))
         assertEquals(listOf("mapping_depends_on_unknown"), issues.map { it.code })
-        assertEquals("extensions.data_source_mappings.list[1].depends_on", issues.single().path)
+        assertEquals("/extensions/data_source_mappings/list/1/depends_on", issues.single().path)
     }
 
     @Test
@@ -90,7 +90,7 @@ class MappingDependenciesTest {
             "two" to listOf(node("b", "a"))
         )
         assertEquals(listOf("mapping_depends_on_other_list"), issues.map { it.code })
-        assertEquals("extensions.data_source_mappings.two[0].depends_on", issues.single().path)
+        assertEquals("/extensions/data_source_mappings/two/0/depends_on", issues.single().path)
     }
 
     @Test
@@ -109,21 +109,21 @@ class MappingDependenciesTest {
             "two" to listOf(node(dependsOn = "missing"))
         )
         assertEquals(listOf("mapping_depends_on_unknown"), issues.map { it.code })
-        assertEquals("extensions.data_source_mappings.two[0].depends_on", issues.single().path)
+        assertEquals("/extensions/data_source_mappings/two/0/depends_on", issues.single().path)
     }
 
     @Test
     fun `self dependency is invalid`() {
         val issues = validate(node("a", "a"))
         assertEquals(listOf("mapping_depends_on_self"), issues.map { it.code })
-        assertEquals("extensions.data_source_mappings.list[0].depends_on", issues.single().path)
+        assertEquals("/extensions/data_source_mappings/list/0/depends_on", issues.single().path)
     }
 
     @Test
     fun `duplicate ids in a list are invalid`() {
         val issues = validate(node("a"), query("a"), rel("b"))
         assertEquals(listOf("mapping_id_duplicate"), issues.map { it.code })
-        assertEquals("extensions.data_source_mappings.list[1].id", issues.single().path)
+        assertEquals("/extensions/data_source_mappings/list/1/id", issues.single().path)
     }
 
     @Test
@@ -135,14 +135,14 @@ class MappingDependenciesTest {
     fun `two mapping cycle is reported once`() {
         val issues = validate(node("a", "b"), node("b", "a"))
         assertEquals(listOf("mapping_dependency_cycle"), issues.map { it.code })
-        assertEquals("extensions.data_source_mappings.list[0].depends_on", issues.single().path)
+        assertEquals("/extensions/data_source_mappings/list/0/depends_on", issues.single().path)
     }
 
     @Test
     fun `longer cycle with a tail is reported once`() {
         val issues = validate(node("tail", "a"), node("a", "b"), node("b", "c"), node("c", "a"))
         assertEquals(listOf("mapping_dependency_cycle"), issues.map { it.code })
-        assertEquals("extensions.data_source_mappings.list[1].depends_on", issues.single().path)
+        assertEquals("/extensions/data_source_mappings/list/1/depends_on", issues.single().path)
     }
 
     @Test

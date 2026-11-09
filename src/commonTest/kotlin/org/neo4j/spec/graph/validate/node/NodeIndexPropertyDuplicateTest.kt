@@ -56,7 +56,7 @@ class NodeIndexPropertyDuplicateTest {
 
         assertEquals(1, issues.size)
         assertEquals("duplicate_node_index_property", issues.first().code)
-        assertEquals("nodes.n.extensions.indexes.i.properties[1]", issues.first().path)
+        assertEquals("/nodes/n/extensions/indexes/i/properties/1", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }
 }
