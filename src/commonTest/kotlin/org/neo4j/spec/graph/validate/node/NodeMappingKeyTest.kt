@@ -118,6 +118,6 @@ class NodeMappingKeyTest {
         validator.validateNode(model, "person", node, issues)
 
         assertEquals(1, issues.size)
-        assertEquals("extensions.data_source_mappings.mapping0[1].key", issues[0].path)
+        assertEquals("/extensions/data_source_mappings/mapping0/1/key", issues[0].path)
     }
 }

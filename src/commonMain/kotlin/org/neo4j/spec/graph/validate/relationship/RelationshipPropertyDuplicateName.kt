@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 import org.neo4j.spec.graph.validate.property.duplicatePropertyName
 
 object RelationshipPropertyDuplicateName : RelationshipValidation {
@@ -31,7 +32,12 @@ object RelationshipPropertyDuplicateName : RelationshipValidation {
         property: Property,
         issues: MutableList<Issue>
     ) {
-        duplicatePropertyName(relationship.properties, propertyId, property, "relationships.$relationshipId")?.let {
+        duplicatePropertyName(
+            relationship.properties,
+            propertyId,
+            property,
+            pathOf("relationships", relationshipId)
+        )?.let {
             issues.add(it)
         }
     }

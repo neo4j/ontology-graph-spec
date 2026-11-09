@@ -56,7 +56,7 @@ class NodeIndexLabelDuplicateTest {
 
         assertEquals(1, issues.size)
         assertEquals("duplicate_node_index_label", issues.first().code)
-        assertEquals("nodes.n.extensions.indexes.i.labels[1]", issues.first().path)
+        assertEquals("/nodes/n/extensions/indexes/i/labels/1", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }
 }

@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 import org.neo4j.spec.graph.validate.property.emptyPropertyName
 
 object NodePropertyEmptyName : NodeValidation {
@@ -31,6 +32,6 @@ object NodePropertyEmptyName : NodeValidation {
         property: Property,
         issues: MutableList<Issue>
     ) {
-        emptyPropertyName(propertyId, property, "nodes.$nodeId")?.let { issues.add(it) }
+        emptyPropertyName(propertyId, property, pathOf("nodes", nodeId))?.let { issues.add(it) }
     }
 }

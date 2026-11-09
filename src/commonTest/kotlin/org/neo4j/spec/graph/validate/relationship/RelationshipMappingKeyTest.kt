@@ -78,7 +78,7 @@ class RelationshipMappingKeyTest {
 
         assertEquals(1, issues.size)
         assertEquals("invalid_relationship_mapping_key", issues.first().code)
-        assertEquals("extensions.data_source_mappings.m0[1].key", issues.first().path)
+        assertEquals("/extensions/data_source_mappings/m0/1/key", issues.first().path)
         assertEquals("age", issues.first().details["property"])
     }
 

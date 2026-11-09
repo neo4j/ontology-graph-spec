@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.extension.source.TableColumn
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.pathOf
 object TableColumnDuplicateName : TableValidation {
     override fun validateTableColumn(
         model: GraphModel,
@@ -40,7 +41,7 @@ object TableColumnDuplicateName : TableValidation {
                 Issue(
                     code = "duplicate_table_column_name",
                     message = "Duplicate column name '$name' in table '$tableId'",
-                    path = "extensions.data_source_tables.$tableId.columns[$columnIndex].name"
+                    path = pathOf("extensions", "data_source_tables", tableId, "columns", columnIndex, "name")
                 )
             )
         }
