@@ -102,18 +102,18 @@ class SpecTests {
         val set = dir.parentFile.parentFile.name
         dynamicTest("$set/${dir.parentFile.name}/${dir.name}") {
             val issues = decode(inputFile(dir)!!).validate(sets.getValue(set))
-            val golden = dir.resolve("issues.json")
+            val expectedIssues = dir.resolve("issues.json")
             if (update) {
-                val sorted = issues.map { it.toGolden() }.sortedBy { it.toString() }
-                golden.writeText(pretty.encodeToString(JsonElement.serializer(), JsonArray(sorted)) + "\n")
+                val sorted = issues.map { it.toValidationIssue() }.sortedBy { it.toString() }
+                expectedIssues.writeText(pretty.encodeToString(JsonElement.serializer(), JsonArray(sorted)) + "\n")
                 return@dynamicTest
             }
-            for (issue in issues) {
-                assertTrue(issue.message.isNotBlank(), "issue ${issue.code} has a message")
-                assertNotNull(issue.path, "issue ${issue.code} has a path")
+            for ((code, message, path) in issues) {
+                assertTrue(message.isNotBlank(), "issue $code has a message")
+                assertNotNull(path, "issue $code has a path")
             }
-            val actual = issues.map { it.toGolden() }.sortedBy { it.toString() }
-            val expected = Json.parseToJsonElement(golden.readText()).jsonArray.sortedBy { it.toString() }
+            val actual = issues.map { it.toValidationIssue() }.sortedBy { it.toString() }
+            val expected = Json.parseToJsonElement(expectedIssues.readText()).jsonArray.sortedBy { it.toString() }
             assertEquals(expected, actual, "issues for set $set")
         }
     }
@@ -123,7 +123,6 @@ class SpecTests {
 
     private fun inputFile(dir: File): File? = dir.listFiles { file -> file.name.startsWith("input.") }!!.singleOrNull()
 
-    /** The canonical `model.json` and `model.yaml` first, then every alternative form of the same model. */
     private fun documentFiles(dir: File): List<File> =
         listOf(dir.resolve("model.json"), dir.resolve("model.yaml")) +
             dir.listFiles { file -> file.extension in setOf("json", "yaml") && !file.name.startsWith("model.") }!!.sorted()
@@ -131,8 +130,7 @@ class SpecTests {
     private fun decode(file: File): GraphModel =
         (if (file.extension == "yaml") GraphSpec.Yaml else GraphSpec.Json).decodeFromString(file.readText())
 
-    /** The part of an issue the spec tests compare: everything but the message. */
-    private fun Issue.toGolden(): JsonElement = JsonObject(
+    private fun Issue.toValidationIssue(): JsonElement = JsonObject(
         mapOf(
             "code" to JsonPrimitive(code),
             "path" to (path?.let(::JsonPrimitive) ?: JsonNull),

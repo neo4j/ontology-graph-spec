@@ -76,9 +76,9 @@ class SpecTests {
                         assertNotNull(issue.getPath(), "issue " + issue.getCode() + " has a path");
                     }
 
-                    List<JsonNode> actual = issues.stream().map(SpecTests::golden).sorted(comparing(JsonNode::toString)).toList();
-                    JsonNode goldenFile = JSON.readTree(read(dir.resolve("issues.json")));
-                    List<JsonNode> expected = StreamSupport.stream(goldenFile.spliterator(), false)
+                    List<JsonNode> actual = issues.stream().map(SpecTests::validationIssue).sorted(comparing(JsonNode::toString)).toList();
+                    JsonNode expectedIssues = JSON.readTree(read(dir.resolve("issues.json")));
+                    List<JsonNode> expected = StreamSupport.stream(expectedIssues.spliterator(), false)
                         .sorted(comparing(JsonNode::toString))
                         .toList();
 
@@ -117,8 +117,7 @@ class SpecTests {
         return spec.decodeFromString(read(file));
     }
 
-    /** The part of an issue the spec tests compare: everything but the message. */
-    private static JsonNode golden(Issue issue) {
+    private static JsonNode validationIssue(Issue issue) {
         ObjectNode node = JSON.createObjectNode().put("code", issue.getCode()).put("path", issue.getPath());
         node.set("details", JSON.valueToTree(issue.getDetails()));
         return node;

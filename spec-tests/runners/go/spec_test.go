@@ -17,18 +17,11 @@ import (
 
 const cases = "../../cases"
 
-// golden is the part of an issue the spec tests compare: everything but the message.
-type golden struct {
-	Code    string            `json:"code"`
-	Path    *string           `json:"path"`
-	Details map[string]string `json:"details"`
-}
-
 func TestDocuments(t *testing.T) {
 	for _, dir := range caseDirs(t, "documents") {
 		t.Run(filepath.Base(dir), func(t *testing.T) {
-			// The Go library decodes a document as written, so each form must round-trip to itself and validate
-			// clean, rather than encode to the canonical model.json.
+			// Note: the Go library currently decodes a document as written, so each form must
+			// round-trip to itself and validate clean, rather than encode to the canonical model.json
 			files, err := filepath.Glob(filepath.Join(dir, "*.json"))
 			require.NoError(t, err)
 			for _, file := range files {
@@ -47,6 +40,12 @@ func TestDocuments(t *testing.T) {
 }
 
 func TestValidate(t *testing.T) {
+	type validationIssue struct {
+		Code    string            `json:"code"`
+		Path    *string           `json:"path"`
+		Details map[string]string `json:"details"`
+	}
+
 	for _, set := range caseDirs(t, "validate") {
 		for _, code := range caseDirs(t, filepath.Join("validate", filepath.Base(set))) {
 			for _, dir := range caseDirs(t, filepath.Join("validate", filepath.Base(set), filepath.Base(code))) {
@@ -60,15 +59,15 @@ func TestValidate(t *testing.T) {
 					issues, err := validation.Validate(decode(t, input), validation.Set(filepath.Base(set)))
 					require.NoError(t, err)
 
-					actual := make([]golden, 0, len(issues))
+					actual := make([]validationIssue, 0, len(issues))
 					for _, issue := range issues {
 						require.NotEmpty(t, issue.Message, "issue %s has a message", issue.Code)
 						require.NotEmpty(t, issue.Path, "issue %s has a path", issue.Code)
 						path := issue.Path
-						actual = append(actual, golden{Code: issue.Code, Path: &path, Details: nonNil(issue.Details)})
+						actual = append(actual, validationIssue{Code: issue.Code, Path: &path, Details: nonNil(issue.Details)})
 					}
 
-					var expected []golden
+					var expected []validationIssue
 					require.NoError(t, json.Unmarshal([]byte(read(t, filepath.Join(dir, "issues.json"))), &expected))
 					for i := range expected {
 						expected[i].Details = nonNil(expected[i].Details)

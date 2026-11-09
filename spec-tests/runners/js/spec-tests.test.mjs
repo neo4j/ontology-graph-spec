@@ -28,7 +28,6 @@ const caseDirs = (path) =>
 
 const read = (file) => readFileSync(file, "utf8");
 const inputFile = (dir) => readdirSync(dir).filter((name) => name.startsWith("input.")).map((name) => join(dir, name))[0];
-// The canonical model.json and model.yaml first, then every alternative form of the same model.
 const documentFiles = (dir) => [
   join(dir, "model.json"),
   join(dir, "model.yaml"),
@@ -37,8 +36,7 @@ const documentFiles = (dir) => [
 const decode = (file) => (file.endsWith(".yaml") ? GraphSpec.Yaml : GraphSpec.Json).decodeFromString(read(file));
 const validate = (model, set) => GraphModel.validate(model, sets[set]).asJsReadonlyArrayView();
 
-// The part of an issue the spec tests compare: everything but the message.
-const golden = (issue) => ({
+const validationIssue = (issue) => ({
   code: issue.code,
   path: issue.path ?? null,
   details: Object.fromEntries(issue.details.asJsReadonlyMapView()),
@@ -68,7 +66,7 @@ for (const set of caseDirs("validate")) {
           assert.ok(issue.path != null, `issue ${issue.code} has a path`);
         }
         const expected = JSON.parse(read(join(dir, "issues.json")));
-        assert.deepEqual(sorted(issues.map(golden)), sorted(expected), `issues for set ${basename(set)}`);
+        assert.deepEqual(sorted(issues.map(validationIssue)), sorted(expected), `issues for set ${basename(set)}`);
       });
     }
   }
