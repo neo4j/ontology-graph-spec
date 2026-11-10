@@ -26,6 +26,10 @@ optional other JSON/YAML files in the same directoy, representing the same model
 * Core validation returns no issues
 * The reference (Kotlin) runner checks each JSON file against the JSON Schema
 
+> [!NOTE]
+> The `sample-*` cases are the sample models shown in the UI. Each `shorthand.json` is a verbatim copy from the 
+> upx project. 
+
 ### Validation
 
 Each case is formed of an input model and a list of expected validation issues (codes and paths only - not messages).
