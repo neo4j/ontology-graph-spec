@@ -31,9 +31,11 @@ jobs:
 
       - name: Detect changed Kotlin or Gradle files
         id: kotlin
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          CHECK_ALL: ${{ inputs.check-all }}
         run: |
-          BASE_REF="${{ github.event.pull_request.base.ref }}"
-          if [ "${{ inputs.check-all }}" = "true" ] || [ -z "$BASE_REF" ]; then # requested, or not a pull request
+          if [ "$CHECK_ALL" = "true" ] || [ -z "$BASE_REF" ]; then # requested, or not a pull request
             echo "changed=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
