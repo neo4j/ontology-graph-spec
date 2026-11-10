@@ -20,7 +20,9 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.constraint.isCompositeConstraint
+import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.node.NodeValidation
 
 object NodeExistenceCompositeConflict : NodeValidation {
@@ -40,7 +42,8 @@ object NodeExistenceCompositeConflict : NodeValidation {
                         code = "node_existence_composite_conflict",
                         message = "Existence constraint '$constraintId' on property " +
                             "'$propertyId' conflicts with a composite constraint on node '$nodeId'",
-                        path = "nodes.$nodeId.constraints.$constraintId"
+                        path = "nodes.$nodeId.constraints.$constraintId",
+                        details = issueDetails(IssueKeyType.CONSTRAINT, constraintId)
                     )
                 )
             }

@@ -19,6 +19,8 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
+import org.neo4j.spec.graph.validate.issueDetails
 
 object NodeLabelToken : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
@@ -28,7 +30,8 @@ object NodeLabelToken : NodeValidation {
                 Issue(
                     code = "invalid_node_label_token",
                     message = "Node label '$token' contains invalid characters (: or =) for bulk import",
-                    path = "nodes.$nodeId.labels.identifier"
+                    path = "nodes.$nodeId.labels.identifier",
+                    details = issueDetails(IssueKeyType.NODE, nodeId)
                 )
             )
         }

@@ -20,7 +20,9 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.extension.source.TableColumn
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
+import org.neo4j.spec.graph.validate.issueDetails
 
 /**
  * A table column must list each supported type once.
@@ -39,7 +41,8 @@ object TableColumnSupportedDuplicate : TableValidation {
             kind = "supported type",
             owner = "table column '${column.name}'",
             values = column.supported,
-            path = "extensions.data_source_tables.$tableId.columns[$columnIndex].supported"
+            path = "extensions.data_source_tables.$tableId.columns[$columnIndex].supported",
+            details = issueDetails(IssueKeyType.COLUMN, column.name)
         )
     }
 }

@@ -19,6 +19,8 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
+import org.neo4j.spec.graph.validate.issueDetails
 
 object RelationshipTypeToken : RelationshipValidation {
     override fun validateRelationship(
@@ -33,7 +35,8 @@ object RelationshipTypeToken : RelationshipValidation {
                 Issue(
                     code = "invalid_relationship_type_token",
                     message = "Relationship type '$type' contains invalid characters (: or =) for bulk import",
-                    path = "relationships.$relationshipId.type"
+                    path = "relationships.$relationshipId.type",
+                    details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
                 )
             )
         }

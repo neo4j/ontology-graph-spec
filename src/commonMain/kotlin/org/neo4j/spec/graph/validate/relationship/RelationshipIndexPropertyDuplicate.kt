@@ -20,7 +20,9 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipIndex
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
+import org.neo4j.spec.graph.validate.issueDetails
 
 /**
  * A relationship index must list each property once.
@@ -39,7 +41,8 @@ object RelationshipIndexPropertyDuplicate : RelationshipValidation {
             kind = "property",
             owner = "index '$indexId' on relationship '$relationshipId'",
             values = index.properties,
-            path = "relationships.$relationshipId.extensions.indexes.$indexId.properties"
+            path = "relationships.$relationshipId.extensions.indexes.$indexId.properties",
+            details = issueDetails(IssueKeyType.INDEX, indexId)
         )
     }
 }

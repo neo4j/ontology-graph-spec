@@ -20,6 +20,8 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
+import org.neo4j.spec.graph.validate.issueDetails
 object NodeIndexOptions : NodeValidation {
     override fun validateIndex(
         model: GraphModel,
@@ -35,7 +37,8 @@ object NodeIndexOptions : NodeValidation {
                     code = "node_index_type_options_mismatch",
                     message = "Cannot use options type '${index.options.type}' with node index '$indexId' " +
                         "type '${index.type}'",
-                    path = "nodes.$nodeId.extensions.indexes.$indexId.options"
+                    path = "nodes.$nodeId.extensions.indexes.$indexId.options",
+                    details = issueDetails(IssueKeyType.INDEX, indexId)
                 )
             )
         }

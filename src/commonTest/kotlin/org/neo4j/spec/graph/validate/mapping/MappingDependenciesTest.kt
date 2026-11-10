@@ -75,6 +75,9 @@ class MappingDependenciesTest {
         val issues = validate(node("a"), rel(dependsOn = "missing"))
         assertEquals(listOf("mapping_depends_on_unknown"), issues.map { it.code })
         assertEquals("extensions.data_source_mappings.list[1].depends_on", issues.single().path)
+        assertEquals("mapping", issues.single().details["keyType"])
+        assertEquals("", issues.single().details["key"])
+        assertEquals("missing", issues.single().details["dependsOn"])
     }
 
     @Test
@@ -90,6 +93,9 @@ class MappingDependenciesTest {
             "two" to listOf(node("b", "a"))
         )
         assertEquals(listOf("mapping_depends_on_other_list"), issues.map { it.code })
+        assertEquals("mapping", issues.single().details["keyType"])
+        assertEquals("b", issues.single().details["key"])
+        assertEquals("a", issues.single().details["dependsOn"])
         assertEquals("extensions.data_source_mappings.two[0].depends_on", issues.single().path)
     }
 
@@ -117,6 +123,7 @@ class MappingDependenciesTest {
         val issues = validate(node("a", "a"))
         assertEquals(listOf("mapping_depends_on_self"), issues.map { it.code })
         assertEquals("extensions.data_source_mappings.list[0].depends_on", issues.single().path)
+        assertEquals("a", issues.single().details["key"])
     }
 
     @Test
@@ -136,6 +143,7 @@ class MappingDependenciesTest {
         val issues = validate(node("a", "b"), node("b", "a"))
         assertEquals(listOf("mapping_dependency_cycle"), issues.map { it.code })
         assertEquals("extensions.data_source_mappings.list[0].depends_on", issues.single().path)
+        assertEquals("a", issues.single().details["key"])
     }
 
     @Test
@@ -143,6 +151,7 @@ class MappingDependenciesTest {
         val issues = validate(node("tail", "a"), node("a", "b"), node("b", "c"), node("c", "a"))
         assertEquals(listOf("mapping_dependency_cycle"), issues.map { it.code })
         assertEquals("extensions.data_source_mappings.list[1].depends_on", issues.single().path)
+        assertEquals("a", issues.single().details["key"])
     }
 
     @Test

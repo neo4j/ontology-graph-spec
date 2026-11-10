@@ -23,6 +23,8 @@ import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -84,12 +86,14 @@ class NodeConstraintDuplicatePropertySetTest {
                 Issue(
                     code = "duplicate_node_constraint_property_set",
                     message = "Constraint 'key1' (KEY on email) on node 'person' duplicates 'key2'",
-                    path = "nodes.person.constraints.key1.properties"
+                    path = "nodes.person.constraints.key1.properties",
+                    details = issueDetails(IssueKeyType.CONSTRAINT, "key1")
                 ),
                 Issue(
                     code = "duplicate_node_constraint_property_set",
                     message = "Constraint 'key2' (KEY on email) on node 'person' duplicates 'key1'",
-                    path = "nodes.person.constraints.key2.properties"
+                    path = "nodes.person.constraints.key2.properties",
+                    details = issueDetails(IssueKeyType.CONSTRAINT, "key2")
                 )
             ),
             issues

@@ -23,6 +23,8 @@ import org.neo4j.spec.graph.model.relationship.RelationshipConstraint
 import org.neo4j.spec.graph.model.relationship.RelationshipTarget
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
+import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -73,12 +75,14 @@ class RelationshipConstraintDuplicatePropertySetTest {
                 Issue(
                     code = "duplicate_relationship_constraint_property_set",
                     message = "Constraint 'exists1' (EXISTS on role) on relationship 'actedIn' duplicates 'exists2'",
-                    path = "relationships.actedIn.constraints.exists1.properties"
+                    path = "relationships.actedIn.constraints.exists1.properties",
+                    details = issueDetails(IssueKeyType.CONSTRAINT, "exists1")
                 ),
                 Issue(
                     code = "duplicate_relationship_constraint_property_set",
                     message = "Constraint 'exists2' (EXISTS on role) on relationship 'actedIn' duplicates 'exists1'",
-                    path = "relationships.actedIn.constraints.exists2.properties"
+                    path = "relationships.actedIn.constraints.exists2.properties",
+                    details = issueDetails(IssueKeyType.CONSTRAINT, "exists2")
                 )
             ),
             issues

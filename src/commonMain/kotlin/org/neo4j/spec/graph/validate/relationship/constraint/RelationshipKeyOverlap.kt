@@ -20,6 +20,8 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
+import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.relationship.RelationshipValidation
 
 object RelationshipKeyOverlap : RelationshipValidation {
@@ -45,7 +47,8 @@ object RelationshipKeyOverlap : RelationshipValidation {
                         code = "redundant_relationship_constraint_key_overlap",
                         message = "Constraint '$constraintId' (${constraint.type}) is redundant - " +
                             "a KEY constraint already covers the same properties on relationship '$relationshipId'",
-                        path = "relationships.$relationshipId.constraints.$constraintId"
+                        path = "relationships.$relationshipId.constraints.$constraintId",
+                        details = issueDetails(IssueKeyType.CONSTRAINT, constraintId)
                     )
                 )
             }

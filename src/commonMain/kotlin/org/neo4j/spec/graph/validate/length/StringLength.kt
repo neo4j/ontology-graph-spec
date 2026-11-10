@@ -20,7 +20,9 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.type.Named
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.Validation
+import org.neo4j.spec.graph.validate.issueDetails
 
 /**
  * Restricts the length of names and descriptions throughout the model.
@@ -33,12 +35,22 @@ object StringLength : Validation {
     const val MAX_DESCRIPTION_LENGTH = 1024
 
     override fun validate(model: GraphModel, issues: MutableList<Issue>) {
-        check("name", model.name, MAX_NAME_LENGTH, "name", issues)
-        check("description", model.description, MAX_MODEL_DESCRIPTION_LENGTH, "description", issues)
+        check("name", model.name, MAX_NAME_LENGTH, "name", IssueKeyType.MODEL, model.id, issues)
+        check(
+            "description",
+            model.description,
+            MAX_MODEL_DESCRIPTION_LENGTH,
+            "description",
+            IssueKeyType.MODEL,
+            model.id,
+            issues
+        )
 
         for ((nodeId, node) in model.nodes) {
             checkEntity(
                 path = "nodes.$nodeId",
+                keyType = IssueKeyType.NODE,
+                key = nodeId,
                 description = node.description,
                 properties = node.properties,
                 constraints = node.constraints,
@@ -50,6 +62,8 @@ object StringLength : Validation {
         for ((relationshipId, relationship) in model.relationships) {
             checkEntity(
                 path = "relationships.$relationshipId",
+                keyType = IssueKeyType.RELATIONSHIP,
+                key = relationshipId,
                 description = relationship.description,
                 properties = relationship.properties,
                 constraints = relationship.constraints,
@@ -61,36 +75,71 @@ object StringLength : Validation {
 
     private fun checkEntity(
         path: String,
+        keyType: IssueKeyType,
+        key: String,
         description: String,
         properties: Map<String, Property>,
         constraints: Map<String, Named>,
         indexes: Map<String, Named>,
         issues: MutableList<Issue>
     ) {
-        check("description", description, MAX_DESCRIPTION_LENGTH, "$path.description", issues)
+        check("description", description, MAX_DESCRIPTION_LENGTH, "$path.description", keyType, key, issues)
         for ((propertyId, property) in properties) {
             val propertyPath = "$path.properties.$propertyId"
-            check("name", property.name, MAX_NAME_LENGTH, "$propertyPath.name", issues)
-            check("description", property.description, MAX_DESCRIPTION_LENGTH, "$propertyPath.description", issues)
+            check(
+                "name",
+                property.name,
+                MAX_NAME_LENGTH,
+                "$propertyPath.name",
+                IssueKeyType.PROPERTY,
+                propertyId,
+                issues
+            )
+            check(
+                "description",
+                property.description,
+                MAX_DESCRIPTION_LENGTH,
+                "$propertyPath.description",
+                IssueKeyType.PROPERTY,
+                propertyId,
+                issues
+            )
         }
         for ((constraintId, constraint) in constraints) {
             val constraintPath = "$path.constraints.$constraintId.name"
-            check("name", constraint.name, MAX_CONSTRAINT_INDEX_NAME_LENGTH, constraintPath, issues)
+            check(
+                "name",
+                constraint.name,
+                MAX_CONSTRAINT_INDEX_NAME_LENGTH,
+                constraintPath,
+                IssueKeyType.CONSTRAINT,
+                constraintId,
+                issues
+            )
         }
         for ((indexId, index) in indexes) {
             val indexPath = "$path.extensions.indexes.$indexId.name"
-            check("name", index.name, MAX_CONSTRAINT_INDEX_NAME_LENGTH, indexPath, issues)
+            check("name", index.name, MAX_CONSTRAINT_INDEX_NAME_LENGTH, indexPath, IssueKeyType.INDEX, indexId, issues)
         }
     }
 
-    private fun check(field: String, value: String?, max: Int, path: String, issues: MutableList<Issue>) {
+    private fun check(
+        field: String,
+        value: String?,
+        max: Int,
+        path: String,
+        keyType: IssueKeyType,
+        key: String,
+        issues: MutableList<Issue>
+    ) {
         if (value != null && value.length > max) {
             issues.add(
                 Issue(
                     code = "${field}_too_long",
                     message = "The $field at '$path' is ${value.length} characters long, the maximum is $max",
                     path = path,
-                    details = mapOf("length" to value.length.toString(), "max" to max.toString())
+                    details = mapOf("length" to value.length.toString(), "max" to max.toString()) +
+                        issueDetails(keyType, key)
                 )
             )
         }

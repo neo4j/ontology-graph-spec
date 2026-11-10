@@ -20,7 +20,9 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
+import org.neo4j.spec.graph.validate.issueDetails
 
 /**
  * A relationship mapping key must list each property once.
@@ -42,7 +44,8 @@ object RelationshipMappingKeyDuplicate : RelationshipValidation {
                     kind = "mapping key",
                     owner = "relationship '$relationshipId'",
                     values = mapping.key,
-                    path = "extensions.data_source_mappings.$mappingId[$index].key"
+                    path = "extensions.data_source_mappings.$mappingId[$index].key",
+                    details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
                 )
             }
         }

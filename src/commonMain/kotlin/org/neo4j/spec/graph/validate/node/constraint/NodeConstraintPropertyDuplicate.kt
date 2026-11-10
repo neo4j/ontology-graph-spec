@@ -20,7 +20,9 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
+import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.node.NodeValidation
 
 /**
@@ -40,7 +42,8 @@ object NodeConstraintPropertyDuplicate : NodeValidation {
             kind = "property",
             owner = "constraint '$constraintId' on node '$nodeId'",
             values = constraint.properties,
-            path = "nodes.$nodeId.constraints.$constraintId.properties"
+            path = "nodes.$nodeId.constraints.$constraintId.properties",
+            details = issueDetails(IssueKeyType.CONSTRAINT, constraintId)
         )
     }
 }

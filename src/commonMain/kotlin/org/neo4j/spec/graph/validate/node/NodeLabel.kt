@@ -19,6 +19,8 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
+import org.neo4j.spec.graph.validate.issueDetails
 
 object NodeLabel : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
@@ -27,7 +29,8 @@ object NodeLabel : NodeValidation {
                 Issue(
                     code = "missing_node_identifier_label",
                     message = "Missing identifier label for node '$nodeId'",
-                    path = "nodes.$nodeId.labels.identifier"
+                    path = "nodes.$nodeId.labels.identifier",
+                    details = issueDetails(IssueKeyType.NODE, nodeId)
                 )
             )
         }
