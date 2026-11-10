@@ -37,6 +37,7 @@ import org.neo4j.spec.graph.validate.node.constraint.NodeConstraintProperties
 import org.neo4j.spec.graph.validate.node.constraint.NodeExistenceCompositeConflict
 import org.neo4j.spec.graph.validate.node.constraint.NodeExistenceConstraint
 import org.neo4j.spec.graph.validate.node.constraint.NodeKeyOverlap
+import org.neo4j.spec.graph.validate.relationship.RelationshipEndpointColumnType
 import org.neo4j.spec.graph.validate.relationship.RelationshipEndpointMapping
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexProperties
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexVectorDimension
@@ -100,6 +101,7 @@ class UpxMigrationValidations {
             NodePropertyMappingMissing,
             RelationshipPropertyMappingMissing,
             RelationshipEndpointMapping,
+            RelationshipEndpointColumnType,
             NodeIndexProperties,
             NodeIndexVectorDimension,
             RelationshipIndexProperties,

@@ -52,6 +52,7 @@ import org.neo4j.spec.graph.validate.node.constraint.NodeKeyOverlap
 import org.neo4j.spec.graph.validate.node.constraint.NodeTypeConstraint
 import org.neo4j.spec.graph.validate.relationship.RelationshipAliasDuplicate
 import org.neo4j.spec.graph.validate.relationship.RelationshipConstraints
+import org.neo4j.spec.graph.validate.relationship.RelationshipEndpointColumnType
 import org.neo4j.spec.graph.validate.relationship.RelationshipEndpointMapping
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexOptions
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexProperties
@@ -164,6 +165,7 @@ class Validations {
             NodePropertyMappingMissing,
             RelationshipPropertyMappingMissing,
             RelationshipEndpointMapping,
+            RelationshipEndpointColumnType,
             MappingDependencies,
             TableColumnEmptyName,
             TableColumnDuplicateName,
