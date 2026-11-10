@@ -55,6 +55,7 @@ import org.neo4j.spec.graph.validate.relationship.RelationshipConstraints
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexOptions
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexProperties
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexPropertyDuplicate
+import org.neo4j.spec.graph.validate.relationship.RelationshipIndexVectorDimension
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexes
 import org.neo4j.spec.graph.validate.relationship.RelationshipMappingKey
 import org.neo4j.spec.graph.validate.relationship.RelationshipMappingKeyDuplicate
@@ -143,6 +144,7 @@ class Validations {
             NodeIndexProperties,
             NodeIndexVectorDimension,
             RelationshipIndexProperties,
+            RelationshipIndexVectorDimension,
             NodeConstraintProperties,
             NodeConstraintDuplicatePropertySet,
             RelationshipConstraintDuplicatePropertySet,

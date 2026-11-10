@@ -38,6 +38,7 @@ import org.neo4j.spec.graph.validate.node.constraint.NodeExistenceCompositeConfl
 import org.neo4j.spec.graph.validate.node.constraint.NodeExistenceConstraint
 import org.neo4j.spec.graph.validate.node.constraint.NodeKeyOverlap
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexProperties
+import org.neo4j.spec.graph.validate.relationship.RelationshipIndexVectorDimension
 import org.neo4j.spec.graph.validate.relationship.RelationshipMappingMissing
 import org.neo4j.spec.graph.validate.relationship.RelationshipNodes
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyDuplicateName
@@ -100,6 +101,7 @@ class UpxMigrationValidations {
             NodeIndexProperties,
             NodeIndexVectorDimension,
             RelationshipIndexProperties,
+            RelationshipIndexVectorDimension,
             NodeConstraintProperties,
             NodeConstraintDuplicatePropertySet,
             NodeExistenceCompositeConflict,
