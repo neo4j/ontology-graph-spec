@@ -56,6 +56,7 @@ import org.neo4j.spec.graph.validate.relationship.RelationshipIndexPropertyDupli
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexes
 import org.neo4j.spec.graph.validate.relationship.RelationshipMappingKey
 import org.neo4j.spec.graph.validate.relationship.RelationshipMappingKeyDuplicate
+import org.neo4j.spec.graph.validate.relationship.RelationshipMappingMissing
 import org.neo4j.spec.graph.validate.relationship.RelationshipNodes
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyAliasDuplicate
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyDuplicateName
@@ -152,6 +153,7 @@ class Validations {
         val mappable: List<Validation> = listOf(
             NodeMappingKey,
             NodeMappingMissing,
+            RelationshipMappingMissing,
             MappingDependencies,
             TableColumnEmptyName,
             TableColumnDuplicateName,
