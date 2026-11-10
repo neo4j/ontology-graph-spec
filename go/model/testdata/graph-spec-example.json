@@ -73,13 +73,11 @@
       "aliases": ["STARRED_IN"],
       "from": {
         "node": "Actor",
-        "label": "Actor",
-        "property": "id"
+        "label": "Actor"
       },
       "to": {
         "node": "Movie",
-        "label": "Movie",
-        "property": "id"
+        "label": "Movie"
       },
       "properties": {
         "roles": {
