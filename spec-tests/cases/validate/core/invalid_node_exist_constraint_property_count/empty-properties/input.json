@@ -1,0 +1,14 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "test",
+  "nodes": {
+    "person": {
+      "labels": { "identifier": "Person" },
+      "properties": { "name": { "type": "STRING" } },
+      "constraints": {
+        "name_exists": { "type": "EXISTS", "properties": [] }
+      }
+    }
+  }
+}

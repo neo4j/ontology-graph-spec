@@ -245,6 +245,7 @@ Construct counts by verdict:
 | `src/bridge` | Kotlin/Native bridge used by the Go library |
 | `go/` | Go library and generated Go types |
 | `ontology-graph-spec.schema.json` | JSON Schema for the format |
+| `spec-tests` | Language-neutral cases every library runs, with a runner per language |
 | `docs/` | Documentation |
 
 ## Contributing

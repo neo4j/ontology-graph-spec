@@ -1,0 +1,11 @@
+{
+  "name": "ogs-spec-tests-js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "@neo4j/ontology-graph-spec": "file:../../../build/dist/js/productionLibrary"
+  }
+}
