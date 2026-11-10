@@ -60,6 +60,7 @@ import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyAliasDupli
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyDuplicateName
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyEmptyName
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyPatternOneOf
+import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTargetCount
 import org.neo4j.spec.graph.validate.relationship.RelationshipType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTypeToken
@@ -153,7 +154,8 @@ class Validations {
             TableColumnEmptyName,
             TableColumnDuplicateName,
             TableColumnType,
-            NodePropertyUnsupportedLocalImportType
+            NodePropertyUnsupportedLocalImportType,
+            RelationshipPropertyUnsupportedLocalImportType
         )
 
         // Neo4j bulk import restrictions: labels and types don't contain invalid characters and node mapping keys and
