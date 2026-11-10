@@ -33,6 +33,7 @@ import org.neo4j.spec.graph.validate.node.NodeLabelToken
 import org.neo4j.spec.graph.validate.node.NodeMappingKey
 import org.neo4j.spec.graph.validate.node.NodeMappingKeyDuplicate
 import org.neo4j.spec.graph.validate.node.NodeMappingKeyType
+import org.neo4j.spec.graph.validate.node.NodeMappingMissing
 import org.neo4j.spec.graph.validate.node.NodeProperties
 import org.neo4j.spec.graph.validate.node.NodePropertyAliasDuplicate
 import org.neo4j.spec.graph.validate.node.NodePropertyDuplicateName
@@ -150,6 +151,7 @@ class Validations {
         @JvmStatic
         val mappable: List<Validation> = listOf(
             NodeMappingKey,
+            NodeMappingMissing,
             MappingDependencies,
             TableColumnEmptyName,
             TableColumnDuplicateName,
