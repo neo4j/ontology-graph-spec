@@ -41,6 +41,7 @@ import org.neo4j.spec.graph.validate.relationship.RelationshipMappingMissing
 import org.neo4j.spec.graph.validate.relationship.RelationshipNodes
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyDuplicateName
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyEmptyName
+import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyMappingMissing
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.relationship.RelationshipType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTypeToken
@@ -94,6 +95,7 @@ class UpxMigrationValidations {
             NodeMappingMissing,
             RelationshipMappingMissing,
             NodePropertyMappingMissing,
+            RelationshipPropertyMappingMissing,
             NodeIndexProperties,
             RelationshipIndexProperties,
             NodeConstraintProperties,
