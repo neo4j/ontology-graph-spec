@@ -43,7 +43,7 @@ class YamlWriter @JvmOverloads constructor(private val options: YamlPrintOptions
             is SchemaLiteral -> if (element.isString) {
                 builder.append(escapeAndQuoteString(element.string, options.alwaysQuoteStrings))
             } else {
-                builder.append(element.string)
+                builder.append(canonicalNumber(element.string))
             }
             is SchemaList -> {
                 if (element.isEmpty()) {
@@ -123,6 +123,11 @@ class YamlWriter @JvmOverloads constructor(private val options: YamlPrintOptions
             }
         }
     }
+
+    // Kotlin/JVM writes a whole Double as `33.0` and Kotlin/JS as `33`. Drop the `.0` so both write the same YAML.
+    private val wholeDouble = Regex("""-?\d+\.0""")
+
+    private fun canonicalNumber(value: String) = if (wholeDouble.matches(value)) value.dropLast(2) else value
 
     private fun needsQuotes(value: String) = value.isEmpty() ||
         value.trim() != value ||
