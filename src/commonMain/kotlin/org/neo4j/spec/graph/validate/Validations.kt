@@ -62,6 +62,7 @@ import org.neo4j.spec.graph.validate.relationship.RelationshipNodes
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyAliasDuplicate
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyDuplicateName
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyEmptyName
+import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyMappingMissing
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyPatternOneOf
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTargetCount
@@ -156,6 +157,7 @@ class Validations {
             NodeMappingMissing,
             RelationshipMappingMissing,
             NodePropertyMappingMissing,
+            RelationshipPropertyMappingMissing,
             MappingDependencies,
             TableColumnEmptyName,
             TableColumnDuplicateName,
