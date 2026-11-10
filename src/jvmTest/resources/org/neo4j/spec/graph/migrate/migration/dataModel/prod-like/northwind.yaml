@@ -24,7 +24,7 @@ nodes:
           name: "categories"
       display:
         x: -100.123
-        y: 200.0
+        y: 200
   "n:1":
     labels:
       identifier: "products"
