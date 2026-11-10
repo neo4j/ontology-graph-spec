@@ -38,6 +38,7 @@ import org.neo4j.spec.graph.validate.node.NodePropertyAliasDuplicate
 import org.neo4j.spec.graph.validate.node.NodePropertyDuplicateName
 import org.neo4j.spec.graph.validate.node.NodePropertyEmptyName
 import org.neo4j.spec.graph.validate.node.NodePropertyPatternOneOf
+import org.neo4j.spec.graph.validate.node.NodePropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.node.constraint.NodeCompositeConstraintPropertyType
 import org.neo4j.spec.graph.validate.node.constraint.NodeConstraintDuplicatePropertySet
 import org.neo4j.spec.graph.validate.node.constraint.NodeConstraintProperties
@@ -151,7 +152,8 @@ class Validations {
             MappingDependencies,
             TableColumnEmptyName,
             TableColumnDuplicateName,
-            TableColumnType
+            TableColumnType,
+            NodePropertyUnsupportedLocalImportType
         )
 
         // Neo4j bulk import restrictions: labels and types don't contain invalid characters and node mapping keys and
