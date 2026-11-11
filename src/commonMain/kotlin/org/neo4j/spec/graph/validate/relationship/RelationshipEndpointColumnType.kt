@@ -74,13 +74,18 @@ object RelationshipEndpointColumnType : RelationshipValidation {
         val node = model.nodes[nodeId] ?: return
         for ((propertyId, columnMapping) in target.properties) {
             val property = node.properties[propertyId] ?: continue
-            val nodeMapping = findNodeMappings(model, nodeId)
-                .firstOrNull { propertyId in it.mapping.properties } ?: continue
-            val nodeTable = model.extensions.dataSourceTables[nodeMapping.mapping.table] ?: continue
-            val nodeColumn = nodeTable.columns
-                .find { it.name == nodeMapping.mapping.properties[propertyId]?.column } ?: continue
+            if (property.type == Neo4jType.ANY) continue
             val column = table.columns.find { it.name == columnMapping.column } ?: continue
-            if (nodeColumn.supported.isEmpty() || column.supported.isEmpty()) continue
+            if (column.supported.isEmpty()) continue
+            val cloudSourced = findNodeMappings(model, nodeId)
+                .filter { propertyId in it.mapping.properties }
+                .any { nodeMapping ->
+                    val nodeTable = model.extensions.dataSourceTables[nodeMapping.mapping.table]
+                    nodeTable?.columns
+                        ?.find { it.name == nodeMapping.mapping.properties[propertyId]?.column }
+                        ?.supported?.isNotEmpty() == true
+                }
+            if (!cloudSourced) continue
             if (property.type !in column.supported) {
                 issues.add(
                     Issue(

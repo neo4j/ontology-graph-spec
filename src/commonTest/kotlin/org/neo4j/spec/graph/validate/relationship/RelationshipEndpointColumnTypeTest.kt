@@ -48,7 +48,8 @@ class RelationshipEndpointColumnTypeTest {
         nodeColumn: TableColumn,
         relSourceColumn: TableColumn?,
         relTargetColumn: TableColumn?,
-        nodePropertyMapped: Boolean = true
+        nodePropertyMapped: Boolean = true,
+        propertyType: Neo4jType = Neo4jType.STRING
     ): GraphModel {
         val relColumns = listOfNotNull(relSourceColumn, relTargetColumn).toMutableList()
         return GraphModel(
@@ -57,7 +58,7 @@ class RelationshipEndpointColumnTypeTest {
             nodes = mutableMapOf(
                 "node0" to Node(
                     labels = Labels(identifier = "Person"),
-                    properties = mutableMapOf("name" to Property(type = Neo4jType.STRING))
+                    properties = mutableMapOf("name" to Property(type = propertyType))
                 )
             ),
             relationships = mutableMapOf(
@@ -167,6 +168,88 @@ class RelationshipEndpointColumnTypeTest {
         )
 
         assertTrue(validate(model).isEmpty())
+    }
+
+    @Test
+    fun `fail even when a local mapping of the node comes first`() {
+        val model = GraphModel(
+            version = "1",
+            id = "test",
+            nodes = mutableMapOf(
+                "node0" to Node(
+                    labels = Labels(identifier = "Person"),
+                    properties = mutableMapOf("name" to Property(type = Neo4jType.STRING))
+                )
+            ),
+            relationships = mutableMapOf(
+                "rel0" to Relationship(
+                    type = "KNOWS",
+                    from = RelationshipTarget(node = "node0"),
+                    to = RelationshipTarget(node = "node0")
+                )
+            ),
+            extensions = GraphModelExtensions(
+                dataSourceTables = mutableMapOf(
+                    "local_nodes" to Table(source = "local", columns = mutableListOf(localColumn("name"))),
+                    "cloud_nodes" to Table(
+                        source = "cloud",
+                        columns = mutableListOf(cloudColumn("name", Neo4jType.STRING))
+                    ),
+                    "rels" to Table(
+                        source = "cloud",
+                        columns = mutableListOf(
+                            cloudColumn("src", Neo4jType.INTEGER),
+                            cloudColumn("dst", Neo4jType.STRING)
+                        )
+                    )
+                ),
+                dataSourceMappings = mutableMapOf(
+                    "mapping0" to mutableListOf(
+                        NodeMapping(
+                            node = "node0",
+                            table = "local_nodes",
+                            properties = mutableMapOf("name" to PropertyMapping("name")),
+                            key = mutableListOf("name")
+                        ),
+                        NodeMapping(
+                            node = "node0",
+                            table = "cloud_nodes",
+                            properties = mutableMapOf("name" to PropertyMapping("name")),
+                            key = mutableListOf("name")
+                        ),
+                        RelationshipMapping(
+                            relationship = "rel0",
+                            table = "rels",
+                            fromNode = TargetMapping(
+                                label = "Person",
+                                properties = mutableMapOf("name" to PropertyMapping("src"))
+                            ),
+                            toNode = TargetMapping(
+                                label = "Person",
+                                properties = mutableMapOf("name" to PropertyMapping("dst"))
+                            )
+                        )
+                    )
+                )
+            )
+        )
+
+        val issues = validate(model)
+
+        assertEquals(1, issues.size)
+        assertEquals("incompatible_relationship_endpoint_column_type", issues.first().code)
+    }
+
+    @Test
+    fun `pass when the key property type is unset`() {
+        val model = model(
+            cloudColumn("name", Neo4jType.STRING),
+            cloudColumn("src", Neo4jType.INTEGER),
+            cloudColumn("dst", Neo4jType.STRING),
+            propertyType = Neo4jType.ANY
+        )
+
+        assertTrue(validate(model).isEmpty(), "Expected no issues when the property type is unset")
     }
 
     @Test
