@@ -32,7 +32,7 @@ nodes:
       - "Human"
       - "Individual"
     reference: "https://schema.org/Person"
-  organisation:
+  org:
     labels:
       identifier: "Organisation"
       implied:

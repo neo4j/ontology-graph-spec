@@ -2,7 +2,7 @@ schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
 version: "2026.11-rc.1"
 id: "strings"
 name: "Strings"
-description: "Covers how strings are encoded and decoded in JSON and YAML: values that look like other scalars, special characters, escape sequences, empty, leading and trailing whitespace, non-ASCII text and multi-line text, plus ids that need quoting as keys. The alternatives write the same model with other YAML styles and with JSON escapes."
+description: "Covers how strings are encoded and decoded in JSON and YAML: values that look like other scalars, special characters, escape sequences, carriage returns, empty, leading and trailing whitespace, non-ASCII text and multi-line text, plus ids that need quoting as keys. The alternatives write the same model with other YAML styles and with JSON escapes."
 nodes:
   with space:
     labels:
@@ -10,7 +10,7 @@ nodes:
     properties:
       scalarLookalikes: { type: "STRING", one_of: ["true", "false", "null", "~", "yes", "no", "on", "off", "1", "1.0", "-5", "1e3", "0x1F", ".inf", "NaN"] }
       specialCharacters: { type: "STRING", one_of: ["key: value", "# not a comment", "- not a list item", "[brackets]", "{braces}", "a, b", "> folded", "| literal", "@at", "`backtick", "%percent", "*star", "&anchor", "!tag", "?question"] }
-      escapeSequences: { type: "STRING", one_of: ["back\\slash", "tab\tseparated", "line one\nline two", "'single'", "\"double\""] }
+      escapeSequences: { type: "STRING", one_of: ["back\\slash", "tab\tseparated", "line one\nline two", "'single'", "\"double\"", "carriage\rreturn"] }
       whitespace: { type: "STRING", one_of: ["", " leading space", "trailing space "] }
       unicode: { type: "STRING", one_of: ["accented é ñ ü", "CJK 日本語", "emoji 🎬"] }
       multiline: { type: "STRING", description: "First line.\nSecond line: with a colon.\n\n  Indented after a blank line." }

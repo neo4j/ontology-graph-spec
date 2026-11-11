@@ -3,7 +3,7 @@
     "version": "1",
     "id": "constraints",
     "name": "Constraints",
-    "description": "Covers every constraint type on nodes and relationships: single and composite properties, generated and custom names, constraints without a name and constraint custom data. Shorthand flags sit alongside longhand constraints, including key on a relationship property and a flag on a property whose database name differs from its id.",
+    "description": "Covers every constraint type on nodes and relationships: single and composite properties, generated and custom names, constraints without a name and constraint custom data. Shorthand flags sit alongside longhand constraints, including key on a relationship property, two flags on one property and a flag on a property whose database name differs from its id.",
     "nodes": {
         "person": {
             "labels": {
@@ -18,7 +18,7 @@
                 },
                 "emailAddress": {
                     "type": "STRING",
-                    "name": "email_address"
+                    "name": "email_addr"
                 },
                 "age": {
                     "type": "INTEGER"
@@ -30,6 +30,9 @@
                     "type": "STRING"
                 },
                 "lastName": {
+                    "type": "STRING"
+                },
+                "code": {
                     "type": "STRING"
                 }
             },
@@ -81,12 +84,26 @@
                     ],
                     "name": "name_Person_exists"
                 },
-                "unique_person_email_address": {
+                "unique_person_email_addr": {
                     "type": "UNIQUE",
                     "properties": [
                         "emailAddress"
                     ],
-                    "name": "email__address_Person_uniq"
+                    "name": "email__addr_Person_uniq"
+                },
+                "unique_person_code": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "code"
+                    ],
+                    "name": "code_Person_uniq"
+                },
+                "exists_person_code": {
+                    "type": "EXISTS",
+                    "properties": [
+                        "code"
+                    ],
+                    "name": "code_Person_exists"
                 }
             }
         }

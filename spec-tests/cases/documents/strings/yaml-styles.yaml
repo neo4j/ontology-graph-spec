@@ -7,8 +7,9 @@ schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json" # quoted,
 name: Strings
 description: >-
   Covers how strings are encoded and decoded in JSON and YAML: values that look like other scalars, special
-  characters, escape sequences, empty, leading and trailing whitespace, non-ASCII text and multi-line text, plus ids
-  that need quoting as keys. The alternatives write the same model with other YAML styles and with JSON escapes.
+  characters, escape sequences, carriage returns, empty, leading and trailing whitespace, non-ASCII text and
+  multi-line text, plus ids that need quoting as keys. The alternatives write the same model with other YAML styles
+  and with JSON escapes.
 nodes:
   with space:
     properties:
@@ -41,6 +42,7 @@ nodes:
           - "line one\nline two"
           - '''single'''           # a quote doubled inside single quotes
           - '"double"'
+          - "carriage\rreturn"
       whitespace: { type: STRING, one_of: ['', ' leading space', 'trailing space '] }
       unicode:
         type: STRING

@@ -2,7 +2,7 @@ schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
 version: "1"
 id: nulls-and-empties
 name: Nulls and empties
-description: "Covers fields set to null and empty maps and lists, which mean the same as leaving the field out. The alternative form sets every field the schema allows to be null, and an empty value for each map and list."
+description: "Covers fields set to null, empty maps and lists, and default values, which mean the same as leaving the field out. The alternative form sets every field the schema allows to be null, an empty value for each map and list, and the default property type, mapping mode and mapping dependency. Required maps, such as the ends of a relationship mapping, stay as empty maps."
 nodes:
   person:
     label: null
@@ -27,6 +27,9 @@ nodes:
       embedding:
         type: "VECTOR<FLOAT32>"
         dimension: null
+        extensions: {}
+      notes:
+        type: ANY
     constraints:
       person-name-exists:
         type: EXISTS
@@ -64,6 +67,7 @@ nodes:
     label: null
     labels:
       identifier: null
+      extensions: {}
     properties: {}
     constraints: {}
     extensions:
@@ -104,6 +108,16 @@ relationships:
           custom: {}
       custom: {}
     aliases: []
+  follows:
+    type: FOLLOWS
+    from: { node: person }
+    to: { node: person }
+    properties: {}
+    constraints: {}
+    extensions:
+      indexes: {}
+      custom: {}
+    aliases: []
 extensions:
   data_source_tables:
     people:
@@ -116,6 +130,15 @@ extensions:
       primary_keys: []
       foreign_keys: {}
       custom: {}
+    friendships:
+      source: local
+      columns: []
+      foreign_keys:
+        friendships-people:
+          columns: [name]
+          references:
+            table: people
+            columns: []
   data_source_mappings:
     load:
       - type: NODE
@@ -123,8 +146,10 @@ extensions:
         table: people
         properties:
           name: { column: name }
+        mode: MERGE
         match_label: null
         key: []
+        depends_on: ""
       - type: RELATIONSHIP
         relationship: knows
         table: people
@@ -134,5 +159,7 @@ extensions:
           properties: {}
         match_label: null
         properties: {}
+        mode: MERGE
         key: []
+        depends_on: ""
   custom: {}

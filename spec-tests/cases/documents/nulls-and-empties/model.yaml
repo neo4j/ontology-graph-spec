@@ -2,7 +2,7 @@ schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
 version: "1"
 id: "nulls-and-empties"
 name: "Nulls and empties"
-description: "Covers fields set to null and empty maps and lists, which mean the same as leaving the field out. The alternative form sets every field the schema allows to be null, and an empty value for each map and list."
+description: "Covers fields set to null, empty maps and lists, and default values, which mean the same as leaving the field out. The alternative form sets every field the schema allows to be null, an empty value for each map and list, and the default property type, mapping mode and mapping dependency. Required maps, such as the ends of a relationship mapping, stay as empty maps."
 nodes:
   person:
     labels:
@@ -10,6 +10,7 @@ nodes:
     properties:
       name: { type: "STRING" }
       embedding: { type: "VECTOR<FLOAT32>" }
+      notes: {}
     constraints:
       "person-name-exists":
         type: "EXISTS"
@@ -49,12 +50,23 @@ relationships:
         "knows-since-range":
           type: "RANGE"
           properties: ["since"]
+  follows:
+    type: "FOLLOWS"
+    from: { node: "person" }
+    to: { node: "person" }
 extensions:
   data_source_tables:
     people:
       source: "local"
       columns:
         - name: "name"
+    friendships:
+      source: "local"
+      foreign_keys:
+        "friendships-people":
+          columns: ["name"]
+          references:
+            table: "people"
   data_source_mappings:
     load:
       - type: "NODE"

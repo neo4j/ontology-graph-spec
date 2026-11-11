@@ -27,7 +27,7 @@ nodes:
     description: A human being, whether or not they work for an organisation.
     aliases: [Human, Individual]
     reference: "https://schema.org/Person"
-  organisation:
+  org:
     label: Organisation
     labels:
       implied: [Agent, LegalEntity]

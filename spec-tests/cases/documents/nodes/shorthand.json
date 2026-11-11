@@ -47,7 +47,7 @@
       ],
       "reference": "https://schema.org/Person"
     },
-    "organisation": {
+    "org": {
       "label": "Organisation",
       "labels": {
         "implied": [

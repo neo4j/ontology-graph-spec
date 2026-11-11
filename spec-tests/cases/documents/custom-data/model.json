@@ -3,7 +3,7 @@
     "version": "1",
     "id": "custom-data",
     "name": "Custom Data",
-    "description": "Covers custom data on every object that allows it, holding strings, booleans, positive, negative, large and fractional numbers, empty and nested maps, and lists of mixed values.",
+    "description": "Covers custom data on every object that allows it, holding strings, strings that look like other scalars, booleans, positive, negative, large and fractional numbers, empty and nested maps, lists of mixed values and an empty key.",
     "nodes": {
         "thing": {
             "labels": {
@@ -101,7 +101,10 @@
                                     "level3": "bottom"
                                 }
                             }
-                        }
+                        },
+                        "numeric_string": "42",
+                        "boolean_string": "true",
+                        "": "empty key"
                     }
                 }
             }
