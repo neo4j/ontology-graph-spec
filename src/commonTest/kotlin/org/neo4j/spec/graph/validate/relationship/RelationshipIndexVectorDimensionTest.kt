@@ -68,6 +68,41 @@ class RelationshipIndexVectorDimensionTest {
     }
 
     @Test
+    fun `pass when vector index covers several properties`() {
+        val index = RelationshipIndex(
+            type = IndexType.VECTOR,
+            properties = mutableListOf("embedding", "other")
+        )
+
+        assertTrue(validate(relationship(Property(type = Neo4jType.VECTOR_FLOAT, dimension = 5)), index).isEmpty())
+    }
+
+    @Test
+    fun `pass when the indexed property is not a vector`() {
+        val index = vectorIndex(null)
+
+        assertTrue(validate(relationship(Property(type = Neo4jType.STRING)), index).isEmpty())
+    }
+
+    @Test
+    fun `pass when the vector property has no dimension`() {
+        val index = vectorIndex(null)
+
+        assertTrue(validate(relationship(Property(type = Neo4jType.VECTOR_FLOAT)), index).isEmpty())
+    }
+
+    @Test
+    fun `fail when the index has no options`() {
+        val issues = validate(
+            relationship(Property(type = Neo4jType.VECTOR_FLOAT, dimension = 5)),
+            vectorIndex(null)
+        )
+
+        assertEquals(1, issues.size)
+        assertEquals("missing_vector_index_dimension", issues.first().code)
+    }
+
+    @Test
     fun `fail when the index options have no dimensions`() {
         val issues = validate(
             relationship(Property(type = Neo4jType.VECTOR_FLOAT, dimension = 5)),
