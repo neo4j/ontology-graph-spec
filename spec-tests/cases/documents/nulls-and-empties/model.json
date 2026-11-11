@@ -1,0 +1,132 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1",
+    "id": "nulls-and-empties",
+    "name": "Nulls and empties",
+    "description": "Covers fields set to null and empty maps and lists, which mean the same as leaving the field out. The alternative form sets every field the schema allows to be null, and an empty value for each map and list.",
+    "nodes": {
+        "person": {
+            "labels": {
+                "identifier": "Person"
+            },
+            "properties": {
+                "name": {
+                    "type": "STRING"
+                },
+                "embedding": {
+                    "type": "VECTOR<FLOAT32>"
+                }
+            },
+            "constraints": {
+                "person-name-exists": {
+                    "type": "EXISTS",
+                    "properties": [
+                        "name"
+                    ]
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "person-name-fulltext": {
+                        "type": "FULLTEXT",
+                        "labels": [
+                            "Person"
+                        ],
+                        "properties": [
+                            "name"
+                        ],
+                        "options": {
+                            "type": "FULLTEXT"
+                        }
+                    },
+                    "person-embedding-vector": {
+                        "type": "VECTOR",
+                        "labels": [
+                            "Person"
+                        ],
+                        "properties": [
+                            "embedding"
+                        ],
+                        "options": {
+                            "type": "VECTOR"
+                        }
+                    }
+                },
+                "display": {
+                    "x": 1.0,
+                    "y": 2.0
+                }
+            }
+        },
+        "untagged": {
+            "description": "A node with no labels."
+        }
+    },
+    "relationships": {
+        "knows": {
+            "type": "KNOWS",
+            "from": {
+                "node": "person"
+            },
+            "to": {
+                "node": "person"
+            },
+            "properties": {
+                "since": {
+                    "type": "DATE"
+                }
+            },
+            "constraints": {
+                "knows-since-exists": {
+                    "type": "EXISTS",
+                    "properties": [
+                        "since"
+                    ]
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "knows-since-range": {
+                        "type": "RANGE",
+                        "properties": [
+                            "since"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "extensions": {
+        "data_source_tables": {
+            "people": {
+                "source": "local",
+                "columns": [
+                    {
+                        "name": "name"
+                    }
+                ]
+            }
+        },
+        "data_source_mappings": {
+            "load": [
+                {
+                    "type": "NODE",
+                    "node": "person",
+                    "table": "people",
+                    "properties": {
+                        "name": {
+                            "column": "name"
+                        }
+                    }
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "knows",
+                    "table": "people",
+                    "from_node": {},
+                    "to_node": {}
+                }
+            ]
+        }
+    }
+}

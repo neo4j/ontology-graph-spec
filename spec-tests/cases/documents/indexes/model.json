@@ -1,0 +1,259 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1",
+    "id": "indexes",
+    "name": "Indexes",
+    "description": "Covers every index type on nodes and relationships: single and composite properties, several labels, names, index custom data, indexes with no options, every option of the full-text, point and vector types on a node, and options on relationship indexes, including whole and fractional numbers.",
+    "nodes": {
+        "place": {
+            "labels": {
+                "identifier": "Place",
+                "optional": [
+                    "Landmark"
+                ]
+            },
+            "properties": {
+                "name": {
+                    "type": "STRING"
+                },
+                "bio": {
+                    "type": "STRING"
+                },
+                "population": {
+                    "type": "INTEGER"
+                },
+                "location": {
+                    "type": "POINT"
+                },
+                "embedding": {
+                    "type": "VECTOR<FLOAT32>",
+                    "dimension": 4
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "place-population-name-range": {
+                        "type": "RANGE",
+                        "labels": [
+                            "Place"
+                        ],
+                        "properties": [
+                            "population",
+                            "name"
+                        ],
+                        "custom": {
+                            "reason": "lookup-by-size-and-name"
+                        },
+                        "name": "place_population_name_range"
+                    },
+                    "place-bio-text": {
+                        "type": "TEXT",
+                        "labels": [
+                            "Place"
+                        ],
+                        "properties": [
+                            "bio"
+                        ]
+                    },
+                    "place-search-fulltext": {
+                        "type": "FULLTEXT",
+                        "labels": [
+                            "Place",
+                            "Landmark"
+                        ],
+                        "properties": [
+                            "name",
+                            "bio"
+                        ],
+                        "options": {
+                            "type": "FULLTEXT",
+                            "fulltext.default_analyzer": "english",
+                            "fulltext.analyzer": "whitespace",
+                            "fulltext.eventually_consistent": true,
+                            "fulltext.eventually_consistent_apply_parallelism": 2,
+                            "fulltext.eventually_consistent_refresh_interval": "5s",
+                            "fulltext.eventually_consistent_refresh_parallelism": 4,
+                            "fulltext.eventually_consistent_index_update_queue_max_length": 50000
+                        },
+                        "name": "place_search"
+                    },
+                    "place-location-point": {
+                        "type": "POINT",
+                        "labels": [
+                            "Place"
+                        ],
+                        "properties": [
+                            "location"
+                        ],
+                        "options": {
+                            "type": "POINT",
+                            "spatial.cartesian.min": [
+                                0.0,
+                                0.0
+                            ],
+                            "spatial.cartesian.max": [
+                                5000.5,
+                                2500.0
+                            ],
+                            "spatial.cartesian-3d.min": [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "spatial.cartesian-3d.max": [
+                                5000.5,
+                                2500.0,
+                                100.25
+                            ],
+                            "spatial.wgs-84.min": [
+                                0.0,
+                                40.5
+                            ],
+                            "spatial.wgs-84.max": [
+                                10.0,
+                                60.0
+                            ],
+                            "spatial.wgs-84-3d.min": [
+                                0.0,
+                                40.5,
+                                0.0
+                            ],
+                            "spatial.wgs-84-3d.max": [
+                                10.0,
+                                60.0,
+                                4807.8
+                            ]
+                        },
+                        "name": "place_location"
+                    },
+                    "place-embedding-vector": {
+                        "type": "VECTOR",
+                        "labels": [
+                            "Place"
+                        ],
+                        "properties": [
+                            "embedding"
+                        ],
+                        "options": {
+                            "type": "VECTOR",
+                            "vector.dimensions": 4,
+                            "vector.similarity_function": "euclidean",
+                            "vector.default_search_expansion_factor": 1.5,
+                            "vector.quantization.enabled": false,
+                            "vector.quantization.type": "int8",
+                            "vector.hnsw.m": 32,
+                            "vector.hnsw.ef_construction": 200
+                        },
+                        "name": "place_embedding"
+                    },
+                    "place-lookup": {
+                        "type": "LOOKUP",
+                        "labels": [],
+                        "properties": [],
+                        "name": "node_label_lookup"
+                    }
+                }
+            }
+        }
+    },
+    "relationships": {
+        "visited": {
+            "type": "VISITED",
+            "from": {
+                "label": "Person"
+            },
+            "to": {
+                "node": "place"
+            },
+            "properties": {
+                "notes": {
+                    "type": "STRING"
+                },
+                "review": {
+                    "type": "STRING"
+                },
+                "rating": {
+                    "type": "FLOAT"
+                },
+                "on": {
+                    "type": "DATE"
+                },
+                "checkIn": {
+                    "type": "POINT"
+                },
+                "embedding": {
+                    "type": "VECTOR<FLOAT>",
+                    "dimension": 3
+                }
+            },
+            "extensions": {
+                "indexes": {
+                    "visited-rating-on-range": {
+                        "type": "RANGE",
+                        "properties": [
+                            "rating",
+                            "on"
+                        ],
+                        "custom": {
+                            "reason": "timeline-queries"
+                        },
+                        "name": "visited_rating_on_range"
+                    },
+                    "visited-notes-text": {
+                        "type": "TEXT",
+                        "properties": [
+                            "notes"
+                        ]
+                    },
+                    "visited-search-fulltext": {
+                        "type": "FULLTEXT",
+                        "properties": [
+                            "notes",
+                            "review"
+                        ],
+                        "options": {
+                            "type": "FULLTEXT",
+                            "fulltext.analyzer": "keyword",
+                            "fulltext.eventually_consistent": true
+                        },
+                        "name": "visited_search"
+                    },
+                    "visited-check-in-point": {
+                        "type": "POINT",
+                        "properties": [
+                            "checkIn"
+                        ],
+                        "options": {
+                            "type": "POINT",
+                            "spatial.wgs-84.min": [
+                                0.0,
+                                40.0
+                            ],
+                            "spatial.wgs-84.max": [
+                                10.0,
+                                60.0
+                            ]
+                        }
+                    },
+                    "visited-embedding-vector": {
+                        "type": "VECTOR",
+                        "properties": [
+                            "embedding"
+                        ],
+                        "options": {
+                            "type": "VECTOR",
+                            "vector.dimensions": 3,
+                            "vector.similarity_function": "euclidean",
+                            "vector.default_search_expansion_factor": 2.0
+                        }
+                    },
+                    "visited-lookup": {
+                        "type": "LOOKUP",
+                        "properties": [],
+                        "name": "relationship_type_lookup"
+                    }
+                }
+            }
+        }
+    }
+}

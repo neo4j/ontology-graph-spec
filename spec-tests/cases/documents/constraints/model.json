@@ -1,0 +1,181 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1",
+    "id": "constraints",
+    "name": "Constraints",
+    "description": "Covers every constraint type on nodes and relationships: single and composite properties, generated and custom names, constraints without a name and constraint custom data. Shorthand flags sit alongside longhand constraints, including key on a relationship property and a flag on a property whose database name differs from its id.",
+    "nodes": {
+        "person": {
+            "labels": {
+                "identifier": "Person"
+            },
+            "properties": {
+                "id": {
+                    "type": "STRING"
+                },
+                "name": {
+                    "type": "STRING"
+                },
+                "emailAddress": {
+                    "type": "STRING",
+                    "name": "email_address"
+                },
+                "age": {
+                    "type": "INTEGER"
+                },
+                "nationalId": {
+                    "type": "STRING"
+                },
+                "firstName": {
+                    "type": "STRING"
+                },
+                "lastName": {
+                    "type": "STRING"
+                }
+            },
+            "constraints": {
+                "person-age-type": {
+                    "type": "PROPERTY_TYPE",
+                    "properties": [
+                        "age"
+                    ],
+                    "name": "person_age_type"
+                },
+                "person-national-id-unique": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "nationalId"
+                    ]
+                },
+                "person-full-name-key": {
+                    "type": "KEY",
+                    "properties": [
+                        "firstName",
+                        "lastName"
+                    ],
+                    "name": "person_full_name_key"
+                },
+                "person-last-name-exists": {
+                    "type": "EXISTS",
+                    "properties": [
+                        "lastName"
+                    ],
+                    "extensions": {
+                        "custom": {
+                            "audit": "required-by-compliance"
+                        }
+                    },
+                    "name": "person_last_name_exists"
+                },
+                "key_person_id": {
+                    "type": "KEY",
+                    "properties": [
+                        "id"
+                    ],
+                    "name": "id_Person_key"
+                },
+                "exists_person_name": {
+                    "type": "EXISTS",
+                    "properties": [
+                        "name"
+                    ],
+                    "name": "name_Person_exists"
+                },
+                "unique_person_email_address": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "emailAddress"
+                    ],
+                    "name": "email__address_Person_uniq"
+                }
+            }
+        }
+    },
+    "relationships": {
+        "knows": {
+            "type": "KNOWS",
+            "from": {
+                "node": "person"
+            },
+            "to": {
+                "node": "person"
+            },
+            "properties": {
+                "ref": {
+                    "type": "STRING"
+                },
+                "since": {
+                    "type": "DATE"
+                },
+                "channel": {
+                    "type": "STRING"
+                },
+                "weight": {
+                    "type": "FLOAT"
+                },
+                "source": {
+                    "type": "STRING"
+                },
+                "context": {
+                    "type": "STRING"
+                }
+            },
+            "constraints": {
+                "knows-weight-type": {
+                    "type": "PROPERTY_TYPE",
+                    "properties": [
+                        "weight"
+                    ],
+                    "name": "knows_weight_type"
+                },
+                "knows-channel-context-unique": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "channel",
+                        "context"
+                    ]
+                },
+                "knows-source-exists": {
+                    "type": "EXISTS",
+                    "properties": [
+                        "source"
+                    ],
+                    "extensions": {
+                        "custom": {
+                            "audit": "required-by-compliance"
+                        }
+                    }
+                },
+                "knows-source-context-key": {
+                    "type": "KEY",
+                    "properties": [
+                        "source",
+                        "context"
+                    ],
+                    "name": "knows_source_context_key"
+                },
+                "key_knows_ref": {
+                    "type": "KEY",
+                    "properties": [
+                        "ref"
+                    ],
+                    "name": "ref_KNOWS_key"
+                },
+                "exists_knows_since": {
+                    "type": "EXISTS",
+                    "properties": [
+                        "since"
+                    ],
+                    "name": "since_KNOWS_exists"
+                },
+                "unique_knows_channel": {
+                    "type": "UNIQUE",
+                    "properties": [
+                        "channel"
+                    ],
+                    "name": "channel_KNOWS_uniq"
+                }
+            }
+        }
+    }
+}

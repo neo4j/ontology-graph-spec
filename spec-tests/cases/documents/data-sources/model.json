@@ -1,0 +1,291 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1",
+    "id": "data-sources",
+    "name": "Data Sources",
+    "description": "Covers data source tables and mappings: every column field, primary keys, foreign keys with and without referenced columns, table custom data, node, relationship and query mappings, create mode, match labels, mapping keys, mapping ids with dependencies between them, and several mapping sets.",
+    "nodes": {
+        "customer": {
+            "labels": {
+                "identifier": "Customer"
+            },
+            "properties": {
+                "id": {
+                    "type": "STRING"
+                },
+                "name": {
+                    "type": "STRING"
+                },
+                "embedding": {
+                    "type": "VECTOR<FLOAT32>",
+                    "dimension": 3
+                }
+            }
+        },
+        "order": {
+            "labels": {
+                "identifier": "Order"
+            },
+            "properties": {
+                "id": {
+                    "type": "STRING"
+                },
+                "placedAt": {
+                    "type": "ZONED DATETIME"
+                }
+            }
+        }
+    },
+    "relationships": {
+        "placed": {
+            "type": "PLACED",
+            "from": {
+                "node": "customer"
+            },
+            "to": {
+                "node": "order"
+            },
+            "properties": {
+                "channel": {
+                    "type": "STRING"
+                },
+                "reference": {
+                    "type": "STRING"
+                }
+            }
+        }
+    },
+    "extensions": {
+        "data_source_tables": {
+            "customers": {
+                "source": "sql/postgres",
+                "columns": [
+                    {
+                        "name": "customer_id",
+                        "type": "varchar",
+                        "size": 36,
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING",
+                            "UUID"
+                        ],
+                        "nullable": false,
+                        "custom": {
+                            "comment": "primary key"
+                        }
+                    },
+                    {
+                        "name": "full_name",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "embedding",
+                        "type": "vector",
+                        "suggested": "VECTOR<FLOAT32>",
+                        "supported": [
+                            "VECTOR<FLOAT32>",
+                            "VECTOR<FLOAT>"
+                        ],
+                        "dimension": 3
+                    }
+                ],
+                "primary_keys": [
+                    "customer_id"
+                ],
+                "custom": {
+                    "schema": "sales"
+                }
+            },
+            "orders": {
+                "source": "sql/postgres",
+                "columns": [
+                    {
+                        "name": "order_id",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "customer_id",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "placed_at",
+                        "type": "timestamptz"
+                    },
+                    {
+                        "name": "channel",
+                        "type": "varchar"
+                    },
+                    {
+                        "name": "reference",
+                        "type": "varchar"
+                    }
+                ],
+                "primary_keys": [
+                    "order_id"
+                ],
+                "foreign_keys": {
+                    "orders-customer": {
+                        "columns": [
+                            "customer_id"
+                        ],
+                        "references": {
+                            "table": "customers",
+                            "columns": [
+                                "customer_id"
+                            ],
+                            "custom": {
+                                "on_delete": "cascade"
+                            }
+                        },
+                        "custom": {
+                            "enforced": true
+                        }
+                    }
+                }
+            },
+            "order-events.csv": {
+                "source": "local",
+                "columns": [
+                    {
+                        "name": "order_id"
+                    },
+                    {
+                        "name": "event"
+                    }
+                ],
+                "foreign_keys": {
+                    "order-events-order": {
+                        "columns": [
+                            "order_id"
+                        ],
+                        "references": {
+                            "table": "orders"
+                        }
+                    }
+                }
+            }
+        },
+        "data_source_mappings": {
+            "initial-load": [
+                {
+                    "type": "NODE",
+                    "node": "customer",
+                    "table": "customers",
+                    "properties": {
+                        "id": {
+                            "column": "customer_id"
+                        },
+                        "name": {
+                            "column": "full_name"
+                        },
+                        "embedding": {
+                            "column": "embedding"
+                        }
+                    },
+                    "mode": "CREATE",
+                    "match_label": "Customer",
+                    "key": [
+                        "id"
+                    ],
+                    "id": "customers"
+                },
+                {
+                    "type": "NODE",
+                    "node": "order",
+                    "table": "orders",
+                    "properties": {
+                        "id": {
+                            "column": "order_id"
+                        },
+                        "placedAt": {
+                            "column": "placed_at"
+                        }
+                    },
+                    "mode": "CREATE",
+                    "key": [
+                        "id"
+                    ],
+                    "depends_on": "customers",
+                    "id": "orders"
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "placed",
+                    "table": "orders",
+                    "from_node": {
+                        "label": "Customer",
+                        "properties": {
+                            "id": {
+                                "column": "customer_id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "label": "Order",
+                        "properties": {
+                            "id": {
+                                "column": "order_id"
+                            }
+                        }
+                    },
+                    "match_label": "PLACED",
+                    "properties": {
+                        "channel": {
+                            "column": "channel"
+                        },
+                        "reference": {
+                            "column": "reference"
+                        }
+                    },
+                    "mode": "CREATE",
+                    "key": [
+                        "reference"
+                    ],
+                    "depends_on": "orders",
+                    "id": "placed"
+                },
+                {
+                    "type": "QUERY",
+                    "table": "order-events.csv",
+                    "query": "MATCH (o:Order {id: row.order_id}) SET o.lastEvent = row.event",
+                    "depends_on": "placed",
+                    "id": "order-events"
+                }
+            ],
+            "incremental": [
+                {
+                    "type": "NODE",
+                    "node": "customer",
+                    "table": "customers",
+                    "properties": {
+                        "id": {
+                            "column": "customer_id"
+                        }
+                    },
+                    "key": [
+                        "id"
+                    ]
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "placed",
+                    "table": "orders",
+                    "from_node": {
+                        "properties": {
+                            "id": {
+                                "column": "customer_id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "id": {
+                                "column": "order_id"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

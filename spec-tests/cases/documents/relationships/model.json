@@ -1,0 +1,134 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1",
+    "id": "relationships",
+    "name": "Relationships",
+    "description": "Covers relationships and their ends: ends with a node and label, a node only, a label only or neither, exact, minimum and maximum counts, a self relationship, the same type between different pairs of nodes, descriptions, aliases, references, relationship custom data, and relationship properties with patterns, one_of values and references.",
+    "nodes": {
+        "person": {
+            "labels": {
+                "identifier": "Person"
+            }
+        },
+        "movie": {
+            "labels": {
+                "identifier": "Movie"
+            }
+        },
+        "company": {
+            "labels": {
+                "identifier": "Company"
+            }
+        },
+        "studio": {
+            "labels": {
+                "identifier": "Studio"
+            }
+        }
+    },
+    "relationships": {
+        "acted-in": {
+            "type": "ACTED_IN",
+            "from": {
+                "node": "person",
+                "label": "Person",
+                "min_count": 0
+            },
+            "to": {
+                "node": "movie",
+                "label": "Movie",
+                "min_count": 1,
+                "max_count": 250
+            },
+            "properties": {
+                "role": {
+                    "type": "STRING",
+                    "description": "The character played.",
+                    "aliases": [
+                        "character"
+                    ],
+                    "reference": "https://schema.org/roleName"
+                },
+                "billing": {
+                    "type": "STRING",
+                    "one_of": [
+                        "LEAD",
+                        "SUPPORTING",
+                        "CAMEO"
+                    ]
+                },
+                "creditCode": {
+                    "type": "STRING",
+                    "pattern": "^[A-Z]{2}-[0-9]{4}$"
+                },
+                "screenTime": {
+                    "type": "DURATION",
+                    "name": "screen_time"
+                }
+            },
+            "extensions": {
+                "custom": {
+                    "source": "credits-feed"
+                }
+            },
+            "description": "The person appeared in the movie as a cast member.",
+            "aliases": [
+                "STARRED_IN",
+                "APPEARED_IN"
+            ],
+            "reference": "https://schema.org/actor"
+        },
+        "directed": {
+            "type": "DIRECTED",
+            "from": {
+                "node": "person"
+            },
+            "to": {
+                "node": "movie",
+                "count": 1
+            }
+        },
+        "knows": {
+            "type": "KNOWS",
+            "from": {
+                "node": "person",
+                "max_count": 5000
+            },
+            "to": {
+                "node": "person"
+            }
+        },
+        "works-for-company": {
+            "type": "WORKS_FOR",
+            "from": {
+                "node": "person"
+            },
+            "to": {
+                "node": "company"
+            }
+        },
+        "works-for-studio": {
+            "type": "WORKS_FOR",
+            "from": {
+                "node": "person"
+            },
+            "to": {
+                "node": "studio"
+            }
+        },
+        "tagged": {
+            "type": "TAGGED",
+            "from": {
+                "label": "Taggable"
+            },
+            "to": {
+                "label": "Tag"
+            }
+        },
+        "related-to": {
+            "type": "RELATED_TO",
+            "from": {},
+            "to": {}
+        }
+    }
+}

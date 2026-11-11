@@ -1,0 +1,115 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "2026.11-rc.1",
+    "id": "yaml-text",
+    "name": "YAML: text that needs quoting",
+    "description": "Covers text YAML must quote or escape: values that look like booleans, null, numbers or YAML syntax, leading and trailing spaces, empty strings, backslashes, tabs, new lines and non-ASCII text, plus ids that need quoting as keys.",
+    "nodes": {
+        "with space": {
+            "labels": {
+                "identifier": "With Space"
+            },
+            "properties": {
+                "tricky": {
+                    "type": "STRING",
+                    "one_of": [
+                        "true",
+                        "false",
+                        "null",
+                        "~",
+                        "yes",
+                        "no",
+                        "on",
+                        "off",
+                        "1",
+                        "1.0",
+                        "-5",
+                        "1e3",
+                        "0x1F",
+                        ".inf",
+                        "NaN",
+                        "key: value",
+                        "# not a comment",
+                        "- not a list item",
+                        "[brackets]",
+                        "{braces}",
+                        "a, b",
+                        "> folded",
+                        "| literal",
+                        "@at",
+                        "`backtick",
+                        "%percent",
+                        "*star",
+                        "&anchor",
+                        "!tag",
+                        "?question",
+                        "'single'",
+                        "\"double\"",
+                        " leading space",
+                        "trailing space ",
+                        "",
+                        "back\\slash",
+                        "tab\tseparated",
+                        "line one\nline two",
+                        "naïve café — em dash",
+                        "日本語",
+                        "emoji 🎬"
+                    ]
+                },
+                "multiline": {
+                    "type": "STRING",
+                    "description": "First line.\nSecond line: with a colon.\n\n  Indented after a blank line."
+                },
+                "quotes": {
+                    "type": "STRING",
+                    "description": "Says \"hello\" and 'goodbye' with a back\\slash."
+                },
+                "unicode": {
+                    "type": "STRING",
+                    "description": "Ünïcödé — 日本語 — 🎬",
+                    "aliases": [
+                        "名前",
+                        "naïve"
+                    ]
+                },
+                "dotted.id": {
+                    "type": "STRING"
+                },
+                "colon:id": {
+                    "type": "STRING"
+                },
+                "hash#id": {
+                    "type": "STRING"
+                },
+                "-dash": {
+                    "type": "STRING"
+                }
+            }
+        },
+        "123": {
+            "labels": {
+                "identifier": "Numeric"
+            }
+        },
+        "true": {
+            "labels": {
+                "identifier": "Boolean"
+            }
+        },
+        "null": {
+            "labels": {
+                "identifier": "Null"
+            }
+        },
+        "1.5": {
+            "labels": {
+                "identifier": "Decimal"
+            }
+        },
+        "yes": {
+            "labels": {
+                "identifier": "Yes"
+            }
+        }
+    }
+}
