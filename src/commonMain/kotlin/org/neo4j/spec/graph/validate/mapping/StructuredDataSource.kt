@@ -18,11 +18,12 @@ package org.neo4j.spec.graph.validate.mapping
 
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.mapping.NodeMapping
+import org.neo4j.spec.graph.model.extension.mapping.QueryMapping
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 
-// source type. graph-spec has no data source type: a model counts as structured when it has data source
-// tables or node/relationship mappings. Query-only models count as unstructured.
-internal fun GraphModel.hasStructuredDataSource(): Boolean = extensions.dataSourceTables.isNotEmpty() ||
-    extensions.dataSourceMappings.values.any { mappings ->
-        mappings.any { it is NodeMapping || it is RelationshipMapping }
-    }
+internal fun GraphModel.hasStructuredDataSource(): Boolean {
+    val mappings = extensions.dataSourceMappings.values.flatten()
+    if (mappings.any { it is NodeMapping || it is RelationshipMapping }) return true
+    if (mappings.any { it is QueryMapping }) return false
+    return extensions.dataSourceTables.isNotEmpty()
+}
