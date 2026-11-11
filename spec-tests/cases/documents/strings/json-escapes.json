@@ -3,7 +3,7 @@
   "version": "2026.11-rc.1",
   "id": "strings",
   "name": "Strings",
-  "description": "Covers how strings are encoded and decoded in JSON and YAML: values that look like other scalars, special characters, escape sequences, carriage returns, empty, leading and trailing whitespace, non-ASCII text and multi-line text, plus ids that need quoting as keys. The alternatives write the same model with other YAML styles and with JSON escapes.",
+  "description": "Strings that need quoting or escaping in JSON and YAML.",
   "nodes": {
     "with space": {
       "labels": {

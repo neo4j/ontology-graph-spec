@@ -3,7 +3,7 @@
     "version": "1",
     "id": "properties",
     "name": "Properties",
-    "description": "Covers properties: every type, including the list and vector types, vector dimensions, a property with no type, database names that differ from the property id, descriptions, aliases, references, patterns, one_of values and property custom data.",
+    "description": "Every property type and field.",
     "nodes": {
         "thing": {
             "labels": {

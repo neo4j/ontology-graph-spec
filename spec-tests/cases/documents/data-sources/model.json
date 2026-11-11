@@ -3,7 +3,7 @@
     "version": "1",
     "id": "data-sources",
     "name": "Data Sources",
-    "description": "Covers data source tables and mappings: every column field, primary keys, foreign keys with and without referenced columns, table custom data, node, relationship and query mappings, create mode, match labels, mapping keys, mapping ids with dependencies between them, and several mapping sets.",
+    "description": "Data source tables and the mappings from them to nodes and relationships.",
     "nodes": {
         "customer": {
             "labels": {

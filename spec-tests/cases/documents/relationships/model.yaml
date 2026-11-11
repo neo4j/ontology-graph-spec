@@ -2,7 +2,7 @@ schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
 version: "1"
 id: "relationships"
 name: "Relationships"
-description: "Covers relationships and their ends: ends with a node and label, a node only, a label only or neither, exact, minimum and maximum counts, a self relationship, the same type between different pairs of nodes, descriptions, aliases, references, relationship custom data, and relationship properties with patterns, one_of values and references."
+description: "Relationships, their ends and counts."
 nodes:
   person:
     labels:

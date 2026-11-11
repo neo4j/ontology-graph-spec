@@ -2,7 +2,7 @@ schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
 version: "1"
 id: constraints
 name: Constraints
-description: "Covers every constraint type on nodes and relationships: single and composite properties, generated and custom names, constraints without a name and constraint custom data. Shorthand flags sit alongside longhand constraints, including key on a relationship property, two flags on one property and a flag on a property whose database name differs from its id."
+description: "Every constraint type on nodes and relationships, in longhand and as shorthand flags."
 nodes:
   person:
     label: Person

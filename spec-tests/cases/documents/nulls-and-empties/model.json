@@ -3,7 +3,7 @@
     "version": "1",
     "id": "nulls-and-empties",
     "name": "Nulls and empties",
-    "description": "Covers fields set to null, empty maps and lists, and default values, which mean the same as leaving the field out. The alternative form sets every field the schema allows to be null, an empty value for each map and list, and the default property type, mapping mode and mapping dependency. Required maps, such as the ends of a relationship mapping, stay as empty maps.",
+    "description": "Null, empty and default values, which mean the same as leaving the field out.",
     "nodes": {
         "person": {
             "labels": {

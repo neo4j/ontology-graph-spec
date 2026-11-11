@@ -2,7 +2,7 @@ schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
 version: "1"
 id: "indexes"
 name: "Indexes"
-description: "Covers every index type on nodes and relationships: single and composite properties, several labels, names, index custom data, indexes with no options, every option of the full-text, point and vector types on a node, and options on relationship indexes, including whole and fractional numbers."
+description: "Every index type and its options on nodes and relationships."
 nodes:
   place:
     labels:

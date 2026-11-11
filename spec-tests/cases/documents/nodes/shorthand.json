@@ -3,7 +3,7 @@
   "version": "1",
   "id": "nodes",
   "name": "Nodes",
-  "description": "Covers nodes and their labels: node ids that differ from the identifying label, implied and optional labels, label custom data, descriptions, aliases, references, display positions and colours, and node custom data. Includes a node with no properties and a node with no identifying label.",
+  "description": "Nodes and their labels.",
   "nodes": {
     "person": {
       "labels": {

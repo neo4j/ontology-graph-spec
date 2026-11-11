@@ -2,7 +2,7 @@ schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
 version: "1"
 id: "custom-data"
 name: "Custom Data"
-description: "Covers custom data on every object that allows it, holding strings, strings that look like other scalars, booleans, positive, negative, large and fractional numbers, empty and nested maps, lists of mixed values and an empty key."
+description: "Custom data of every kind on every object that allows it."
 nodes:
   thing:
     labels:
