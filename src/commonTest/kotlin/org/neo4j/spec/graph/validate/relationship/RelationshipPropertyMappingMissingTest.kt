@@ -83,6 +83,18 @@ class RelationshipPropertyMappingMissingTest {
     }
 
     @Test
+    fun `pass when a second mapping covers the property`() {
+        val model = modelWith(
+            listOf(
+                mapping(mutableMapOf("since" to PropertyMapping("since"))),
+                mapping(mutableMapOf("weight" to PropertyMapping("weight")))
+            )
+        )
+
+        assertTrue(validate(model).isEmpty())
+    }
+
+    @Test
     fun `fail when a property is covered by no mapping`() {
         val model = modelWith(listOf(mapping(mutableMapOf("since" to PropertyMapping("since")))))
 

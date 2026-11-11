@@ -97,6 +97,35 @@ class NodePropertyUnsupportedLocalImportTypeTest {
     }
 
     @Test
+    fun `pass when local table for every supported type`() {
+        val supported = listOf(
+            Neo4jType.STRING,
+            Neo4jType.INTEGER,
+            Neo4jType.FLOAT,
+            Neo4jType.BOOLEAN,
+            Neo4jType.ZONED_DATETIME,
+            Neo4jType.LIST_STRING,
+            Neo4jType.LIST_INTEGER,
+            Neo4jType.LIST_FLOAT,
+            Neo4jType.LIST_BOOLEAN,
+            Neo4jType.LIST_ZONED_DATETIME,
+            Neo4jType.VECTOR_FLOAT,
+            Neo4jType.VECTOR_FLOAT32,
+            Neo4jType.VECTOR_INTEGER,
+            Neo4jType.VECTOR_INTEGER32,
+            Neo4jType.VECTOR_INTEGER16,
+            Neo4jType.VECTOR_INTEGER8
+        )
+
+        val unsupported = supported.filter {
+            val (m, n) = model(it, "local")
+            validate(m, n).isNotEmpty()
+        }
+
+        assertTrue(unsupported.isEmpty(), "Types wrongly flagged: $unsupported")
+    }
+
+    @Test
     fun `pass when local table and property type is unset`() {
         val (model, node) = model(Neo4jType.ANY, "local")
 
