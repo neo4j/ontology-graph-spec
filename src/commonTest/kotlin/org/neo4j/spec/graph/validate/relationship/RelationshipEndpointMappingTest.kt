@@ -200,7 +200,7 @@ class RelationshipEndpointMappingTest {
 
         assertEquals(1, issues.size)
         assertEquals("missing_relationship_source_mapping", issues.first().code)
-        assertTrue("name" in issues.first().message)
+        assertTrue("node0" in issues.first().message)
     }
 
     @Test
@@ -211,6 +211,20 @@ class RelationshipEndpointMappingTest {
 
         assertEquals(1, issues.size)
         assertEquals("missing_relationship_target_mapping", issues.first().code)
+    }
+
+    @Test
+    fun `pass when one of several keys is fully covered`() {
+        val model = modelWithKeyedEndpoints(listOf("id"), listOf("id"), listOf("id"))
+        val extra = NodeMapping(
+            node = "node0",
+            table = "t",
+            properties = mutableMapOf("name" to PropertyMapping("name")),
+            key = mutableListOf("name")
+        )
+        model.extensions.dataSourceMappings.getValue("mapping0").add(1, extra)
+
+        assertTrue(validate(model).isEmpty(), "Expected no issues when one key is fully covered")
     }
 
     @Test
