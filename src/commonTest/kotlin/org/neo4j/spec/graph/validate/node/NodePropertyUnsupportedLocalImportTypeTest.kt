@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.GraphModelExtensions
 import org.neo4j.spec.graph.model.extension.mapping.NodeMapping
+import org.neo4j.spec.graph.model.extension.mapping.PropertyMapping
 import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.node.Labels
 import org.neo4j.spec.graph.model.node.Node
@@ -42,7 +43,13 @@ class NodePropertyUnsupportedLocalImportTypeTest {
         val mappings = mutableListOf<NodeMapping>()
         tableSources.forEachIndexed { index, source ->
             tables["t$index"] = Table(source = source)
-            mappings.add(NodeMapping(node = "person", table = "t$index", properties = mutableMapOf()))
+            mappings.add(
+                NodeMapping(
+                    node = "person",
+                    table = "t$index",
+                    properties = mutableMapOf("name" to PropertyMapping("name"))
+                )
+            )
         }
         val model = GraphModel(
             version = "1",
@@ -133,6 +140,39 @@ class NodePropertyUnsupportedLocalImportTypeTest {
     }
 
     @Test
+    fun `pass when the property is only mapped via a cloud mapping`() {
+        val node = Node(
+            labels = Labels(identifier = "Person"),
+            properties = mutableMapOf("name" to Property(type = Neo4jType.DATE))
+        )
+        val model = GraphModel(
+            version = "1",
+            id = "test",
+            extensions = GraphModelExtensions(
+                dataSourceTables = mutableMapOf(
+                    "local_t" to Table(source = "local"),
+                    "cloud_t" to Table(source = "cloud")
+                ),
+                dataSourceMappings = mutableMapOf(
+                    "mapping0" to mutableListOf(
+                        NodeMapping(node = "person", table = "local_t", properties = mutableMapOf()),
+                        NodeMapping(
+                            node = "person",
+                            table = "cloud_t",
+                            properties = mutableMapOf("name" to PropertyMapping("name"))
+                        )
+                    )
+                )
+            )
+        )
+        val issues = mutableListOf<Issue>()
+
+        validator.validateNode(model, "person", node, issues)
+
+        assertTrue(issues.isEmpty(), "Expected no issues when only a cloud mapping supplies the property")
+    }
+
+    @Test
     fun `fail when local table and property type is unsupported`() {
         val (model, node) = model(Neo4jType.DATE, "local")
 
@@ -160,7 +200,14 @@ class NodePropertyUnsupportedLocalImportTypeTest {
                 dataSourceTables = mutableMapOf("t" to Table(source = "local")),
                 dataSourceMappings = mutableMapOf(
                     "mapping0" to mutableListOf(
-                        NodeMapping(node = "person", table = "t", properties = mutableMapOf())
+                        NodeMapping(
+                            node = "person",
+                            table = "t",
+                            properties = mutableMapOf(
+                                "born" to PropertyMapping("born"),
+                                "home" to PropertyMapping("home")
+                            )
+                        )
                     )
                 )
             )
