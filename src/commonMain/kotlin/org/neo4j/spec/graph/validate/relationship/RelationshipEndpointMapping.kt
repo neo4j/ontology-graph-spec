@@ -76,19 +76,16 @@ object RelationshipEndpointMapping : RelationshipValidation {
             issues.add(missingEndpoint(code, relationshipId, end, path))
             return
         }
-        val key = findNodeMappings(model, nodeId).flatMap { it.mapping.key }.toSet()
-        for (propertyId in key) {
-            if (propertyId !in target.properties) {
-                issues.add(
-                    Issue(
-                        code = code,
-                        message = "Relationship '$relationshipId' $end mapping does not map key property " +
-                            "'$propertyId' of node '$nodeId'",
-                        path = "$path.properties.$propertyId",
-                        details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
-                    )
+        val keys = findNodeMappings(model, nodeId).map { it.mapping.key }.filter { it.isNotEmpty() }
+        if (keys.isNotEmpty() && keys.none { key -> key.all { it in target.properties } }) {
+            issues.add(
+                Issue(
+                    code = code,
+                    message = "Relationship '$relationshipId' $end mapping does not cover a key of node '$nodeId'",
+                    path = "$path.properties",
+                    details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
                 )
-            }
+            )
         }
     }
 
