@@ -23,12 +23,12 @@ import org.neo4j.spec.graph.validate.property.unsupportedLocalImportType
 
 object NodePropertyUnsupportedLocalImportType : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
-        val local = findNodeMappings(model, nodeId).any {
-            model.extensions.dataSourceTables[it.mapping.table]?.source ==
-                "local"
-        }
-        if (!local) return
+        val locallyMapped = findNodeMappings(model, nodeId)
+            .filter { model.extensions.dataSourceTables[it.mapping.table]?.source == "local" }
+            .flatMap { it.mapping.properties.keys }
+            .toSet()
         for ((propertyId, property) in node.properties) {
+            if (propertyId !in locallyMapped) continue
             unsupportedLocalImportType(propertyId, property, "nodes.$nodeId")?.let { issues.add(it) }
         }
     }

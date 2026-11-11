@@ -18,6 +18,7 @@ package org.neo4j.spec.graph.validate.relationship
 
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.GraphModelExtensions
+import org.neo4j.spec.graph.model.extension.mapping.PropertyMapping
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.model.extension.mapping.TargetMapping
 import org.neo4j.spec.graph.model.extension.source.Table
@@ -52,7 +53,8 @@ class RelationshipPropertyUnsupportedLocalImportTypeTest {
                             relationship = "rel0",
                             table = "t",
                             fromNode = TargetMapping(),
-                            toNode = TargetMapping()
+                            toNode = TargetMapping(),
+                            properties = mutableMapOf("since" to PropertyMapping("since"))
                         )
                     )
                 )
@@ -102,6 +104,48 @@ class RelationshipPropertyUnsupportedLocalImportTypeTest {
         val (model, relationship) = model(Neo4jType.ANY, "local")
 
         assertTrue(validate(model, relationship).isEmpty(), "Expected no issues when the type is unset")
+    }
+
+    @Test
+    fun `pass when the property is only mapped via a cloud mapping`() {
+        val relationship = Relationship(
+            type = "KNOWS",
+            from = RelationshipTarget(node = "node0"),
+            to = RelationshipTarget(node = "node0"),
+            properties = mutableMapOf("since" to Property(type = Neo4jType.DATE))
+        )
+        val model = GraphModel(
+            version = "1",
+            id = "test",
+            extensions = GraphModelExtensions(
+                dataSourceTables = mutableMapOf(
+                    "local_t" to Table(source = "local"),
+                    "cloud_t" to Table(source = "cloud")
+                ),
+                dataSourceMappings = mutableMapOf(
+                    "mapping0" to mutableListOf(
+                        RelationshipMapping(
+                            relationship = "rel0",
+                            table = "local_t",
+                            fromNode = TargetMapping(),
+                            toNode = TargetMapping()
+                        ),
+                        RelationshipMapping(
+                            relationship = "rel0",
+                            table = "cloud_t",
+                            fromNode = TargetMapping(),
+                            toNode = TargetMapping(),
+                            properties = mutableMapOf("since" to PropertyMapping("since"))
+                        )
+                    )
+                )
+            )
+        )
+        val issues = mutableListOf<Issue>()
+
+        validator.validateRelationship(model, "rel0", relationship, issues)
+
+        assertTrue(issues.isEmpty(), "Expected no issues when only a cloud mapping supplies the property")
     }
 
     @Test

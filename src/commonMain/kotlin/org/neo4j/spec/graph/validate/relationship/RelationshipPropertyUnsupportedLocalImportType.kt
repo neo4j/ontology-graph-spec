@@ -28,11 +28,12 @@ object RelationshipPropertyUnsupportedLocalImportType : RelationshipValidation {
         relationship: Relationship,
         issues: MutableList<Issue>
     ) {
-        val local = findRelationshipMappings(model, relationshipId).any {
-            model.extensions.dataSourceTables[it.mapping.table]?.source == "local"
-        }
-        if (!local) return
+        val locallyMapped = findRelationshipMappings(model, relationshipId)
+            .filter { model.extensions.dataSourceTables[it.mapping.table]?.source == "local" }
+            .flatMap { it.mapping.properties.keys }
+            .toSet()
         for ((propertyId, property) in relationship.properties) {
+            if (propertyId !in locallyMapped) continue
             unsupportedLocalImportType(propertyId, property, "relationships.$relationshipId")?.let { issues.add(it) }
         }
     }
