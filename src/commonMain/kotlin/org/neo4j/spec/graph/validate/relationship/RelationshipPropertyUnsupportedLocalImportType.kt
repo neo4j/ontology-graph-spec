@@ -28,7 +28,6 @@ object RelationshipPropertyUnsupportedLocalImportType : RelationshipValidation {
         relationship: Relationship,
         issues: MutableList<Issue>
     ) {
-        // UPX gates on a local data source (errors.ts#L733); graph-spec uses the mapped table's source.
         val local = findRelationshipMappings(model, relationshipId).any {
             model.extensions.dataSourceTables[it.mapping.table]?.source == "local"
         }

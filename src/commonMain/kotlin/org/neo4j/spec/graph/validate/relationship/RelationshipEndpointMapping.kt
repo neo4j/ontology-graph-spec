@@ -30,7 +30,6 @@ object RelationshipEndpointMapping : RelationshipValidation {
         relationship: Relationship,
         issues: MutableList<Issue>
     ) {
-        // UPX: source/target mapping errors (errors.ts#L656-L671, L705-L712), structured sources only.
         if (!model.hasStructuredDataSource()) return
         val mappings = findRelationshipMappings(model, relationshipId)
         if (mappings.isEmpty()) {

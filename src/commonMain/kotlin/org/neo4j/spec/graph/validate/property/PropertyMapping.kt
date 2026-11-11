@@ -23,9 +23,6 @@ import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.jvm.JvmName
 
-/**
- * UPX: `getPropertyMappingErrors` (errors.ts#L303-L306), same check for nodes and relationships.
- */
 fun missingPropertyMapping(propertyId: String, entityPath: String): Issue = Issue(
     code = "missing_property_mapping",
     message = "Property '$propertyId' is not mapped to any source column",

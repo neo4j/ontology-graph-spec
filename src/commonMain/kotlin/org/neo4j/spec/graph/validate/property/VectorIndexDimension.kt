@@ -30,11 +30,6 @@ import kotlin.jvm.JvmName
 
 private const val SYNC_DIMENSION = "Update the property dimension to sync the index dimension."
 
-/**
- * UPX: vector index settings errors (errors.ts#L371-L405), same check for node and relationship indexes.
- * Only single-property vector indexes on vector-typed properties with a set dimension are checked; a
- * missing property dimension is reported by the property dimension validators instead.
- */
 fun vectorIndexDimensionIssue(
     indexId: String,
     indexType: IndexType,

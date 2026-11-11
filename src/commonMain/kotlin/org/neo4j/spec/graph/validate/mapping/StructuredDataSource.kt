@@ -20,7 +20,6 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.mapping.NodeMapping
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 
-// UPX gates mapping validations on isStructuredDataSourceSchema (json-helpers.ts#L333-L337), the data
 // source type. graph-spec has no data source type: a model counts as structured when it has data source
 // tables or node/relationship mappings. Query-only models count as unstructured.
 internal fun GraphModel.hasStructuredDataSource(): Boolean = extensions.dataSourceTables.isNotEmpty() ||

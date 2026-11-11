@@ -29,7 +29,6 @@ object RelationshipPropertyMappingMissing : RelationshipValidation {
         relationship: Relationship,
         issues: MutableList<Issue>
     ) {
-        // UPX flags every property the relationship's mappings don't cover (errors.ts#L696-L714),
         // structured only.
         if (!model.hasStructuredDataSource()) return
         val covered = findRelationshipMappings(model, relationshipId).flatMap { it.mapping.properties.keys }.toSet()

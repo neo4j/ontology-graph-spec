@@ -24,7 +24,6 @@ import org.neo4j.spec.graph.validate.property.missingPropertyMapping
 
 object NodePropertyMappingMissing : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
-        // UPX flags every property the node's mappings don't cover (errors.ts#L506-L516), structured only.
         if (!model.hasStructuredDataSource()) return
         val covered = findNodeMappings(model, nodeId).flatMap { it.mapping.properties.keys }.toSet()
         for (propertyId in node.properties.keys) {

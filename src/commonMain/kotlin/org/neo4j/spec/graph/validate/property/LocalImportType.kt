@@ -25,7 +25,6 @@ import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.jvm.JvmName
 
-// UPX SUPPORTED_CSV_TYPE_OPTIONS_COMPLETED (data-model.types.ts#L79-L83): string, integer, float,
 // boolean, datetime, arrays of those, and the six vector types.
 private val SUPPORTED_LOCAL_IMPORT_TYPES = setOf(
     Neo4jType.STRING,
@@ -46,10 +45,6 @@ private val SUPPORTED_LOCAL_IMPORT_TYPES = setOf(
     Neo4jType.VECTOR_INTEGER8
 )
 
-/**
- * UPX: `getUnsupportedLocalImportPropertyTypeErrors` (errors.ts#L136-L142), same check for nodes and
- * relationships. UPX skips properties with no type; the canonical default ANY is treated as unset.
- */
 fun unsupportedLocalImportType(propertyId: String, property: Property, entityPath: String): Issue? {
     if (property.type == Neo4jType.ANY) return null
     if (property.type !in SUPPORTED_LOCAL_IMPORT_TYPES) {

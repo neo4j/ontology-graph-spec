@@ -59,7 +59,6 @@ object RelationshipEndpointColumnType : RelationshipValidation {
         }
     }
 
-    // UPX: getRelationshipNodeMappingErrorsForOneKeyProperty (errors.ts#L593-L655). Only cloud fields
     // (columns with supported types) on both sides are checked; unmapped key properties and unknown
     // columns are skipped.
     private fun validateEndpoint(

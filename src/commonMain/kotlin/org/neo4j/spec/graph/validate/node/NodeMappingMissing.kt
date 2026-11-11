@@ -25,7 +25,6 @@ import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
 
 object NodeMappingMissing : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
-        // UPX: tableSchemaError when a node has no mapping (errors.ts#L511-L514), structured sources only.
         if (!model.hasStructuredDataSource()) return
         if (findNodeMappings(model, nodeId).isEmpty()) {
             issues.add(
