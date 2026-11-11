@@ -99,7 +99,6 @@ class NodeIndexVectorDimensionTest {
     fun `fail when the index has no options`() {
         val issues = validate(node(Property(type = Neo4jType.VECTOR_FLOAT, dimension = 5)), vectorIndex(null))
 
-        // Replaced legacy code: MISSING_VECTOR_INDEX_DIMENSION
         assertEquals(1, issues.size)
         assertEquals("missing_vector_index_dimension", issues.first().code)
         assertEquals("nodes.person.extensions.indexes.idx0", issues.first().path)
@@ -123,7 +122,6 @@ class NodeIndexVectorDimensionTest {
             vectorIndex(VectorIndexOption(dimensions = 10))
         )
 
-        // Replaced legacy code: MISMATCHED_VECTOR_DIMENSION
         assertEquals(1, issues.size)
         assertEquals("mismatched_vector_dimension", issues.first().code)
         assertEquals(

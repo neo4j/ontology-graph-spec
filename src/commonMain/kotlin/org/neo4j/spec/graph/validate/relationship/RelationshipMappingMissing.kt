@@ -30,7 +30,6 @@ object RelationshipMappingMissing : RelationshipValidation {
         relationship: Relationship,
         issues: MutableList<Issue>
     ) {
-        // UPX: tableSchemaError when a relationship has no mapping (errors.ts#L707), structured sources only.
         if (!model.hasStructuredDataSource()) return
         if (findRelationshipMappings(model, relationshipId).isEmpty()) {
             issues.add(
