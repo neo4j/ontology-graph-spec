@@ -29,10 +29,6 @@ data class Issue @JvmOverloads constructor(
     val details: Map<String, String> = emptyMap()
 )
 
-/**
- * What kind of thing an [Issue] concerns. Serialized as the lowercase name in [Issue.details];
- * TypeScript consumers mirror this as a string union.
- */
 @JsExport
 enum class IssueKeyType {
     MODEL,
@@ -46,13 +42,6 @@ enum class IssueKeyType {
     MAPPING
 }
 
-/**
- * Machine anchor for an issue: `keyType` says what kind of thing the issue concerns and `key` is its
- * key in the model (entity key, property id, column name, index or constraint id). Unlike [Issue.path],
- * this is safe to read programmatically. Entries without a value are left out, so a missing `key` means
- * the flagged thing has no key of its own - the [Issue.path] array position locates it instead.
- * `dependsOn` carries the referenced id for issues about a broken dependency.
- */
 fun issueDetails(keyType: IssueKeyType? = null, key: String? = null, dependsOn: String? = null): Map<String, String> =
     buildMap {
         keyType?.let { put("keyType", it.name.lowercase()) }
