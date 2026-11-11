@@ -17,11 +17,13 @@
 package org.neo4j.spec.graph.validate.relationship
 
 import org.neo4j.spec.graph.model.GraphModel
+import org.neo4j.spec.graph.model.extension.mapping.TargetMapping
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
+import org.neo4j.spec.graph.validate.node.findNodeMappings
 
 object RelationshipEndpointMapping : RelationshipValidation {
     override fun validateRelationship(
@@ -38,23 +40,52 @@ object RelationshipEndpointMapping : RelationshipValidation {
             return
         }
         for ((mappingId, index, mapping) in mappings) {
-            if (mapping.fromNode.properties.isEmpty()) {
+            val base = "extensions.data_source_mappings.$mappingId[$index]"
+            validateEndpoint(
+                model,
+                relationshipId,
+                relationship.from.node,
+                "source",
+                mapping.fromNode,
+                "$base.from_node",
+                issues
+            )
+            validateEndpoint(
+                model,
+                relationshipId,
+                relationship.to.node,
+                "target",
+                mapping.toNode,
+                "$base.to_node",
+                issues
+            )
+        }
+    }
+
+    private fun validateEndpoint(
+        model: GraphModel,
+        relationshipId: String,
+        nodeId: String,
+        end: String,
+        target: TargetMapping,
+        path: String,
+        issues: MutableList<Issue>
+    ) {
+        val code = "missing_relationship_${end}_mapping"
+        if (target.properties.isEmpty()) {
+            issues.add(missingEndpoint(code, relationshipId, end, path))
+            return
+        }
+        val key = findNodeMappings(model, nodeId).flatMap { it.mapping.key }.toSet()
+        for (propertyId in key) {
+            if (propertyId !in target.properties) {
                 issues.add(
-                    missingEndpoint(
-                        "missing_relationship_source_mapping",
-                        relationshipId,
-                        "source",
-                        "extensions.data_source_mappings.$mappingId[$index].from_node"
-                    )
-                )
-            }
-            if (mapping.toNode.properties.isEmpty()) {
-                issues.add(
-                    missingEndpoint(
-                        "missing_relationship_target_mapping",
-                        relationshipId,
-                        "target",
-                        "extensions.data_source_mappings.$mappingId[$index].to_node"
+                    Issue(
+                        code = code,
+                        message = "Relationship '$relationshipId' $end mapping does not map key property " +
+                            "'$propertyId' of node '$nodeId'",
+                        path = "$path.properties.$propertyId",
+                        details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
                     )
                 )
             }

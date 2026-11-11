@@ -18,10 +18,14 @@ package org.neo4j.spec.graph.validate.relationship
 
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.GraphModelExtensions
+import org.neo4j.spec.graph.model.extension.mapping.NodeMapping
 import org.neo4j.spec.graph.model.extension.mapping.PropertyMapping
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.model.extension.mapping.TargetMapping
 import org.neo4j.spec.graph.model.extension.source.Table
+import org.neo4j.spec.graph.model.node.Labels
+import org.neo4j.spec.graph.model.node.Node
+import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.RelationshipTarget
 import org.neo4j.spec.graph.validate.Issue
@@ -132,5 +136,87 @@ class RelationshipEndpointMappingTest {
 
         assertEquals(1, issues.size)
         assertEquals("extensions.data_source_mappings.mapping0[1].from_node", issues.first().path)
+    }
+    private fun modelWithKeyedEndpoints(
+        key: List<String>,
+        fromCovers: List<String>,
+        toCovers: List<String>
+    ): GraphModel {
+        val nodes = mutableMapOf<String, Node>()
+        val mappings = mutableListOf<org.neo4j.spec.graph.model.extension.mapping.Mapping>()
+        for (nodeId in listOf("node0", "node1")) {
+            nodes[nodeId] = Node(
+                labels = Labels(identifier = "Person"),
+                properties = key.associateWith { Property() }.toMutableMap()
+            )
+            mappings.add(
+                NodeMapping(
+                    node = nodeId,
+                    table = "t",
+                    properties = key.associateWith { PropertyMapping(it) }.toMutableMap(),
+                    key = key.toMutableList()
+                )
+            )
+        }
+        mappings.add(
+            mapping(
+                TargetMapping(
+                    label = "Person",
+                    properties = fromCovers.associateWith {
+                        PropertyMapping(it)
+                    }.toMutableMap()
+                ),
+                TargetMapping(
+                    label = "Person",
+                    properties = toCovers.associateWith {
+                        PropertyMapping(it)
+                    }.toMutableMap()
+                )
+            )
+        )
+        return GraphModel(
+            version = "1",
+            id = "test",
+            nodes = nodes,
+            extensions = GraphModelExtensions(
+                dataSourceTables = mutableMapOf("t" to Table(source = "local")),
+                dataSourceMappings = mutableMapOf("mapping0" to mappings)
+            )
+        )
+    }
+
+    @Test
+    fun `pass when the endpoint mappings cover every key property`() {
+        val model = modelWithKeyedEndpoints(listOf("id", "name"), listOf("id", "name"), listOf("id", "name"))
+
+        assertTrue(validate(model).isEmpty())
+    }
+
+    @Test
+    fun `fail when the source mapping omits a key property`() {
+        val model = modelWithKeyedEndpoints(listOf("id", "name"), listOf("id"), listOf("id", "name"))
+
+        val issues = validate(model)
+
+        assertEquals(1, issues.size)
+        assertEquals("missing_relationship_source_mapping", issues.first().code)
+        assertTrue("name" in issues.first().message)
+    }
+
+    @Test
+    fun `fail when the target mapping omits a key property`() {
+        val model = modelWithKeyedEndpoints(listOf("id", "name"), listOf("id", "name"), listOf("id"))
+
+        val issues = validate(model)
+
+        assertEquals(1, issues.size)
+        assertEquals("missing_relationship_target_mapping", issues.first().code)
+    }
+
+    @Test
+    fun `pass when the endpoint node has no key`() {
+        val model = modelWithKeyedEndpoints(emptyList(), listOf("id"), listOf("id"))
+
+        assertTrue(validate(model).isEmpty())
     }
 }
