@@ -133,9 +133,8 @@ class Validations {
             RelationshipType
         )
 
-        // Property names are set and unique within their node or relationship, indexes and constraints have
-        // properties, constraints aren't duplicated, composite constraints don't overlap an existence constraint, and
-        // index and constraint names are unique.
+        // Schema consistency: names are set and unique, indexes and constraints are well-formed, and
+        // vector index dimensions match their properties.
         @JsStatic
         @JvmStatic
         val consistentSchema: List<Validation> = listOf(
@@ -154,8 +153,8 @@ class Validations {
             NodeIndexConstraintNameConflict
         )
 
-        // Node mappings have a key, mapping ids are unique and dependencies resolve without cycles, and data source
-        // table columns have a unique name and, outside local tables, a type.
+        // Importable from the data sources: mappings are complete, keys and columns are usable, and
+        // dependencies resolve.
         @JsStatic
         @JvmStatic
         val mappable: List<Validation> = listOf(
