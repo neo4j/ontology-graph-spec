@@ -62,6 +62,22 @@ class NodeMappingMissingTest {
     }
 
     @Test
+    fun `pass when a query-only model includes its source table`() {
+        val model = GraphModel(
+            version = "1",
+            id = "test",
+            extensions = GraphModelExtensions(
+                dataSourceTables = mutableMapOf("t" to Table(source = "local")),
+                dataSourceMappings = mutableMapOf(
+                    "mapping0" to mutableListOf(QueryMapping(table = "t", query = "RETURN 1"))
+                )
+            )
+        )
+
+        assertTrue(validate(model).isEmpty(), "Expected no issues for query-only models")
+    }
+
+    @Test
     fun `pass when node has a mapping`() {
         val model = GraphModel(
             version = "1",
