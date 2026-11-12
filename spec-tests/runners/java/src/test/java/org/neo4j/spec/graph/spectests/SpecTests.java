@@ -15,7 +15,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import org.junit.jupiter.api.DynamicTest;
@@ -69,19 +68,21 @@ class SpecTests {
                 String set = dir.getParent().getFileName().toString();
                 String name = set + "/" + dir.getFileName();
                 return dynamicTest(name, () -> {
-                    List<Issue> issues = decode(inputFile(dir).orElseThrow()).validate(SETS.get(set));
-                    for (Issue issue : issues) {
-                        assertFalse(issue.getMessage().isBlank(), "issue " + issue.getCode() + " has a message");
-                        assertNotNull(issue.getPath(), "issue " + issue.getCode() + " has a path");
-                    }
-
-                    List<JsonNode> actual = issues.stream().map(SpecTests::validationIssue).sorted(comparing(JsonNode::toString)).toList();
                     JsonNode expectedIssues = JSON.readTree(read(dir.resolve("issues.json")));
                     List<JsonNode> expected = StreamSupport.stream(expectedIssues.spliterator(), false)
                         .sorted(comparing(JsonNode::toString))
                         .toList();
 
-                    assertEquals(expected, actual, "issues for set " + set);
+                    for (Path input : List.of(dir.resolve("input.json"), dir.resolve("input.yaml"))) {
+                        List<Issue> issues = decode(input).validate(SETS.get(set));
+                        for (Issue issue : issues) {
+                            assertFalse(issue.getMessage().isBlank(), "issue " + issue.getCode() + " has a message");
+                            assertNotNull(issue.getPath(), "issue " + issue.getCode() + " has a path");
+                        }
+
+                        List<JsonNode> actual = issues.stream().map(SpecTests::validationIssue).sorted(comparing(JsonNode::toString)).toList();
+                        assertEquals(expected, actual, "issues for " + input.getFileName() + " with set " + set);
+                    }
                 });
             });
     }
@@ -103,12 +104,6 @@ class SpecTests {
                 .forEach(files::add);
         }
         return files;
-    }
-
-    private static Optional<Path> inputFile(Path dir) throws IOException {
-        try (Stream<Path> files = Files.list(dir)) {
-            return files.filter(f -> f.getFileName().toString().startsWith("input.")).findFirst();
-        }
     }
 
     private static GraphModel decode(Path file) throws IOException {

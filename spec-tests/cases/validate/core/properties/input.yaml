@@ -1,0 +1,17 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "properties"
+description: "Node and relationship properties that contain invalid pattern and one_of combinations or duplicate aliases."
+nodes:
+  person:
+    properties:
+      code: { type: "STRING", pattern: "^[A-Z]$", one_of: ["A"] }
+      name: { type: "STRING", aliases: ["fullName", "fullName"] }
+relationships:
+  knows:
+    type: "KNOWS"
+    from: {}
+    to: {}
+    properties:
+      code: { type: "STRING", pattern: "^[A-Z]$", one_of: ["A"] }
+      since: { type: "DATE", aliases: ["from", "from"] }

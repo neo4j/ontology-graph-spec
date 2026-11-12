@@ -1,0 +1,40 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "references"
+description: "Constraints, indexes and relationship ends that refer to properties or nodes that don't exist."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+    properties:
+      name: { type: "STRING" }
+    constraints:
+      email_unique:
+        type: "UNIQUE"
+        properties: ["email"]
+    extensions:
+      indexes:
+        email_range:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["email"]
+relationships:
+  knows:
+    type: "KNOWS"
+    from: { node: "person" }
+    to: { node: "robot" }
+    properties:
+      since: { type: "DATE" }
+    constraints:
+      weight_unique:
+        type: "UNIQUE"
+        properties: ["weight"]
+    extensions:
+      indexes:
+        weight_range:
+          type: "RANGE"
+          properties: ["weight"]
+  built:
+    type: "BUILT"
+    from: { node: "robot" }
+    to: { node: "person" }

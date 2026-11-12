@@ -1,0 +1,39 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "indexes"
+description: "Node and relationship indexes with options that don't match their type or duplicate properties."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+    properties:
+      name: { type: "STRING" }
+    extensions:
+      indexes:
+        name_text:
+          type: "TEXT"
+          labels: ["Person"]
+          properties: ["name"]
+          options:
+            type: "FULLTEXT"
+        name_range:
+          type: "RANGE"
+          labels: ["Person", "Person"]
+          properties: ["name", "name"]
+relationships:
+  knows:
+    type: "KNOWS"
+    from: {}
+    to: {}
+    properties:
+      note: { type: "STRING" }
+    extensions:
+      indexes:
+        note_text:
+          type: "TEXT"
+          properties: ["note"]
+          options:
+            type: "FULLTEXT"
+        note_range:
+          type: "RANGE"
+          properties: ["note", "note"]

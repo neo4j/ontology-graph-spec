@@ -101,27 +101,32 @@ class SpecTests {
     }.map { dir ->
         val set = dir.parentFile.name
         dynamicTest("$set/${dir.name}") {
-            val issues = decode(inputFile(dir)!!).validate(sets.getValue(set))
+            val json = dir.resolve("input.json")
+            val yaml = dir.resolve("input.yaml")
             val expectedIssues = dir.resolve("issues.json")
             if (update) {
-                val sorted = issues.map { it.toValidationIssue() }.sortedBy { it.toString() }
+                val model = decode(json)
+                yaml.writeText(GraphSpec.Yaml.encodeToString(model))
+                val sorted = model.validate(sets.getValue(set)).map { it.toValidationIssue() }.sortedBy { it.toString() }
                 expectedIssues.writeText(pretty.encodeToString(JsonElement.serializer(), JsonArray(sorted)) + "\n")
                 return@dynamicTest
             }
-            for ((code, message, path) in issues) {
-                assertTrue(message.isNotBlank(), "issue $code has a message")
-                assertNotNull(path, "issue $code has a path")
-            }
-            val actual = issues.map { it.toValidationIssue() }.sortedBy { it.toString() }
+            assertEquals(yaml.readText(), GraphSpec.Yaml.encodeToString(decode(json)), "yaml and json are equivalent")
             val expected = Json.parseToJsonElement(expectedIssues.readText()).jsonArray.sortedBy { it.toString() }
-            assertEquals(expected, actual, "issues for set $set")
+            for (input in listOf(json, yaml)) {
+                val issues = decode(input).validate(sets.getValue(set))
+                for ((code, message, path) in issues) {
+                    assertTrue(message.isNotBlank(), "issue $code has a message")
+                    assertNotNull(path, "issue $code has a path")
+                }
+                val actual = issues.map { it.toValidationIssue() }.sortedBy { it.toString() }
+                assertEquals(expected, actual, "issues for ${input.name} with set $set")
+            }
         }
     }
 
     private fun caseDirs(path: String): List<File> =
         cases.resolve(path).listFiles { file -> file.isDirectory }!!.sortedBy { it.name }
-
-    private fun inputFile(dir: File): File? = dir.listFiles { file -> file.name.startsWith("input.") }!!.singleOrNull()
 
     private fun documentFiles(dir: File): List<File> =
         listOf(dir.resolve("model.json"), dir.resolve("model.yaml")) +

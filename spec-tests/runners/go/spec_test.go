@@ -50,12 +50,8 @@ func TestValidate(t *testing.T) {
 		for _, dir := range caseDirs(t, filepath.Join("validate", filepath.Base(set))) {
 			name := filepath.Base(set) + "/" + filepath.Base(dir)
 			t.Run(name, func(t *testing.T) {
-				input := filepath.Join(dir, "input.json")
-				if !exists(input) {
-					t.Skip("YAML input is not supported by the Go library")
-				}
-
-				issues, err := validation.Validate(decode(t, input), validation.Set(filepath.Base(set)))
+				// The Go library has no YAML decoder, so only input.json is validated.
+				issues, err := validation.Validate(decode(t, filepath.Join(dir, "input.json")), validation.Set(filepath.Base(set)))
 				require.NoError(t, err)
 
 				actual := make([]validationIssue, 0, len(issues))
@@ -104,11 +100,6 @@ func read(t *testing.T, file string) string {
 	raw, err := os.ReadFile(file)
 	require.NoError(t, err)
 	return string(raw)
-}
-
-func exists(file string) bool {
-	_, err := os.Stat(file)
-	return err == nil
 }
 
 func nonNil(details map[string]string) map[string]string {
