@@ -21,7 +21,7 @@ import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.type.Named
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.Validation
-import org.neo4j.spec.graph.validate.pathOf
+import org.neo4j.spec.graph.validate.jsonPointerOf
 
 /**
  * Restricts the length of names and descriptions throughout the model.
@@ -86,7 +86,7 @@ object StringLength : Validation {
 
     private fun check(field: String, value: String?, max: Int, issues: MutableList<Issue>, vararg path: Any) {
         if (value != null && value.length > max) {
-            val pointer = pathOf(*path)
+            val pointer = jsonPointerOf(*path)
             issues.add(
                 Issue(
                     code = "${field}_too_long",

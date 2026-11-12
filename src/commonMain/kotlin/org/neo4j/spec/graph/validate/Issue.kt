@@ -29,5 +29,5 @@ data class Issue @JvmOverloads constructor(
     val details: Map<String, String> = emptyMap()
 )
 
-fun pathOf(vararg segments: Any): String =
+fun jsonPointerOf(vararg segments: Any): String =
     segments.joinToString("") { "/" + it.toString().replace("~", "~0").replace("/", "~1") }

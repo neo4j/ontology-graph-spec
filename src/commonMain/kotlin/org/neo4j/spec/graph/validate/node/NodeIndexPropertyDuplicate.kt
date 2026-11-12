@@ -21,7 +21,7 @@ import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
-import org.neo4j.spec.graph.validate.pathOf
+import org.neo4j.spec.graph.validate.jsonPointerOf
 
 /**
  * A node index must list each property once.
@@ -40,7 +40,7 @@ object NodeIndexPropertyDuplicate : NodeValidation {
             kind = "property",
             owner = "index '$indexId' on node '$nodeId'",
             values = index.properties,
-            path = pathOf("nodes", nodeId, "extensions", "indexes", indexId, "properties")
+            path = jsonPointerOf("nodes", nodeId, "extensions", "indexes", indexId, "properties")
         )
     }
 }

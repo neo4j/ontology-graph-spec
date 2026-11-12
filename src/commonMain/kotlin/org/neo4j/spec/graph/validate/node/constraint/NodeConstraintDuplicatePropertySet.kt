@@ -21,8 +21,8 @@ import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.constraint.duplicateConstraintIds
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.node.NodeValidation
-import org.neo4j.spec.graph.validate.pathOf
 
 object NodeConstraintDuplicatePropertySet : NodeValidation {
     override fun validateConstraint(
@@ -41,7 +41,7 @@ object NodeConstraintDuplicatePropertySet : NodeValidation {
                     code = "duplicate_node_constraint_property_set",
                     message = "Constraint '$constraintId' (${constraint.type} on $properties) on node '$nodeId' " +
                         "duplicates ${duplicates.joinToString { "'$it'" }}",
-                    path = pathOf("nodes", nodeId, "constraints", constraintId, "properties")
+                    path = jsonPointerOf("nodes", nodeId, "constraints", constraintId, "properties")
                 )
             )
         }

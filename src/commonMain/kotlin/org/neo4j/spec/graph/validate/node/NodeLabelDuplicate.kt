@@ -20,7 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
-import org.neo4j.spec.graph.validate.pathOf
+import org.neo4j.spec.graph.validate.jsonPointerOf
 
 /**
  * A node's implied labels and optional labels must each list a label once.
@@ -32,14 +32,14 @@ object NodeLabelDuplicate : NodeValidation {
             kind = "implied label",
             owner = "node '$nodeId'",
             values = node.labels.implied,
-            path = pathOf("nodes", nodeId, "labels", "implied")
+            path = jsonPointerOf("nodes", nodeId, "labels", "implied")
         )
         issues += duplicateEntryIssues(
             code = "duplicate_node_optional_label",
             kind = "optional label",
             owner = "node '$nodeId'",
             values = node.labels.optional,
-            path = pathOf("nodes", nodeId, "labels", "optional")
+            path = jsonPointerOf("nodes", nodeId, "labels", "optional")
         )
     }
 }

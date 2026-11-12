@@ -19,7 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.pathOf
+import org.neo4j.spec.graph.validate.jsonPointerOf
 
 object NodeLabel : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
@@ -28,7 +28,7 @@ object NodeLabel : NodeValidation {
                 Issue(
                     code = "missing_node_identifier_label",
                     message = "Missing identifier label for node '$nodeId'",
-                    path = pathOf("nodes", nodeId, "labels", "identifier")
+                    path = jsonPointerOf("nodes", nodeId, "labels", "identifier")
                 )
             )
         }

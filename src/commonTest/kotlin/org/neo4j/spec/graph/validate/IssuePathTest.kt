@@ -37,31 +37,31 @@ class IssuePathTest {
 
     @Test
     fun `joins segments as an RFC 6901 pointer`() {
-        assertEquals("/nodes/person/properties/name", pathOf("nodes", "person", "properties", "name"))
+        assertEquals("/nodes/person/properties/name", jsonPointerOf("nodes", "person", "properties", "name"))
     }
 
     @Test
     fun `array indexes are plain segments`() {
         assertEquals(
             "/extensions/data_source_mappings/m0/1/key",
-            pathOf("extensions", "data_source_mappings", "m0", 1, "key")
+            jsonPointerOf("extensions", "data_source_mappings", "m0", 1, "key")
         )
     }
 
     @Test
     fun `dots and brackets in keys need no escaping`() {
-        assertEquals("/nodes/weird.key[0]/labels", pathOf("nodes", "weird.key[0]", "labels"))
+        assertEquals("/nodes/weird.key[0]/labels", jsonPointerOf("nodes", "weird.key[0]", "labels"))
     }
 
     @Test
     fun `tildes and slashes are escaped`() {
-        assertEquals("/nodes/a~0b/c~1d", pathOf("nodes", "a~b", "c/d"))
+        assertEquals("/nodes/a~0b/c~1d", jsonPointerOf("nodes", "a~b", "c/d"))
     }
 
     @Test
     fun `a key that looks pre-escaped is escaped again`() {
-        assertEquals("/a~01b", pathOf("a~1b"))
-        assertEquals("/a~1b~0c~1d", pathOf("a/b~c/d"))
+        assertEquals("/a~01b", jsonPointerOf("a~1b"))
+        assertEquals("/a~1b~0c~1d", jsonPointerOf("a/b~c/d"))
     }
 
     @Test
