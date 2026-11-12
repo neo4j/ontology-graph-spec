@@ -70,13 +70,13 @@ object MappingDependencies : Validation {
                 continue
             }
             val target = indexById[dependsOn]
-            val path = jsonPointerOf("extensions", "data_source_mappings", listId, index, "depends_on")
+            val path = arrayOf<Any>("extensions", "data_source_mappings", listId, index, "depends_on")
             when {
                 target == index -> issues.add(
                     Issue(
                         code = "mapping_depends_on_self",
                         message = "Mapping '$dependsOn' can't depend on itself",
-                        path = path
+                        path = jsonPointerOf(*path)
                     )
                 )
                 target != null -> next[index] = target
@@ -86,14 +86,14 @@ object MappingDependencies : Validation {
                             code = "mapping_depends_on_other_list",
                             message = "Mapping depends on '$dependsOn' which is in a different list of mappings, " +
                                 "mappings can only depend on others in the same list",
-                            path = path
+                            path = jsonPointerOf(*path)
                         )
                     )
                 else -> issues.add(
                     Issue(
                         code = "mapping_depends_on_unknown",
                         message = "Mapping depends on '$dependsOn' which isn't the id of any mapping in '$listId'",
-                        path = path
+                        path = jsonPointerOf(*path)
                     )
                 )
             }
