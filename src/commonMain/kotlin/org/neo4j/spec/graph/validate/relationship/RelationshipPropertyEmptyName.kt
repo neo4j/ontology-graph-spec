@@ -20,7 +20,6 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.property.emptyPropertyName
 
 object RelationshipPropertyEmptyName : RelationshipValidation {
@@ -32,6 +31,6 @@ object RelationshipPropertyEmptyName : RelationshipValidation {
         property: Property,
         issues: MutableList<Issue>
     ) {
-        emptyPropertyName(propertyId, property, jsonPointerOf("relationships", relationshipId))?.let { issues.add(it) }
+        emptyPropertyName(propertyId, property, "relationships", relationshipId)?.let { issues.add(it) }
     }
 }

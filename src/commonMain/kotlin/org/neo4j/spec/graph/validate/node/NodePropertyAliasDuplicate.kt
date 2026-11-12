@@ -21,7 +21,6 @@ import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
-import org.neo4j.spec.graph.validate.jsonPointerOf
 
 /**
  * A node property's aliases are alternative names so must not repeat.
@@ -40,7 +39,7 @@ object NodePropertyAliasDuplicate : NodeValidation {
             kind = "alias",
             owner = "property '$propertyId' of node '$nodeId'",
             values = property.aliases,
-            path = jsonPointerOf("nodes", nodeId, "properties", propertyId, "aliases")
+            path = *arrayOf<Any>("nodes", nodeId, "properties", propertyId, "aliases")
         )
     }
 }
