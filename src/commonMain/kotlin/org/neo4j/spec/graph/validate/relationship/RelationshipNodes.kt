@@ -19,7 +19,7 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.pathOf
+import org.neo4j.spec.graph.validate.jsonPointerOf
 
 object RelationshipNodes : RelationshipValidation {
     override fun validateRelationship(
@@ -33,7 +33,7 @@ object RelationshipNodes : RelationshipValidation {
                 Issue(
                     code = "missing_relationship_from_node",
                     message = "Missing node with id '${relationship.from.node}' for relationship '$relationshipId'",
-                    path = pathOf("relationships", relationshipId, "from", "node")
+                    path = jsonPointerOf("relationships", relationshipId, "from", "node")
                 )
             )
         }
@@ -42,7 +42,7 @@ object RelationshipNodes : RelationshipValidation {
                 Issue(
                     code = "missing_relationship_to_node",
                     message = "Missing node with id '${relationship.to.node}' for relationship '$relationshipId'",
-                    path = pathOf("relationships", relationshipId, "to", "node")
+                    path = jsonPointerOf("relationships", relationshipId, "to", "node")
                 )
             )
         }

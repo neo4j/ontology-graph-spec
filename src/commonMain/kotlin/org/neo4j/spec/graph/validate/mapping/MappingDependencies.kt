@@ -23,7 +23,7 @@ import org.neo4j.spec.graph.model.extension.mapping.QueryMapping
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.Validation
-import org.neo4j.spec.graph.validate.pathOf
+import org.neo4j.spec.graph.validate.jsonPointerOf
 
 /**
  * A mapping's `depends_on` must reference the `id` of another mapping in the same list. Ids must be unique within
@@ -54,7 +54,7 @@ object MappingDependencies : Validation {
                     Issue(
                         code = "mapping_id_duplicate",
                         message = "Mapping id '$id' is used by more than one mapping in '$listId'",
-                        path = pathOf("extensions", "data_source_mappings", listId, index, "id")
+                        path = jsonPointerOf("extensions", "data_source_mappings", listId, index, "id")
                     )
                 )
             } else {
@@ -70,7 +70,7 @@ object MappingDependencies : Validation {
                 continue
             }
             val target = indexById[dependsOn]
-            val path = pathOf("extensions", "data_source_mappings", listId, index, "depends_on")
+            val path = jsonPointerOf("extensions", "data_source_mappings", listId, index, "depends_on")
             when {
                 target == index -> issues.add(
                     Issue(
@@ -122,7 +122,7 @@ object MappingDependencies : Validation {
                         message = "Mappings ${cycle.sorted().joinToString(", ") {
                             "[$it]"
                         }} in '$listId' depend on each other in a cycle",
-                        path = pathOf("extensions", "data_source_mappings", listId, first, "depends_on")
+                        path = jsonPointerOf("extensions", "data_source_mappings", listId, first, "depends_on")
                     )
                 )
             }

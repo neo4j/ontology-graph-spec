@@ -21,7 +21,7 @@ import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
-import org.neo4j.spec.graph.validate.pathOf
+import org.neo4j.spec.graph.validate.jsonPointerOf
 
 /**
  * A relationship mapping key must list each property once.
@@ -43,7 +43,7 @@ object RelationshipMappingKeyDuplicate : RelationshipValidation {
                     kind = "mapping key",
                     owner = "relationship '$relationshipId'",
                     values = mapping.key,
-                    path = pathOf("extensions", "data_source_mappings", mappingId, index, "key")
+                    path = jsonPointerOf("extensions", "data_source_mappings", mappingId, index, "key")
                 )
             }
         }

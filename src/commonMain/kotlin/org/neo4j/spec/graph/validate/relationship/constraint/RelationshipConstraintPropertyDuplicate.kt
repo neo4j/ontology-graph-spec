@@ -21,7 +21,7 @@ import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.RelationshipConstraint
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
-import org.neo4j.spec.graph.validate.pathOf
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.relationship.RelationshipValidation
 
 /**
@@ -41,7 +41,7 @@ object RelationshipConstraintPropertyDuplicate : RelationshipValidation {
             kind = "property",
             owner = "constraint '$constraintId' on relationship '$relationshipId'",
             values = constraint.properties,
-            path = pathOf("relationships", relationshipId, "constraints", constraintId, "properties")
+            path = jsonPointerOf("relationships", relationshipId, "constraints", constraintId, "properties")
         )
     }
 }
