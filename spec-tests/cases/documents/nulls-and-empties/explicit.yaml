@@ -1,0 +1,165 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: nulls-and-empties
+name: Nulls and empties
+description: "Null, empty and default values, which mean the same as leaving the field out."
+nodes:
+  person:
+    label: null
+    labels:
+      identifier: Person
+      implied: []
+      optional: []
+      extensions:
+        custom: {}
+    properties:
+      name:
+        type: STRING
+        dimension: null
+        must_exist: null
+        unique: null
+        key: null
+        name: null
+        aliases: []
+        one_of: []
+        extensions:
+          custom: {}
+      embedding:
+        type: "VECTOR<FLOAT32>"
+        dimension: null
+        extensions: {}
+      notes:
+        type: ANY
+    constraints:
+      person-name-exists:
+        type: EXISTS
+        properties: [name]
+        name: null
+        extensions:
+          custom: {}
+    extensions:
+      indexes:
+        person-name-fulltext:
+          type: FULLTEXT
+          labels: [Person]
+          properties: [name]
+          name: null
+          custom: {}
+          options:
+            type: FULLTEXT
+            fulltext.analyzer: null
+        person-embedding-vector:
+          type: VECTOR
+          labels: [Person]
+          properties: [embedding]
+          options:
+            type: VECTOR
+            vector.dimensions: null
+            vector.default_search_expansion_factor: null
+      display:
+        x: 1
+        y: 2
+        colour: null
+        custom: {}
+      custom: {}
+    aliases: []
+  untagged:
+    label: null
+    labels:
+      identifier: null
+      extensions: {}
+    properties: {}
+    constraints: {}
+    extensions:
+      indexes: {}
+      display: null
+    description: A node with no labels.
+relationships:
+  knows:
+    type: KNOWS
+    from:
+      node: person
+      count: null
+      min_count: null
+      max_count: null
+    to:
+      node: person
+      count: null
+      min_count: null
+      max_count: null
+    properties:
+      since:
+        type: DATE
+        name: null
+    constraints:
+      knows-since-exists:
+        type: EXISTS
+        properties: [since]
+        name: null
+        extensions:
+          custom: {}
+    extensions:
+      indexes:
+        knows-since-range:
+          type: RANGE
+          properties: [since]
+          options: null
+          name: null
+          custom: {}
+      custom: {}
+    aliases: []
+  follows:
+    type: FOLLOWS
+    from: { node: person }
+    to: { node: person }
+    properties: {}
+    constraints: {}
+    extensions:
+      indexes: {}
+      custom: {}
+    aliases: []
+extensions:
+  data_source_tables:
+    people:
+      source: local
+      columns:
+        - name: name
+          supported: []
+          dimension: null
+          custom: {}
+      primary_keys: []
+      foreign_keys: {}
+      custom: {}
+    friendships:
+      source: local
+      columns: []
+      foreign_keys:
+        friendships-people:
+          columns: [name]
+          references:
+            table: people
+            columns: []
+  data_source_mappings:
+    load:
+      - type: NODE
+        node: person
+        table: people
+        properties:
+          name: { column: name }
+        mode: MERGE
+        match_label: null
+        key: []
+        depends_on: ""
+      - type: RELATIONSHIP
+        relationship: knows
+        table: people
+        from_node:
+          properties: {}
+        to_node:
+          properties: {}
+        match_label: null
+        properties: {}
+        mode: MERGE
+        key: []
+        depends_on: ""
+  custom: {}

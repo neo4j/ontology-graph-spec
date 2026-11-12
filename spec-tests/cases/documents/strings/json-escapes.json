@@ -1,0 +1,124 @@
+{
+  "schema": "https:\/\/neo4j.com\/docs\/ontology-graph-spec\/1.1.0\/schema.json",
+  "version": "2026.11-rc.1",
+  "id": "strings",
+  "name": "Strings",
+  "description": "Strings that need quoting or escaping in JSON and YAML.",
+  "nodes": {
+    "with space": {
+      "labels": {
+        "identifier": "With Space"
+      },
+      "properties": {
+        "scalarLookalikes": {
+          "type": "STRING",
+          "one_of": [
+            "true",
+            "false",
+            "null",
+            "~",
+            "yes",
+            "no",
+            "on",
+            "off",
+            "1",
+            "1.0",
+            "-5",
+            "1e3",
+            "0x1F",
+            ".inf",
+            "NaN"
+          ]
+        },
+        "specialCharacters": {
+          "type": "STRING",
+          "one_of": [
+            "key: value",
+            "# not a comment",
+            "- not a list item",
+            "[brackets]",
+            "{braces}",
+            "a, b",
+            "> folded",
+            "| literal",
+            "@at",
+            "`backtick",
+            "%percent",
+            "*star",
+            "&anchor",
+            "!tag",
+            "?question"
+          ]
+        },
+        "escapeSequences": {
+          "type": "STRING",
+          "one_of": [
+            "back\\slash",
+            "tab\tseparated",
+            "line one\nline two",
+            "'single'",
+            "\"double\"",
+            "carriage\rreturn"
+          ]
+        },
+        "whitespace": {
+          "type": "STRING",
+          "one_of": [
+            "",
+            " leading space",
+            "trailing space "
+          ]
+        },
+        "unicode": {
+          "type": "STRING",
+          "one_of": [
+            "accented \u00e9 \u00f1 \u00fc",
+            "CJK \u65e5\u672c\u8a9e",
+            "emoji \ud83c\udfac"
+          ]
+        },
+        "multiline": {
+          "type": "STRING",
+          "description": "First line.\nSecond line: with a colon.\n\n  Indented after a blank line."
+        },
+        "dotted.id": {
+          "type": "STRING"
+        },
+        "colon:id": {
+          "type": "STRING"
+        },
+        "hash#id": {
+          "type": "STRING"
+        },
+        "-dash": {
+          "type": "STRING"
+        }
+      }
+    },
+    "123": {
+      "labels": {
+        "identifier": "Numeric"
+      }
+    },
+    "true": {
+      "labels": {
+        "identifier": "Boolean"
+      }
+    },
+    "null": {
+      "labels": {
+        "identifier": "Null"
+      }
+    },
+    "1.5": {
+      "labels": {
+        "identifier": "Decimal"
+      }
+    },
+    "yes": {
+      "labels": {
+        "identifier": "Yes"
+      }
+    }
+  }
+}

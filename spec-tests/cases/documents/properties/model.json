@@ -1,0 +1,176 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1",
+    "id": "properties",
+    "name": "Properties",
+    "description": "Every property type and field.",
+    "nodes": {
+        "thing": {
+            "labels": {
+                "identifier": "Thing"
+            },
+            "properties": {
+                "untyped": {},
+                "described": {
+                    "type": "STRING",
+                    "extensions": {
+                        "custom": {
+                            "sensitivity": "public"
+                        }
+                    },
+                    "name": "described_value",
+                    "description": "A property with every descriptive field set.",
+                    "aliases": [
+                        "label",
+                        "caption"
+                    ],
+                    "reference": "https://schema.org/name",
+                    "pattern": "^[A-Z][a-z]+$"
+                },
+                "status": {
+                    "type": "STRING",
+                    "one_of": [
+                        "ACTIVE",
+                        "SUSPENDED",
+                        "CLOSED"
+                    ]
+                },
+                "priority": {
+                    "type": "INTEGER",
+                    "one_of": [
+                        "1",
+                        "2",
+                        "3"
+                    ]
+                }
+            }
+        },
+        "types": {
+            "labels": {
+                "identifier": "Types"
+            },
+            "properties": {
+                "list_any": {
+                    "type": "LIST<ANY>"
+                },
+                "boolean": {
+                    "type": "BOOLEAN"
+                },
+                "list_boolean": {
+                    "type": "LIST<BOOLEAN>"
+                },
+                "date": {
+                    "type": "DATE"
+                },
+                "list_date": {
+                    "type": "LIST<DATE>"
+                },
+                "duration": {
+                    "type": "DURATION"
+                },
+                "list_duration": {
+                    "type": "LIST<DURATION>"
+                },
+                "float32": {
+                    "type": "FLOAT32"
+                },
+                "list_float32": {
+                    "type": "LIST<FLOAT32>"
+                },
+                "float": {
+                    "type": "FLOAT"
+                },
+                "list_float": {
+                    "type": "LIST<FLOAT>"
+                },
+                "integer8": {
+                    "type": "INTEGER8"
+                },
+                "list_integer8": {
+                    "type": "LIST<INTEGER8>"
+                },
+                "integer16": {
+                    "type": "INTEGER16"
+                },
+                "list_integer16": {
+                    "type": "LIST<INTEGER16>"
+                },
+                "integer32": {
+                    "type": "INTEGER32"
+                },
+                "list_integer32": {
+                    "type": "LIST<INTEGER32>"
+                },
+                "integer": {
+                    "type": "INTEGER"
+                },
+                "list_integer": {
+                    "type": "LIST<INTEGER>"
+                },
+                "local_datetime": {
+                    "type": "LOCAL DATETIME"
+                },
+                "list_local_datetime": {
+                    "type": "LIST<LOCAL DATETIME>"
+                },
+                "local_time": {
+                    "type": "LOCAL TIME"
+                },
+                "list_local_time": {
+                    "type": "LIST<LOCAL TIME>"
+                },
+                "point": {
+                    "type": "POINT"
+                },
+                "list_point": {
+                    "type": "LIST<POINT>"
+                },
+                "string": {
+                    "type": "STRING"
+                },
+                "list_string": {
+                    "type": "LIST<STRING>"
+                },
+                "vector_float": {
+                    "type": "VECTOR<FLOAT>",
+                    "dimension": 1536
+                },
+                "vector_float32": {
+                    "type": "VECTOR<FLOAT32>",
+                    "dimension": 1536
+                },
+                "vector_integer": {
+                    "type": "VECTOR<INTEGER>",
+                    "dimension": 1536
+                },
+                "vector_integer32": {
+                    "type": "VECTOR<INTEGER32>",
+                    "dimension": 1536
+                },
+                "vector_integer16": {
+                    "type": "VECTOR<INTEGER16>",
+                    "dimension": 1536
+                },
+                "vector_integer8": {
+                    "type": "VECTOR<INTEGER8>",
+                    "dimension": 1536
+                },
+                "zoned_datetime": {
+                    "type": "ZONED DATETIME"
+                },
+                "list_zoned_datetime": {
+                    "type": "LIST<ZONED DATETIME>"
+                },
+                "zoned_time": {
+                    "type": "ZONED TIME"
+                },
+                "list_zoned_time": {
+                    "type": "LIST<ZONED TIME>"
+                },
+                "uuid": {
+                    "type": "UUID"
+                }
+            }
+        }
+    }
+}

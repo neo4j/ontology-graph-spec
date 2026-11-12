@@ -1,0 +1,9 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: minimal
+nodes: {}
+relationships: {}
+extensions:
+  data_source_tables: {}
+  data_source_mappings: {}
+  custom: {}

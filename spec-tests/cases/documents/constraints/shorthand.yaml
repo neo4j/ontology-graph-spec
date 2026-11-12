@@ -1,0 +1,89 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: constraints
+name: Constraints
+description: "Every constraint type on nodes and relationships, in longhand and as shorthand flags."
+nodes:
+  person:
+    label: Person
+    properties:
+      id:
+        type: STRING
+        key: true
+      name:
+        type: STRING
+        must_exist: true
+      emailAddress:
+        type: STRING
+        name: email_addr
+        unique: true
+      age:
+        type: INTEGER
+      nationalId:
+        type: STRING
+      firstName:
+        type: STRING
+      lastName:
+        type: STRING
+      code:
+        type: STRING
+        unique: true
+        must_exist: true
+    constraints:
+      person-age-type:
+        type: PROPERTY_TYPE
+        properties: [age]
+        name: person_age_type
+      person-national-id-unique:
+        type: UNIQUE
+        properties: [nationalId]
+      person-full-name-key:
+        type: KEY
+        properties: [firstName, lastName]
+        name: person_full_name_key
+      person-last-name-exists:
+        type: EXISTS
+        properties: [lastName]
+        name: person_last_name_exists
+        extensions:
+          custom:
+            audit: required-by-compliance
+relationships:
+  knows:
+    type: KNOWS
+    from: { node: person }
+    to: { node: person }
+    properties:
+      ref:
+        type: STRING
+        key: true
+      since:
+        type: DATE
+        must_exist: true
+      channel:
+        type: STRING
+        unique: true
+      weight:
+        type: FLOAT
+      source:
+        type: STRING
+      context:
+        type: STRING
+    constraints:
+      knows-weight-type:
+        type: PROPERTY_TYPE
+        properties: [weight]
+        name: knows_weight_type
+      knows-channel-context-unique:
+        type: UNIQUE
+        properties: [channel, context]
+      knows-source-exists:
+        type: EXISTS
+        properties: [source]
+        extensions:
+          custom:
+            audit: required-by-compliance
+      knows-source-context-key:
+        type: KEY
+        properties: [source, context]
+        name: knows_source_context_key

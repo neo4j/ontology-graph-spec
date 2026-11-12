@@ -1,0 +1,52 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "nodes"
+name: "Nodes"
+description: "Nodes and their labels."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+      implied:
+        - "Agent"
+        - "LegalEntity"
+      optional:
+        - "Employee"
+        - "Contractor"
+      extensions:
+        custom:
+          source: "hr-system"
+    properties:
+      name: { type: "STRING" }
+    extensions:
+      display:
+        x: -120.5
+        y: 40
+        colour: "#FF8800"
+        custom:
+          pinned: true
+      custom:
+        owner: "people-team"
+    description: "A human being, whether or not they work for an organisation."
+    aliases:
+      - "Human"
+      - "Individual"
+    reference: "https://schema.org/Person"
+  org:
+    labels:
+      identifier: "Organisation"
+      implied:
+        - "Agent"
+        - "LegalEntity"
+    extensions:
+      display:
+        x: 0
+        y: 0
+  tag:
+    labels:
+      identifier: "Tag"
+  archived:
+    labels:
+      optional:
+        - "Archived"
+    description: "Any node that has been archived, whatever else it is."

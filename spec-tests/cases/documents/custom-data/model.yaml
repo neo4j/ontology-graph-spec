@@ -1,0 +1,120 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "custom-data"
+name: "Custom Data"
+description: "Custom data of every kind on every object that allows it."
+nodes:
+  thing:
+    labels:
+      identifier: "Thing"
+      extensions:
+        custom:
+          labels:
+            origin: "imported"
+    properties:
+      id: { type: "STRING", extensions: { custom: { property: { masked: false } } } }
+    constraints:
+      "thing-id-key":
+        type: "KEY"
+        properties: ["id"]
+        extensions:
+          custom:
+            constraint:
+              created_by: "migration-42"
+    extensions:
+      indexes:
+        "thing-id-range":
+          type: "RANGE"
+          labels: ["Thing"]
+          properties: ["id"]
+          custom:
+            index:
+              hot: true
+      display:
+        x: 10
+        y: -10
+        custom:
+          display:
+            icon: "cube"
+      custom:
+        acme:
+          string: "text"
+          empty_string: ""
+          boolean: true
+          integer: 42
+          negative: -7
+          zero: 0
+          large: 9007199254740991
+          fraction: 0.1
+          negative_fraction: -2.5
+          empty_map:
+            {}
+          empty_list:
+            []
+          list:
+            - 1
+            - "two"
+            - 3.5
+            - false
+            - nested:
+                - deep: true
+          nested:
+            level1:
+              level2:
+                level3: "bottom"
+          numeric_string: "42"
+          boolean_string: "true"
+          "": "empty key"
+relationships:
+  linked:
+    type: "LINKED"
+    from: { node: "thing" }
+    to: { node: "thing" }
+    properties:
+      weight: { type: "FLOAT", extensions: { custom: { property: { unit: "kg" } } } }
+    constraints:
+      "linked-weight-exists":
+        type: "EXISTS"
+        properties: ["weight"]
+        extensions:
+          custom:
+            constraint:
+              created_by: "migration-43"
+    extensions:
+      indexes:
+        "linked-weight-range":
+          type: "RANGE"
+          properties: ["weight"]
+          custom:
+            index:
+              hot: false
+      custom:
+        relationship:
+          audited: true
+extensions:
+  data_source_tables:
+    things:
+      source: "local"
+      columns:
+        - name: "id"
+          custom:
+            column:
+              masked: true
+      foreign_keys:
+        self:
+          columns: ["id"]
+          references:
+            table: "things"
+            custom:
+              reference:
+                note: "self-join"
+          custom:
+            foreign_key:
+              soft: true
+      custom:
+        table:
+          owner: "data-team"
+  custom:
+    model:
+      generated_by: "spec-tests"
+      revision: 12
