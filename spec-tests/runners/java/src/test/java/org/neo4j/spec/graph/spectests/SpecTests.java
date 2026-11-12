@@ -65,10 +65,9 @@ class SpecTests {
     Stream<DynamicTest> validate() {
         return caseDirs("validate")
             .flatMap(set -> caseDirs("validate/" + set.getFileName()))
-            .flatMap(code -> caseDirs("validate/" + code.getParent().getFileName() + "/" + code.getFileName()))
             .map(dir -> {
-                String set = dir.getParent().getParent().getFileName().toString();
-                String name = set + "/" + dir.getParent().getFileName() + "/" + dir.getFileName();
+                String set = dir.getParent().getFileName().toString();
+                String name = set + "/" + dir.getFileName();
                 return dynamicTest(name, () -> {
                     List<Issue> issues = decode(inputFile(dir).orElseThrow()).validate(SETS.get(set));
                     for (Issue issue : issues) {

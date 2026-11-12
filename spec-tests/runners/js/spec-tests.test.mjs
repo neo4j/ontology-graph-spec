@@ -57,17 +57,15 @@ for (const dir of caseDirs("documents")) {
 }
 
 for (const set of caseDirs("validate")) {
-  for (const code of caseDirs(`validate/${basename(set)}`)) {
-    for (const dir of caseDirs(`validate/${basename(set)}/${basename(code)}`)) {
-      test(`validate/${basename(set)}/${basename(code)}/${basename(dir)}`, () => {
-        const issues = validate(decode(inputFile(dir)), basename(set));
-        for (const issue of issues) {
-          assert.ok(issue.message.trim(), `issue ${issue.code} has a message`);
-          assert.ok(issue.path != null, `issue ${issue.code} has a path`);
-        }
-        const expected = JSON.parse(read(join(dir, "issues.json")));
-        assert.deepEqual(sorted(issues.map(validationIssue)), sorted(expected), `issues for set ${basename(set)}`);
-      });
-    }
+  for (const dir of caseDirs(`validate/${basename(set)}`)) {
+    test(`validate/${basename(set)}/${basename(dir)}`, () => {
+      const issues = validate(decode(inputFile(dir)), basename(set));
+      for (const issue of issues) {
+        assert.ok(issue.message.trim(), `issue ${issue.code} has a message`);
+        assert.ok(issue.path != null, `issue ${issue.code} has a path`);
+      }
+      const expected = JSON.parse(read(join(dir, "issues.json")));
+      assert.deepEqual(sorted(issues.map(validationIssue)), sorted(expected), `issues for set ${basename(set)}`);
+    });
   }
 }

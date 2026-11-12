@@ -97,10 +97,10 @@ class SpecTests {
 
     @TestFactory
     fun validate(): List<DynamicTest> = caseDirs("validate").flatMap { set ->
-        caseDirs("validate/${set.name}").flatMap { code -> caseDirs("validate/${set.name}/${code.name}") }
+        caseDirs("validate/${set.name}")
     }.map { dir ->
-        val set = dir.parentFile.parentFile.name
-        dynamicTest("$set/${dir.parentFile.name}/${dir.name}") {
+        val set = dir.parentFile.name
+        dynamicTest("$set/${dir.name}") {
             val issues = decode(inputFile(dir)!!).validate(sets.getValue(set))
             val expectedIssues = dir.resolve("issues.json")
             if (update) {
