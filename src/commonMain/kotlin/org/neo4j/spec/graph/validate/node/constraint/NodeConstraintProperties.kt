@@ -20,8 +20,8 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.node.NodeValidation
-import org.neo4j.spec.graph.validate.pathOf
 
 object NodeConstraintProperties : NodeValidation {
     override fun validateConstraint(
@@ -37,7 +37,7 @@ object NodeConstraintProperties : NodeValidation {
                 Issue(
                     code = "missing_node_constraint_properties",
                     message = "Constraint '$constraintId' on node '$nodeId' has no properties",
-                    path = pathOf("nodes", nodeId, "constraints", constraintId, "properties")
+                    path = jsonPointerOf("nodes", nodeId, "constraints", constraintId, "properties")
                 )
             )
         }

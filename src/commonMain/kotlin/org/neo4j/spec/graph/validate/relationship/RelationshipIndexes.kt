@@ -20,7 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipIndex
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.pathOf
+import org.neo4j.spec.graph.validate.jsonPointerOf
 object RelationshipIndexes : RelationshipValidation {
     override fun validateIndex(
         model: GraphModel,
@@ -36,7 +36,7 @@ object RelationshipIndexes : RelationshipValidation {
                     Issue(
                         code = "missing_relationship_index_property",
                         message = "Missing property with id '$property' for relationship index '$indexId'",
-                        path = pathOf(
+                        path = jsonPointerOf(
                             "relationships",
                             relationshipId,
                             "extensions",

@@ -19,7 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.pathOf
+import org.neo4j.spec.graph.validate.jsonPointerOf
 
 object NodeConstraintCoverage : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
@@ -28,7 +28,7 @@ object NodeConstraintCoverage : NodeValidation {
                 Issue(
                     code = "missing_node_constraint_coverage",
                     message = "Node '$nodeId' has no constraints — add a KEY, UNIQUENESS, or EXISTENCE constraint.",
-                    path = pathOf("nodes", nodeId, "constraints")
+                    path = jsonPointerOf("nodes", nodeId, "constraints")
                 )
             )
         }

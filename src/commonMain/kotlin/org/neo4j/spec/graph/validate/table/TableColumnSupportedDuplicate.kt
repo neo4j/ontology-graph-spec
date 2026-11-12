@@ -21,7 +21,7 @@ import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.extension.source.TableColumn
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
-import org.neo4j.spec.graph.validate.pathOf
+import org.neo4j.spec.graph.validate.jsonPointerOf
 
 /**
  * A table column must list each supported type once.
@@ -40,7 +40,7 @@ object TableColumnSupportedDuplicate : TableValidation {
             kind = "supported type",
             owner = "table column '${column.name}'",
             values = column.supported,
-            path = pathOf("extensions", "data_source_tables", tableId, "columns", columnIndex, "supported")
+            path = jsonPointerOf("extensions", "data_source_tables", tableId, "columns", columnIndex, "supported")
         )
     }
 }
