@@ -59,6 +59,12 @@ class IssuePathTest {
     }
 
     @Test
+    fun `a key that looks pre-escaped is escaped again`() {
+        assertEquals("/a~01b", pathOf("a~1b"))
+        assertEquals("/a~1b~0c~1d", pathOf("a/b~c/d"))
+    }
+
+    @Test
     fun `issue paths resolve into the source document`() {
         val json = """
         {
@@ -77,6 +83,13 @@ class IssuePathTest {
                         "indexes": {
                             "i0": { "type": "TEXT", "labels": ["Person"], "properties": ["missing"] }
                         }
+                    }
+                },
+                "weird.key": {
+                    "labels": { "identifier": "Thing" },
+                    "properties": {},
+                    "constraints": {
+                        "c1": { "type": "UNIQUE", "properties": ["also"] }
                     }
                 }
             },
@@ -114,11 +127,19 @@ class IssuePathTest {
         val resolved = issues.associate { it.code to document.resolvePointer(it.path!!) }
         assertEquals(JsonPrimitive(""), resolved["missing_node_identifier_label"])
         assertEquals(JsonPrimitive("dup"), resolved["duplicate_node_alias"])
-        assertEquals(JsonPrimitive("missing"), resolved["missing_node_constraint_property"])
         assertEquals(JsonPrimitive("missing"), resolved["missing_node_index_property"])
         assertEquals(JsonPrimitive("email"), resolved["invalid_node_mapping_key_type"])
         assertEquals(JsonPrimitive("ghost"), resolved["missing_relationship_to_node"])
         assertEquals(JsonPrimitive("a"), resolved["duplicate_table_column_name"])
+        val constraintIssues = issues.filter { it.code == "missing_node_constraint_property" }
+        assertEquals(
+            JsonPrimitive("missing"),
+            document.resolvePointer(constraintIssues.first { it.path!!.startsWith("/nodes/n0") }.path!!)
+        )
+        assertEquals(
+            JsonPrimitive("also"),
+            document.resolvePointer(constraintIssues.first { it.path!!.startsWith("/nodes/weird.key") }.path!!)
+        )
     }
 
     private fun JsonElement.resolvePointer(pointer: String): JsonElement? {
