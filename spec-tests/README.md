@@ -34,10 +34,6 @@ optional other JSON/YAML files in the same directoy, representing the same model
 
 Each case is formed of an input model and a list of expected validation issues (codes and paths only - not messages).
 
-Cases group related issues, such as `core/constraints` or `core/references`, and each issue code is reported by at
-least one case under the set that reports it. Some validations only run when another found nothing, so a case
-shouldn't mix issues from validations that depend on each other.
-
 **Tests assert:**
 * The input model is successfully parsed and validation returns the expected list of issues
 
