@@ -21,9 +21,9 @@ import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.NodeConstraint
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.node.NodeConstraints
 import org.neo4j.spec.graph.validate.node.NodeValidation
-import org.neo4j.spec.graph.validate.pathOf
 
 object NodeExistenceConstraint : NodeValidation {
     override fun dependsOn() = listOf(NodeConstraints)
@@ -41,7 +41,7 @@ object NodeExistenceConstraint : NodeValidation {
                 Issue(
                     code = "invalid_node_exist_constraint_property_count",
                     message = "Node existence constraint '$constraintId' must have exactly one property.",
-                    path = pathOf("nodes", nodeId, "constraints", constraintId, "properties")
+                    path = jsonPointerOf("nodes", nodeId, "constraints", constraintId, "properties")
                 )
             )
         }
