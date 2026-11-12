@@ -20,6 +20,8 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.RelationshipConstraint
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
+import org.neo4j.spec.graph.validate.issueDetails
 
 object RelationshipConstraints : RelationshipValidation {
     override fun validateConstraint(
@@ -36,7 +38,8 @@ object RelationshipConstraints : RelationshipValidation {
                     Issue(
                         code = "missing_relationship_constraint_property",
                         message = "Missing property with id '$property' for relationship constraint '$constraintId'",
-                        path = "relationships.$relationshipId.constraints.$constraintId.properties.$property"
+                        path = "relationships.$relationshipId.constraints.$constraintId.properties.$property",
+                        details = issueDetails(IssueKeyType.CONSTRAINT, constraintId)
                     )
                 )
             }

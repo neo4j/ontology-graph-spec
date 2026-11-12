@@ -22,7 +22,9 @@ import org.neo4j.spec.graph.model.extension.mapping.NodeMapping
 import org.neo4j.spec.graph.model.extension.mapping.QueryMapping
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.Validation
+import org.neo4j.spec.graph.validate.issueDetails
 
 /**
  * A mapping's `depends_on` must reference the `id` of another mapping in the same list. Ids must be unique within
@@ -53,7 +55,8 @@ object MappingDependencies : Validation {
                     Issue(
                         code = "mapping_id_duplicate",
                         message = "Mapping id '$id' is used by more than one mapping in '$listId'",
-                        path = "extensions.data_source_mappings.$listId[$index].id"
+                        path = "extensions.data_source_mappings.$listId[$index].id",
+                        details = issueDetails(IssueKeyType.MAPPING, id)
                     )
                 )
             } else {
@@ -75,7 +78,12 @@ object MappingDependencies : Validation {
                     Issue(
                         code = "mapping_depends_on_self",
                         message = "Mapping '$dependsOn' can't depend on itself",
-                        path = path
+                        path = path,
+                        details = issueDetails(
+                            keyType = IssueKeyType.MAPPING,
+                            key = mapping.mappingId(),
+                            dependsOn = dependsOn
+                        )
                     )
                 )
                 target != null -> next[index] = target
@@ -85,22 +93,32 @@ object MappingDependencies : Validation {
                             code = "mapping_depends_on_other_list",
                             message = "Mapping depends on '$dependsOn' which is in a different list of mappings, " +
                                 "mappings can only depend on others in the same list",
-                            path = path
+                            path = path,
+                            details = issueDetails(
+                                keyType = IssueKeyType.MAPPING,
+                                key = mapping.mappingId(),
+                                dependsOn = dependsOn
+                            )
                         )
                     )
                 else -> issues.add(
                     Issue(
                         code = "mapping_depends_on_unknown",
                         message = "Mapping depends on '$dependsOn' which isn't the id of any mapping in '$listId'",
-                        path = path
+                        path = path,
+                        details = issueDetails(
+                            keyType = IssueKeyType.MAPPING,
+                            key = mapping.mappingId(),
+                            dependsOn = dependsOn
+                        )
                     )
                 )
             }
         }
-        reportCycles(listId, next, issues)
+        reportCycles(listId, mappings, next, issues)
     }
 
-    private fun reportCycles(listId: String, next: Map<Int, Int>, issues: MutableList<Issue>) {
+    private fun reportCycles(listId: String, mappings: List<Mapping>, next: Map<Int, Int>, issues: MutableList<Issue>) {
         val done = mutableSetOf<Int>()
         for (start in next.keys.sorted()) {
             if (start in done) {
@@ -121,7 +139,8 @@ object MappingDependencies : Validation {
                         message = "Mappings ${cycle.sorted().joinToString(", ") {
                             "[$it]"
                         }} in '$listId' depend on each other in a cycle",
-                        path = "extensions.data_source_mappings.$listId[$first].depends_on"
+                        path = "extensions.data_source_mappings.$listId[$first].depends_on",
+                        details = issueDetails(IssueKeyType.MAPPING, mappings[first].mappingId())
                     )
                 )
             }

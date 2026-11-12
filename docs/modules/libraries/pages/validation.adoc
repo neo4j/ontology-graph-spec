@@ -36,7 +36,7 @@ mistake, but means fixing an issue can reveal new ones.
 | `code` | A stable identifier for the kind of issue, such as `missing_relationship_to_node`.
 | `message` | A human-readable description.
 | `path` | Where the issue is, as a dot-separated path such as `relationships.acted-in.to.film`. Optional.
-| `details` | Extra information as string keys and values. Often empty.
+| `details` | Extra information as string keys and values. Built-in issues carry a machine-readable anchor: `keyType` is what the issue concerns (`model`, `node`, `relationship`, `property`, `index`, `constraint`, `table`, `column` or `mapping`) and `key` is its key in the model. Some validators add extra entries, such as `length` and `max` for over-long values. Custom checks may use their own entries.
 |===
 
 == Custom checks

@@ -28,3 +28,23 @@ data class Issue @JvmOverloads constructor(
     val path: String? = null, // e.g. "nodes.Person.labels"
     val details: Map<String, String> = emptyMap()
 )
+
+@JsExport
+enum class IssueKeyType {
+    MODEL,
+    NODE,
+    RELATIONSHIP,
+    PROPERTY,
+    INDEX,
+    CONSTRAINT,
+    TABLE,
+    COLUMN,
+    MAPPING
+}
+
+fun issueDetails(keyType: IssueKeyType? = null, key: String? = null, dependsOn: String? = null): Map<String, String> =
+    buildMap {
+        keyType?.let { put("keyType", it.name.lowercase()) }
+        key?.let { put("key", it) }
+        dependsOn?.let { put("dependsOn", it) }
+    }

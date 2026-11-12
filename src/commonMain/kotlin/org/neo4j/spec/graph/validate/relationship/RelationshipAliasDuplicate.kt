@@ -19,7 +19,9 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
+import org.neo4j.spec.graph.validate.issueDetails
 
 /**
  * A relationship's aliases are alternative names so must not repeat.
@@ -36,7 +38,8 @@ object RelationshipAliasDuplicate : RelationshipValidation {
             kind = "alias",
             owner = "relationship '$relationshipId'",
             values = relationship.aliases,
-            path = "relationships.$relationshipId.aliases"
+            path = "relationships.$relationshipId.aliases",
+            details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
         )
     }
 }

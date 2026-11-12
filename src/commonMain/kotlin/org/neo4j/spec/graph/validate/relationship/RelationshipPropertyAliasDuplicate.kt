@@ -20,7 +20,9 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
+import org.neo4j.spec.graph.validate.issueDetails
 
 /**
  * A relationship property's aliases are alternative names so must not repeat.
@@ -39,7 +41,8 @@ object RelationshipPropertyAliasDuplicate : RelationshipValidation {
             kind = "alias",
             owner = "property '$propertyId' of relationship '$relationshipId'",
             values = property.aliases,
-            path = "relationships.$relationshipId.properties.$propertyId.aliases"
+            path = "relationships.$relationshipId.properties.$propertyId.aliases",
+            details = issueDetails(IssueKeyType.PROPERTY, propertyId)
         )
     }
 }

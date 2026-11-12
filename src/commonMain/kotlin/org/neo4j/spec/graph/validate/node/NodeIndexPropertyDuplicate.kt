@@ -20,7 +20,9 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
+import org.neo4j.spec.graph.validate.issueDetails
 
 /**
  * A node index must list each property once.
@@ -39,7 +41,8 @@ object NodeIndexPropertyDuplicate : NodeValidation {
             kind = "property",
             owner = "index '$indexId' on node '$nodeId'",
             values = index.properties,
-            path = "nodes.$nodeId.extensions.indexes.$indexId.properties"
+            path = "nodes.$nodeId.extensions.indexes.$indexId.properties",
+            details = issueDetails(IssueKeyType.INDEX, indexId)
         )
     }
 }

@@ -20,6 +20,8 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipIndex
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
+import org.neo4j.spec.graph.validate.issueDetails
 object RelationshipIndexOptions : RelationshipValidation {
     override fun validateIndex(
         model: GraphModel,
@@ -35,7 +37,8 @@ object RelationshipIndexOptions : RelationshipValidation {
                     code = "relationship_index_type_options_mismatch",
                     message = "Cannot use options type '${index.options.type}' with relationship index '$indexId' " +
                         "type '${index.type}'",
-                    path = "relationships.$relationshipId.extensions.indexes.$indexId.options"
+                    path = "relationships.$relationshipId.extensions.indexes.$indexId.options",
+                    details = issueDetails(IssueKeyType.INDEX, indexId)
                 )
             )
         }

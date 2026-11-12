@@ -20,6 +20,8 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.IssueKeyType
+import org.neo4j.spec.graph.validate.issueDetails
 object NodeIndexProperties : NodeValidation {
     override fun validateIndex(
         model: GraphModel,
@@ -34,7 +36,8 @@ object NodeIndexProperties : NodeValidation {
                 Issue(
                     code = "missing_node_index_properties",
                     message = "Index '$indexId' on node '$nodeId' must have at least one property",
-                    path = "nodes.$nodeId.extensions.indexes.$indexId.properties"
+                    path = "nodes.$nodeId.extensions.indexes.$indexId.properties",
+                    details = issueDetails(IssueKeyType.INDEX, indexId)
                 )
             )
         }
