@@ -21,7 +21,6 @@ import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipIndex
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
-import org.neo4j.spec.graph.validate.jsonPointerOf
 
 /**
  * A relationship index must list each property once.
@@ -40,7 +39,7 @@ object RelationshipIndexPropertyDuplicate : RelationshipValidation {
             kind = "property",
             owner = "index '$indexId' on relationship '$relationshipId'",
             values = index.properties,
-            path = jsonPointerOf("relationships", relationshipId, "extensions", "indexes", indexId, "properties")
+            path = *arrayOf<Any>("relationships", relationshipId, "extensions", "indexes", indexId, "properties")
         )
     }
 }

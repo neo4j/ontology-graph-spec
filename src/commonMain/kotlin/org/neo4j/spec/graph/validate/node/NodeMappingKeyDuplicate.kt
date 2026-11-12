@@ -20,7 +20,6 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.duplicate.duplicateEntryIssues
-import org.neo4j.spec.graph.validate.jsonPointerOf
 
 /**
  * A node mapping key must list each property once.
@@ -33,7 +32,7 @@ object NodeMappingKeyDuplicate : NodeValidation {
                 kind = "mapping key",
                 owner = "node '$nodeId'",
                 values = nodeMapping.key,
-                path = jsonPointerOf("extensions", "data_source_mappings", mappingId, index, "key")
+                path = *arrayOf<Any>("extensions", "data_source_mappings", mappingId, index, "key")
             )
         }
     }
