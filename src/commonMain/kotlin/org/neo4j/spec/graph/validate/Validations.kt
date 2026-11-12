@@ -26,6 +26,7 @@ import org.neo4j.spec.graph.validate.node.NodeIndexLabelDuplicate
 import org.neo4j.spec.graph.validate.node.NodeIndexOptions
 import org.neo4j.spec.graph.validate.node.NodeIndexProperties
 import org.neo4j.spec.graph.validate.node.NodeIndexPropertyDuplicate
+import org.neo4j.spec.graph.validate.node.NodeIndexVectorDimension
 import org.neo4j.spec.graph.validate.node.NodeIndexesExists
 import org.neo4j.spec.graph.validate.node.NodeLabel
 import org.neo4j.spec.graph.validate.node.NodeLabelDuplicate
@@ -33,11 +34,14 @@ import org.neo4j.spec.graph.validate.node.NodeLabelToken
 import org.neo4j.spec.graph.validate.node.NodeMappingKey
 import org.neo4j.spec.graph.validate.node.NodeMappingKeyDuplicate
 import org.neo4j.spec.graph.validate.node.NodeMappingKeyType
+import org.neo4j.spec.graph.validate.node.NodeMappingMissing
 import org.neo4j.spec.graph.validate.node.NodeProperties
 import org.neo4j.spec.graph.validate.node.NodePropertyAliasDuplicate
 import org.neo4j.spec.graph.validate.node.NodePropertyDuplicateName
 import org.neo4j.spec.graph.validate.node.NodePropertyEmptyName
+import org.neo4j.spec.graph.validate.node.NodePropertyMappingMissing
 import org.neo4j.spec.graph.validate.node.NodePropertyPatternOneOf
+import org.neo4j.spec.graph.validate.node.NodePropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.node.constraint.NodeCompositeConstraintPropertyType
 import org.neo4j.spec.graph.validate.node.constraint.NodeConstraintDuplicatePropertySet
 import org.neo4j.spec.graph.validate.node.constraint.NodeConstraintProperties
@@ -48,17 +52,23 @@ import org.neo4j.spec.graph.validate.node.constraint.NodeKeyOverlap
 import org.neo4j.spec.graph.validate.node.constraint.NodeTypeConstraint
 import org.neo4j.spec.graph.validate.relationship.RelationshipAliasDuplicate
 import org.neo4j.spec.graph.validate.relationship.RelationshipConstraints
+import org.neo4j.spec.graph.validate.relationship.RelationshipEndpointColumnType
+import org.neo4j.spec.graph.validate.relationship.RelationshipEndpointMapping
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexOptions
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexProperties
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexPropertyDuplicate
+import org.neo4j.spec.graph.validate.relationship.RelationshipIndexVectorDimension
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexes
 import org.neo4j.spec.graph.validate.relationship.RelationshipMappingKey
 import org.neo4j.spec.graph.validate.relationship.RelationshipMappingKeyDuplicate
+import org.neo4j.spec.graph.validate.relationship.RelationshipMappingMissing
 import org.neo4j.spec.graph.validate.relationship.RelationshipNodes
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyAliasDuplicate
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyDuplicateName
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyEmptyName
+import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyMappingMissing
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyPatternOneOf
+import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTargetCount
 import org.neo4j.spec.graph.validate.relationship.RelationshipType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTypeToken
@@ -123,9 +133,8 @@ class Validations {
             RelationshipType
         )
 
-        // Property names are set and unique within their node or relationship, indexes and constraints have
-        // properties, constraints aren't duplicated, composite constraints don't overlap an existence constraint, and
-        // index and constraint names are unique.
+        // Schema consistency: names are set and unique, indexes and constraints are well-formed, and
+        // vector index dimensions match their properties.
         @JsStatic
         @JvmStatic
         val consistentSchema: List<Validation> = listOf(
@@ -134,7 +143,9 @@ class Validations {
             RelationshipPropertyEmptyName,
             RelationshipPropertyDuplicateName,
             NodeIndexProperties,
+            NodeIndexVectorDimension,
             RelationshipIndexProperties,
+            RelationshipIndexVectorDimension,
             NodeConstraintProperties,
             NodeConstraintDuplicatePropertySet,
             RelationshipConstraintDuplicatePropertySet,
@@ -142,16 +153,24 @@ class Validations {
             NodeIndexConstraintNameConflict
         )
 
-        // Node mappings have a key, mapping ids are unique and dependencies resolve without cycles, and data source
-        // table columns have a unique name and, outside local tables, a type.
+        // Importable from the data sources: mappings are complete, keys and columns are usable, and
+        // dependencies resolve.
         @JsStatic
         @JvmStatic
         val mappable: List<Validation> = listOf(
             NodeMappingKey,
+            NodeMappingMissing,
+            RelationshipMappingMissing,
+            NodePropertyMappingMissing,
+            RelationshipPropertyMappingMissing,
+            RelationshipEndpointMapping,
+            RelationshipEndpointColumnType,
             MappingDependencies,
             TableColumnEmptyName,
             TableColumnDuplicateName,
-            TableColumnType
+            TableColumnType,
+            NodePropertyUnsupportedLocalImportType,
+            RelationshipPropertyUnsupportedLocalImportType
         )
 
         // Neo4j bulk import restrictions: labels and types don't contain invalid characters and node mapping keys and
