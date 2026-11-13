@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.property.unsupportedLocalImportType
 
 object RelationshipPropertyUnsupportedLocalImportType : RelationshipValidation {
@@ -34,7 +35,9 @@ object RelationshipPropertyUnsupportedLocalImportType : RelationshipValidation {
             .toSet()
         for ((propertyId, property) in relationship.properties) {
             if (propertyId !in locallyMapped) continue
-            unsupportedLocalImportType(propertyId, property, "relationships.$relationshipId")?.let { issues.add(it) }
+            unsupportedLocalImportType(propertyId, property, jsonPointerOf("relationships", relationshipId))?.let {
+                issues.add(it)
+            }
         }
     }
 }

@@ -88,7 +88,7 @@ class RelationshipMappingMissingTest {
 
         assertEquals(1, issues.size)
         assertEquals("missing_relationship_mapping", issues.first().code)
-        assertEquals("relationships.rel0", issues.first().path)
+        assertEquals("/relationships/rel0", issues.first().path)
     }
 
     @Test

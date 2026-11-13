@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
 import org.neo4j.spec.graph.validate.property.missingPropertyMapping
 
@@ -28,7 +29,7 @@ object NodePropertyMappingMissing : NodeValidation {
         val covered = findNodeMappings(model, nodeId).flatMap { it.mapping.properties.keys }.toSet()
         for (propertyId in node.properties.keys) {
             if (propertyId !in covered) {
-                issues.add(missingPropertyMapping(propertyId, "nodes.$nodeId"))
+                issues.add(missingPropertyMapping(propertyId, jsonPointerOf("nodes", nodeId)))
             }
         }
     }

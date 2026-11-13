@@ -22,6 +22,7 @@ import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.node.findNodeMappings
 
 object RelationshipEndpointColumnType : RelationshipValidation {
@@ -33,7 +34,7 @@ object RelationshipEndpointColumnType : RelationshipValidation {
     ) {
         for ((mappingId, index, mapping) in findRelationshipMappings(model, relationshipId)) {
             val table = model.extensions.dataSourceTables[mapping.table] ?: continue
-            val base = "extensions.data_source_mappings.$mappingId[$index]"
+            val base = jsonPointerOf("extensions", "data_source_mappings", mappingId, index)
             validateEndpoint(
                 model,
                 relationshipId,
@@ -41,7 +42,7 @@ object RelationshipEndpointColumnType : RelationshipValidation {
                 mapping.table,
                 table,
                 mapping.fromNode,
-                "$base.from_node",
+                "$base${jsonPointerOf("from_node")}",
                 issues
             )
             validateEndpoint(
@@ -51,7 +52,7 @@ object RelationshipEndpointColumnType : RelationshipValidation {
                 mapping.table,
                 table,
                 mapping.toNode,
-                "$base.to_node",
+                "$base${jsonPointerOf("to_node")}",
                 issues
             )
         }
@@ -93,7 +94,7 @@ object RelationshipEndpointColumnType : RelationshipValidation {
                             "table '$tableId' cannot be converted to the '$propertyId' " +
                             "(${Neo4jType.toString(property.type)}) property on the '${node.labels.identifier}' " +
                             "node.",
-                        path = "$endPath.properties.$propertyId"
+                        path = "$endPath${jsonPointerOf("properties", propertyId)}"
                     )
                 )
             }

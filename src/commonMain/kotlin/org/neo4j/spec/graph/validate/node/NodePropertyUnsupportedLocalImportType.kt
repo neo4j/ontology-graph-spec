@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.property.unsupportedLocalImportType
 
 object NodePropertyUnsupportedLocalImportType : NodeValidation {
@@ -29,7 +30,7 @@ object NodePropertyUnsupportedLocalImportType : NodeValidation {
             .toSet()
         for ((propertyId, property) in node.properties) {
             if (propertyId !in locallyMapped) continue
-            unsupportedLocalImportType(propertyId, property, "nodes.$nodeId")?.let { issues.add(it) }
+            unsupportedLocalImportType(propertyId, property, jsonPointerOf("nodes", nodeId))?.let { issues.add(it) }
         }
     }
 }

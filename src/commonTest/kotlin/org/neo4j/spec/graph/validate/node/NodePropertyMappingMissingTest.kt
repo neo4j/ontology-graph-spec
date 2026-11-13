@@ -111,7 +111,7 @@ class NodePropertyMappingMissingTest {
 
         assertEquals(1, issues.size)
         assertEquals("missing_property_mapping", issues.first().code)
-        assertEquals("nodes.person.properties.age", issues.first().path)
+        assertEquals("/nodes/person/properties/age", issues.first().path)
     }
 
     @Test

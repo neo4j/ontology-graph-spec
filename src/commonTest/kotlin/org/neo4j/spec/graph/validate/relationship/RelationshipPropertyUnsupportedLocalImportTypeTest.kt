@@ -156,6 +156,6 @@ class RelationshipPropertyUnsupportedLocalImportTypeTest {
 
         assertEquals(1, issues.size)
         assertEquals("unsupported_local_import_property_type", issues.first().code)
-        assertEquals("relationships.rel0.properties.since.type", issues.first().path)
+        assertEquals("/relationships/rel0/properties/since/type", issues.first().path)
     }
 }

@@ -111,7 +111,7 @@ class RelationshipIndexVectorDimensionTest {
 
         assertEquals(1, issues.size)
         assertEquals("missing_vector_index_dimension", issues.first().code)
-        assertEquals("relationships.rel0.extensions.indexes.idx0", issues.first().path)
+        assertEquals("/relationships/rel0/extensions/indexes/idx0", issues.first().path)
     }
 
     @Test

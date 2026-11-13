@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.model.node.extension.NodeIndex
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.property.vectorIndexDimensionIssue
 
 object NodeIndexVectorDimension : NodeValidation {
@@ -37,7 +38,7 @@ object NodeIndexVectorDimension : NodeValidation {
             index.properties,
             index.options,
             node.properties,
-            "nodes.$nodeId.extensions.indexes.$indexId"
+            jsonPointerOf("nodes", nodeId, "extensions", "indexes", indexId)
         )?.let { issues.add(it) }
     }
 }

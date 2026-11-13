@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.relationship
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
 import org.neo4j.spec.graph.validate.property.missingPropertyMapping
 
@@ -34,7 +35,7 @@ object RelationshipPropertyMappingMissing : RelationshipValidation {
         val covered = findRelationshipMappings(model, relationshipId).flatMap { it.mapping.properties.keys }.toSet()
         for (propertyId in relationship.properties.keys) {
             if (propertyId !in covered) {
-                issues.add(missingPropertyMapping(propertyId, "relationships.$relationshipId"))
+                issues.add(missingPropertyMapping(propertyId, jsonPointerOf("relationships", relationshipId)))
             }
         }
     }
