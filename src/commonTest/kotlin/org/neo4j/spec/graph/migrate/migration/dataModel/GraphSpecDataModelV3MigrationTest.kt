@@ -822,7 +822,7 @@ class GraphSpecDataModelV3MigrationTest {
     }
 
     @Test
-    fun `aliases, cardinality, pattern and one_of are migrated`() {
+    fun `aliases cardinality pattern and one_of are migrated`() {
         val input = schemaMapOf(
             "nodes" to schemaMapOf(
                 "a" to schemaMapOf(
