@@ -39,7 +39,7 @@ object NodePropertyAliasDuplicate : NodeValidation {
             kind = "alias",
             owner = "property '$propertyId' of node '$nodeId'",
             values = property.aliases,
-            path = *arrayOf<Any>("nodes", nodeId, "properties", propertyId, "aliases")
+            path = arrayOf<Any>("nodes", nodeId, "properties", propertyId, "aliases")
         )
     }
 }

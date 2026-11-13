@@ -36,7 +36,7 @@ internal fun duplicateEntryIssues(
     kind: String,
     owner: String,
     values: List<Any>,
-    vararg path: Any,
+    path: Array<Any>,
     details: Map<String, String> = emptyMap()
 ): List<Issue> {
     val seen = mutableSetOf<Any>()
