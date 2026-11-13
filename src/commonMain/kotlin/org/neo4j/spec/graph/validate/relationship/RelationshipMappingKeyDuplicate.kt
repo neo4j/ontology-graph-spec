@@ -42,7 +42,7 @@ object RelationshipMappingKeyDuplicate : RelationshipValidation {
                     kind = "mapping key",
                     owner = "relationship '$relationshipId'",
                     values = mapping.key,
-                    path = *arrayOf<Any>("extensions", "data_source_mappings", mappingId, index, "key")
+                    path = arrayOf<Any>("extensions", "data_source_mappings", mappingId, index, "key")
                 )
             }
         }

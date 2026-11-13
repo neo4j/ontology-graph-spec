@@ -39,7 +39,7 @@ object TableColumnSupportedDuplicate : TableValidation {
             kind = "supported type",
             owner = "table column '${column.name}'",
             values = column.supported,
-            path = *arrayOf<Any>("extensions", "data_source_tables", tableId, "columns", columnIndex, "supported")
+            path = arrayOf<Any>("extensions", "data_source_tables", tableId, "columns", columnIndex, "supported")
         )
     }
 }
