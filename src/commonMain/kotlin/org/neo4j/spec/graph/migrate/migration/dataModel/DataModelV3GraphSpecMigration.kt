@@ -156,7 +156,8 @@ class DataModelV3GraphSpecMigration :
                     "indexes" to convertIndexes(indexes, labelRef, primaryLabel, propertyTokens)
                 ).filterValues { !it.isNullOrEmpty() }.mapValues { it.value!! },
                 "description" to nodeObject.literalOrNull("description"),
-                "aliases" toNotEmpty nodeObject.listOrNull("aliases")
+                "aliases" toNotEmpty nodeObject.listOrNull("aliases"),
+                "reference" to nodeObject.literalOrNull("reference")
             )
         }
         return nodes
@@ -257,7 +258,8 @@ class DataModelV3GraphSpecMigration :
                     "indexes" to convertIndexes(indexes, typeRef, token, propertyTokens)
                 ).filterValues { !it.isNullOrEmpty() }.mapValues { it.value!! },
                 "description" to objectType.literalOrNull("description"),
-                "aliases" toNotEmpty objectType.listOrNull("aliases")
+                "aliases" toNotEmpty objectType.listOrNull("aliases"),
+                "reference" to objectType.literalOrNull("reference")
             )
         }
         return relationships
@@ -283,6 +285,7 @@ class DataModelV3GraphSpecMigration :
                 "dimension" to dimension(typeObj),
                 "description" to property.literalOrNull("description"),
                 "aliases" toNotEmpty property.listOrNull("aliases"),
+                "reference" to property.literalOrNull("reference"),
                 "pattern" to property.literalOrNull("pattern"),
                 "one_of" toNotEmpty property.listOrNull("one_of")
             )

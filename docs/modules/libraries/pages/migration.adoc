@@ -20,9 +20,7 @@ model's `version` field for the Aura Data Importer formats.
 
 Data model `3.0.0` carries these fields, and they are preserved in both directions:
 
-* `description` and `aliases` on node object types, relationship object types and properties.
+* `description`, `aliases` and `reference` on node object types, relationship object types and properties.
 * `count`, `minCount` and `maxCount` on the `from` and `to` references of a relationship object type, which map to
 `count`, `min_count` and `max_count` on the `from` and `to` ends of a relationship.
 * `pattern` and `one_of` on properties.
-
-Fields the data model has no place for, such as `reference`, are not carried.

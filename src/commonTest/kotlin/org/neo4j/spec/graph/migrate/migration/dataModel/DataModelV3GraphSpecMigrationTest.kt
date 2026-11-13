@@ -793,6 +793,7 @@ class DataModelV3GraphSpecMigrationTest {
                                     "type" to mapOf("type" to "string"),
                                     "description" to "an x",
                                     "aliases" to listOf("ex", "why"),
+                                    "reference" to "ref:p",
                                     "pattern" to "^[A-Z].*$",
                                     "one_of" to listOf("D1", "D2")
                                 )
@@ -804,7 +805,7 @@ class DataModelV3GraphSpecMigrationTest {
                         mapOf("\$id" to "rt:R", "token" to "R", "properties" to emptyList<Any>())
                     ),
                     "nodeObjectTypes" to listOf(
-                        mapOf("\$id" to "n:A", "labels" to listOf(mapOf("\$ref" to "#nl:A")), "aliases" to listOf("Aa")),
+                        mapOf("\$id" to "n:A", "labels" to listOf(mapOf("\$ref" to "#nl:A")), "aliases" to listOf("Aa"), "reference" to "ref:n"),
                         mapOf("\$id" to "n:B", "labels" to listOf(mapOf("\$ref" to "#nl:B")))
                     ),
                     "relationshipObjectTypes" to listOf(
@@ -813,7 +814,8 @@ class DataModelV3GraphSpecMigrationTest {
                             "type" to mapOf("\$ref" to "#rt:R"),
                             "from" to mapOf("\$ref" to "#n:A", "count" to 1),
                             "to" to mapOf("\$ref" to "#n:B", "minCount" to 0, "maxCount" to 5),
-                            "aliases" to listOf("RR")
+                            "aliases" to listOf("RR"),
+                            "reference" to "ref:r"
                         )
                     )
                 )
@@ -828,6 +830,9 @@ class DataModelV3GraphSpecMigrationTest {
         val prop = node.map("properties").map("p:A.x")
         assertEquals(listOf("ex", "why"), prop.list("aliases").map { it.toString() })
         assertEquals("^[A-Z].*$", prop.string("pattern"))
+        assertEquals("ref:p", prop.string("reference"))
+        assertEquals("ref:n", node.string("reference"))
+        assertEquals("ref:r", result.map("relationships").map("r:R").string("reference"))
         assertEquals(listOf("D1", "D2"), prop.list("one_of").map { it.toString() })
         val rel = result.map("relationships").map("r:R")
         assertEquals(listOf("RR"), rel.list("aliases").map { it.toString() })

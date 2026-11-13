@@ -828,10 +828,12 @@ class GraphSpecDataModelV3MigrationTest {
                 "a" to schemaMapOf(
                     "labels" to schemaMapOf("identifier" to "A"),
                     "aliases" to listOf("Aa"),
+                    "reference" to "ref:n",
                     "properties" to schemaMapOf(
                         "x" to schemaMapOf(
                             "type" to "STRING",
                             "aliases" to listOf("ex"),
+                            "reference" to "ref:p",
                             "pattern" to "^[A-Z].*$",
                             "one_of" to listOf("D1", "D2")
                         )
@@ -844,7 +846,8 @@ class GraphSpecDataModelV3MigrationTest {
                     "type" to "R",
                     "from" to schemaMapOf("node" to "a", "count" to 1),
                     "to" to schemaMapOf("node" to "b", "min_count" to 0, "max_count" to 5),
-                    "aliases" to listOf("RR")
+                    "aliases" to listOf("RR"),
+                    "reference" to "ref:r"
                 )
             )
         )
@@ -856,6 +859,9 @@ class GraphSpecDataModelV3MigrationTest {
         val prop = schema.listOfMaps("nodeLabels").first { it.string("token") == "A" }.listOfMaps("properties").single()
         assertEquals(listOf("ex"), prop.list("aliases").map { it.toString() })
         assertEquals("^[A-Z].*$", prop.string("pattern"))
+        assertEquals("ref:p", prop.string("reference"))
+        assertEquals("ref:n", nodeType.string("reference"))
+        assertEquals("ref:r", schema.listOfMaps("relationshipObjectTypes").single().string("reference"))
         assertEquals(listOf("D1", "D2"), prop.list("one_of").map { it.toString() })
         val rel = schema.listOfMaps("relationshipObjectTypes").single()
         assertEquals(listOf("RR"), rel.list("aliases").map { it.toString() })

@@ -161,7 +161,8 @@ class GraphSpecDataModelV3Migration :
                     "from" to convertTarget(rel.map("from")),
                     "to" to convertTarget(rel.map("to")),
                     "description" to rel.literalOrNull("description"),
-                    "aliases" toNotEmpty rel.listOrNull("aliases")
+                    "aliases" toNotEmpty rel.listOrNull("aliases"),
+                    "reference" to rel.literalOrNull("reference")?.takeUnless { it.string.isEmpty() }
                 )
             )
 
@@ -243,7 +244,8 @@ class GraphSpecDataModelV3Migration :
                     "\$id" to nodeId,
                     "labels" to labelRefs,
                     "description" to node.literalOrNull("description"),
-                    "aliases" toNotEmpty node.listOrNull("aliases")
+                    "aliases" toNotEmpty node.listOrNull("aliases"),
+                    "reference" to node.literalOrNull("reference")?.takeUnless { it.string.isEmpty() }
                 )
             )
             val propertyTokens = propertyTokens(node.mapOfMapsOrNull("properties"))
@@ -347,6 +349,7 @@ class GraphSpecDataModelV3Migration :
                 "nullable" to false,
                 "description" to prop.literalOrNull("description"),
                 "aliases" toNotEmpty prop.listOrNull("aliases"),
+                "reference" to prop.literalOrNull("reference")?.takeUnless { it.string.isEmpty() },
                 "pattern" to prop.literalOrNull("pattern")?.takeUnless { it.string.isEmpty() },
                 "one_of" toNotEmpty prop.listOrNull("one_of")
             )
