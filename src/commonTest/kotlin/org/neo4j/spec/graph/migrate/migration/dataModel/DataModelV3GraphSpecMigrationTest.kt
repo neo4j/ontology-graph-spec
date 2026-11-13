@@ -776,4 +776,65 @@ class DataModelV3GraphSpecMigrationTest {
         )
         assertTrue(result.containsKey("description"), "description should be present but empty")
     }
+
+    @Test
+    fun `aliases, cardinality, pattern and one_of are migrated`() {
+        val schema = schemaMapOf(
+            "graphSchemaRepresentation" to mapOf(
+                "graphSchema" to mapOf(
+                    "nodeLabels" to listOf(
+                        mapOf(
+                            "\$id" to "nl:A",
+                            "token" to "A",
+                            "properties" to listOf(
+                                mapOf(
+                                    "\$id" to "p:A.x",
+                                    "token" to "x",
+                                    "type" to mapOf("type" to "string"),
+                                    "description" to "an x",
+                                    "aliases" to listOf("ex", "why"),
+                                    "pattern" to "^[A-Z].*$",
+                                    "one_of" to listOf("D1", "D2")
+                                )
+                            )
+                        ),
+                        mapOf("\$id" to "nl:B", "token" to "B", "properties" to emptyList<Any>())
+                    ),
+                    "relationshipTypes" to listOf(
+                        mapOf("\$id" to "rt:R", "token" to "R", "properties" to emptyList<Any>())
+                    ),
+                    "nodeObjectTypes" to listOf(
+                        mapOf("\$id" to "n:A", "labels" to listOf(mapOf("\$ref" to "#nl:A")), "aliases" to listOf("Aa")),
+                        mapOf("\$id" to "n:B", "labels" to listOf(mapOf("\$ref" to "#nl:B")))
+                    ),
+                    "relationshipObjectTypes" to listOf(
+                        mapOf(
+                            "\$id" to "r:R",
+                            "type" to mapOf("\$ref" to "#rt:R"),
+                            "from" to mapOf("\$ref" to "#n:A", "count" to 1),
+                            "to" to mapOf("\$ref" to "#n:B", "minCount" to 0, "maxCount" to 5),
+                            "aliases" to listOf("RR")
+                        )
+                    )
+                )
+            ),
+            "graphMappingRepresentation" to mapOf("nodeMappings" to emptyList<Any>())
+        )
+
+        val result = migration.migrate(schema)
+
+        val node = result.map("nodes").map("n:A")
+        assertEquals(listOf("Aa"), node.list("aliases").map { it.toString() })
+        val prop = node.map("properties").map("p:A.x")
+        assertEquals(listOf("ex", "why"), prop.list("aliases").map { it.toString() })
+        assertEquals("^[A-Z].*$", prop.string("pattern"))
+        assertEquals(listOf("D1", "D2"), prop.list("one_of").map { it.toString() })
+        val rel = result.map("relationships").map("r:R")
+        assertEquals(listOf("RR"), rel.list("aliases").map { it.toString() })
+        assertEquals("n:A", rel.map("from").string("node"))
+        assertEquals(1, rel.map("from").int("count"))
+        assertEquals(0, rel.map("to").int("min_count"))
+        assertEquals(5, rel.map("to").int("max_count"))
+        assertEquals(null, rel.map("to").literalOrNull("count"))
+    }
 }

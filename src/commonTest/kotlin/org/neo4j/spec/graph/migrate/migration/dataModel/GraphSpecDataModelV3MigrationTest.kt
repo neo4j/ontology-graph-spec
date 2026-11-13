@@ -820,4 +820,49 @@ class GraphSpecDataModelV3MigrationTest {
             assertTrue(failure.message!!.contains("has no label, set label or labels.identifier"))
         }
     }
+
+    @Test
+    fun `aliases, cardinality, pattern and one_of are migrated`() {
+        val input = schemaMapOf(
+            "nodes" to schemaMapOf(
+                "a" to schemaMapOf(
+                    "labels" to schemaMapOf("identifier" to "A"),
+                    "aliases" to listOf("Aa"),
+                    "properties" to schemaMapOf(
+                        "x" to schemaMapOf(
+                            "type" to "STRING",
+                            "aliases" to listOf("ex"),
+                            "pattern" to "^[A-Z].*$",
+                            "one_of" to listOf("D1", "D2")
+                        )
+                    )
+                ),
+                "b" to schemaMapOf("labels" to schemaMapOf("identifier" to "B"))
+            ),
+            "relationships" to schemaMapOf(
+                "r" to schemaMapOf(
+                    "type" to "R",
+                    "from" to schemaMapOf("node" to "a", "count" to 1),
+                    "to" to schemaMapOf("node" to "b", "min_count" to 0, "max_count" to 5),
+                    "aliases" to listOf("RR")
+                )
+            )
+        )
+
+        val schema = migration.migrate(input).map("graphSchemaRepresentation").map("graphSchema")
+
+        val nodeType = schema.listOfMaps("nodeObjectTypes").first { it.string("\$id") == "a" }
+        assertEquals(listOf("Aa"), nodeType.list("aliases").map { it.toString() })
+        val prop = schema.listOfMaps("nodeLabels").first { it.string("token") == "A" }.listOfMaps("properties").single()
+        assertEquals(listOf("ex"), prop.list("aliases").map { it.toString() })
+        assertEquals("^[A-Z].*$", prop.string("pattern"))
+        assertEquals(listOf("D1", "D2"), prop.list("one_of").map { it.toString() })
+        val rel = schema.listOfMaps("relationshipObjectTypes").single()
+        assertEquals(listOf("RR"), rel.list("aliases").map { it.toString() })
+        assertEquals("#a", rel.map("from").string("\$ref"))
+        assertEquals(1, rel.map("from").int("count"))
+        assertEquals(0, rel.map("to").int("minCount"))
+        assertEquals(5, rel.map("to").int("maxCount"))
+        assertNull(rel.map("to").literalOrNull("count"))
+    }
 }

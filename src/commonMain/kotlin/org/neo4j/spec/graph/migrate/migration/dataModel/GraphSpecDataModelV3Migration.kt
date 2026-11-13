@@ -158,9 +158,10 @@ class GraphSpecDataModelV3Migration :
                 schemaMapOf(
                     "\$id" to relId,
                     "type" to refOf(typeId),
-                    "from" to refOf(rel.map("from").string("node")),
-                    "to" to refOf(rel.map("to").string("node")),
-                    "description" to rel.literalOrNull("description")
+                    "from" to convertTarget(rel.map("from")),
+                    "to" to convertTarget(rel.map("to")),
+                    "description" to rel.literalOrNull("description"),
+                    "aliases" toNotEmpty rel.listOrNull("aliases")
                 )
             )
 
@@ -241,7 +242,8 @@ class GraphSpecDataModelV3Migration :
                 schemaMapOf(
                     "\$id" to nodeId,
                     "labels" to labelRefs,
-                    "description" to node.literalOrNull("description")
+                    "description" to node.literalOrNull("description"),
+                    "aliases" toNotEmpty node.listOrNull("aliases")
                 )
             )
             val propertyTokens = propertyTokens(node.mapOfMapsOrNull("properties"))
@@ -320,6 +322,16 @@ class GraphSpecDataModelV3Migration :
         )
     }
 
+    /**
+     * A relationship end as a reference to its node, with any cardinality.
+     */
+    private fun convertTarget(target: SchemaMap): SchemaMap = schemaMapOf(
+        "\$ref" to "#${target.string("node").removePrefix("#")}",
+        "count" to target.literalOrNull("count"),
+        "minCount" to target.literalOrNull("min_count"),
+        "maxCount" to target.literalOrNull("max_count")
+    )
+
     private fun propertyTokens(properties: Map<String, SchemaMap>?): Map<String, String> =
         properties.orEmpty().mapValues { (id, property) -> property.stringOrNull("name") ?: id }
 
@@ -333,7 +345,10 @@ class GraphSpecDataModelV3Migration :
                 "token" to (prop.stringOrNull("name") ?: propId),
                 "type" to propertyType(prop.string("type"), prop.intOrNull("dimension")),
                 "nullable" to false,
-                "description" to prop.literalOrNull("description")
+                "description" to prop.literalOrNull("description"),
+                "aliases" toNotEmpty prop.listOrNull("aliases"),
+                "pattern" to prop.literalOrNull("pattern")?.takeUnless { it.string.isEmpty() },
+                "one_of" toNotEmpty prop.listOrNull("one_of")
             )
             map
         }
