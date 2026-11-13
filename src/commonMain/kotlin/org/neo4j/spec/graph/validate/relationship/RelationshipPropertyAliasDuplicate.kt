@@ -39,7 +39,7 @@ object RelationshipPropertyAliasDuplicate : RelationshipValidation {
             kind = "alias",
             owner = "property '$propertyId' of relationship '$relationshipId'",
             values = property.aliases,
-            path = *arrayOf<Any>("relationships", relationshipId, "properties", propertyId, "aliases")
+            path = arrayOf<Any>("relationships", relationshipId, "properties", propertyId, "aliases")
         )
     }
 }

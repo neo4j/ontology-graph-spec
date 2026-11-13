@@ -40,7 +40,7 @@ object RelationshipConstraintPropertyDuplicate : RelationshipValidation {
             kind = "property",
             owner = "constraint '$constraintId' on relationship '$relationshipId'",
             values = constraint.properties,
-            path = *arrayOf<Any>("relationships", relationshipId, "constraints", constraintId, "properties")
+            path = arrayOf<Any>("relationships", relationshipId, "constraints", constraintId, "properties")
         )
     }
 }
