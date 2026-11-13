@@ -1,0 +1,145 @@
+{
+  "version": "3.0.0",
+  "graphSchemaRepresentation": {
+    "version": "1.0.0",
+    "graphSchema": {
+      "nodeLabels": [
+        {
+          "$id": "nl:0",
+          "token": "Actor",
+          "properties": [
+            {
+              "$id": "p:Actor.name",
+              "token": "name",
+              "type": {
+                "type": "string"
+              },
+              "nullable": false,
+              "description": "The actor's full name",
+              "aliases": [
+                "fullName",
+                "actorName"
+              ],
+              "reference": "https://schema.org/name",
+              "pattern": "^[A-Z].*$"
+            },
+            {
+              "$id": "p:Actor.tier",
+              "token": "tier",
+              "type": {
+                "type": "string"
+              },
+              "nullable": false,
+              "one_of": [
+                "A",
+                "B",
+                "C"
+              ],
+              "description": ""
+            }
+          ]
+        },
+        {
+          "$id": "nl:1",
+          "token": "Movie",
+          "properties": [
+            {
+              "$id": "p:Movie.title",
+              "token": "title",
+              "type": {
+                "type": "string"
+              },
+              "nullable": false,
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "relationshipTypes": [
+        {
+          "$id": "rt:0",
+          "token": "ACTED_IN",
+          "properties": [
+            {
+              "$id": "p:ACTED_IN.roles",
+              "token": "roles",
+              "type": {
+                "type": "string"
+              },
+              "nullable": false,
+              "aliases": [
+                "roleNames"
+              ],
+              "reference": "https://schema.org/roleName",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "nodeObjectTypes": [
+        {
+          "$id": "n:Actor",
+          "labels": [
+            {
+              "$ref": "#nl:0"
+            }
+          ],
+          "description": "A person who acted in a movie",
+          "aliases": [
+            "Performer",
+            "CastMember"
+          ],
+          "reference": "https://schema.org/Person"
+        },
+        {
+          "$id": "n:Movie",
+          "labels": [
+            {
+              "$ref": "#nl:1"
+            }
+          ],
+          "description": ""
+        }
+      ],
+      "relationshipObjectTypes": [
+        {
+          "$id": "r:ACTED_IN",
+          "type": {
+            "$ref": "#rt:0"
+          },
+          "from": {
+            "$ref": "#n:Actor",
+            "count": 1
+          },
+          "to": {
+            "$ref": "#n:Movie",
+            "minCount": 0,
+            "maxCount": 5
+          },
+          "description": "An actor acted in a movie",
+          "aliases": [
+            "STARRED_IN",
+            "PERFORMED_IN"
+          ],
+          "reference": "https://schema.org/actor"
+        }
+      ],
+      "constraints": [],
+      "indexes": []
+    }
+  },
+  "graphSchemaExtensionsRepresentation": {
+    "nodeKeyProperties": []
+  },
+  "graphMappingRepresentation": {
+    "dataSourceSchema": {
+      "type": null,
+      "tableSchemas": []
+    },
+    "nodeMappings": [],
+    "relationshipMappings": []
+  },
+  "configurations": {
+    "idsToIgnore": []
+  }
+}

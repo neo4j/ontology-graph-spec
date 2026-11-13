@@ -21,6 +21,7 @@ class End2EndMigrationTest {
         "dvd-rental.json",
         "flights.json",
         "ldbc.json",
+        "new-fields.json",
         "northwind.json",
         "pandc.json",
         "vector-embeddings.json"

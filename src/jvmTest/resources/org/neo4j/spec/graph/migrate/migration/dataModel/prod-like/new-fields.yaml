@@ -1,0 +1,53 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1.0.0"
+id: "graph-model"
+nodes:
+  "n:Actor":
+    labels:
+      identifier: "Actor"
+    properties:
+      "p:Actor.name":
+        type: "STRING"
+        name: "name"
+        description: "The actor's full name"
+        aliases:
+          - "fullName"
+          - "actorName"
+        reference: "https://schema.org/name"
+        pattern: "^[A-Z].*$"
+      "p:Actor.tier":
+        type: "STRING"
+        name: "tier"
+        one_of:
+          - "A"
+          - "B"
+          - "C"
+    description: "A person who acted in a movie"
+    aliases:
+      - "Performer"
+      - "CastMember"
+    reference: "https://schema.org/Person"
+  "n:Movie":
+    labels:
+      identifier: "Movie"
+    properties:
+      "p:Movie.title":
+        type: "STRING"
+        name: "title"
+relationships:
+  "r:ACTED_IN":
+    type: "ACTED_IN"
+    from: { node: "n:Actor", count: 1 }
+    to: { node: "n:Movie", min_count: 0, max_count: 5 }
+    properties:
+      "p:ACTED_IN.roles":
+        type: "STRING"
+        name: "roles"
+        aliases:
+          - "roleNames"
+        reference: "https://schema.org/roleName"
+    description: "An actor acted in a movie"
+    aliases:
+      - "STARRED_IN"
+      - "PERFORMED_IN"
+    reference: "https://schema.org/actor"

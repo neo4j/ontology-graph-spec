@@ -155,7 +155,9 @@ class DataModelV3GraphSpecMigration :
                 "extensions" toNotEmpty mapOf(
                     "indexes" to convertIndexes(indexes, labelRef, primaryLabel, propertyTokens)
                 ).filterValues { !it.isNullOrEmpty() }.mapValues { it.value!! },
-                "description" to nodeObject.literalOrNull("description")
+                "description" to nodeObject.literalOrNull("description"),
+                "aliases" toNotEmpty nodeObject.listOrNull("aliases"),
+                "reference" to nodeObject.literalOrNull("reference")
             )
         }
         return nodes
@@ -248,18 +250,30 @@ class DataModelV3GraphSpecMigration :
             val id = objectType.id()
             relationships[id] = schemaMapOf(
                 "type" to token,
-                "from" to mapOf("node" to objectType.ref("from")),
-                "to" to mapOf("node" to objectType.ref("to")),
+                "from" to convertTarget(objectType.map("from")),
+                "to" to convertTarget(objectType.map("to")),
                 "properties" to convertProperties(listOf(relationshipType)),
                 "constraints" toNotEmpty convertConstraints(constraints, typeRef, token, propertyTokens),
                 "extensions" toNotEmpty mapOf(
                     "indexes" to convertIndexes(indexes, typeRef, token, propertyTokens)
                 ).filterValues { !it.isNullOrEmpty() }.mapValues { it.value!! },
-                "description" to objectType.literalOrNull("description")
+                "description" to objectType.literalOrNull("description"),
+                "aliases" toNotEmpty objectType.listOrNull("aliases"),
+                "reference" to objectType.literalOrNull("reference")
             )
         }
         return relationships
     }
+
+    /**
+     * A relationship end, with its node reference and any cardinality.
+     */
+    private fun convertTarget(target: SchemaMap): SchemaMap = schemaMapOf(
+        "node" to target.ref(),
+        "count" to target.literalOrNull("count"),
+        "min_count" to target.literalOrNull("minCount"),
+        "max_count" to target.literalOrNull("maxCount")
+    )
 
     internal fun convertProperties(labels: List<SchemaMap>): Map<String, SchemaMap> = labels
         .flatMap { label -> label.listOfMaps("properties") }
@@ -269,7 +283,11 @@ class DataModelV3GraphSpecMigration :
                 "name" to property.literalOrNull("token"),
                 "type" to neo4jType(typeObj),
                 "dimension" to dimension(typeObj),
-                "description" to property.literalOrNull("description")
+                "description" to property.literalOrNull("description"),
+                "aliases" toNotEmpty property.listOrNull("aliases"),
+                "reference" to property.literalOrNull("reference"),
+                "pattern" to property.literalOrNull("pattern"),
+                "one_of" toNotEmpty property.listOrNull("one_of")
             )
             property.id() to map
         }
