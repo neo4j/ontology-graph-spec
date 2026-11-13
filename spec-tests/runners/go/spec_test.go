@@ -47,35 +47,29 @@ func TestValidate(t *testing.T) {
 	}
 
 	for _, set := range caseDirs(t, "validate") {
-		for _, code := range caseDirs(t, filepath.Join("validate", filepath.Base(set))) {
-			for _, dir := range caseDirs(t, filepath.Join("validate", filepath.Base(set), filepath.Base(code))) {
-				name := filepath.Base(set) + "/" + filepath.Base(code) + "/" + filepath.Base(dir)
-				t.Run(name, func(t *testing.T) {
-					input := filepath.Join(dir, "input.json")
-					if !exists(input) {
-						t.Skip("YAML input is not supported by the Go library")
-					}
+		for _, dir := range caseDirs(t, filepath.Join("validate", filepath.Base(set))) {
+			name := filepath.Base(set) + "/" + filepath.Base(dir)
+			t.Run(name, func(t *testing.T) {
+				// The Go library has no YAML decoder, so only input.json is validated.
+				issues, err := validation.Validate(decode(t, filepath.Join(dir, "input.json")), validation.Set(filepath.Base(set)))
+				require.NoError(t, err)
 
-					issues, err := validation.Validate(decode(t, input), validation.Set(filepath.Base(set)))
-					require.NoError(t, err)
+				actual := make([]validationIssue, 0, len(issues))
+				for _, issue := range issues {
+					require.NotEmpty(t, issue.Message, "issue %s has a message", issue.Code)
+					require.NotEmpty(t, issue.Path, "issue %s has a path", issue.Code)
+					path := issue.Path
+					actual = append(actual, validationIssue{Code: issue.Code, Path: &path, Details: nonNil(issue.Details)})
+				}
 
-					actual := make([]validationIssue, 0, len(issues))
-					for _, issue := range issues {
-						require.NotEmpty(t, issue.Message, "issue %s has a message", issue.Code)
-						require.NotEmpty(t, issue.Path, "issue %s has a path", issue.Code)
-						path := issue.Path
-						actual = append(actual, validationIssue{Code: issue.Code, Path: &path, Details: nonNil(issue.Details)})
-					}
+				var expected []validationIssue
+				require.NoError(t, json.Unmarshal([]byte(read(t, filepath.Join(dir, "issues.json"))), &expected))
+				for i := range expected {
+					expected[i].Details = nonNil(expected[i].Details)
+				}
 
-					var expected []validationIssue
-					require.NoError(t, json.Unmarshal([]byte(read(t, filepath.Join(dir, "issues.json"))), &expected))
-					for i := range expected {
-						expected[i].Details = nonNil(expected[i].Details)
-					}
-
-					require.ElementsMatch(t, expected, actual, "issues for set %s", filepath.Base(set))
-				})
-			}
+				require.ElementsMatch(t, expected, actual, "issues for set %s", filepath.Base(set))
+			})
 		}
 	}
 }
@@ -106,11 +100,6 @@ func read(t *testing.T, file string) string {
 	raw, err := os.ReadFile(file)
 	require.NoError(t, err)
 	return string(raw)
-}
-
-func exists(file string) bool {
-	_, err := os.Stat(file)
-	return err == nil
 }
 
 func nonNil(details map[string]string) map[string]string {

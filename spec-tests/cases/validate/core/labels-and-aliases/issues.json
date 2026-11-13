@@ -1,0 +1,30 @@
+[
+    {
+        "code": "duplicate_node_alias",
+        "path": "nodes.person.aliases[1]",
+        "details": {
+            "value": "Human"
+        }
+    },
+    {
+        "code": "duplicate_node_implied_label",
+        "path": "nodes.person.labels.implied[1]",
+        "details": {
+            "value": "Agent"
+        }
+    },
+    {
+        "code": "duplicate_node_optional_label",
+        "path": "nodes.person.labels.optional[1]",
+        "details": {
+            "value": "Actor"
+        }
+    },
+    {
+        "code": "duplicate_relationship_alias",
+        "path": "relationships.knows.aliases[1]",
+        "details": {
+            "value": "FRIEND_OF"
+        }
+    }
+]

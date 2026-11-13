@@ -1,0 +1,32 @@
+[
+    {
+        "code": "missing_node_constraint_property",
+        "path": "nodes.person.constraints.email_unique.properties.email",
+        "details": {}
+    },
+    {
+        "code": "missing_node_index_property",
+        "path": "nodes.person.extensions.indexes.email_range.properties.email",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_constraint_property",
+        "path": "relationships.knows.constraints.weight_unique.properties.weight",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_from_node",
+        "path": "relationships.built.from.robot",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_index_property",
+        "path": "relationships.knows.extensions.indexes.weight_range.properties.weight",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_to_node",
+        "path": "relationships.knows.to.robot",
+        "details": {}
+    }
+]

@@ -1,0 +1,25 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "labels-and-aliases"
+description: "Nodes and Relationships with duplicate aliases or labels."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+      implied:
+        - "Agent"
+        - "Agent"
+      optional:
+        - "Actor"
+        - "Actor"
+    aliases:
+      - "Human"
+      - "Human"
+relationships:
+  knows:
+    type: "KNOWS"
+    from: {}
+    to: {}
+    aliases:
+      - "FRIEND_OF"
+      - "FRIEND_OF"

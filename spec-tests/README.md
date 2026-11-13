@@ -8,7 +8,7 @@ reference: its runner regenerates the expected files, which are reviewed and com
 spec-tests/
   cases/
     documents/<name>/              model.json, model.yaml and alternative forms such as shorthand.yaml
-    validate/<set>/<code>/<name>/  input.json or input.yaml, issues.json
+    validate/<set>/<name>/         input.json, input.yaml and expected issues.json
   runners/
     kotlin/                        the reference, built against this project, regenerates expected files
     go/ java/ js/                  each consuming a local build or a published version

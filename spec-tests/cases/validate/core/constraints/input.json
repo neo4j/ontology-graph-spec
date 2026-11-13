@@ -1,0 +1,29 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "constraints",
+  "description": "Node and relationship constraints with an invalid number of properties or duplicate properties.",
+  "nodes": {
+    "person": {
+      "properties": { "name": { "type": "STRING" }, "age": { "type": "INTEGER" } },
+      "constraints": {
+        "name_exists": { "type": "EXISTS", "properties": [] },
+        "name_age_type": { "type": "PROPERTY_TYPE", "properties": ["name", "age"] },
+        "name_unique": { "type": "UNIQUE", "properties": ["name", "name"] }
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {},
+      "to": {},
+      "properties": { "since": { "type": "DATE" }, "weight": { "type": "FLOAT" } },
+      "constraints": {
+        "since_exists": { "type": "EXISTS", "properties": [] },
+        "since_weight_type": { "type": "PROPERTY_TYPE", "properties": ["since", "weight"] },
+        "since_unique": { "type": "UNIQUE", "properties": ["since", "since"] }
+      }
+    }
+  }
+}

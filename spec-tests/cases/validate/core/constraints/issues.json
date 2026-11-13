@@ -1,0 +1,36 @@
+[
+    {
+        "code": "duplicate_node_constraint_property",
+        "path": "nodes.person.constraints.name_unique.properties[1]",
+        "details": {
+            "value": "name"
+        }
+    },
+    {
+        "code": "duplicate_relationship_constraint_property",
+        "path": "relationships.knows.constraints.since_unique.properties[1]",
+        "details": {
+            "value": "since"
+        }
+    },
+    {
+        "code": "invalid_node_exist_constraint_property_count",
+        "path": "nodes.person.constraints.name_exists.properties",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_type_constraint_property_count",
+        "path": "nodes.person.constraints.name_age_type.properties",
+        "details": {}
+    },
+    {
+        "code": "invalid_relationship_exist_constraint_property_count",
+        "path": "relationships.knows.constraints.since_exists.properties",
+        "details": {}
+    },
+    {
+        "code": "invalid_relationship_type_constraint_property_count",
+        "path": "relationships.knows.constraints.since_weight_type.properties",
+        "details": {}
+    }
+]

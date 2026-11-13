@@ -27,7 +27,6 @@ const caseDirs = (path) =>
     .sort();
 
 const read = (file) => readFileSync(file, "utf8");
-const inputFile = (dir) => readdirSync(dir).filter((name) => name.startsWith("input.")).map((name) => join(dir, name))[0];
 const documentFiles = (dir) => [
   join(dir, "model.json"),
   join(dir, "model.yaml"),
@@ -57,17 +56,17 @@ for (const dir of caseDirs("documents")) {
 }
 
 for (const set of caseDirs("validate")) {
-  for (const code of caseDirs(`validate/${basename(set)}`)) {
-    for (const dir of caseDirs(`validate/${basename(set)}/${basename(code)}`)) {
-      test(`validate/${basename(set)}/${basename(code)}/${basename(dir)}`, () => {
-        const issues = validate(decode(inputFile(dir)), basename(set));
+  for (const dir of caseDirs(`validate/${basename(set)}`)) {
+    test(`validate/${basename(set)}/${basename(dir)}`, () => {
+      const expected = sorted(JSON.parse(read(join(dir, "issues.json"))));
+      for (const input of ["input.json", "input.yaml"]) {
+        const issues = validate(decode(join(dir, input)), basename(set));
         for (const issue of issues) {
           assert.ok(issue.message.trim(), `issue ${issue.code} has a message`);
           assert.ok(issue.path != null, `issue ${issue.code} has a path`);
         }
-        const expected = JSON.parse(read(join(dir, "issues.json")));
-        assert.deepEqual(sorted(issues.map(validationIssue)), sorted(expected), `issues for set ${basename(set)}`);
-      });
-    }
+        assert.deepEqual(sorted(issues.map(validationIssue)), expected, `issues for ${input} with set ${basename(set)}`);
+      }
+    });
   }
 }

@@ -1,0 +1,42 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "mappings",
+  "description": "Mappings with duplicate or invalid keys and supported types.",
+  "nodes": { "person": { "properties": { "id": { "type": "STRING" } } } },
+  "relationships": { "knows": { "type": "KNOWS", "from": {}, "to": {}, "properties": { "since": { "type": "DATE" } } } },
+  "extensions": {
+    "data_source_tables": {
+      "people": { "source": "local", "columns": [{ "name": "id", "supported": ["STRING", "STRING"] }] },
+      "friendships": { "source": "local", "columns": [{ "name": "since" }] }
+    },
+    "data_source_mappings": {
+      "load": [
+        {
+          "type": "NODE",
+          "node": "person",
+          "table": "people",
+          "properties": { "id": { "column": "id" } },
+          "key": ["id", "id"]
+        },
+        {
+          "type": "RELATIONSHIP",
+          "relationship": "knows",
+          "table": "friendships",
+          "from_node": {},
+          "to_node": {},
+          "properties": { "since": { "column": "since" } },
+          "key": ["since", "since"]
+        },
+        {
+          "type": "RELATIONSHIP",
+          "relationship": "knows",
+          "table": "friendships",
+          "from_node": {},
+          "to_node": {},
+          "key": ["weight"]
+        }
+      ]
+    }
+  }
+}
