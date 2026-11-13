@@ -15,3 +15,12 @@ information | 2.3.0, 2.4.0, 3.0.0 | 3.0.0
 
 The version of a document is read from the document: from the `schema` URL for this specification, and from the data
 model's `version` field for the Aura Data Importer formats.
+
+== Fields carried to and from the data model
+
+Data model `3.0.0` carries these fields, and they are preserved in both directions:
+
+* `description`, `aliases` and `reference` on node object types, relationship object types and properties.
+* `count`, `minCount` and `maxCount` on the `from` and `to` references of a relationship object type, which map to
+`count`, `min_count` and `max_count` on the `from` and `to` ends of a relationship.
+* `pattern` and `one_of` on properties.
