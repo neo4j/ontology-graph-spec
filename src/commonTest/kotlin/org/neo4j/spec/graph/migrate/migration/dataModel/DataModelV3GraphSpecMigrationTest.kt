@@ -805,7 +805,12 @@ class DataModelV3GraphSpecMigrationTest {
                         mapOf("\$id" to "rt:R", "token" to "R", "properties" to emptyList<Any>())
                     ),
                     "nodeObjectTypes" to listOf(
-                        mapOf("\$id" to "n:A", "labels" to listOf(mapOf("\$ref" to "#nl:A")), "aliases" to listOf("Aa"), "reference" to "ref:n"),
+                        mapOf(
+                            "\$id" to "n:A",
+                            "labels" to listOf(mapOf("\$ref" to "#nl:A")),
+                            "aliases" to listOf("Aa"),
+                            "reference" to "ref:n"
+                        ),
                         mapOf("\$id" to "n:B", "labels" to listOf(mapOf("\$ref" to "#nl:B")))
                     ),
                     "relationshipObjectTypes" to listOf(
