@@ -112,7 +112,7 @@ class NodeIndexOptionsTest {
             "Cannot use options type 'POINT' with node index 'idx_user_email_status' type 'TEXT'",
             issue.message
         )
-        assertEquals("nodes.userNode.extensions.indexes.idx_user_email_status.options", issue.path)
+        assertEquals("/nodes/userNode/extensions/indexes/idx_user_email_status/options", issue.path)
     }
 
     @Test

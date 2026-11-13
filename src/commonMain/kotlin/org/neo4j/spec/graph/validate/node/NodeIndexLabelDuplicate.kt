@@ -39,7 +39,7 @@ object NodeIndexLabelDuplicate : NodeValidation {
             kind = "label",
             owner = "index '$indexId' on node '$nodeId'",
             values = index.labels,
-            path = "nodes.$nodeId.extensions.indexes.$indexId.labels"
+            path = arrayOf<Any>("nodes", nodeId, "extensions", "indexes", indexId, "labels")
         )
     }
 }

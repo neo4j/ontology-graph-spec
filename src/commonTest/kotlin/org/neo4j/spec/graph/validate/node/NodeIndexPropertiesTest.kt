@@ -76,6 +76,6 @@ class NodeIndexPropertiesTest {
         assertEquals(1, issues.size)
         val issue = issues.first()
         assertEquals("missing_node_index_properties", issue.code)
-        assertEquals("nodes.userNode.extensions.indexes.idx_empty.properties", issue.path)
+        assertEquals("/nodes/userNode/extensions/indexes/idx_empty/properties", issue.path)
     }
 }

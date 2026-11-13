@@ -46,7 +46,7 @@ class NodePropertyAliasDuplicateTest {
 
         assertEquals(1, issues.size)
         assertEquals("duplicate_node_property_alias", issues.first().code)
-        assertEquals("nodes.n.properties.p.aliases[1]", issues.first().path)
+        assertEquals("/nodes/n/properties/p/aliases/1", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }
 }

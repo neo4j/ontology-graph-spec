@@ -56,14 +56,14 @@ class RelationshipTargetCountTest {
     fun `count with min is invalid`() {
         val issues = validate(RelationshipTarget(count = 3, minCount = 1))
         assertEquals(listOf("relationship_count_conflict"), issues.map { it.code })
-        assertEquals("relationships.rel.from", issues.single().path)
+        assertEquals("/relationships/rel/from", issues.single().path)
     }
 
     @Test
     fun `count with max is invalid on the to side`() {
         val issues = validate(RelationshipTarget(), RelationshipTarget(count = 3, maxCount = 10))
         assertEquals(listOf("relationship_count_conflict"), issues.map { it.code })
-        assertEquals("relationships.rel.to", issues.single().path)
+        assertEquals("/relationships/rel/to", issues.single().path)
     }
 
     @Test

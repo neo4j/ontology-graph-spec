@@ -1,32 +1,32 @@
 [
     {
         "code": "missing_node_constraint_property",
-        "path": "nodes.person.constraints.email_unique.properties.email",
+        "path": "/nodes/person/constraints/email_unique/properties/0",
         "details": {}
     },
     {
         "code": "missing_node_index_property",
-        "path": "nodes.person.extensions.indexes.email_range.properties.email",
+        "path": "/nodes/person/extensions/indexes/email_range/properties/0",
         "details": {}
     },
     {
         "code": "missing_relationship_constraint_property",
-        "path": "relationships.knows.constraints.weight_unique.properties.weight",
+        "path": "/relationships/knows/constraints/weight_unique/properties/0",
         "details": {}
     },
     {
         "code": "missing_relationship_from_node",
-        "path": "relationships.built.from.robot",
+        "path": "/relationships/built/from/node",
         "details": {}
     },
     {
         "code": "missing_relationship_index_property",
-        "path": "relationships.knows.extensions.indexes.weight_range.properties.weight",
+        "path": "/relationships/knows/extensions/indexes/weight_range/properties/0",
         "details": {}
     },
     {
         "code": "missing_relationship_to_node",
-        "path": "relationships.knows.to.robot",
+        "path": "/relationships/knows/to/node",
         "details": {}
     }
 ]

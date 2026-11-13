@@ -39,7 +39,7 @@ object RelationshipIndexPropertyDuplicate : RelationshipValidation {
             kind = "property",
             owner = "index '$indexId' on relationship '$relationshipId'",
             values = index.properties,
-            path = "relationships.$relationshipId.extensions.indexes.$indexId.properties"
+            path = arrayOf<Any>("relationships", relationshipId, "extensions", "indexes", indexId, "properties")
         )
     }
 }

@@ -39,7 +39,7 @@ object NodeIndexPropertyDuplicate : NodeValidation {
             kind = "property",
             owner = "index '$indexId' on node '$nodeId'",
             values = index.properties,
-            path = "nodes.$nodeId.extensions.indexes.$indexId.properties"
+            path = arrayOf<Any>("nodes", nodeId, "extensions", "indexes", indexId, "properties")
         )
     }
 }

@@ -25,6 +25,9 @@ import kotlin.jvm.JvmOverloads
 data class Issue @JvmOverloads constructor(
     val code: String,
     val message: String,
-    val path: String? = null, // e.g. "nodes.Person.labels"
+    val path: String? = null,
     val details: Map<String, String> = emptyMap()
 )
+
+fun jsonPointerOf(vararg segments: Any): String =
+    segments.joinToString("") { "/" + it.toString().replace("~", "~0").replace("/", "~1") }

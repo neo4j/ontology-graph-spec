@@ -32,7 +32,7 @@ object NodeMappingKeyDuplicate : NodeValidation {
                 kind = "mapping key",
                 owner = "node '$nodeId'",
                 values = nodeMapping.key,
-                path = "extensions.data_source_mappings.$mappingId[$index].key"
+                path = arrayOf<Any>("extensions", "data_source_mappings", mappingId, index, "key")
             )
         }
     }

@@ -31,14 +31,14 @@ object NodeLabelDuplicate : NodeValidation {
             kind = "implied label",
             owner = "node '$nodeId'",
             values = node.labels.implied,
-            path = "nodes.$nodeId.labels.implied"
+            path = arrayOf<Any>("nodes", nodeId, "labels", "implied")
         )
         issues += duplicateEntryIssues(
             code = "duplicate_node_optional_label",
             kind = "optional label",
             owner = "node '$nodeId'",
             values = node.labels.optional,
-            path = "nodes.$nodeId.labels.optional"
+            path = arrayOf<Any>("nodes", nodeId, "labels", "optional")
         )
     }
 }

@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.RelationshipConstraint
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import org.neo4j.spec.graph.validate.node.NodeConstraints
 import org.neo4j.spec.graph.validate.relationship.RelationshipValidation
 
@@ -40,7 +41,7 @@ object RelationshipExistenceConstraint : RelationshipValidation {
                 Issue(
                     code = "invalid_relationship_exist_constraint_property_count",
                     message = "Relationship existence constraint '$constraintId' must have exactly one property.",
-                    path = "relationships.$relationshipId.constraints.$constraintId.properties"
+                    path = jsonPointerOf("relationships", relationshipId, "constraints", constraintId, "properties")
                 )
             )
         }

@@ -40,7 +40,7 @@ object NodeConstraintPropertyDuplicate : NodeValidation {
             kind = "property",
             owner = "constraint '$constraintId' on node '$nodeId'",
             values = constraint.properties,
-            path = "nodes.$nodeId.constraints.$constraintId.properties"
+            path = arrayOf<Any>("nodes", nodeId, "constraints", constraintId, "properties")
         )
     }
 }

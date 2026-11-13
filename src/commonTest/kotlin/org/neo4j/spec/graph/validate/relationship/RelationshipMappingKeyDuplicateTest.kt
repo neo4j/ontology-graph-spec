@@ -71,7 +71,7 @@ class RelationshipMappingKeyDuplicateTest {
 
         assertEquals(1, issues.size)
         assertEquals("duplicate_relationship_mapping_key", issues.first().code)
-        assertEquals("extensions.data_source_mappings.m[0].key[1]", issues.first().path)
+        assertEquals("/extensions/data_source_mappings/m/0/key/1", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }
 }

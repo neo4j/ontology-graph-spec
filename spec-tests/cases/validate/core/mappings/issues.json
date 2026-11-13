@@ -1,28 +1,28 @@
 [
     {
         "code": "duplicate_node_mapping_key",
-        "path": "extensions.data_source_mappings.load[0].key[1]",
+        "path": "/extensions/data_source_mappings/load/0/key/1",
         "details": {
             "value": "id"
         }
     },
     {
         "code": "duplicate_relationship_mapping_key",
-        "path": "extensions.data_source_mappings.load[1].key[1]",
+        "path": "/extensions/data_source_mappings/load/1/key/1",
         "details": {
             "value": "since"
         }
     },
     {
         "code": "duplicate_table_column_supported_type",
-        "path": "extensions.data_source_tables.people.columns[0].supported[1]",
+        "path": "/extensions/data_source_tables/people/columns/0/supported/1",
         "details": {
             "value": "STRING"
         }
     },
     {
         "code": "invalid_relationship_mapping_key",
-        "path": "extensions.data_source_mappings.load[2].key",
+        "path": "/extensions/data_source_mappings/load/2/key",
         "details": {
             "relationship": "knows",
             "property": "weight"

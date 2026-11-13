@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.extension.source.TableColumn
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 object TableColumnEmptyName : TableValidation {
     override fun validateTableColumn(
         model: GraphModel,
@@ -34,7 +35,7 @@ object TableColumnEmptyName : TableValidation {
                 Issue(
                     code = "missing_table_column_name",
                     message = "Missing name for table column at index $columnIndex in table '$tableId'",
-                    path = "extensions.data_source_tables.$tableId.columns[$columnIndex].name"
+                    path = jsonPointerOf("extensions", "data_source_tables", tableId, "columns", columnIndex, "name")
                 )
             )
         }

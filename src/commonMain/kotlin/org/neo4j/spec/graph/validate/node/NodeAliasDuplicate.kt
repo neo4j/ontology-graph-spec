@@ -31,7 +31,7 @@ object NodeAliasDuplicate : NodeValidation {
             kind = "alias",
             owner = "node '$nodeId'",
             values = node.aliases,
-            path = "nodes.$nodeId.aliases"
+            path = arrayOf<Any>("nodes", nodeId, "aliases")
         )
     }
 }

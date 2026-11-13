@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.RelationshipConstraint
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 
 object RelationshipConstraints : RelationshipValidation {
     override fun validateConstraint(
@@ -30,13 +31,20 @@ object RelationshipConstraints : RelationshipValidation {
         constraint: RelationshipConstraint,
         issues: MutableList<Issue>
     ) {
-        for (property in constraint.properties) {
+        for ((propertyIndex, property) in constraint.properties.withIndex()) {
             if (!relationship.properties.containsKey(property)) {
                 issues.add(
                     Issue(
                         code = "missing_relationship_constraint_property",
                         message = "Missing property with id '$property' for relationship constraint '$constraintId'",
-                        path = "relationships.$relationshipId.constraints.$constraintId.properties.$property"
+                        path = jsonPointerOf(
+                            "relationships",
+                            relationshipId,
+                            "constraints",
+                            constraintId,
+                            "properties",
+                            propertyIndex
+                        )
                     )
                 )
             }

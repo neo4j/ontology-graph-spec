@@ -31,6 +31,6 @@ object NodePropertyPatternOneOf : NodeValidation {
         property: Property,
         issues: MutableList<Issue>
     ) {
-        patternOneOfConflict(propertyId, property, "nodes.$nodeId")?.let { issues.add(it) }
+        patternOneOfConflict(propertyId, property, "nodes", nodeId)?.let { issues.add(it) }
     }
 }

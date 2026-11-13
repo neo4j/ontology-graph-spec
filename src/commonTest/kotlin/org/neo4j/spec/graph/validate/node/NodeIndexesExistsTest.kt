@@ -76,7 +76,7 @@ class NodeIndexesExistsTest {
         val issue = issues.first()
         assertEquals("missing_node_index_property", issue.code)
         assertEquals("Missing property with id 'email' for node index 'idx_user_email'", issue.message)
-        assertEquals("nodes.userNode.extensions.indexes.idx_user_email.properties.email", issue.path)
+        assertEquals("/nodes/userNode/extensions/indexes/idx_user_email/properties/0", issue.path)
     }
 
     @Test
@@ -98,12 +98,15 @@ class NodeIndexesExistsTest {
 
         assertEquals(2, issues.size)
 
-        // Extract property name from end of the path
-        val missingProperties = issues.map { issue ->
-            issue.path?.substringAfterLast('.')
-        }.toSet()
+        val missingPaths = issues.map { it.path }.toSet()
 
-        assertEquals(setOf("email", "age"), missingProperties)
+        assertEquals(
+            setOf(
+                "/nodes/userNode/extensions/indexes/idx_compound/properties/0",
+                "/nodes/userNode/extensions/indexes/idx_compound/properties/2"
+            ),
+            missingPaths
+        )
         assertTrue(issues.all { it.code == "missing_node_index_property" })
     }
 

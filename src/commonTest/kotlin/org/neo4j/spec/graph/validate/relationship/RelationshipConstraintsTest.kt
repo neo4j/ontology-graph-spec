@@ -84,7 +84,7 @@ class RelationshipConstraintsTest {
         val issue = issues.first()
         assertEquals("missing_relationship_constraint_property", issue.code)
         assertEquals("Missing property with id 'roles' for relationship constraint 'const_roles'", issue.message)
-        assertEquals("relationships.actedIn.constraints.const_roles.properties.roles", issue.path)
+        assertEquals("/relationships/actedIn/constraints/const_roles/properties/0", issue.path)
     }
 
     @Test
@@ -108,8 +108,14 @@ class RelationshipConstraintsTest {
 
         assertEquals(2, issues.size)
 
-        val missingProperties = issues.map { it.path?.substringAfterLast('.') }.toSet()
-        assertEquals(setOf("roles", "year"), missingProperties)
+        val missingPaths = issues.map { it.path }.toSet()
+        assertEquals(
+            setOf(
+                "/relationships/actedIn/constraints/const_compound/properties/0",
+                "/relationships/actedIn/constraints/const_compound/properties/1"
+            ),
+            missingPaths
+        )
         assertTrue(issues.all { it.code == "missing_relationship_constraint_property" })
     }
 

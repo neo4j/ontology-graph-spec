@@ -31,6 +31,6 @@ object RelationshipPropertyEmptyName : RelationshipValidation {
         property: Property,
         issues: MutableList<Issue>
     ) {
-        emptyPropertyName(propertyId, property, "relationships.$relationshipId")?.let { issues.add(it) }
+        emptyPropertyName(propertyId, property, "relationships", relationshipId)?.let { issues.add(it) }
     }
 }
