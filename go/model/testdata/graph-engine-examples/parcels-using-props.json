@@ -1,0 +1,123 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.0.0/schema.json",
+  "version": "1.0.0",
+  "id": "parcels",
+  "description": "Parcels delivered to addresses. Address is identified by the composite property key postCode and houseNumber. Parcel is identified by a single property key.",
+  "nodes": {
+    "Address": {
+      "label": "Address",
+      "properties": {
+        "postCode": {
+          "type": "STRING"
+        },
+        "houseNumber": {
+          "type": "STRING"
+        },
+        "streetName": {
+          "type": "STRING"
+        },
+        "city": {
+          "type": "STRING"
+        }
+      }
+    },
+    "Parcel": {
+      "label": "Parcel",
+      "properties": {
+        "parcelId": {
+          "type": "STRING"
+        },
+        "weight": {
+          "type": "FLOAT"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "DELIVERED_TO": {
+      "type": "DELIVERED_TO",
+      "from": {
+        "node": "Parcel"
+      },
+      "to": {
+        "node": "Address"
+      },
+      "properties": {
+        "date": {
+          "type": "DATE"
+        }
+      }
+    }
+  },
+  "extensions": {
+    "mappings": {
+      "mapping0": [
+        {
+          "type": "NODE",
+          "node": "Address",
+          "table": "addresses",
+          "properties": {
+            "postCode": {
+              "column": "post_code"
+            },
+            "houseNumber": {
+              "column": "house_number"
+            },
+            "streetName": {
+              "column": "street_name"
+            },
+            "city": {
+              "column": "city"
+            }
+          },
+          "key_properties": [
+            "postCode",
+            "houseNumber"
+          ]
+        },
+        {
+          "type": "NODE",
+          "node": "Parcel",
+          "table": "parcels",
+          "properties": {
+            "parcelId": {
+              "column": "parcel_id"
+            },
+            "weight": {
+              "column": "weight"
+            }
+          },
+          "key_properties": [
+            "parcelId"
+          ]
+        },
+        {
+          "type": "RELATIONSHIP",
+          "relationship": "DELIVERED_TO",
+          "table": "deliveries",
+          "from_node": [
+            {
+              "node_key_property": "parcelId",
+              "relationship_column": "parcel_id"
+            }
+          ],
+          "to_node": [
+            {
+              "node_key_property": "postCode",
+              "relationship_column": "post_code"
+            },
+            {
+              "node_key_property": "houseNumber",
+              "relationship_column": "house_number"
+            }
+          ],
+          "properties": {
+            "date": {
+              "column": "date"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
