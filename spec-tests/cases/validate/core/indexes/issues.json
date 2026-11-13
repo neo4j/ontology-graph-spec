@@ -1,33 +1,33 @@
 [
     {
         "code": "duplicate_node_index_label",
-        "path": "nodes.person.extensions.indexes.name_range.labels[1]",
+        "path": "/nodes/person/extensions/indexes/name_range/labels/1",
         "details": {
             "value": "Person"
         }
     },
     {
         "code": "duplicate_node_index_property",
-        "path": "nodes.person.extensions.indexes.name_range.properties[1]",
+        "path": "/nodes/person/extensions/indexes/name_range/properties/1",
         "details": {
             "value": "name"
         }
     },
     {
         "code": "duplicate_relationship_index_property",
-        "path": "relationships.knows.extensions.indexes.note_range.properties[1]",
+        "path": "/relationships/knows/extensions/indexes/note_range/properties/1",
         "details": {
             "value": "note"
         }
     },
     {
         "code": "node_index_type_options_mismatch",
-        "path": "nodes.person.extensions.indexes.name_text.options",
+        "path": "/nodes/person/extensions/indexes/name_text/options",
         "details": {}
     },
     {
         "code": "relationship_index_type_options_mismatch",
-        "path": "relationships.knows.extensions.indexes.note_text.options",
+        "path": "/relationships/knows/extensions/indexes/note_text/options",
         "details": {}
     }
 ]
