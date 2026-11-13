@@ -11,6 +11,8 @@ Many objects have a `custom` field, directly or under their `extensions`, for an
 specification gives it no meaning. Grouping data under a key named after the tool or organisation that writes it avoids
 clashes with data written by other tools.
 
+Custom data can't contain `null`, as a value in a map or as an item in a list. To leave out a value, leave out its key.
+
 [source,yaml]
 ----
 nodes:
