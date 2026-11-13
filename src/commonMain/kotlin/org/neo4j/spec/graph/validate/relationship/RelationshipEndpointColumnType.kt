@@ -22,8 +22,6 @@ import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.IssueKeyType
-import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.node.findNodeMappings
 
 object RelationshipEndpointColumnType : RelationshipValidation {
@@ -95,8 +93,7 @@ object RelationshipEndpointColumnType : RelationshipValidation {
                             "table '$tableId' cannot be converted to the '$propertyId' " +
                             "(${Neo4jType.toString(property.type)}) property on the '${node.labels.identifier}' " +
                             "node.",
-                        path = "$endPath.properties.$propertyId",
-                        details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
+                        path = "$endPath.properties.$propertyId"
                     )
                 )
             }

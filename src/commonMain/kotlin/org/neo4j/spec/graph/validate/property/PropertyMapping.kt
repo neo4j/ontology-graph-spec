@@ -19,13 +19,10 @@
 package org.neo4j.spec.graph.validate.property
 
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.IssueKeyType
-import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.jvm.JvmName
 
 fun missingPropertyMapping(propertyId: String, entityPath: String): Issue = Issue(
     code = "missing_property_mapping",
     message = "Property '$propertyId' is not mapped to any source column",
-    path = "$entityPath.properties.$propertyId",
-    details = issueDetails(IssueKeyType.PROPERTY, propertyId)
+    path = "$entityPath.properties.$propertyId"
 )

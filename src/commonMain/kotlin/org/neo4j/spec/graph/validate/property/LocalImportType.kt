@@ -21,8 +21,6 @@ package org.neo4j.spec.graph.validate.property
 import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.IssueKeyType
-import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.jvm.JvmName
 
 // boolean, datetime, arrays of those, and the six vector types.
@@ -52,8 +50,7 @@ fun unsupportedLocalImportType(propertyId: String, property: Property, entityPat
             code = "unsupported_local_import_property_type",
             message = "Property '$propertyId' type '${Neo4jType.toString(property.type)}' is not supported " +
                 "in local imports",
-            path = "$entityPath.properties.$propertyId.type",
-            details = issueDetails(IssueKeyType.PROPERTY, propertyId)
+            path = "$entityPath.properties.$propertyId.type"
         )
     }
     return null

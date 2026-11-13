@@ -20,8 +20,6 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.extension.mapping.TargetMapping
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.IssueKeyType
-import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
 import org.neo4j.spec.graph.validate.node.findNodeMappings
 
@@ -82,8 +80,7 @@ object RelationshipEndpointMapping : RelationshipValidation {
                 Issue(
                     code = code,
                     message = "Relationship '$relationshipId' $end mapping does not cover a key of node '$nodeId'",
-                    path = "$path.properties",
-                    details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
+                    path = "$path.properties"
                 )
             )
         }
@@ -92,7 +89,6 @@ object RelationshipEndpointMapping : RelationshipValidation {
     private fun missingEndpoint(code: String, relationshipId: String, end: String, path: String?) = Issue(
         code = code,
         message = "Relationship '$relationshipId' mapping has no $end node mapping",
-        path = path ?: "relationships.$relationshipId",
-        details = issueDetails(IssueKeyType.RELATIONSHIP, relationshipId)
+        path = path ?: "relationships.$relationshipId"
     )
 }

@@ -19,8 +19,6 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.IssueKeyType
-import org.neo4j.spec.graph.validate.issueDetails
 import org.neo4j.spec.graph.validate.mapping.hasStructuredDataSource
 
 object NodeMappingMissing : NodeValidation {
@@ -31,8 +29,7 @@ object NodeMappingMissing : NodeValidation {
                 Issue(
                     code = "missing_node_mapping",
                     message = "Node '$nodeId' has no data source mapping",
-                    path = "nodes.$nodeId",
-                    details = issueDetails(IssueKeyType.NODE, nodeId)
+                    path = "nodes.$nodeId"
                 )
             )
         }

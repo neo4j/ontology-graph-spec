@@ -24,8 +24,6 @@ import org.neo4j.spec.graph.model.property.Neo4jType
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.model.type.IndexType
 import org.neo4j.spec.graph.validate.Issue
-import org.neo4j.spec.graph.validate.IssueKeyType
-import org.neo4j.spec.graph.validate.issueDetails
 import kotlin.jvm.JvmName
 
 private const val SYNC_DIMENSION = "Update the property dimension to sync the index dimension."
@@ -47,15 +45,13 @@ fun vectorIndexDimensionIssue(
         dimensions == null -> Issue(
             code = "missing_vector_index_dimension",
             message = "Property dimension is missing from the index. $SYNC_DIMENSION",
-            path = indexPath,
-            details = issueDetails(IssueKeyType.INDEX, indexId)
+            path = indexPath
         )
         dimensions != propertyDimension -> Issue(
             code = "mismatched_vector_dimension",
             message = "Index dimension ($dimensions) does not match property dimension ($propertyDimension). " +
                 SYNC_DIMENSION,
-            path = indexPath,
-            details = issueDetails(IssueKeyType.INDEX, indexId)
+            path = indexPath
         )
         else -> null
     }
