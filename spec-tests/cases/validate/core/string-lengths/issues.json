@@ -1,7 +1,7 @@
 [
     {
         "code": "description_too_long",
-        "path": "nodes.person.description",
+        "path": "/nodes/person/description",
         "details": {
             "length": "1025",
             "max": "1024"
@@ -9,7 +9,7 @@
     },
     {
         "code": "name_too_long",
-        "path": "name",
+        "path": "/name",
         "details": {
             "length": "257",
             "max": "256"
@@ -17,7 +17,7 @@
     },
     {
         "code": "name_too_long",
-        "path": "nodes.person.constraints.id_key.name",
+        "path": "/nodes/person/constraints/id_key/name",
         "details": {
             "length": "801",
             "max": "800"
@@ -25,7 +25,7 @@
     },
     {
         "code": "name_too_long",
-        "path": "nodes.person.extensions.indexes.id_text.name",
+        "path": "/nodes/person/extensions/indexes/id_text/name",
         "details": {
             "length": "801",
             "max": "800"
@@ -33,7 +33,7 @@
     },
     {
         "code": "name_too_long",
-        "path": "relationships.knows.properties.since.name",
+        "path": "/relationships/knows/properties/since/name",
         "details": {
             "length": "257",
             "max": "256"
