@@ -79,12 +79,13 @@ import kotlin.jvm.JvmStatic
 @JsExport
 class Validations {
     companion object {
-        // The rules a model must follow beyond its JSON Schema to be valid: references resolve, constraint and
+        // The rules a model must follow beyond its JSON Schema to be valid: the schema url is a released one, references resolve, constraint and
         // index details are consistent, relationship counts make sense, text is within length limits and lists such as
         // aliases, labels and index, constraint and mapping key properties don't repeat an entry.
         @JsStatic
         @JvmStatic
         val core: List<Validation> = listOf(
+            SchemaUrl,
             NodeTypeConstraint,
             RelationshipTypeConstraint,
             NodeConstraints,
@@ -120,7 +121,6 @@ class Validations {
         @JsStatic
         @JvmStatic
         val labelled: List<Validation> = listOf(
-            SchemaUrl,
             NodeLabel,
             RelationshipType,
             RelationshipTargetNodes
