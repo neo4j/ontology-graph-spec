@@ -29,7 +29,9 @@ object SchemaUrl : Validation {
             issues.add(
                 Issue(
                     code = "invalid_schema_url",
-                    message = "Schema '$schema' is not a known graph spec schema url, expected '${Version.schemaUrl(Version.LATEST)}'",
+                    message = "Schema '$schema' is not a known graph spec schema url, expected '${Version.schemaUrl(
+                        Version.LATEST
+                    )}'",
                     path = "schema"
                 )
             )
