@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.validate.mapping.MappingDependencies
 import org.neo4j.spec.graph.validate.node.NodeConstraintCoverage
 import org.neo4j.spec.graph.validate.node.NodeIndexConstraintNameConflict
 import org.neo4j.spec.graph.validate.node.NodeIndexProperties
+import org.neo4j.spec.graph.validate.node.NodeIndexVectorDimension
 import org.neo4j.spec.graph.validate.node.NodeLabel
 import org.neo4j.spec.graph.validate.node.NodeLabelToken
 import org.neo4j.spec.graph.validate.node.NodeMappingKey
@@ -97,6 +98,7 @@ class UpxMigrationValidations {
             NodePropertyMappingMissing,
             RelationshipPropertyMappingMissing,
             NodeIndexProperties,
+            NodeIndexVectorDimension,
             RelationshipIndexProperties,
             NodeConstraintProperties,
             NodeConstraintDuplicatePropertySet,
