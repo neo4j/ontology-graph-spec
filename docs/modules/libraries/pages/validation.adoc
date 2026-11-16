@@ -10,9 +10,10 @@ no problems.
 |===
 | Set | Use
 
-| Core | Checking a model is valid, that it follows the xref:format:rules.adoc[rules] of the format.
-| Labelled | Checking a model is complete enough to work with, with an identifier label on every node and a type on every
-relationship.
+| Core | Checking a model is valid, that it follows the xref:format:rules.adoc[rules] of the format, including a released
+graph spec `schema` url.
+| Labelled | Checking a model is complete enough to work with, with an identifier label on every
+node, and a type and `from` and `to` nodes set on every relationship.
 | Consistent Schema | Checking a model's properties, indexes and constraints can be created in Neo4j, so names are set
 and unique, constraints aren't duplicated and definitions don't conflict.
 | Mappable | Checking a model's data source mappings can be used to import data, so every node mapping has a key and

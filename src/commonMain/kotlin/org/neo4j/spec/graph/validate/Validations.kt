@@ -60,6 +60,7 @@ import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyDuplicateN
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyEmptyName
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyPatternOneOf
 import org.neo4j.spec.graph.validate.relationship.RelationshipTargetCount
+import org.neo4j.spec.graph.validate.relationship.RelationshipTargetNodes
 import org.neo4j.spec.graph.validate.relationship.RelationshipType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTypeToken
 import org.neo4j.spec.graph.validate.relationship.constraint.RelationshipConstraintDuplicatePropertySet
@@ -78,12 +79,13 @@ import kotlin.jvm.JvmStatic
 @JsExport
 class Validations {
     companion object {
-        // The rules a model must follow beyond its JSON Schema to be valid: references resolve, constraint and
+        // The rules a model must follow beyond its JSON Schema to be valid: the schema url is a released one, references resolve, constraint and
         // index details are consistent, relationship counts make sense, text is within length limits and lists such as
         // aliases, labels and index, constraint and mapping key properties don't repeat an entry.
         @JsStatic
         @JvmStatic
         val core: List<Validation> = listOf(
+            SchemaUrl,
             NodeTypeConstraint,
             RelationshipTypeConstraint,
             NodeConstraints,
@@ -115,12 +117,13 @@ class Validations {
             TableColumnSupportedDuplicate
         )
 
-        // Every node has an identifier label and every relationship a type.
+        // Every node has an identifier label and every relationship a type and from and to nodes.
         @JsStatic
         @JvmStatic
         val labelled: List<Validation> = listOf(
             NodeLabel,
-            RelationshipType
+            RelationshipType,
+            RelationshipTargetNodes
         )
 
         // Property names are set and unique within their node or relationship, indexes and constraints have
