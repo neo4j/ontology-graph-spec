@@ -34,7 +34,7 @@ class SchemaUrlTest {
     }
 
     @Test
-    fun `whitespace, trailing slashes and missing file name are tolerated`() {
+    fun `whitespace trailing slashes and missing file name are tolerated`() {
         val url = Version.schemaUrl(Version.V1)
         for (schema in listOf("$url/", " $url ", url.removeSuffix("/schema.json"), url.removeSuffix("schema.json"))) {
             val issues = mutableListOf<Issue>()
