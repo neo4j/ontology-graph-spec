@@ -70,7 +70,6 @@ import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyMappingMis
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyPatternOneOf
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTargetCount
-import org.neo4j.spec.graph.validate.relationship.RelationshipTargetNodes
 import org.neo4j.spec.graph.validate.relationship.RelationshipType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTypeToken
 import org.neo4j.spec.graph.validate.relationship.constraint.RelationshipConstraintDuplicatePropertySet
@@ -89,13 +88,12 @@ import kotlin.jvm.JvmStatic
 @JsExport
 class Validations {
     companion object {
-        // The rules a model must follow beyond its JSON Schema to be valid: the schema url is a released one, references resolve, constraint and
+        // The rules a model must follow beyond its JSON Schema to be valid: references resolve, constraint and
         // index details are consistent, relationship counts make sense, text is within length limits and lists such as
         // aliases, labels and index, constraint and mapping key properties don't repeat an entry.
         @JsStatic
         @JvmStatic
         val core: List<Validation> = listOf(
-            SchemaUrl,
             NodeTypeConstraint,
             RelationshipTypeConstraint,
             NodeConstraints,
@@ -127,18 +125,16 @@ class Validations {
             TableColumnSupportedDuplicate
         )
 
-        // Every node has an identifier label and every relationship a type and from and to nodes.
+        // Every node has an identifier label and every relationship a type.
         @JsStatic
         @JvmStatic
         val labelled: List<Validation> = listOf(
             NodeLabel,
-            RelationshipType,
-            RelationshipTargetNodes
+            RelationshipType
         )
 
-        // Property names are set and unique within their node or relationship, indexes and constraints have
-        // properties, constraints aren't duplicated, composite constraints don't overlap an existence constraint, and
-        // index and constraint names are unique.
+        // Schema consistency: names are set and unique, indexes and constraints are well-formed, and
+        // vector index dimensions match their properties.
         @JsStatic
         @JvmStatic
         val consistentSchema: List<Validation> = listOf(
@@ -157,8 +153,8 @@ class Validations {
             NodeIndexConstraintNameConflict
         )
 
-        // Node mappings have a key, mapping ids are unique and dependencies resolve without cycles, and data source
-        // table columns have a unique name and, outside local tables, a type.
+        // Importable from the data sources: mappings are complete, keys and columns are usable, and
+        // dependencies resolve.
         @JsStatic
         @JvmStatic
         val mappable: List<Validation> = listOf(
