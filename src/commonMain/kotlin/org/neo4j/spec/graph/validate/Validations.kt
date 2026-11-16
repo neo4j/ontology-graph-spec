@@ -60,6 +60,7 @@ import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyDuplicateN
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyEmptyName
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyPatternOneOf
 import org.neo4j.spec.graph.validate.relationship.RelationshipTargetCount
+import org.neo4j.spec.graph.validate.relationship.RelationshipTargetNodes
 import org.neo4j.spec.graph.validate.relationship.RelationshipType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTypeToken
 import org.neo4j.spec.graph.validate.relationship.constraint.RelationshipConstraintDuplicatePropertySet
@@ -115,12 +116,14 @@ class Validations {
             TableColumnSupportedDuplicate
         )
 
-        // Every node has an identifier label and every relationship a type.
+        // Every node has an identifier label and every relationship a type and from and to nodes.
         @JsStatic
         @JvmStatic
         val labelled: List<Validation> = listOf(
+            SchemaUrl,
             NodeLabel,
-            RelationshipType
+            RelationshipType,
+            RelationshipTargetNodes
         )
 
         // Property names are set and unique within their node or relationship, indexes and constraints have
