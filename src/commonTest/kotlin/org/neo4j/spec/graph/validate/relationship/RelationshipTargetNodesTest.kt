@@ -45,7 +45,7 @@ class RelationshipTargetNodesTest {
         val issues = validate("", "Movie")
         assertEquals(1, issues.size)
         assertEquals("missing_relationship_from", issues.first().code)
-        assertEquals("relationships.actedIn.from.node", issues.first().path)
+        assertEquals("/relationships/actedIn/from/node", issues.first().path)
     }
 
     @Test
@@ -53,7 +53,7 @@ class RelationshipTargetNodesTest {
         val issues = validate("Person", "  ")
         assertEquals(1, issues.size)
         assertEquals("missing_relationship_to", issues.first().code)
-        assertEquals("relationships.actedIn.to.node", issues.first().path)
+        assertEquals("/relationships/actedIn/to/node", issues.first().path)
     }
 
     @Test
