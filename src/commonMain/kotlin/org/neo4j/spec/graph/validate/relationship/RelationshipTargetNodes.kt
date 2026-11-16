@@ -18,6 +18,7 @@ package org.neo4j.spec.graph.validate.relationship
 
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
+import org.neo4j.spec.graph.model.relationship.RelationshipTarget
 import org.neo4j.spec.graph.validate.Issue
 
 /**
@@ -30,21 +31,22 @@ object RelationshipTargetNodes : RelationshipValidation {
         relationship: Relationship,
         issues: MutableList<Issue>
     ) {
-        if (relationship.from.node.isBlank()) {
+        validateNode(relationshipId, "from", relationship.from, issues)
+        validateNode(relationshipId, "to", relationship.to, issues)
+    }
+
+    private fun validateNode(
+        relationshipId: String,
+        side: String,
+        target: RelationshipTarget,
+        issues: MutableList<Issue>
+    ) {
+        if (target.node.isBlank()) {
             issues.add(
                 Issue(
-                    code = "missing_relationship_from",
-                    message = "Missing from node for relationship '$relationshipId'",
-                    path = "relationships.$relationshipId.from.node"
-                )
-            )
-        }
-        if (relationship.to.node.isBlank()) {
-            issues.add(
-                Issue(
-                    code = "missing_relationship_to",
-                    message = "Missing to node for relationship '$relationshipId'",
-                    path = "relationships.$relationshipId.to.node"
+                    code = "missing_relationship_$side",
+                    message = "Missing $side node for relationship '$relationshipId'",
+                    path = "relationships.$relationshipId.$side.node"
                 )
             )
         }
