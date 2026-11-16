@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.validate.mapping.MappingDependencies
 import org.neo4j.spec.graph.validate.node.NodeConstraintCoverage
 import org.neo4j.spec.graph.validate.node.NodeIndexConstraintNameConflict
 import org.neo4j.spec.graph.validate.node.NodeIndexProperties
+import org.neo4j.spec.graph.validate.node.NodeIndexPropertyDuplicate
 import org.neo4j.spec.graph.validate.node.NodeIndexVectorDimension
 import org.neo4j.spec.graph.validate.node.NodeLabel
 import org.neo4j.spec.graph.validate.node.NodeLabelToken
@@ -40,6 +41,7 @@ import org.neo4j.spec.graph.validate.node.constraint.NodeKeyOverlap
 import org.neo4j.spec.graph.validate.relationship.RelationshipEndpointColumnType
 import org.neo4j.spec.graph.validate.relationship.RelationshipEndpointMapping
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexProperties
+import org.neo4j.spec.graph.validate.relationship.RelationshipIndexPropertyDuplicate
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexVectorDimension
 import org.neo4j.spec.graph.validate.relationship.RelationshipMappingMissing
 import org.neo4j.spec.graph.validate.relationship.RelationshipNodes
@@ -104,8 +106,10 @@ class UpxMigrationValidations {
             RelationshipEndpointColumnType,
             NodeIndexProperties,
             NodeIndexVectorDimension,
+            NodeIndexPropertyDuplicate,
             RelationshipIndexProperties,
             RelationshipIndexVectorDimension,
+            RelationshipIndexPropertyDuplicate,
             NodeConstraintProperties,
             NodeConstraintDuplicatePropertySet,
             NodeExistenceCompositeConflict,
