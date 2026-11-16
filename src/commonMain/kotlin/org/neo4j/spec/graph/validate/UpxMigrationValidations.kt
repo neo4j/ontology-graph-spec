@@ -20,23 +20,35 @@ import org.neo4j.spec.graph.validate.mapping.MappingDependencies
 import org.neo4j.spec.graph.validate.node.NodeConstraintCoverage
 import org.neo4j.spec.graph.validate.node.NodeIndexConstraintNameConflict
 import org.neo4j.spec.graph.validate.node.NodeIndexProperties
+import org.neo4j.spec.graph.validate.node.NodeIndexPropertyDuplicate
+import org.neo4j.spec.graph.validate.node.NodeIndexVectorDimension
 import org.neo4j.spec.graph.validate.node.NodeLabel
 import org.neo4j.spec.graph.validate.node.NodeLabelToken
 import org.neo4j.spec.graph.validate.node.NodeMappingKey
 import org.neo4j.spec.graph.validate.node.NodeMappingKeyType
+import org.neo4j.spec.graph.validate.node.NodeMappingMissing
 import org.neo4j.spec.graph.validate.node.NodeProperties
 import org.neo4j.spec.graph.validate.node.NodePropertyDuplicateName
 import org.neo4j.spec.graph.validate.node.NodePropertyEmptyName
+import org.neo4j.spec.graph.validate.node.NodePropertyMappingMissing
+import org.neo4j.spec.graph.validate.node.NodePropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.node.constraint.NodeCompositeConstraintPropertyType
 import org.neo4j.spec.graph.validate.node.constraint.NodeConstraintDuplicatePropertySet
 import org.neo4j.spec.graph.validate.node.constraint.NodeConstraintProperties
 import org.neo4j.spec.graph.validate.node.constraint.NodeExistenceCompositeConflict
 import org.neo4j.spec.graph.validate.node.constraint.NodeExistenceConstraint
 import org.neo4j.spec.graph.validate.node.constraint.NodeKeyOverlap
+import org.neo4j.spec.graph.validate.relationship.RelationshipEndpointColumnType
+import org.neo4j.spec.graph.validate.relationship.RelationshipEndpointMapping
 import org.neo4j.spec.graph.validate.relationship.RelationshipIndexProperties
+import org.neo4j.spec.graph.validate.relationship.RelationshipIndexPropertyDuplicate
+import org.neo4j.spec.graph.validate.relationship.RelationshipIndexVectorDimension
+import org.neo4j.spec.graph.validate.relationship.RelationshipMappingMissing
 import org.neo4j.spec.graph.validate.relationship.RelationshipNodes
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyDuplicateName
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyEmptyName
+import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyMappingMissing
+import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.relationship.RelationshipType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTypeToken
 import org.neo4j.spec.graph.validate.relationship.constraint.RelationshipExistenceConstraint
@@ -86,8 +98,18 @@ class UpxMigrationValidations {
             NodeLabel,
             RelationshipType,
             NodeMappingKey,
+            NodeMappingMissing,
+            RelationshipMappingMissing,
+            NodePropertyMappingMissing,
+            RelationshipPropertyMappingMissing,
+            RelationshipEndpointMapping,
+            RelationshipEndpointColumnType,
             NodeIndexProperties,
+            NodeIndexVectorDimension,
+            NodeIndexPropertyDuplicate,
             RelationshipIndexProperties,
+            RelationshipIndexVectorDimension,
+            RelationshipIndexPropertyDuplicate,
             NodeConstraintProperties,
             NodeConstraintDuplicatePropertySet,
             NodeExistenceCompositeConflict,
@@ -97,8 +119,10 @@ class UpxMigrationValidations {
             TableColumnType,
             NodePropertyEmptyName,
             NodePropertyDuplicateName,
+            NodePropertyUnsupportedLocalImportType,
             RelationshipPropertyEmptyName,
             RelationshipPropertyDuplicateName,
+            RelationshipPropertyUnsupportedLocalImportType,
             MappingDependencies
         )
 
