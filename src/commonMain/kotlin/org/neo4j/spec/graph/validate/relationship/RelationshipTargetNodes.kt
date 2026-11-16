@@ -20,6 +20,7 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.relationship.Relationship
 import org.neo4j.spec.graph.model.relationship.RelationshipTarget
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 
 /**
  * Every relationship must set the node it starts from and the node it points to.
@@ -46,7 +47,7 @@ object RelationshipTargetNodes : RelationshipValidation {
                 Issue(
                     code = "missing_relationship_$side",
                     message = "Missing $side node for relationship '$relationshipId'",
-                    path = "relationships.$relationshipId.$side.node"
+                    path = jsonPointerOf("relationships", relationshipId, side, "node")
                 )
             )
         }
