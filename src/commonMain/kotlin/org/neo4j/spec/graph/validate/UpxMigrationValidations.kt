@@ -38,6 +38,7 @@ import org.neo4j.spec.graph.validate.relationship.RelationshipIndexProperties
 import org.neo4j.spec.graph.validate.relationship.RelationshipNodes
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyDuplicateName
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyEmptyName
+import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyUnsupportedLocalImportType
 import org.neo4j.spec.graph.validate.relationship.RelationshipType
 import org.neo4j.spec.graph.validate.relationship.RelationshipTypeToken
 import org.neo4j.spec.graph.validate.relationship.constraint.RelationshipExistenceConstraint
@@ -101,6 +102,7 @@ class UpxMigrationValidations {
             NodePropertyUnsupportedLocalImportType,
             RelationshipPropertyEmptyName,
             RelationshipPropertyDuplicateName,
+            RelationshipPropertyUnsupportedLocalImportType,
             MappingDependencies
         )
 
