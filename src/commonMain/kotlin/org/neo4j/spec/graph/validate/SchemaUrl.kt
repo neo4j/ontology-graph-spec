@@ -20,18 +20,18 @@ import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.Version
 
 /**
- * The model's `schema` url must be the url of a released graph spec version.
+ * The model's `schema` url must be the url of a released graph spec version. Surrounding whitespace, trailing slashes
+ * and a missing `schema.json` are tolerated, as they are by [Version.parseSchemaVersion].
  */
 object SchemaUrl : Validation {
     override fun validate(model: GraphModel, issues: MutableList<Issue>) {
         val schema = model.schema
-        if (Version.GRAPH_SPEC_VERSIONS.none { Version.schemaUrl(it) == schema }) {
+        val base = schema.trim().trimEnd('/').removeSuffix(Version.SCHEMA_FILE).trimEnd('/')
+        if (Version.GRAPH_SPEC_VERSIONS.none { "${Version.SCHEMA_BASE}$it" == base }) {
             issues.add(
                 Issue(
                     code = "invalid_schema_url",
-                    message = "Schema '$schema' is not a known graph spec schema url, expected '${Version.schemaUrl(
-                        Version.LATEST
-                    )}'",
+                    message = "Schema '$schema' is not the url of a released graph spec schema",
                     path = "schema"
                 )
             )

@@ -34,6 +34,24 @@ class SchemaUrlTest {
     }
 
     @Test
+    fun `whitespace, trailing slashes and missing file name are tolerated`() {
+        val url = Version.schemaUrl(Version.V1)
+        for (schema in listOf("$url/", " $url ", url.removeSuffix("/schema.json"), url.removeSuffix("schema.json"))) {
+            val issues = mutableListOf<Issue>()
+            SchemaUrl.validate(GraphModel(version = "1", id = "test", schema = schema), issues)
+            assertTrue(issues.isEmpty(), "Expected no issues for '$schema'")
+        }
+    }
+
+    @Test
+    fun `unknown version is reported`() {
+        val issues = mutableListOf<Issue>()
+        SchemaUrl.validate(GraphModel(version = "1", id = "test", schema = Version.schemaUrl("9.9.9")), issues)
+
+        assertEquals(1, issues.size)
+    }
+
+    @Test
     fun `unknown schema url is reported`() {
         val issues = mutableListOf<Issue>()
         SchemaUrl.validate(GraphModel(version = "1", id = "test", schema = "https://example.com/schema.json"), issues)
