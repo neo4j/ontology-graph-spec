@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/validate/Issue.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.validate;
 
@@ -14,8 +30,7 @@ import java.util.Objects;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class Issue {
     private final String code;
 
@@ -62,9 +77,9 @@ public final class Issue {
         if (!(other instanceof Issue)) return false;
         Issue that = (Issue) other;
         return Objects.equals(code, that.code)
-                        && Objects.equals(message, that.message)
-                        && Objects.equals(path, that.path)
-                        && Objects.equals(details, that.details);
+                && Objects.equals(message, that.message)
+                && Objects.equals(path, that.path)
+                && Objects.equals(details, that.details);
     }
 
     @Override
@@ -106,12 +121,15 @@ public final class Issue {
     }
 
     @JsonCreator
-    private static Issue fromJson(@JsonProperty("code") String code,
-            @JsonProperty("message") String message, @JsonProperty("path") String path,
+    private static Issue fromJson(
+            @JsonProperty("code") String code,
+            @JsonProperty("message") String message,
+            @JsonProperty("path") String path,
             @JsonProperty("details") Map<String, String> details) {
-        return new Issue(Objects.requireNonNull(code, "Field 'code' is required"),
-                    Objects.requireNonNull(message, "Field 'message' is required"),
-                    path != null ? path : null,
-                    details != null ? details : Collections.emptyMap());
+        return new Issue(
+                Objects.requireNonNull(code, "Field 'code' is required"),
+                Objects.requireNonNull(message, "Field 'message' is required"),
+                path != null ? path : null,
+                details != null ? details : Collections.emptyMap());
     }
 }

@@ -104,7 +104,9 @@ public final class GraphSpecConfig {
         }
 
         public void migrate(Migration migration) {
-            migrations.computeIfAbsent(migration.getFromKey(), key -> new ArrayList<>()).add(migration);
+            migrations
+                    .computeIfAbsent(migration.getFromKey(), key -> new ArrayList<>())
+                    .add(migration);
         }
 
         public GraphSpecConfig build() {

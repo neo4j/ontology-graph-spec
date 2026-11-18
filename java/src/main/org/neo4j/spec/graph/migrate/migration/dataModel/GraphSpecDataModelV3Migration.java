@@ -1,5 +1,25 @@
-// Generated from org/neo4j/spec/graph/migrate/migration/dataModel/GraphSpecDataModelV3Migration.kt by :java:generator. Do not edit.
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+// Generated from org/neo4j/spec/graph/migrate/migration/dataModel/GraphSpecDataModelV3Migration.kt by :java:generator.
+// Do not edit.
 package org.neo4j.spec.graph.migrate.migration.dataModel;
+
+import static org.neo4j.spec.graph.migrate.migration.dataModel.DataModelUtils.nullIfEmpty;
+import static org.neo4j.spec.graph.migrate.migration.dataModel.DataModelUtils.schemaMapOf;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,9 +45,6 @@ import org.neo4j.spec.graph.model.Version;
 import org.neo4j.spec.graph.model.type.ConstraintType;
 import org.neo4j.spec.graph.model.type.IndexType;
 
-import static org.neo4j.spec.graph.migrate.migration.dataModel.DataModelUtils.nullIfEmpty;
-import static org.neo4j.spec.graph.migrate.migration.dataModel.DataModelUtils.schemaMapOf;
-
 public final class GraphSpecDataModelV3Migration extends Migration {
     public GraphSpecDataModelV3Migration() {
         super(Type.GRAPH_SPEC, Version.V1_1, Type.DATA_MODEL, Version.DATA_MODEL_V3_0);
@@ -40,9 +57,12 @@ public final class GraphSpecDataModelV3Migration extends Migration {
         NodeData nodeData = convertNodes(schema, constraints, indexes);
         RelationshipData relData = convertRelationships(schema, constraints, indexes);
         List<SchemaMap> nodeLabels = nodeData == null ? Collections.<SchemaMap>emptyList() : nodeData.getLabelsMap();
-        List<SchemaMap> relationshipTypes = relData == null ? Collections.<SchemaMap>emptyList() : relData.getTypesMap();
-        List<SchemaMap> nodeObjectTypes = nodeData == null ? Collections.<SchemaMap>emptyList() : nodeData.getObjectTypes();
-        List<SchemaMap> relationshipObjectTypes = relData == null ? Collections.<SchemaMap>emptyList() : relData.getObjectTypes();
+        List<SchemaMap> relationshipTypes =
+                relData == null ? Collections.<SchemaMap>emptyList() : relData.getTypesMap();
+        List<SchemaMap> nodeObjectTypes =
+                nodeData == null ? Collections.<SchemaMap>emptyList() : nodeData.getObjectTypes();
+        List<SchemaMap> relationshipObjectTypes =
+                relData == null ? Collections.<SchemaMap>emptyList() : relData.getObjectTypes();
         SchemaMap graphSchema = schemaMapOf(
                 "nodeLabels", nodeLabels,
                 "relationshipTypes", relationshipTypes,
@@ -79,8 +99,12 @@ public final class GraphSpecDataModelV3Migration extends Migration {
                 relationshipMappings.add(schemaMapOf(
                         "relationship", DataModelUtils.refOf(relId),
                         "tableName", mapping.literal("table"),
-                        "fromMappings", nullIfEmpty(convertEntityMap(mapping.map("from_node").mapOfMapsOrNull("properties"))),
-                        "toMappings", nullIfEmpty(convertEntityMap(mapping.map("to_node").mapOfMapsOrNull("properties"))),
+                        "fromMappings",
+                                nullIfEmpty(convertEntityMap(
+                                        mapping.map("from_node").mapOfMapsOrNull("properties"))),
+                        "toMappings",
+                                nullIfEmpty(
+                                        convertEntityMap(mapping.map("to_node").mapOfMapsOrNull("properties"))),
                         "propertyMappings", convertPropertyMappings(mapping.mapOfMapsOrNull("properties"))));
             } else {
                 throw new IllegalStateException("Invalid mapping type, must be node or relationship.");
@@ -88,7 +112,9 @@ public final class GraphSpecDataModelV3Migration extends Migration {
         }
         SchemaMap extensions = schema.mapOrNull("extensions");
         return schemaMapOf(
-                "dataSourceSchema", convertSourceSchema(extensions == null ? null : extensions.mapOfMapsOrNull("data_source_tables")),
+                "dataSourceSchema",
+                        convertSourceSchema(
+                                extensions == null ? null : extensions.mapOfMapsOrNull("data_source_tables")),
                 "nodeMappings", nodeMappings,
                 "relationshipMappings", relationshipMappings);
     }
@@ -120,8 +146,10 @@ public final class GraphSpecDataModelV3Migration extends Migration {
         List<SchemaMap> result = new ArrayList<SchemaMap>();
         for (var entry : keyProperties.entrySet()) {
             result.add(schemaMapOf(
-                    singular, DataModelUtils.refOf(entry.getKey()),
-                    "keyProperties", DataModelUtils.refsOf(entry.getValue())));
+                    singular,
+                    DataModelUtils.refOf(entry.getKey()),
+                    "keyProperties",
+                    DataModelUtils.refsOf(entry.getValue())));
         }
         return result;
     }
@@ -134,8 +162,8 @@ public final class GraphSpecDataModelV3Migration extends Migration {
         return relationships.containsKey(id) ? id : null;
     }
 
-    private RelationshipData convertRelationships(SchemaMap schema, List<SchemaMap> constraints,
-            List<SchemaMap> indexes) {
+    private RelationshipData convertRelationships(
+            SchemaMap schema, List<SchemaMap> constraints, List<SchemaMap> indexes) {
         Map<String, SchemaMap> relationships = schema.mapOfMapsOrNull("relationships");
         if (relationships == null) {
             return null;
@@ -158,15 +186,26 @@ public final class GraphSpecDataModelV3Migration extends Migration {
                     "to", DataModelUtils.refOf(rel.map("to").string("node")),
                     "description", rel.literalOrNull("description")));
             Map<String, String> propertyTokens = propertyTokens(rel.mapOfMapsOrNull("properties"));
-            constraints.addAll(convertElements(rel.mapOfMapsOrNull("constraints"), "relationship", typeId, "constraintType", GraphSpecDataModelV3Migration::constraintType, (element, ids) -> constraintName(element, ids, propertyTokens, typeToken)));
+            constraints.addAll(convertElements(
+                    rel.mapOfMapsOrNull("constraints"),
+                    "relationship",
+                    typeId,
+                    "constraintType",
+                    GraphSpecDataModelV3Migration::constraintType,
+                    (element, ids) -> constraintName(element, ids, propertyTokens, typeToken)));
             SchemaMap extensions = rel.mapOrNull("extensions");
-            indexes.addAll(convertElements(extensions == null ? null : extensions.mapOfMapsOrNull("indexes"), "relationship", typeId, "indexType", GraphSpecDataModelV3Migration::indexType, (element, ids) -> indexName(element, ids, propertyTokens, typeToken)));
+            indexes.addAll(convertElements(
+                    extensions == null ? null : extensions.mapOfMapsOrNull("indexes"),
+                    "relationship",
+                    typeId,
+                    "indexType",
+                    GraphSpecDataModelV3Migration::indexType,
+                    (element, ids) -> indexName(element, ids, propertyTokens, typeToken)));
         }
         return new RelationshipData(relationTypes, relationshipObjectTypes, constraints, indexes);
     }
 
-    private NodeData convertNodes(SchemaMap schema, List<SchemaMap> constraints,
-            List<SchemaMap> indexes) {
+    private NodeData convertNodes(SchemaMap schema, List<SchemaMap> constraints, List<SchemaMap> indexes) {
         Map<String, SchemaMap> nodes = schema.mapOfMapsOrNull("nodes");
         if (nodes == null) {
             return null;
@@ -180,7 +219,8 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             SchemaMap labelsInfo = node.mapOrNull("labels");
             String primaryLabel = labelsInfo == null ? null : labelsInfo.stringOrNull("identifier");
             if (primaryLabel == null) {
-                throw new IllegalStateException("Node at " + node.getPath() + " has no label, set label or labels.identifier");
+                throw new IllegalStateException(
+                        "Node at " + node.getPath() + " has no label, set label or labels.identifier");
             }
             List<String> allLabels = new ArrayList<String>();
             allLabels.add(primaryLabel);
@@ -208,9 +248,21 @@ public final class GraphSpecDataModelV3Migration extends Migration {
                     "labels", labelRefs,
                     "description", node.literalOrNull("description")));
             Map<String, String> propertyTokens = propertyTokens(node.mapOfMapsOrNull("properties"));
-            constraints.addAll(convertElements(node.mapOfMapsOrNull("constraints"), "node", primaryLabelId, "constraintType", GraphSpecDataModelV3Migration::constraintType, (element, ids) -> constraintName(element, ids, propertyTokens, primaryLabel)));
+            constraints.addAll(convertElements(
+                    node.mapOfMapsOrNull("constraints"),
+                    "node",
+                    primaryLabelId,
+                    "constraintType",
+                    GraphSpecDataModelV3Migration::constraintType,
+                    (element, ids) -> constraintName(element, ids, propertyTokens, primaryLabel)));
             SchemaMap extensions = node.mapOrNull("extensions");
-            indexes.addAll(convertElements(extensions == null ? null : extensions.mapOfMapsOrNull("indexes"), "node", primaryLabelId, "indexType", GraphSpecDataModelV3Migration::indexType, (element, ids) -> indexName(element, ids, propertyTokens, primaryLabel)));
+            indexes.addAll(convertElements(
+                    extensions == null ? null : extensions.mapOfMapsOrNull("indexes"),
+                    "node",
+                    primaryLabelId,
+                    "indexType",
+                    GraphSpecDataModelV3Migration::indexType,
+                    (element, ids) -> indexName(element, ids, propertyTokens, primaryLabel)));
         }
         return new NodeData(nodeLabels, nodeObjectTypes, constraints, indexes);
     }
@@ -230,7 +282,8 @@ public final class GraphSpecDataModelV3Migration extends Migration {
      */
     private List<SchemaMap> mappings(SchemaMap extensions) {
         List<SchemaMap> result = new ArrayList<SchemaMap>();
-        Map<String, List<SchemaMap>> grouped = extensions == null ? null : extensions.mapOfListsOfMapsOrNull("data_source_mappings");
+        Map<String, List<SchemaMap>> grouped =
+                extensions == null ? null : extensions.mapOfListsOfMapsOrNull("data_source_mappings");
         if (grouped != null) {
             for (List<SchemaMap> group : grouped.values()) {
                 result.addAll(group);
@@ -273,9 +326,8 @@ public final class GraphSpecDataModelV3Migration extends Migration {
                 if (pos == null) {
                     continue;
                 }
-                positions.add(schemaMapOf(
-                        "id", id,
-                        "position", schemaMapOf("x", pos.literal("x"), "y", pos.literal("y"))));
+                positions.add(
+                        schemaMapOf("id", id, "position", schemaMapOf("x", pos.literal("x"), "y", pos.literal("y"))));
             }
         }
         return schemaMapOf("nodes", nullIfEmpty(positions));
@@ -302,17 +354,26 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             var prop = entry.getValue();
             String name = prop.stringOrNull("name");
             result.add(schemaMapOf(
-                    "$id", propId,
-                    "token", name != null ? name : propId,
-                    "type", GraphSpecDataModelV3Migration.propertyType(prop.string("type"), prop.integerOrNull("dimension")),
-                    "nullable", false,
-                    "description", prop.literalOrNull("description")));
+                    "$id",
+                    propId,
+                    "token",
+                    name != null ? name : propId,
+                    "type",
+                    GraphSpecDataModelV3Migration.propertyType(prop.string("type"), prop.integerOrNull("dimension")),
+                    "nullable",
+                    false,
+                    "description",
+                    prop.literalOrNull("description")));
         }
         return result;
     }
 
-    public List<SchemaMap> convertElements(Map<String, SchemaMap> elements, String entityType,
-            String refId, String typeKey, Function<String, String> typeTransform,
+    public List<SchemaMap> convertElements(
+            Map<String, SchemaMap> elements,
+            String entityType,
+            String refId,
+            String typeKey,
+            Function<String, String> typeTransform,
             BiFunction<SchemaMap, List<String>, String> generatedName) {
         List<SchemaMap> result = new ArrayList<SchemaMap>();
         if (elements == null) {
@@ -330,20 +391,27 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             }
             String type = typeTransform.apply(element.string("type"));
             result.add(schemaMapOf(
-                    "$id", name,
-                    "name", resolvedName(element, propertyIds, () -> generatedName.apply(element, propertyIds)),
-                    typeKey, type,
-                    "entityType", entityType,
-                    "nodeLabel", entityType.equals("node") ? DataModelUtils.refOf(refId) : null,
-                    "properties", DataModelUtils.refsOf(propertyIds),
-                    "relationshipType", entityType.equals("relationship") ? DataModelUtils.refOf(refId) : null,
-                    "options", nullIfEmpty(element.mapOrNull("options"))));
+                    "$id",
+                    name,
+                    "name",
+                    resolvedName(element, propertyIds, () -> generatedName.apply(element, propertyIds)),
+                    typeKey,
+                    type,
+                    "entityType",
+                    entityType,
+                    "nodeLabel",
+                    entityType.equals("node") ? DataModelUtils.refOf(refId) : null,
+                    "properties",
+                    DataModelUtils.refsOf(propertyIds),
+                    "relationshipType",
+                    entityType.equals("relationship") ? DataModelUtils.refOf(refId) : null,
+                    "options",
+                    nullIfEmpty(element.mapOrNull("options"))));
         }
         return result;
     }
 
-    private String resolvedName(SchemaMap schemaMap, List<String> propertyIds,
-            Supplier<String> generate) {
+    private String resolvedName(SchemaMap schemaMap, List<String> propertyIds, Supplier<String> generate) {
         String name = DataModelUtils.nullIfBlank(schemaMap.stringOrNull("name"));
         if (name != null) {
             return name;
@@ -354,8 +422,8 @@ public final class GraphSpecDataModelV3Migration extends Migration {
         return generate.get();
     }
 
-    private String constraintName(SchemaMap schemaMap, List<String> propertyIds,
-            Map<String, String> propertyTokens, String entityToken) {
+    private String constraintName(
+            SchemaMap schemaMap, List<String> propertyIds, Map<String, String> propertyTokens, String entityToken) {
         String typeName = schemaMap.string("type");
         ConstraintType type = null;
         for (ConstraintType candidate : ConstraintType.values()) {
@@ -365,13 +433,14 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             }
         }
         if (type == null) {
-            throw new IllegalStateException("Unknown constraint type: '" + typeName + "' at " + schemaMap.getPath() + ".type");
+            throw new IllegalStateException(
+                    "Unknown constraint type: '" + typeName + "' at " + schemaMap.getPath() + ".type");
         }
         return NameFormat.constraintName(tokens(propertyIds, propertyTokens), entityToken, type);
     }
 
-    private String indexName(SchemaMap schemaMap, List<String> propertyIds,
-            Map<String, String> propertyTokens, String entityToken) {
+    private String indexName(
+            SchemaMap schemaMap, List<String> propertyIds, Map<String, String> propertyTokens, String entityToken) {
         String typeName = schemaMap.string("type");
         IndexType type = null;
         for (IndexType candidate : IndexType.values()) {
@@ -381,7 +450,8 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             }
         }
         if (type == null) {
-            throw new IllegalStateException("Unknown index type: '" + typeName + "' at " + schemaMap.getPath() + ".type");
+            throw new IllegalStateException(
+                    "Unknown index type: '" + typeName + "' at " + schemaMap.getPath() + ".type");
         }
         return NameFormat.indexName(tokens(propertyIds, propertyTokens), entityToken, type);
     }
@@ -409,16 +479,25 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             if (supported != null) {
                 supportedTypes = new ArrayList<SchemaElement>();
                 for (SchemaElement type : supported) {
-                    supportedTypes.add(GraphSpecDataModelV3Migration.propertyType(((SchemaLiteral) type).getString(), dimension));
+                    supportedTypes.add(
+                            GraphSpecDataModelV3Migration.propertyType(((SchemaLiteral) type).getString(), dimension));
                 }
             }
             result.add(schemaMapOf(
-                    "name", field.literalOrNull("name"),
-                    "rawType", field.literalOrNull("type"),
-                    "size", field.literalOrNull("size"),
-                    "recommendedType", suggested == null ? null : GraphSpecDataModelV3Migration.propertyType(suggested.getString(), dimension),
-                    "supportedTypes", supportedTypes,
-                    "sample", custom == null ? null : custom.literalOrNull("sample")));
+                    "name",
+                    field.literalOrNull("name"),
+                    "rawType",
+                    field.literalOrNull("type"),
+                    "size",
+                    field.literalOrNull("size"),
+                    "recommendedType",
+                    suggested == null
+                            ? null
+                            : GraphSpecDataModelV3Migration.propertyType(suggested.getString(), dimension),
+                    "supportedTypes",
+                    supportedTypes,
+                    "sample",
+                    custom == null ? null : custom.literalOrNull("sample")));
         }
         return result;
     }
@@ -436,8 +515,10 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             for (int i = 0; i < columns.size(); i++) {
                 String referenced = i < referencedColumns.size() ? referencedColumns.get(i) : null;
                 fieldMaps.add(schemaMapOf(
-                        "field", columns.get(i),
-                        "referencedField", referenced != null ? referenced : referencedColumns.get(referencedColumns.size() - 1)));
+                        "field",
+                        columns.get(i),
+                        "referencedField",
+                        referenced != null ? referenced : referencedColumns.get(referencedColumns.size() - 1)));
             }
             result.add(schemaMapOf("referencedTable", references.literal("table"), "fields", fieldMaps));
         }
@@ -501,9 +582,19 @@ public final class GraphSpecDataModelV3Migration extends Migration {
         if (Objects.equals(propertyType, "ANY")) {
             return new SchemaNull();
         } else if (propertyType != null && propertyType.startsWith("VECTOR")) {
-            return schemaMapOf("type", "vector", "items", schemaMapOf("type", GraphSpecDataModelV3Migration.type(innerType(propertyType, "VECTOR<"))), "dimension", dimension);
+            return schemaMapOf(
+                    "type",
+                    "vector",
+                    "items",
+                    schemaMapOf("type", GraphSpecDataModelV3Migration.type(innerType(propertyType, "VECTOR<"))),
+                    "dimension",
+                    dimension);
         } else if (propertyType != null && propertyType.startsWith("LIST")) {
-            return schemaMapOf("type", "array", "items", schemaMapOf("type", GraphSpecDataModelV3Migration.type(innerType(propertyType, "LIST<"))));
+            return schemaMapOf(
+                    "type",
+                    "array",
+                    "items",
+                    schemaMapOf("type", GraphSpecDataModelV3Migration.type(innerType(propertyType, "LIST<"))));
         } else {
             return schemaMapOf("type", GraphSpecDataModelV3Migration.type(propertyType));
         }
@@ -562,8 +653,11 @@ public final class GraphSpecDataModelV3Migration extends Migration {
 
         private final List<SchemaMap> indexes;
 
-        public RelationshipData(List<SchemaMap> typesMap, List<SchemaMap> objectTypes,
-                List<SchemaMap> constraints, List<SchemaMap> indexes) {
+        public RelationshipData(
+                List<SchemaMap> typesMap,
+                List<SchemaMap> objectTypes,
+                List<SchemaMap> constraints,
+                List<SchemaMap> indexes) {
             this.typesMap = typesMap;
             this.objectTypes = objectTypes;
             this.constraints = constraints;
@@ -592,9 +686,9 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             if (!(other instanceof RelationshipData)) return false;
             RelationshipData that = (RelationshipData) other;
             return Objects.equals(typesMap, that.typesMap)
-                            && Objects.equals(objectTypes, that.objectTypes)
-                            && Objects.equals(constraints, that.constraints)
-                            && Objects.equals(indexes, that.indexes);
+                    && Objects.equals(objectTypes, that.objectTypes)
+                    && Objects.equals(constraints, that.constraints)
+                    && Objects.equals(indexes, that.indexes);
         }
 
         @Override
@@ -608,7 +702,8 @@ public final class GraphSpecDataModelV3Migration extends Migration {
 
         @Override
         public String toString() {
-            return "RelationshipData(typesMap=" + typesMap + ", objectTypes=" + objectTypes + ", constraints=" + constraints + ", indexes=" + indexes + ")";
+            return "RelationshipData(typesMap=" + typesMap + ", objectTypes=" + objectTypes + ", constraints="
+                    + constraints + ", indexes=" + indexes + ")";
         }
     }
 
@@ -621,8 +716,11 @@ public final class GraphSpecDataModelV3Migration extends Migration {
 
         private final List<SchemaMap> indexes;
 
-        public NodeData(List<SchemaMap> labelsMap, List<SchemaMap> objectTypes,
-                List<SchemaMap> constraints, List<SchemaMap> indexes) {
+        public NodeData(
+                List<SchemaMap> labelsMap,
+                List<SchemaMap> objectTypes,
+                List<SchemaMap> constraints,
+                List<SchemaMap> indexes) {
             this.labelsMap = labelsMap;
             this.objectTypes = objectTypes;
             this.constraints = constraints;
@@ -651,9 +749,9 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             if (!(other instanceof NodeData)) return false;
             NodeData that = (NodeData) other;
             return Objects.equals(labelsMap, that.labelsMap)
-                            && Objects.equals(objectTypes, that.objectTypes)
-                            && Objects.equals(constraints, that.constraints)
-                            && Objects.equals(indexes, that.indexes);
+                    && Objects.equals(objectTypes, that.objectTypes)
+                    && Objects.equals(constraints, that.constraints)
+                    && Objects.equals(indexes, that.indexes);
         }
 
         @Override
@@ -667,7 +765,8 @@ public final class GraphSpecDataModelV3Migration extends Migration {
 
         @Override
         public String toString() {
-            return "NodeData(labelsMap=" + labelsMap + ", objectTypes=" + objectTypes + ", constraints=" + constraints + ", indexes=" + indexes + ")";
+            return "NodeData(labelsMap=" + labelsMap + ", objectTypes=" + objectTypes + ", constraints=" + constraints
+                    + ", indexes=" + indexes + ")";
         }
     }
 }

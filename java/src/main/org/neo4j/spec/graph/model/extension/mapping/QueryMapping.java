@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/extension/mapping/QueryMapping.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.extension.mapping;
 
@@ -17,8 +33,7 @@ import java.util.Objects;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class QueryMapping implements Mapping {
     private String table;
 
@@ -81,9 +96,9 @@ public final class QueryMapping implements Mapping {
         if (!(other instanceof QueryMapping)) return false;
         QueryMapping that = (QueryMapping) other;
         return Objects.equals(table, that.table)
-                        && Objects.equals(query, that.query)
-                        && Objects.equals(dependsOn, that.dependsOn)
-                        && Objects.equals(id, that.id);
+                && Objects.equals(query, that.query)
+                && Objects.equals(dependsOn, that.dependsOn)
+                && Objects.equals(id, that.id);
     }
 
     @Override
@@ -115,26 +130,31 @@ public final class QueryMapping implements Mapping {
     }
 
     @JsonProperty("depends_on")
-    @JsonPropertyDescription("Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency.")
+    @JsonPropertyDescription(
+            "Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String jsonDependsOn() {
         return Objects.equals(this.dependsOn, "") ? null : this.dependsOn;
     }
 
     @JsonProperty("id")
-    @JsonPropertyDescription("Optional id of this mapping, so other mappings in the same list can reference it in depends_on.")
+    @JsonPropertyDescription(
+            "Optional id of this mapping, so other mappings in the same list can reference it in depends_on.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String jsonId() {
         return Objects.equals(this.id, "") ? null : this.id;
     }
 
     @JsonCreator
-    private static QueryMapping fromJson(@JsonProperty("table") String table,
-            @JsonProperty("query") String query, @JsonProperty("depends_on") String dependsOn,
+    private static QueryMapping fromJson(
+            @JsonProperty("table") String table,
+            @JsonProperty("query") String query,
+            @JsonProperty("depends_on") String dependsOn,
             @JsonProperty("id") String id) {
-        return new QueryMapping(Objects.requireNonNull(table, "Field 'table' is required"),
-                    Objects.requireNonNull(query, "Field 'query' is required"),
-                    dependsOn != null ? dependsOn : "",
-                    id != null ? id : "");
+        return new QueryMapping(
+                Objects.requireNonNull(table, "Field 'table' is required"),
+                Objects.requireNonNull(query, "Field 'query' is required"),
+                dependsOn != null ? dependsOn : "",
+                id != null ? id : "");
     }
 }

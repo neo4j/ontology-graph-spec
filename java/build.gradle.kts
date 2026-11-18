@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     alias(libs.plugins.maven.publish)
+    alias(libs.plugins.spotless)
 }
 
 group = rootProject.group
@@ -75,5 +76,23 @@ mavenPublishing {
             developerConnection = "scm:git:git@github.com:neo4j/ontology-graph-spec.git"
             url = "https://github.com/neo4j/ontology-graph-spec"
         }
+    }
+}
+
+spotless {
+    java {
+        target("src/**/*.java")
+        palantirJavaFormat()
+        removeUnusedImports()
+        importOrder()
+        trimTrailingWhitespace()
+        endWithNewline()
+        // Files carry a "// Generated from ..." marker between the header and the package, keep it.
+        licenseHeaderFile(rootProject.file("build-logic/license-header.txt"), "(// Generated|package )")
+    }
+    kotlinGradle {
+        target("*.gradle.kts")
+        ktlint()
+        endWithNewline()
     }
 }

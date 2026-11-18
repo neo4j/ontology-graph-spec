@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/index/VectorIndexOption.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.index;
 
@@ -21,8 +37,7 @@ import org.neo4j.spec.graph.model.type.IndexType;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class VectorIndexOption implements IndexOption {
     private final Integer dimensions;
 
@@ -38,9 +53,14 @@ public final class VectorIndexOption implements IndexOption {
 
     private final int hnswEfConstruction;
 
-    public VectorIndexOption(Integer dimensions, String similarityFunction,
-            Float defaultSearchExpansionFactor, boolean quantizationEnabled,
-            String quantizationType, int hnswM, int hnswEfConstruction) {
+    public VectorIndexOption(
+            Integer dimensions,
+            String similarityFunction,
+            Float defaultSearchExpansionFactor,
+            boolean quantizationEnabled,
+            String quantizationType,
+            int hnswM,
+            int hnswEfConstruction) {
         this.dimensions = dimensions;
         this.similarityFunction = similarityFunction;
         this.defaultSearchExpansionFactor = defaultSearchExpansionFactor;
@@ -50,25 +70,48 @@ public final class VectorIndexOption implements IndexOption {
         this.hnswEfConstruction = hnswEfConstruction;
     }
 
-    public VectorIndexOption(Integer dimensions, String similarityFunction,
-            Float defaultSearchExpansionFactor, boolean quantizationEnabled,
-            String quantizationType, int hnswM) {
-        this(dimensions, similarityFunction, defaultSearchExpansionFactor, quantizationEnabled, quantizationType, hnswM, 100);
+    public VectorIndexOption(
+            Integer dimensions,
+            String similarityFunction,
+            Float defaultSearchExpansionFactor,
+            boolean quantizationEnabled,
+            String quantizationType,
+            int hnswM) {
+        this(
+                dimensions,
+                similarityFunction,
+                defaultSearchExpansionFactor,
+                quantizationEnabled,
+                quantizationType,
+                hnswM,
+                100);
     }
 
-    public VectorIndexOption(Integer dimensions, String similarityFunction,
-            Float defaultSearchExpansionFactor, boolean quantizationEnabled,
+    public VectorIndexOption(
+            Integer dimensions,
+            String similarityFunction,
+            Float defaultSearchExpansionFactor,
+            boolean quantizationEnabled,
             String quantizationType) {
-        this(dimensions, similarityFunction, defaultSearchExpansionFactor, quantizationEnabled, quantizationType, 16, 100);
+        this(
+                dimensions,
+                similarityFunction,
+                defaultSearchExpansionFactor,
+                quantizationEnabled,
+                quantizationType,
+                16,
+                100);
     }
 
-    public VectorIndexOption(Integer dimensions, String similarityFunction,
-            Float defaultSearchExpansionFactor, boolean quantizationEnabled) {
+    public VectorIndexOption(
+            Integer dimensions,
+            String similarityFunction,
+            Float defaultSearchExpansionFactor,
+            boolean quantizationEnabled) {
         this(dimensions, similarityFunction, defaultSearchExpansionFactor, quantizationEnabled, "scalar", 16, 100);
     }
 
-    public VectorIndexOption(Integer dimensions, String similarityFunction,
-            Float defaultSearchExpansionFactor) {
+    public VectorIndexOption(Integer dimensions, String similarityFunction, Float defaultSearchExpansionFactor) {
         this(dimensions, similarityFunction, defaultSearchExpansionFactor, true, "scalar", 16, 100);
     }
 
@@ -123,12 +166,12 @@ public final class VectorIndexOption implements IndexOption {
         if (!(other instanceof VectorIndexOption)) return false;
         VectorIndexOption that = (VectorIndexOption) other;
         return Objects.equals(dimensions, that.dimensions)
-                        && Objects.equals(similarityFunction, that.similarityFunction)
-                        && Objects.equals(defaultSearchExpansionFactor, that.defaultSearchExpansionFactor)
-                        && quantizationEnabled == that.quantizationEnabled
-                        && Objects.equals(quantizationType, that.quantizationType)
-                        && hnswM == that.hnswM
-                        && hnswEfConstruction == that.hnswEfConstruction;
+                && Objects.equals(similarityFunction, that.similarityFunction)
+                && Objects.equals(defaultSearchExpansionFactor, that.defaultSearchExpansionFactor)
+                && quantizationEnabled == that.quantizationEnabled
+                && Objects.equals(quantizationType, that.quantizationType)
+                && hnswM == that.hnswM
+                && hnswEfConstruction == that.hnswEfConstruction;
     }
 
     @Override
@@ -145,7 +188,10 @@ public final class VectorIndexOption implements IndexOption {
 
     @Override
     public String toString() {
-        return "VectorIndexOption(dimensions=" + dimensions + ", similarityFunction=" + similarityFunction + ", defaultSearchExpansionFactor=" + defaultSearchExpansionFactor + ", quantizationEnabled=" + quantizationEnabled + ", quantizationType=" + quantizationType + ", hnswM=" + hnswM + ", hnswEfConstruction=" + hnswEfConstruction + ")";
+        return "VectorIndexOption(dimensions=" + dimensions + ", similarityFunction=" + similarityFunction
+                + ", defaultSearchExpansionFactor=" + defaultSearchExpansionFactor + ", quantizationEnabled="
+                + quantizationEnabled + ", quantizationType=" + quantizationType + ", hnswM=" + hnswM
+                + ", hnswEfConstruction=" + hnswEfConstruction + ")";
     }
 
     @JsonProperty("vector.dimensions")
@@ -198,19 +244,21 @@ public final class VectorIndexOption implements IndexOption {
     }
 
     @JsonCreator
-    private static VectorIndexOption fromJson(@JsonProperty("vector.dimensions") Integer dimensions,
+    private static VectorIndexOption fromJson(
+            @JsonProperty("vector.dimensions") Integer dimensions,
             @JsonProperty("vector.similarity_function") String similarityFunction,
             @JsonProperty("vector.default_search_expansion_factor") Float defaultSearchExpansionFactor,
             @JsonProperty("vector.quantization.enabled") Boolean quantizationEnabled,
             @JsonProperty("vector.quantization.type") String quantizationType,
             @JsonProperty("vector.hnsw.m") Integer hnswM,
             @JsonProperty("vector.hnsw.ef_construction") Integer hnswEfConstruction) {
-        return new VectorIndexOption(dimensions != null ? dimensions : null,
-                    similarityFunction != null ? similarityFunction : "cosine",
-                    defaultSearchExpansionFactor != null ? defaultSearchExpansionFactor : null,
-                    quantizationEnabled != null ? quantizationEnabled : true,
-                    quantizationType != null ? quantizationType : "scalar",
-                    hnswM != null ? hnswM : 16,
-                    hnswEfConstruction != null ? hnswEfConstruction : 100);
+        return new VectorIndexOption(
+                dimensions != null ? dimensions : null,
+                similarityFunction != null ? similarityFunction : "cosine",
+                defaultSearchExpansionFactor != null ? defaultSearchExpansionFactor : null,
+                quantizationEnabled != null ? quantizationEnabled : true,
+                quantizationType != null ? quantizationType : "scalar",
+                hnswM != null ? hnswM : 16,
+                hnswEfConstruction != null ? hnswEfConstruction : 100);
     }
 }

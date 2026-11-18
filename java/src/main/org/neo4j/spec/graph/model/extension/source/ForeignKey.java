@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/extension/source/ForeignKey.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.extension.source;
 
@@ -19,8 +35,7 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class ForeignKey implements CustomExtensions {
     private final List<String> columns;
 
@@ -28,8 +43,7 @@ public final class ForeignKey implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public ForeignKey(List<String> columns, ForeignKeyReference references,
-            Map<String, Object> custom) {
+    public ForeignKey(List<String> columns, ForeignKeyReference references, Map<String, Object> custom) {
         this.columns = columns;
         this.references = references;
         this.custom = custom;
@@ -58,8 +72,8 @@ public final class ForeignKey implements CustomExtensions {
         if (!(other instanceof ForeignKey)) return false;
         ForeignKey that = (ForeignKey) other;
         return Objects.equals(columns, that.columns)
-                        && Objects.equals(references, that.references)
-                        && Objects.equals(custom, that.custom);
+                && Objects.equals(references, that.references)
+                && Objects.equals(custom, that.custom);
     }
 
     @Override
@@ -97,11 +111,13 @@ public final class ForeignKey implements CustomExtensions {
     }
 
     @JsonCreator
-    private static ForeignKey fromJson(@JsonProperty("columns") List<String> columns,
+    private static ForeignKey fromJson(
+            @JsonProperty("columns") List<String> columns,
             @JsonProperty("references") ForeignKeyReference references,
             @JsonProperty("custom") Map<String, Object> custom) {
-        return new ForeignKey(Objects.requireNonNull(columns, "Field 'columns' is required"),
-                    Objects.requireNonNull(references, "Field 'references' is required"),
-                    custom != null ? custom : new LinkedHashMap<String, Object>());
+        return new ForeignKey(
+                Objects.requireNonNull(columns, "Field 'columns' is required"),
+                Objects.requireNonNull(references, "Field 'references' is required"),
+                custom != null ? custom : new LinkedHashMap<String, Object>());
     }
 }

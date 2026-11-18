@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/node/Node.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.node;
 
@@ -21,8 +37,7 @@ import org.neo4j.spec.graph.model.property.Property;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class Node {
     private String label;
 
@@ -40,9 +55,15 @@ public final class Node {
 
     private final String reference;
 
-    public Node(String label, Labels labels, Map<String, Property> properties,
-            Map<String, NodeConstraint> constraints, NodeExtensions extensions, String description,
-            List<String> aliases, String reference) {
+    public Node(
+            String label,
+            Labels labels,
+            Map<String, Property> properties,
+            Map<String, NodeConstraint> constraints,
+            NodeExtensions extensions,
+            String description,
+            List<String> aliases,
+            String reference) {
         this.label = label;
         this.labels = labels;
         this.properties = properties;
@@ -53,42 +74,87 @@ public final class Node {
         this.reference = reference;
     }
 
-    public Node(String label, Labels labels, Map<String, Property> properties,
-            Map<String, NodeConstraint> constraints, NodeExtensions extensions, String description,
+    public Node(
+            String label,
+            Labels labels,
+            Map<String, Property> properties,
+            Map<String, NodeConstraint> constraints,
+            NodeExtensions extensions,
+            String description,
             List<String> aliases) {
         this(label, labels, properties, constraints, extensions, description, aliases, "");
     }
 
-    public Node(String label, Labels labels, Map<String, Property> properties,
-            Map<String, NodeConstraint> constraints, NodeExtensions extensions,
+    public Node(
+            String label,
+            Labels labels,
+            Map<String, Property> properties,
+            Map<String, NodeConstraint> constraints,
+            NodeExtensions extensions,
             String description) {
         this(label, labels, properties, constraints, extensions, description, new ArrayList<String>(), "");
     }
 
-    public Node(String label, Labels labels, Map<String, Property> properties,
-            Map<String, NodeConstraint> constraints, NodeExtensions extensions) {
+    public Node(
+            String label,
+            Labels labels,
+            Map<String, Property> properties,
+            Map<String, NodeConstraint> constraints,
+            NodeExtensions extensions) {
         this(label, labels, properties, constraints, extensions, "", new ArrayList<String>(), "");
     }
 
-    public Node(String label, Labels labels, Map<String, Property> properties,
-            Map<String, NodeConstraint> constraints) {
+    public Node(
+            String label, Labels labels, Map<String, Property> properties, Map<String, NodeConstraint> constraints) {
         this(label, labels, properties, constraints, new NodeExtensions(), "", new ArrayList<String>(), "");
     }
 
     public Node(String label, Labels labels, Map<String, Property> properties) {
-        this(label, labels, properties, new LinkedHashMap<String, NodeConstraint>(), new NodeExtensions(), "", new ArrayList<String>(), "");
+        this(
+                label,
+                labels,
+                properties,
+                new LinkedHashMap<String, NodeConstraint>(),
+                new NodeExtensions(),
+                "",
+                new ArrayList<String>(),
+                "");
     }
 
     public Node(String label, Labels labels) {
-        this(label, labels, new LinkedHashMap<String, Property>(), new LinkedHashMap<String, NodeConstraint>(), new NodeExtensions(), "", new ArrayList<String>(), "");
+        this(
+                label,
+                labels,
+                new LinkedHashMap<String, Property>(),
+                new LinkedHashMap<String, NodeConstraint>(),
+                new NodeExtensions(),
+                "",
+                new ArrayList<String>(),
+                "");
     }
 
     public Node(String label) {
-        this(label, new Labels(), new LinkedHashMap<String, Property>(), new LinkedHashMap<String, NodeConstraint>(), new NodeExtensions(), "", new ArrayList<String>(), "");
+        this(
+                label,
+                new Labels(),
+                new LinkedHashMap<String, Property>(),
+                new LinkedHashMap<String, NodeConstraint>(),
+                new NodeExtensions(),
+                "",
+                new ArrayList<String>(),
+                "");
     }
 
     public Node() {
-        this(null, new Labels(), new LinkedHashMap<String, Property>(), new LinkedHashMap<String, NodeConstraint>(), new NodeExtensions(), "", new ArrayList<String>(), "");
+        this(
+                null,
+                new Labels(),
+                new LinkedHashMap<String, Property>(),
+                new LinkedHashMap<String, NodeConstraint>(),
+                new NodeExtensions(),
+                "",
+                new ArrayList<String>(),
+                "");
     }
 
     public String getLabel() {
@@ -133,13 +199,13 @@ public final class Node {
         if (!(other instanceof Node)) return false;
         Node that = (Node) other;
         return Objects.equals(label, that.label)
-                        && Objects.equals(labels, that.labels)
-                        && Objects.equals(properties, that.properties)
-                        && Objects.equals(constraints, that.constraints)
-                        && Objects.equals(extensions, that.extensions)
-                        && Objects.equals(description, that.description)
-                        && Objects.equals(aliases, that.aliases)
-                        && Objects.equals(reference, that.reference);
+                && Objects.equals(labels, that.labels)
+                && Objects.equals(properties, that.properties)
+                && Objects.equals(constraints, that.constraints)
+                && Objects.equals(extensions, that.extensions)
+                && Objects.equals(description, that.description)
+                && Objects.equals(aliases, that.aliases)
+                && Objects.equals(reference, that.reference);
     }
 
     @Override
@@ -157,7 +223,9 @@ public final class Node {
 
     @Override
     public String toString() {
-        return "Node(label=" + label + ", labels=" + labels + ", properties=" + properties + ", constraints=" + constraints + ", extensions=" + extensions + ", description=" + description + ", aliases=" + aliases + ", reference=" + reference + ")";
+        return "Node(label=" + label + ", labels=" + labels + ", properties=" + properties + ", constraints="
+                + constraints + ", extensions=" + extensions + ", description=" + description + ", aliases=" + aliases
+                + ", reference=" + reference + ")";
     }
 
     @JsonProperty("label")
@@ -217,7 +285,8 @@ public final class Node {
     }
 
     @JsonCreator
-    private static Node fromJson(@JsonProperty("label") String label,
+    private static Node fromJson(
+            @JsonProperty("label") String label,
             @JsonProperty("labels") Labels labels,
             @JsonProperty("properties") Map<String, Property> properties,
             @JsonProperty("constraints") Map<String, NodeConstraint> constraints,
@@ -225,13 +294,14 @@ public final class Node {
             @JsonProperty("description") String description,
             @JsonProperty("aliases") List<String> aliases,
             @JsonProperty("reference") String reference) {
-        return new Node(label != null ? label : null,
-                    labels != null ? labels : new Labels(),
-                    properties != null ? properties : new LinkedHashMap<String, Property>(),
-                    constraints != null ? constraints : new LinkedHashMap<String, NodeConstraint>(),
-                    extensions != null ? extensions : new NodeExtensions(),
-                    description != null ? description : "",
-                    aliases != null ? aliases : new ArrayList<String>(),
-                    reference != null ? reference : "");
+        return new Node(
+                label != null ? label : null,
+                labels != null ? labels : new Labels(),
+                properties != null ? properties : new LinkedHashMap<String, Property>(),
+                constraints != null ? constraints : new LinkedHashMap<String, NodeConstraint>(),
+                extensions != null ? extensions : new NodeExtensions(),
+                description != null ? description : "",
+                aliases != null ? aliases : new ArrayList<String>(),
+                reference != null ? reference : "");
     }
 }

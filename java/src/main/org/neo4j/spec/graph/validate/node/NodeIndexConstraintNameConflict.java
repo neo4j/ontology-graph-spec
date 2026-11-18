@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/validate/node/NodeIndexConstraintNameConflict.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.validate.node;
 
@@ -22,8 +38,7 @@ import org.neo4j.spec.graph.validate.Issue;
 public final class NodeIndexConstraintNameConflict implements NodeValidation {
     public static final NodeIndexConstraintNameConflict INSTANCE = new NodeIndexConstraintNameConflict();
 
-    private NodeIndexConstraintNameConflict() {
-    }
+    private NodeIndexConstraintNameConflict() {}
 
     @Override
     public void validateNode(GraphModel model, String nodeId, Node node, List<Issue> issues) {
@@ -33,7 +48,11 @@ public final class NodeIndexConstraintNameConflict implements NodeValidation {
             var index = entry.getValue();
             String name = index.getName();
             if (name != null && !name.isEmpty() && duplicateNames.contains(name)) {
-                issues.add(new Issue("duplicate_node_index_constraint_name", "Index '" + indexId + "' on node '" + nodeId + "' reuses name '" + name + "' " + "already used by another index or constraint", "nodes." + nodeId + ".extensions.indexes." + indexId + ".name"));
+                issues.add(new Issue(
+                        "duplicate_node_index_constraint_name",
+                        "Index '" + indexId + "' on node '" + nodeId + "' reuses name '" + name + "' "
+                                + "already used by another index or constraint",
+                        "nodes." + nodeId + ".extensions.indexes." + indexId + ".name"));
             }
         }
         for (var entry : node.getConstraints().entrySet()) {
@@ -41,7 +60,11 @@ public final class NodeIndexConstraintNameConflict implements NodeValidation {
             var constraint = entry.getValue();
             String name = constraint.getName();
             if (name != null && !name.isEmpty() && duplicateNames.contains(name)) {
-                issues.add(new Issue("duplicate_node_index_constraint_name", "Constraint '" + constraintId + "' on node '" + nodeId + "' reuses name '" + name + "' " + "already used by another index or constraint", "nodes." + nodeId + ".constraints." + constraintId + ".name"));
+                issues.add(new Issue(
+                        "duplicate_node_index_constraint_name",
+                        "Constraint '" + constraintId + "' on node '" + nodeId + "' reuses name '" + name + "' "
+                                + "already used by another index or constraint",
+                        "nodes." + nodeId + ".constraints." + constraintId + ".name"));
             }
         }
     }

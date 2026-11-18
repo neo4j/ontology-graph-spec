@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/extension/GraphModelExtensions.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.extension;
 
@@ -23,8 +39,7 @@ import org.neo4j.spec.graph.model.extension.source.Table;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class GraphModelExtensions implements CustomExtensions {
     private final Map<String, Table> dataSourceTables;
 
@@ -32,15 +47,16 @@ public final class GraphModelExtensions implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public GraphModelExtensions(Map<String, Table> dataSourceTables,
-            Map<String, List<Mapping>> dataSourceMappings, Map<String, Object> custom) {
+    public GraphModelExtensions(
+            Map<String, Table> dataSourceTables,
+            Map<String, List<Mapping>> dataSourceMappings,
+            Map<String, Object> custom) {
         this.dataSourceTables = dataSourceTables;
         this.dataSourceMappings = dataSourceMappings;
         this.custom = custom;
     }
 
-    public GraphModelExtensions(Map<String, Table> dataSourceTables,
-            Map<String, List<Mapping>> dataSourceMappings) {
+    public GraphModelExtensions(Map<String, Table> dataSourceTables, Map<String, List<Mapping>> dataSourceMappings) {
         this(dataSourceTables, dataSourceMappings, new LinkedHashMap<String, Object>());
     }
 
@@ -49,7 +65,10 @@ public final class GraphModelExtensions implements CustomExtensions {
     }
 
     public GraphModelExtensions() {
-        this(new LinkedHashMap<String, Table>(), new LinkedHashMap<String, List<Mapping>>(), new LinkedHashMap<String, Object>());
+        this(
+                new LinkedHashMap<String, Table>(),
+                new LinkedHashMap<String, List<Mapping>>(),
+                new LinkedHashMap<String, Object>());
     }
 
     public Map<String, Table> getDataSourceTables() {
@@ -71,8 +90,8 @@ public final class GraphModelExtensions implements CustomExtensions {
         if (!(other instanceof GraphModelExtensions)) return false;
         GraphModelExtensions that = (GraphModelExtensions) other;
         return Objects.equals(dataSourceTables, that.dataSourceTables)
-                        && Objects.equals(dataSourceMappings, that.dataSourceMappings)
-                        && Objects.equals(custom, that.custom);
+                && Objects.equals(dataSourceMappings, that.dataSourceMappings)
+                && Objects.equals(custom, that.custom);
     }
 
     @Override
@@ -85,7 +104,8 @@ public final class GraphModelExtensions implements CustomExtensions {
 
     @Override
     public String toString() {
-        return "GraphModelExtensions(dataSourceTables=" + dataSourceTables + ", dataSourceMappings=" + dataSourceMappings + ", custom=" + custom + ")";
+        return "GraphModelExtensions(dataSourceTables=" + dataSourceTables + ", dataSourceMappings="
+                + dataSourceMappings + ", custom=" + custom + ")";
     }
 
     @JsonProperty("data_source_tables")
@@ -96,10 +116,13 @@ public final class GraphModelExtensions implements CustomExtensions {
     }
 
     @JsonProperty("data_source_mappings")
-    @JsonPropertyDescription("Sets of data source mappings from tables to nodes and relationships, often used for importing.")
+    @JsonPropertyDescription(
+            "Sets of data source mappings from tables to nodes and relationships, often used for importing.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, List<Mapping>> jsonDataSourceMappings() {
-        return Objects.equals(this.dataSourceMappings, new LinkedHashMap<String, List<Mapping>>()) ? null : this.dataSourceMappings;
+        return Objects.equals(this.dataSourceMappings, new LinkedHashMap<String, List<Mapping>>())
+                ? null
+                : this.dataSourceMappings;
     }
 
     @JsonProperty("custom")
@@ -114,8 +137,9 @@ public final class GraphModelExtensions implements CustomExtensions {
             @JsonProperty("data_source_tables") Map<String, Table> dataSourceTables,
             @JsonProperty("data_source_mappings") Map<String, List<Mapping>> dataSourceMappings,
             @JsonProperty("custom") Map<String, Object> custom) {
-        return new GraphModelExtensions(dataSourceTables != null ? dataSourceTables : new LinkedHashMap<String, Table>(),
-                    dataSourceMappings != null ? dataSourceMappings : new LinkedHashMap<String, List<Mapping>>(),
-                    custom != null ? custom : new LinkedHashMap<String, Object>());
+        return new GraphModelExtensions(
+                dataSourceTables != null ? dataSourceTables : new LinkedHashMap<String, Table>(),
+                dataSourceMappings != null ? dataSourceMappings : new LinkedHashMap<String, List<Mapping>>(),
+                custom != null ? custom : new LinkedHashMap<String, Object>());
     }
 }

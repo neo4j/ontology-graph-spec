@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/property/Property.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.property;
 
@@ -19,8 +35,7 @@ import org.neo4j.spec.graph.model.type.Named;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class Property implements Named {
     private Neo4jType type;
 
@@ -46,9 +61,19 @@ public final class Property implements Named {
 
     private final List<String> oneOf;
 
-    public Property(Neo4jType type, Integer dimension, Boolean mustExist, Boolean unique,
-            Boolean key, PropertyExtensions extensions, String name, String description,
-            List<String> aliases, String reference, String pattern, List<String> oneOf) {
+    public Property(
+            Neo4jType type,
+            Integer dimension,
+            Boolean mustExist,
+            Boolean unique,
+            Boolean key,
+            PropertyExtensions extensions,
+            String name,
+            String description,
+            List<String> aliases,
+            String reference,
+            String pattern,
+            List<String> oneOf) {
         this.type = type;
         this.dimension = dimension;
         this.mustExist = mustExist;
@@ -63,62 +88,247 @@ public final class Property implements Named {
         this.oneOf = oneOf;
     }
 
-    public Property(Neo4jType type, Integer dimension, Boolean mustExist, Boolean unique,
-            Boolean key, PropertyExtensions extensions, String name, String description,
-            List<String> aliases, String reference, String pattern) {
-        this(type, dimension, mustExist, unique, key, extensions, name, description, aliases, reference, pattern, new ArrayList<String>());
+    public Property(
+            Neo4jType type,
+            Integer dimension,
+            Boolean mustExist,
+            Boolean unique,
+            Boolean key,
+            PropertyExtensions extensions,
+            String name,
+            String description,
+            List<String> aliases,
+            String reference,
+            String pattern) {
+        this(
+                type,
+                dimension,
+                mustExist,
+                unique,
+                key,
+                extensions,
+                name,
+                description,
+                aliases,
+                reference,
+                pattern,
+                new ArrayList<String>());
     }
 
-    public Property(Neo4jType type, Integer dimension, Boolean mustExist, Boolean unique,
-            Boolean key, PropertyExtensions extensions, String name, String description,
-            List<String> aliases, String reference) {
-        this(type, dimension, mustExist, unique, key, extensions, name, description, aliases, reference, "", new ArrayList<String>());
+    public Property(
+            Neo4jType type,
+            Integer dimension,
+            Boolean mustExist,
+            Boolean unique,
+            Boolean key,
+            PropertyExtensions extensions,
+            String name,
+            String description,
+            List<String> aliases,
+            String reference) {
+        this(
+                type,
+                dimension,
+                mustExist,
+                unique,
+                key,
+                extensions,
+                name,
+                description,
+                aliases,
+                reference,
+                "",
+                new ArrayList<String>());
     }
 
-    public Property(Neo4jType type, Integer dimension, Boolean mustExist, Boolean unique,
-            Boolean key, PropertyExtensions extensions, String name, String description,
+    public Property(
+            Neo4jType type,
+            Integer dimension,
+            Boolean mustExist,
+            Boolean unique,
+            Boolean key,
+            PropertyExtensions extensions,
+            String name,
+            String description,
             List<String> aliases) {
-        this(type, dimension, mustExist, unique, key, extensions, name, description, aliases, "", "", new ArrayList<String>());
+        this(
+                type,
+                dimension,
+                mustExist,
+                unique,
+                key,
+                extensions,
+                name,
+                description,
+                aliases,
+                "",
+                "",
+                new ArrayList<String>());
     }
 
-    public Property(Neo4jType type, Integer dimension, Boolean mustExist, Boolean unique,
-            Boolean key, PropertyExtensions extensions, String name, String description) {
-        this(type, dimension, mustExist, unique, key, extensions, name, description, new ArrayList<String>(), "", "", new ArrayList<String>());
+    public Property(
+            Neo4jType type,
+            Integer dimension,
+            Boolean mustExist,
+            Boolean unique,
+            Boolean key,
+            PropertyExtensions extensions,
+            String name,
+            String description) {
+        this(
+                type,
+                dimension,
+                mustExist,
+                unique,
+                key,
+                extensions,
+                name,
+                description,
+                new ArrayList<String>(),
+                "",
+                "",
+                new ArrayList<String>());
     }
 
-    public Property(Neo4jType type, Integer dimension, Boolean mustExist, Boolean unique,
-            Boolean key, PropertyExtensions extensions, String name) {
-        this(type, dimension, mustExist, unique, key, extensions, name, "", new ArrayList<String>(), "", "", new ArrayList<String>());
+    public Property(
+            Neo4jType type,
+            Integer dimension,
+            Boolean mustExist,
+            Boolean unique,
+            Boolean key,
+            PropertyExtensions extensions,
+            String name) {
+        this(
+                type,
+                dimension,
+                mustExist,
+                unique,
+                key,
+                extensions,
+                name,
+                "",
+                new ArrayList<String>(),
+                "",
+                "",
+                new ArrayList<String>());
     }
 
-    public Property(Neo4jType type, Integer dimension, Boolean mustExist, Boolean unique,
-            Boolean key, PropertyExtensions extensions) {
-        this(type, dimension, mustExist, unique, key, extensions, null, "", new ArrayList<String>(), "", "", new ArrayList<String>());
+    public Property(
+            Neo4jType type,
+            Integer dimension,
+            Boolean mustExist,
+            Boolean unique,
+            Boolean key,
+            PropertyExtensions extensions) {
+        this(
+                type,
+                dimension,
+                mustExist,
+                unique,
+                key,
+                extensions,
+                null,
+                "",
+                new ArrayList<String>(),
+                "",
+                "",
+                new ArrayList<String>());
     }
 
-    public Property(Neo4jType type, Integer dimension, Boolean mustExist, Boolean unique,
-            Boolean key) {
-        this(type, dimension, mustExist, unique, key, new PropertyExtensions(), null, "", new ArrayList<String>(), "", "", new ArrayList<String>());
+    public Property(Neo4jType type, Integer dimension, Boolean mustExist, Boolean unique, Boolean key) {
+        this(
+                type,
+                dimension,
+                mustExist,
+                unique,
+                key,
+                new PropertyExtensions(),
+                null,
+                "",
+                new ArrayList<String>(),
+                "",
+                "",
+                new ArrayList<String>());
     }
 
     public Property(Neo4jType type, Integer dimension, Boolean mustExist, Boolean unique) {
-        this(type, dimension, mustExist, unique, null, new PropertyExtensions(), null, "", new ArrayList<String>(), "", "", new ArrayList<String>());
+        this(
+                type,
+                dimension,
+                mustExist,
+                unique,
+                null,
+                new PropertyExtensions(),
+                null,
+                "",
+                new ArrayList<String>(),
+                "",
+                "",
+                new ArrayList<String>());
     }
 
     public Property(Neo4jType type, Integer dimension, Boolean mustExist) {
-        this(type, dimension, mustExist, null, null, new PropertyExtensions(), null, "", new ArrayList<String>(), "", "", new ArrayList<String>());
+        this(
+                type,
+                dimension,
+                mustExist,
+                null,
+                null,
+                new PropertyExtensions(),
+                null,
+                "",
+                new ArrayList<String>(),
+                "",
+                "",
+                new ArrayList<String>());
     }
 
     public Property(Neo4jType type, Integer dimension) {
-        this(type, dimension, null, null, null, new PropertyExtensions(), null, "", new ArrayList<String>(), "", "", new ArrayList<String>());
+        this(
+                type,
+                dimension,
+                null,
+                null,
+                null,
+                new PropertyExtensions(),
+                null,
+                "",
+                new ArrayList<String>(),
+                "",
+                "",
+                new ArrayList<String>());
     }
 
     public Property(Neo4jType type) {
-        this(type, null, null, null, null, new PropertyExtensions(), null, "", new ArrayList<String>(), "", "", new ArrayList<String>());
+        this(
+                type,
+                null,
+                null,
+                null,
+                null,
+                new PropertyExtensions(),
+                null,
+                "",
+                new ArrayList<String>(),
+                "",
+                "",
+                new ArrayList<String>());
     }
 
     public Property() {
-        this(Neo4jType.ANY, null, null, null, null, new PropertyExtensions(), null, "", new ArrayList<String>(), "", "", new ArrayList<String>());
+        this(
+                Neo4jType.ANY,
+                null,
+                null,
+                null,
+                null,
+                new PropertyExtensions(),
+                null,
+                "",
+                new ArrayList<String>(),
+                "",
+                "",
+                new ArrayList<String>());
     }
 
     public Neo4jType getType() {
@@ -200,17 +410,17 @@ public final class Property implements Named {
         if (!(other instanceof Property)) return false;
         Property that = (Property) other;
         return Objects.equals(type, that.type)
-                        && Objects.equals(dimension, that.dimension)
-                        && Objects.equals(mustExist, that.mustExist)
-                        && Objects.equals(unique, that.unique)
-                        && Objects.equals(key, that.key)
-                        && Objects.equals(extensions, that.extensions)
-                        && Objects.equals(name, that.name)
-                        && Objects.equals(description, that.description)
-                        && Objects.equals(aliases, that.aliases)
-                        && Objects.equals(reference, that.reference)
-                        && Objects.equals(pattern, that.pattern)
-                        && Objects.equals(oneOf, that.oneOf);
+                && Objects.equals(dimension, that.dimension)
+                && Objects.equals(mustExist, that.mustExist)
+                && Objects.equals(unique, that.unique)
+                && Objects.equals(key, that.key)
+                && Objects.equals(extensions, that.extensions)
+                && Objects.equals(name, that.name)
+                && Objects.equals(description, that.description)
+                && Objects.equals(aliases, that.aliases)
+                && Objects.equals(reference, that.reference)
+                && Objects.equals(pattern, that.pattern)
+                && Objects.equals(oneOf, that.oneOf);
     }
 
     @Override
@@ -232,7 +442,10 @@ public final class Property implements Named {
 
     @Override
     public String toString() {
-        return "Property(type=" + type + ", dimension=" + dimension + ", mustExist=" + mustExist + ", unique=" + unique + ", key=" + key + ", extensions=" + extensions + ", name=" + name + ", description=" + description + ", aliases=" + aliases + ", reference=" + reference + ", pattern=" + pattern + ", oneOf=" + oneOf + ")";
+        return "Property(type=" + type + ", dimension=" + dimension + ", mustExist=" + mustExist + ", unique=" + unique
+                + ", key=" + key + ", extensions=" + extensions + ", name=" + name + ", description=" + description
+                + ", aliases=" + aliases + ", reference=" + reference + ", pattern=" + pattern + ", oneOf=" + oneOf
+                + ")";
     }
 
     @JsonProperty("type")
@@ -250,14 +463,16 @@ public final class Property implements Named {
     }
 
     @JsonProperty("must_exist")
-    @JsonPropertyDescription("Shorthand for an existence constraint. Expanded into constraints when the model is decoded.")
+    @JsonPropertyDescription(
+            "Shorthand for an existence constraint. Expanded into constraints when the model is decoded.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean jsonMustExist() {
         return Objects.equals(this.mustExist, null) ? null : this.mustExist;
     }
 
     @JsonProperty("unique")
-    @JsonPropertyDescription("Shorthand for a uniqueness constraint. Expanded into constraints when the model is decoded.")
+    @JsonPropertyDescription(
+            "Shorthand for a uniqueness constraint. Expanded into constraints when the model is decoded.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean jsonUnique() {
         return Objects.equals(this.unique, null) ? null : this.unique;
@@ -320,26 +535,31 @@ public final class Property implements Named {
     }
 
     @JsonCreator
-    private static Property fromJson(@JsonProperty("type") Neo4jType type,
+    private static Property fromJson(
+            @JsonProperty("type") Neo4jType type,
             @JsonProperty("dimension") Integer dimension,
-            @JsonProperty("must_exist") Boolean mustExist, @JsonProperty("unique") Boolean unique,
+            @JsonProperty("must_exist") Boolean mustExist,
+            @JsonProperty("unique") Boolean unique,
             @JsonProperty("key") Boolean key,
             @JsonProperty("extensions") PropertyExtensions extensions,
-            @JsonProperty("name") String name, @JsonProperty("description") String description,
+            @JsonProperty("name") String name,
+            @JsonProperty("description") String description,
             @JsonProperty("aliases") List<String> aliases,
-            @JsonProperty("reference") String reference, @JsonProperty("pattern") String pattern,
+            @JsonProperty("reference") String reference,
+            @JsonProperty("pattern") String pattern,
             @JsonProperty("one_of") List<String> oneOf) {
-        return new Property(type != null ? type : Neo4jType.ANY,
-                    dimension != null ? dimension : null,
-                    mustExist != null ? mustExist : null,
-                    unique != null ? unique : null,
-                    key != null ? key : null,
-                    extensions != null ? extensions : new PropertyExtensions(),
-                    name != null ? name : null,
-                    description != null ? description : "",
-                    aliases != null ? aliases : new ArrayList<String>(),
-                    reference != null ? reference : "",
-                    pattern != null ? pattern : "",
-                    oneOf != null ? oneOf : new ArrayList<String>());
+        return new Property(
+                type != null ? type : Neo4jType.ANY,
+                dimension != null ? dimension : null,
+                mustExist != null ? mustExist : null,
+                unique != null ? unique : null,
+                key != null ? key : null,
+                extensions != null ? extensions : new PropertyExtensions(),
+                name != null ? name : null,
+                description != null ? description : "",
+                aliases != null ? aliases : new ArrayList<String>(),
+                reference != null ? reference : "",
+                pattern != null ? pattern : "",
+                oneOf != null ? oneOf : new ArrayList<String>());
     }
 }

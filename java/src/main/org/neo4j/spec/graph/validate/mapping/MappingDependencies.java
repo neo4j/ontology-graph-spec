@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/validate/mapping/MappingDependencies.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.validate.mapping;
 
@@ -26,8 +42,7 @@ import org.neo4j.spec.graph.validate.Validation;
 public final class MappingDependencies implements Validation {
     public static final MappingDependencies INSTANCE = new MappingDependencies();
 
-    private MappingDependencies() {
-    }
+    private MappingDependencies() {}
 
     @Override
     public void validate(GraphModel model, List<Issue> issues) {
@@ -39,8 +54,11 @@ public final class MappingDependencies implements Validation {
         }
     }
 
-    private void validateList(String listId, List<? extends Mapping> mappings,
-            Map<String, ? extends List<? extends Mapping>> lists, List<Issue> issues) {
+    private void validateList(
+            String listId,
+            List<? extends Mapping> mappings,
+            Map<String, ? extends List<? extends Mapping>> lists,
+            List<Issue> issues) {
         Map<String, Integer> indexById = new LinkedHashMap<String, Integer>();
         for (int index = 0; index < mappings.size(); index++) {
             var mapping = mappings.get(index);
@@ -49,7 +67,10 @@ public final class MappingDependencies implements Validation {
                 continue;
             }
             if (indexById.containsKey(id)) {
-                issues.add(new Issue("mapping_id_duplicate", "Mapping id '" + id + "' is used by more than one mapping in '" + listId + "'", "extensions.data_source_mappings." + listId + "[" + index + "].id"));
+                issues.add(new Issue(
+                        "mapping_id_duplicate",
+                        "Mapping id '" + id + "' is used by more than one mapping in '" + listId + "'",
+                        "extensions.data_source_mappings." + listId + "[" + index + "].id"));
             } else {
                 indexById.put(id, index);
             }
@@ -64,20 +85,28 @@ public final class MappingDependencies implements Validation {
             Integer target = indexById.get(dependsOn);
             String path = "extensions.data_source_mappings." + listId + "[" + index + "].depends_on";
             if (Objects.equals(target, index)) {
-                issues.add(new Issue("mapping_depends_on_self", "Mapping '" + dependsOn + "' can't depend on itself", path));
+                issues.add(new Issue(
+                        "mapping_depends_on_self", "Mapping '" + dependsOn + "' can't depend on itself", path));
             } else if (target != null) {
                 next.put(index, target);
             } else if (isInOtherList(lists, listId, dependsOn)) {
-                issues.add(new Issue("mapping_depends_on_other_list", "Mapping depends on '" + dependsOn + "' which is in a different list of mappings, " + "mappings can only depend on others in the same list", path));
+                issues.add(new Issue(
+                        "mapping_depends_on_other_list",
+                        "Mapping depends on '" + dependsOn + "' which is in a different list of mappings, "
+                                + "mappings can only depend on others in the same list",
+                        path));
             } else {
-                issues.add(new Issue("mapping_depends_on_unknown", "Mapping depends on '" + dependsOn + "' which isn't the id of any mapping in '" + listId + "'", path));
+                issues.add(new Issue(
+                        "mapping_depends_on_unknown",
+                        "Mapping depends on '" + dependsOn + "' which isn't the id of any mapping in '" + listId + "'",
+                        path));
             }
         }
         reportCycles(listId, next, issues);
     }
 
-    private boolean isInOtherList(Map<String, ? extends List<? extends Mapping>> lists, String listId,
-            String mappingId) {
+    private boolean isInOtherList(
+            Map<String, ? extends List<? extends Mapping>> lists, String listId, String mappingId) {
         for (var entry : lists.entrySet()) {
             if (Objects.equals(entry.getKey(), listId)) {
                 continue;
@@ -108,7 +137,12 @@ public final class MappingDependencies implements Validation {
                 List<Integer> sortedCycle = new ArrayList<>(cycle);
                 Collections.sort(sortedCycle);
                 int first = sortedCycle.get(0);
-                issues.add(new Issue("mapping_dependency_cycle", "Mappings " + sortedCycle.stream().map(it -> "[" + it + "]").collect(Collectors.joining(", ")) + " in '" + listId + "' depend on each other in a cycle", "extensions.data_source_mappings." + listId + "[" + first + "].depends_on"));
+                issues.add(new Issue(
+                        "mapping_dependency_cycle",
+                        "Mappings "
+                                + sortedCycle.stream().map(it -> "[" + it + "]").collect(Collectors.joining(", "))
+                                + " in '" + listId + "' depend on each other in a cycle",
+                        "extensions.data_source_mappings." + listId + "[" + first + "].depends_on"));
             }
             done.addAll(path);
         }

@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/relationship/RelationshipTarget.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.relationship;
 
@@ -15,8 +31,7 @@ import java.util.Objects;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class RelationshipTarget {
     private String node;
 
@@ -28,8 +43,7 @@ public final class RelationshipTarget {
 
     private Integer maxCount;
 
-    public RelationshipTarget(String node, String label, Integer count, Integer minCount,
-            Integer maxCount) {
+    public RelationshipTarget(String node, String label, Integer count, Integer minCount, Integer maxCount) {
         this.node = node;
         this.label = label;
         this.count = count;
@@ -103,10 +117,10 @@ public final class RelationshipTarget {
         if (!(other instanceof RelationshipTarget)) return false;
         RelationshipTarget that = (RelationshipTarget) other;
         return Objects.equals(node, that.node)
-                        && Objects.equals(label, that.label)
-                        && Objects.equals(count, that.count)
-                        && Objects.equals(minCount, that.minCount)
-                        && Objects.equals(maxCount, that.maxCount);
+                && Objects.equals(label, that.label)
+                && Objects.equals(count, that.count)
+                && Objects.equals(minCount, that.minCount)
+                && Objects.equals(maxCount, that.maxCount);
     }
 
     @Override
@@ -121,7 +135,8 @@ public final class RelationshipTarget {
 
     @Override
     public String toString() {
-        return "RelationshipTarget(node=" + node + ", label=" + label + ", count=" + count + ", minCount=" + minCount + ", maxCount=" + maxCount + ")";
+        return "RelationshipTarget(node=" + node + ", label=" + label + ", count=" + count + ", minCount=" + minCount
+                + ", maxCount=" + maxCount + ")";
     }
 
     @JsonProperty("node")
@@ -160,14 +175,17 @@ public final class RelationshipTarget {
     }
 
     @JsonCreator
-    private static RelationshipTarget fromJson(@JsonProperty("node") String node,
-            @JsonProperty("label") String label, @JsonProperty("count") Integer count,
+    private static RelationshipTarget fromJson(
+            @JsonProperty("node") String node,
+            @JsonProperty("label") String label,
+            @JsonProperty("count") Integer count,
             @JsonProperty("min_count") Integer minCount,
             @JsonProperty("max_count") Integer maxCount) {
-        return new RelationshipTarget(node != null ? node : "",
-                    label != null ? label : "",
-                    count != null ? count : null,
-                    minCount != null ? minCount : null,
-                    maxCount != null ? maxCount : null);
+        return new RelationshipTarget(
+                node != null ? node : "",
+                label != null ? label : "",
+                count != null ? count : null,
+                minCount != null ? minCount : null,
+                maxCount != null ? maxCount : null);
     }
 }

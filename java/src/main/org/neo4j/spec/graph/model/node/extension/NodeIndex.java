@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/node/extension/NodeIndex.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.node.extension;
 
@@ -22,8 +38,7 @@ import org.neo4j.spec.graph.model.type.Named;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class NodeIndex implements CustomExtensions, Named {
     private IndexType type;
 
@@ -37,8 +52,13 @@ public final class NodeIndex implements CustomExtensions, Named {
 
     private String name;
 
-    public NodeIndex(IndexType type, List<String> labels, List<String> properties,
-            IndexOption options, Map<String, Object> custom, String name) {
+    public NodeIndex(
+            IndexType type,
+            List<String> labels,
+            List<String> properties,
+            IndexOption options,
+            Map<String, Object> custom,
+            String name) {
         this.type = type;
         this.labels = labels;
         this.properties = properties;
@@ -47,13 +67,16 @@ public final class NodeIndex implements CustomExtensions, Named {
         this.name = name;
     }
 
-    public NodeIndex(IndexType type, List<String> labels, List<String> properties,
-            IndexOption options, Map<String, Object> custom) {
+    public NodeIndex(
+            IndexType type,
+            List<String> labels,
+            List<String> properties,
+            IndexOption options,
+            Map<String, Object> custom) {
         this(type, labels, properties, options, custom, null);
     }
 
-    public NodeIndex(IndexType type, List<String> labels, List<String> properties,
-            IndexOption options) {
+    public NodeIndex(IndexType type, List<String> labels, List<String> properties, IndexOption options) {
         this(type, labels, properties, options, new LinkedHashMap<String, Object>(), null);
     }
 
@@ -101,11 +124,11 @@ public final class NodeIndex implements CustomExtensions, Named {
         if (!(other instanceof NodeIndex)) return false;
         NodeIndex that = (NodeIndex) other;
         return Objects.equals(type, that.type)
-                        && Objects.equals(labels, that.labels)
-                        && Objects.equals(properties, that.properties)
-                        && Objects.equals(options, that.options)
-                        && Objects.equals(custom, that.custom)
-                        && Objects.equals(name, that.name);
+                && Objects.equals(labels, that.labels)
+                && Objects.equals(properties, that.properties)
+                && Objects.equals(options, that.options)
+                && Objects.equals(custom, that.custom)
+                && Objects.equals(name, that.name);
     }
 
     @Override
@@ -121,7 +144,8 @@ public final class NodeIndex implements CustomExtensions, Named {
 
     @Override
     public String toString() {
-        return "NodeIndex(type=" + type + ", labels=" + labels + ", properties=" + properties + ", options=" + options + ", custom=" + custom + ", name=" + name + ")";
+        return "NodeIndex(type=" + type + ", labels=" + labels + ", properties=" + properties + ", options=" + options
+                + ", custom=" + custom + ", name=" + name + ")";
     }
 
     @JsonProperty("type")
@@ -167,16 +191,19 @@ public final class NodeIndex implements CustomExtensions, Named {
     }
 
     @JsonCreator
-    private static NodeIndex fromJson(@JsonProperty("type") IndexType type,
+    private static NodeIndex fromJson(
+            @JsonProperty("type") IndexType type,
             @JsonProperty("labels") List<String> labels,
             @JsonProperty("properties") List<String> properties,
             @JsonProperty("options") IndexOption options,
-            @JsonProperty("custom") Map<String, Object> custom, @JsonProperty("name") String name) {
-        return new NodeIndex(Objects.requireNonNull(type, "Field 'type' is required"),
-                    Objects.requireNonNull(labels, "Field 'labels' is required"),
-                    Objects.requireNonNull(properties, "Field 'properties' is required"),
-                    options != null ? options : null,
-                    custom != null ? custom : new LinkedHashMap<String, Object>(),
-                    name != null ? name : null);
+            @JsonProperty("custom") Map<String, Object> custom,
+            @JsonProperty("name") String name) {
+        return new NodeIndex(
+                Objects.requireNonNull(type, "Field 'type' is required"),
+                Objects.requireNonNull(labels, "Field 'labels' is required"),
+                Objects.requireNonNull(properties, "Field 'properties' is required"),
+                options != null ? options : null,
+                custom != null ? custom : new LinkedHashMap<String, Object>(),
+                name != null ? name : null);
     }
 }

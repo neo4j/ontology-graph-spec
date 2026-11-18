@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/NameFormat.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model;
 
@@ -13,11 +29,9 @@ import org.neo4j.spec.graph.model.type.IndexType;
 public final class NameFormat {
     private static final int MAX_LENGTH = 800;
 
-    public NameFormat() {
-    }
+    public NameFormat() {}
 
-    public static String constraintName(List<String> properties, String entity,
-            ConstraintType type) {
+    public static String constraintName(List<String> properties, String entity, ConstraintType type) {
         return NameFormat.build(properties, entity, NameFormat.suffixFrom(type));
     }
 
@@ -36,7 +50,8 @@ public final class NameFormat {
         }
         String base = entity.isEmpty() ? propertyPart : propertyPart + "_" + NameFormat.escape(entity);
         String suffixPart = suffix == null ? "" : "_" + suffix;
-        return base.substring(0, Math.min(Math.max(NameFormat.MAX_LENGTH - suffixPart.length(), 0), base.length())) + suffixPart;
+        return base.substring(0, Math.min(Math.max(NameFormat.MAX_LENGTH - suffixPart.length(), 0), base.length()))
+                + suffixPart;
     }
 
     private static String suffixFrom(ConstraintType type) {

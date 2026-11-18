@@ -1,10 +1,26 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/migrate/MigrationPath.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.migrate;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -25,8 +41,7 @@ public final class MigrationPath {
         return this.migrations;
     }
 
-    public SchemaMap migrate(SchemaMap schema, String type, String targetVersion,
-            String targetType) {
+    public SchemaMap migrate(SchemaMap schema, String type, String targetVersion, String targetType) {
         String from = version(schema, sourceType(schema, type));
         String to = version(targetVersion, targetType);
         List<Migration> path = findPath(from, to);
@@ -41,8 +56,7 @@ public final class MigrationPath {
         return map;
     }
 
-    public boolean requiresMigration(String version, String type, String targetVersion,
-            String targetType) {
+    public boolean requiresMigration(String version, String type, String targetVersion, String targetType) {
         return !Objects.equals(version(version, type), version(targetVersion, targetType));
     }
 
@@ -82,7 +96,8 @@ public final class MigrationPath {
             }
             return version(Version.parseSchemaVersion(url), type);
         }
-        SchemaMap versioned = Objects.equals(type, Type.DATA_MODEL_WRAPPED) ? schema.map(DataModelWrapper.DATA_MODEL) : schema;
+        SchemaMap versioned =
+                Objects.equals(type, Type.DATA_MODEL_WRAPPED) ? schema.map(DataModelWrapper.DATA_MODEL) : schema;
         String version = versioned.stringOrNull("version");
         if (version == null) {
             throw new IllegalStateException("Version must be specified");

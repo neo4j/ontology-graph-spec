@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/validate/table/TableColumnDuplicateName.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.validate.table;
 
@@ -11,12 +27,11 @@ import org.neo4j.spec.graph.validate.Issue;
 public final class TableColumnDuplicateName implements TableValidation {
     public static final TableColumnDuplicateName INSTANCE = new TableColumnDuplicateName();
 
-    private TableColumnDuplicateName() {
-    }
+    private TableColumnDuplicateName() {}
 
     @Override
-    public void validateTableColumn(GraphModel model, String tableId, Table table, int columnIndex,
-            TableColumn column, List<Issue> issues) {
+    public void validateTableColumn(
+            GraphModel model, String tableId, Table table, int columnIndex, TableColumn column, List<Issue> issues) {
         String name = column.getName();
         if (name.isBlank()) {
             return;
@@ -30,7 +45,10 @@ public final class TableColumnDuplicateName implements TableValidation {
             }
         }
         if (isDuplicate) {
-            issues.add(new Issue("duplicate_table_column_name", "Duplicate column name '" + name + "' in table '" + tableId + "'", "extensions.data_source_tables." + tableId + ".columns[" + columnIndex + "].name"));
+            issues.add(new Issue(
+                    "duplicate_table_column_name",
+                    "Duplicate column name '" + name + "' in table '" + tableId + "'",
+                    "extensions.data_source_tables." + tableId + ".columns[" + columnIndex + "].name"));
         }
     }
 }

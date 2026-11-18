@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/node/Labels.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.node;
 
@@ -18,8 +34,7 @@ import org.neo4j.spec.graph.model.node.extension.LabelsExtensions;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class Labels {
     private String identifier;
 
@@ -29,8 +44,7 @@ public final class Labels {
 
     private final LabelsExtensions extensions;
 
-    public Labels(String identifier, List<String> implied, List<String> optional,
-            LabelsExtensions extensions) {
+    public Labels(String identifier, List<String> implied, List<String> optional, LabelsExtensions extensions) {
         this.identifier = identifier;
         this.implied = implied;
         this.optional = optional;
@@ -79,9 +93,9 @@ public final class Labels {
         if (!(other instanceof Labels)) return false;
         Labels that = (Labels) other;
         return Objects.equals(identifier, that.identifier)
-                        && Objects.equals(implied, that.implied)
-                        && Objects.equals(optional, that.optional)
-                        && Objects.equals(extensions, that.extensions);
+                && Objects.equals(implied, that.implied)
+                && Objects.equals(optional, that.optional)
+                && Objects.equals(extensions, that.extensions);
     }
 
     @Override
@@ -95,7 +109,8 @@ public final class Labels {
 
     @Override
     public String toString() {
-        return "Labels(identifier=" + identifier + ", implied=" + implied + ", optional=" + optional + ", extensions=" + extensions + ")";
+        return "Labels(identifier=" + identifier + ", implied=" + implied + ", optional=" + optional + ", extensions="
+                + extensions + ")";
     }
 
     @JsonProperty("identifier")
@@ -127,13 +142,15 @@ public final class Labels {
     }
 
     @JsonCreator
-    private static Labels fromJson(@JsonProperty("identifier") String identifier,
+    private static Labels fromJson(
+            @JsonProperty("identifier") String identifier,
             @JsonProperty("implied") List<String> implied,
             @JsonProperty("optional") List<String> optional,
             @JsonProperty("extensions") LabelsExtensions extensions) {
-        return new Labels(identifier != null ? identifier : null,
-                    implied != null ? implied : new ArrayList<String>(),
-                    optional != null ? optional : new ArrayList<String>(),
-                    extensions != null ? extensions : new LabelsExtensions());
+        return new Labels(
+                identifier != null ? identifier : null,
+                implied != null ? implied : new ArrayList<String>(),
+                optional != null ? optional : new ArrayList<String>(),
+                extensions != null ? extensions : new LabelsExtensions());
     }
 }

@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/extension/mapping/TargetMapping.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.extension.mapping;
 
@@ -17,8 +33,7 @@ import java.util.Objects;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class TargetMapping {
     private String label;
 
@@ -54,8 +69,7 @@ public final class TargetMapping {
         if (this == other) return true;
         if (!(other instanceof TargetMapping)) return false;
         TargetMapping that = (TargetMapping) other;
-        return Objects.equals(label, that.label)
-                        && Objects.equals(properties, that.properties);
+        return Objects.equals(label, that.label) && Objects.equals(properties, that.properties);
     }
 
     @Override
@@ -85,9 +99,10 @@ public final class TargetMapping {
     }
 
     @JsonCreator
-    private static TargetMapping fromJson(@JsonProperty("label") String label,
-            @JsonProperty("properties") Map<String, PropertyMapping> properties) {
-        return new TargetMapping(label != null ? label : "",
-                    properties != null ? properties : new LinkedHashMap<String, PropertyMapping>());
+    private static TargetMapping fromJson(
+            @JsonProperty("label") String label, @JsonProperty("properties") Map<String, PropertyMapping> properties) {
+        return new TargetMapping(
+                label != null ? label : "",
+                properties != null ? properties : new LinkedHashMap<String, PropertyMapping>());
     }
 }

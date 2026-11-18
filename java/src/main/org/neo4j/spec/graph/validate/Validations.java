@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/validate/Validations.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.validate;
 
@@ -62,24 +78,77 @@ import org.neo4j.spec.graph.validate.table.TableColumnSupportedDuplicate;
 import org.neo4j.spec.graph.validate.table.TableColumnType;
 
 public final class Validations {
-    private static final List<Validation> core = List.of(NodeTypeConstraint.INSTANCE, RelationshipTypeConstraint.INSTANCE, NodeConstraints.INSTANCE, RelationshipConstraints.INSTANCE, NodeIndexesExists.INSTANCE, NodeIndexOptions.INSTANCE, RelationshipIndexes.INSTANCE, RelationshipIndexOptions.INSTANCE, NodeExistenceConstraint.INSTANCE, RelationshipExistenceConstraint.INSTANCE, RelationshipNodes.INSTANCE, RelationshipTargetCount.INSTANCE, NodePropertyPatternOneOf.INSTANCE, RelationshipPropertyPatternOneOf.INSTANCE, RelationshipMappingKey.INSTANCE, StringLength.INSTANCE, NodeAliasDuplicate.INSTANCE, RelationshipAliasDuplicate.INSTANCE, NodePropertyAliasDuplicate.INSTANCE, RelationshipPropertyAliasDuplicate.INSTANCE, NodeLabelDuplicate.INSTANCE, NodeIndexLabelDuplicate.INSTANCE, NodeIndexPropertyDuplicate.INSTANCE, RelationshipIndexPropertyDuplicate.INSTANCE, NodeConstraintPropertyDuplicate.INSTANCE, RelationshipConstraintPropertyDuplicate.INSTANCE, NodeMappingKeyDuplicate.INSTANCE, RelationshipMappingKeyDuplicate.INSTANCE, TableColumnSupportedDuplicate.INSTANCE);
+    private static final List<Validation> core = List.of(
+            NodeTypeConstraint.INSTANCE,
+            RelationshipTypeConstraint.INSTANCE,
+            NodeConstraints.INSTANCE,
+            RelationshipConstraints.INSTANCE,
+            NodeIndexesExists.INSTANCE,
+            NodeIndexOptions.INSTANCE,
+            RelationshipIndexes.INSTANCE,
+            RelationshipIndexOptions.INSTANCE,
+            NodeExistenceConstraint.INSTANCE,
+            RelationshipExistenceConstraint.INSTANCE,
+            RelationshipNodes.INSTANCE,
+            RelationshipTargetCount.INSTANCE,
+            NodePropertyPatternOneOf.INSTANCE,
+            RelationshipPropertyPatternOneOf.INSTANCE,
+            RelationshipMappingKey.INSTANCE,
+            StringLength.INSTANCE,
+            NodeAliasDuplicate.INSTANCE,
+            RelationshipAliasDuplicate.INSTANCE,
+            NodePropertyAliasDuplicate.INSTANCE,
+            RelationshipPropertyAliasDuplicate.INSTANCE,
+            NodeLabelDuplicate.INSTANCE,
+            NodeIndexLabelDuplicate.INSTANCE,
+            NodeIndexPropertyDuplicate.INSTANCE,
+            RelationshipIndexPropertyDuplicate.INSTANCE,
+            NodeConstraintPropertyDuplicate.INSTANCE,
+            RelationshipConstraintPropertyDuplicate.INSTANCE,
+            NodeMappingKeyDuplicate.INSTANCE,
+            RelationshipMappingKeyDuplicate.INSTANCE,
+            TableColumnSupportedDuplicate.INSTANCE);
 
     private static final List<Validation> labelled = List.of(NodeLabel.INSTANCE, RelationshipType.INSTANCE);
 
-    private static final List<Validation> consistentSchema = List.of(NodePropertyEmptyName.INSTANCE, NodePropertyDuplicateName.INSTANCE, RelationshipPropertyEmptyName.INSTANCE, RelationshipPropertyDuplicateName.INSTANCE, NodeIndexProperties.INSTANCE, RelationshipIndexProperties.INSTANCE, NodeConstraintProperties.INSTANCE, NodeConstraintDuplicatePropertySet.INSTANCE, RelationshipConstraintDuplicatePropertySet.INSTANCE, NodeExistenceCompositeConflict.INSTANCE, NodeIndexConstraintNameConflict.INSTANCE);
+    private static final List<Validation> consistentSchema = List.of(
+            NodePropertyEmptyName.INSTANCE,
+            NodePropertyDuplicateName.INSTANCE,
+            RelationshipPropertyEmptyName.INSTANCE,
+            RelationshipPropertyDuplicateName.INSTANCE,
+            NodeIndexProperties.INSTANCE,
+            RelationshipIndexProperties.INSTANCE,
+            NodeConstraintProperties.INSTANCE,
+            NodeConstraintDuplicatePropertySet.INSTANCE,
+            RelationshipConstraintDuplicatePropertySet.INSTANCE,
+            NodeExistenceCompositeConflict.INSTANCE,
+            NodeIndexConstraintNameConflict.INSTANCE);
 
-    private static final List<Validation> mappable = List.of(NodeMappingKey.INSTANCE, MappingDependencies.INSTANCE, TableColumnEmptyName.INSTANCE, TableColumnDuplicateName.INSTANCE, TableColumnType.INSTANCE);
+    private static final List<Validation> mappable = List.of(
+            NodeMappingKey.INSTANCE,
+            MappingDependencies.INSTANCE,
+            TableColumnEmptyName.INSTANCE,
+            TableColumnDuplicateName.INSTANCE,
+            TableColumnType.INSTANCE);
 
-    private static final List<Validation> bulkImportable = List.of(NodeLabelToken.INSTANCE, RelationshipTypeToken.INSTANCE, NodeMappingKeyType.INSTANCE, NodeCompositeConstraintPropertyType.INSTANCE);
+    private static final List<Validation> bulkImportable = List.of(
+            NodeLabelToken.INSTANCE,
+            RelationshipTypeToken.INSTANCE,
+            NodeMappingKeyType.INSTANCE,
+            NodeCompositeConstraintPropertyType.INSTANCE);
 
-    private static final List<Validation> wellConstrained = List.of(NodeProperties.INSTANCE, NodeConstraintCoverage.INSTANCE, NodeKeyOverlap.INSTANCE, RelationshipKeyOverlap.INSTANCE);
+    private static final List<Validation> wellConstrained = List.of(
+            NodeProperties.INSTANCE,
+            NodeConstraintCoverage.INSTANCE,
+            NodeKeyOverlap.INSTANCE,
+            RelationshipKeyOverlap.INSTANCE);
 
-    private static final List<Validation> all = List.copyOf(Stream.of(core, labelled, consistentSchema, mappable, bulkImportable, wellConstrained)
-            .flatMap(List::stream)
-            .collect(Collectors.toCollection(LinkedHashSet::new)));
+    private static final List<Validation> all =
+            List.copyOf(Stream.of(core, labelled, consistentSchema, mappable, bulkImportable, wellConstrained)
+                    .flatMap(List::stream)
+                    .collect(Collectors.toCollection(LinkedHashSet::new)));
 
-    public Validations() {
-    }
+    public Validations() {}
 
     public static List<Validation> getCore() {
         return Validations.core;

@@ -144,12 +144,11 @@ public final class YamlWriter {
 
     private static String escapeAndQuote(String value, boolean forceQuotes) {
         if (!forceQuotes && !needsQuotes(value)) return value;
-        String escaped = value
-            .replace("\\", "\\\\")
-            .replace("\"", "\\\"")
-            .replace("\n", "\\n")
-            .replace("\r", "\\r")
-            .replace("\t", "\\t");
+        String escaped = value.replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r")
+                .replace("\t", "\\t");
         return "\"" + escaped + "\"";
     }
 }
