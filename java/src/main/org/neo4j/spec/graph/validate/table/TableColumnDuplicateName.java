@@ -3,7 +3,6 @@ package org.neo4j.spec.graph.validate.table;
 
 import java.util.List;
 import java.util.Objects;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.extension.source.Table;
 import org.neo4j.spec.graph.model.extension.source.TableColumn;
@@ -19,14 +18,17 @@ public final class TableColumnDuplicateName implements TableValidation {
     public void validateTableColumn(GraphModel model, String tableId, Table table, int columnIndex,
             TableColumn column, List<Issue> issues) {
         String name = column.getName();
-        if (Kt.isBlank(name)) {
+        if (name.isBlank()) {
             return;
         }
-        boolean isDuplicate = Kt.any(Kt.withIndex(table.getColumns()), entry -> {
-            var otherIndex = entry.getIndex();
-            var other = entry.getValue();
-            return otherIndex != columnIndex && Objects.equals(other.getName(), name);
-        });
+        boolean isDuplicate = false;
+        for (int otherIndex = 0; otherIndex < table.getColumns().size(); otherIndex++) {
+            var other = table.getColumns().get(otherIndex);
+            if (otherIndex != columnIndex && Objects.equals(other.getName(), name)) {
+                isDuplicate = true;
+                break;
+            }
+        }
         if (isDuplicate) {
             issues.add(new Issue("duplicate_table_column_name", "Duplicate column name '" + name + "' in table '" + tableId + "'", "extensions.data_source_tables." + tableId + ".columns[" + columnIndex + "].name"));
         }

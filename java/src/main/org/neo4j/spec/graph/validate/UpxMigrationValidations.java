@@ -2,7 +2,6 @@
 package org.neo4j.spec.graph.validate;
 
 import java.util.List;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.validate.mapping.MappingDependencies;
 import org.neo4j.spec.graph.validate.node.NodeConstraintCoverage;
 import org.neo4j.spec.graph.validate.node.NodeIndexConstraintNameConflict;
@@ -33,13 +32,13 @@ import org.neo4j.spec.graph.validate.table.TableColumnEmptyName;
 import org.neo4j.spec.graph.validate.table.TableColumnType;
 
 public final class UpxMigrationValidations {
-    private static final List<Validation> kgbuilderComplete = Kt.listOf(NodeLabel.INSTANCE, NodeProperties.INSTANCE, NodeConstraintCoverage.INSTANCE, NodeKeyOverlap.INSTANCE, NodeExistenceConstraint.INSTANCE, RelationshipType.INSTANCE, RelationshipKeyOverlap.INSTANCE, RelationshipExistenceConstraint.INSTANCE, RelationshipNodes.INSTANCE);
+    private static final List<Validation> kgbuilderComplete = List.of(NodeLabel.INSTANCE, NodeProperties.INSTANCE, NodeConstraintCoverage.INSTANCE, NodeKeyOverlap.INSTANCE, NodeExistenceConstraint.INSTANCE, RelationshipType.INSTANCE, RelationshipKeyOverlap.INSTANCE, RelationshipExistenceConstraint.INSTANCE, RelationshipNodes.INSTANCE);
 
-    private static final List<Validation> importComplete = Kt.listOf(NodeLabel.INSTANCE, RelationshipType.INSTANCE, NodeMappingKey.INSTANCE, NodeIndexProperties.INSTANCE, RelationshipIndexProperties.INSTANCE, NodeConstraintProperties.INSTANCE, NodeConstraintDuplicatePropertySet.INSTANCE, NodeExistenceCompositeConflict.INSTANCE, NodeIndexConstraintNameConflict.INSTANCE, TableColumnEmptyName.INSTANCE, TableColumnDuplicateName.INSTANCE, TableColumnType.INSTANCE, NodePropertyEmptyName.INSTANCE, NodePropertyDuplicateName.INSTANCE, RelationshipPropertyEmptyName.INSTANCE, RelationshipPropertyDuplicateName.INSTANCE, MappingDependencies.INSTANCE);
+    private static final List<Validation> importComplete = List.of(NodeLabel.INSTANCE, RelationshipType.INSTANCE, NodeMappingKey.INSTANCE, NodeIndexProperties.INSTANCE, RelationshipIndexProperties.INSTANCE, NodeConstraintProperties.INSTANCE, NodeConstraintDuplicatePropertySet.INSTANCE, NodeExistenceCompositeConflict.INSTANCE, NodeIndexConstraintNameConflict.INSTANCE, TableColumnEmptyName.INSTANCE, TableColumnDuplicateName.INSTANCE, TableColumnType.INSTANCE, NodePropertyEmptyName.INSTANCE, NodePropertyDuplicateName.INSTANCE, RelationshipPropertyEmptyName.INSTANCE, RelationshipPropertyDuplicateName.INSTANCE, MappingDependencies.INSTANCE);
 
-    private static final List<Validation> draft = Kt.listOf(NodeLabel.INSTANCE, RelationshipType.INSTANCE);
+    private static final List<Validation> draft = List.of(NodeLabel.INSTANCE, RelationshipType.INSTANCE);
 
-    private static final List<Validation> bulkImportComplete = Kt.listOf(NodeLabelToken.INSTANCE, RelationshipTypeToken.INSTANCE, NodeMappingKeyType.INSTANCE, NodeCompositeConstraintPropertyType.INSTANCE);
+    private static final List<Validation> bulkImportComplete = List.of(NodeLabelToken.INSTANCE, RelationshipTypeToken.INSTANCE, NodeMappingKeyType.INSTANCE, NodeCompositeConstraintPropertyType.INSTANCE);
 
     public UpxMigrationValidations() {
     }

@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.List;
 import java.util.Objects;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.model.type.IndexType;
 
 /**
@@ -58,40 +57,40 @@ public final class PointIndexOption implements IndexOption {
     public PointIndexOption(List<Double> cartesianMin, List<Double> cartesianMax,
             List<Double> cartesian3DMin, List<Double> cartesian3DMax, List<Double> wgs84Min,
             List<Double> wgs84Max, List<Double> wgs843DMin) {
-        this(cartesianMin, cartesianMax, cartesian3DMin, cartesian3DMax, wgs84Min, wgs84Max, wgs843DMin, Kt.listOf(180.0, 90.0, 1000000.0));
+        this(cartesianMin, cartesianMax, cartesian3DMin, cartesian3DMax, wgs84Min, wgs84Max, wgs843DMin, List.of(180.0, 90.0, 1000000.0));
     }
 
     public PointIndexOption(List<Double> cartesianMin, List<Double> cartesianMax,
             List<Double> cartesian3DMin, List<Double> cartesian3DMax, List<Double> wgs84Min,
             List<Double> wgs84Max) {
-        this(cartesianMin, cartesianMax, cartesian3DMin, cartesian3DMax, wgs84Min, wgs84Max, Kt.listOf(-180.0, -90.0, -1000000.0), Kt.listOf(180.0, 90.0, 1000000.0));
+        this(cartesianMin, cartesianMax, cartesian3DMin, cartesian3DMax, wgs84Min, wgs84Max, List.of(-180.0, -90.0, -1000000.0), List.of(180.0, 90.0, 1000000.0));
     }
 
     public PointIndexOption(List<Double> cartesianMin, List<Double> cartesianMax,
             List<Double> cartesian3DMin, List<Double> cartesian3DMax, List<Double> wgs84Min) {
-        this(cartesianMin, cartesianMax, cartesian3DMin, cartesian3DMax, wgs84Min, Kt.listOf(180.0, 90.0), Kt.listOf(-180.0, -90.0, -1000000.0), Kt.listOf(180.0, 90.0, 1000000.0));
+        this(cartesianMin, cartesianMax, cartesian3DMin, cartesian3DMax, wgs84Min, List.of(180.0, 90.0), List.of(-180.0, -90.0, -1000000.0), List.of(180.0, 90.0, 1000000.0));
     }
 
     public PointIndexOption(List<Double> cartesianMin, List<Double> cartesianMax,
             List<Double> cartesian3DMin, List<Double> cartesian3DMax) {
-        this(cartesianMin, cartesianMax, cartesian3DMin, cartesian3DMax, Kt.listOf(-180.0, -90.0), Kt.listOf(180.0, 90.0), Kt.listOf(-180.0, -90.0, -1000000.0), Kt.listOf(180.0, 90.0, 1000000.0));
+        this(cartesianMin, cartesianMax, cartesian3DMin, cartesian3DMax, List.of(-180.0, -90.0), List.of(180.0, 90.0), List.of(-180.0, -90.0, -1000000.0), List.of(180.0, 90.0, 1000000.0));
     }
 
     public PointIndexOption(List<Double> cartesianMin, List<Double> cartesianMax,
             List<Double> cartesian3DMin) {
-        this(cartesianMin, cartesianMax, cartesian3DMin, Kt.listOf(1000000.0, 1000000.0, 1000000.0), Kt.listOf(-180.0, -90.0), Kt.listOf(180.0, 90.0), Kt.listOf(-180.0, -90.0, -1000000.0), Kt.listOf(180.0, 90.0, 1000000.0));
+        this(cartesianMin, cartesianMax, cartesian3DMin, List.of(1000000.0, 1000000.0, 1000000.0), List.of(-180.0, -90.0), List.of(180.0, 90.0), List.of(-180.0, -90.0, -1000000.0), List.of(180.0, 90.0, 1000000.0));
     }
 
     public PointIndexOption(List<Double> cartesianMin, List<Double> cartesianMax) {
-        this(cartesianMin, cartesianMax, Kt.listOf(-1000000.0, -1000000.0, -1000000.0), Kt.listOf(1000000.0, 1000000.0, 1000000.0), Kt.listOf(-180.0, -90.0), Kt.listOf(180.0, 90.0), Kt.listOf(-180.0, -90.0, -1000000.0), Kt.listOf(180.0, 90.0, 1000000.0));
+        this(cartesianMin, cartesianMax, List.of(-1000000.0, -1000000.0, -1000000.0), List.of(1000000.0, 1000000.0, 1000000.0), List.of(-180.0, -90.0), List.of(180.0, 90.0), List.of(-180.0, -90.0, -1000000.0), List.of(180.0, 90.0, 1000000.0));
     }
 
     public PointIndexOption(List<Double> cartesianMin) {
-        this(cartesianMin, Kt.listOf(1000000.0, 1000000.0), Kt.listOf(-1000000.0, -1000000.0, -1000000.0), Kt.listOf(1000000.0, 1000000.0, 1000000.0), Kt.listOf(-180.0, -90.0), Kt.listOf(180.0, 90.0), Kt.listOf(-180.0, -90.0, -1000000.0), Kt.listOf(180.0, 90.0, 1000000.0));
+        this(cartesianMin, List.of(1000000.0, 1000000.0), List.of(-1000000.0, -1000000.0, -1000000.0), List.of(1000000.0, 1000000.0, 1000000.0), List.of(-180.0, -90.0), List.of(180.0, 90.0), List.of(-180.0, -90.0, -1000000.0), List.of(180.0, 90.0, 1000000.0));
     }
 
     public PointIndexOption() {
-        this(Kt.listOf(-1000000.0, -1000000.0), Kt.listOf(1000000.0, 1000000.0), Kt.listOf(-1000000.0, -1000000.0, -1000000.0), Kt.listOf(1000000.0, 1000000.0, 1000000.0), Kt.listOf(-180.0, -90.0), Kt.listOf(180.0, 90.0), Kt.listOf(-180.0, -90.0, -1000000.0), Kt.listOf(180.0, 90.0, 1000000.0));
+        this(List.of(-1000000.0, -1000000.0), List.of(1000000.0, 1000000.0), List.of(-1000000.0, -1000000.0, -1000000.0), List.of(1000000.0, 1000000.0, 1000000.0), List.of(-180.0, -90.0), List.of(180.0, 90.0), List.of(-180.0, -90.0, -1000000.0), List.of(180.0, 90.0, 1000000.0));
     }
 
     public List<Double> getCartesianMin() {
@@ -168,56 +167,56 @@ public final class PointIndexOption implements IndexOption {
     @JsonPropertyDescription("Lower bounds of the 2D cartesian space.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Double> jsonCartesianMin() {
-        return Objects.equals(this.cartesianMin, Kt.listOf(-1000000.0, -1000000.0)) ? null : this.cartesianMin;
+        return Objects.equals(this.cartesianMin, List.of(-1000000.0, -1000000.0)) ? null : this.cartesianMin;
     }
 
     @JsonProperty("spatial.cartesian.max")
     @JsonPropertyDescription("Upper bounds of the 2D cartesian space.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Double> jsonCartesianMax() {
-        return Objects.equals(this.cartesianMax, Kt.listOf(1000000.0, 1000000.0)) ? null : this.cartesianMax;
+        return Objects.equals(this.cartesianMax, List.of(1000000.0, 1000000.0)) ? null : this.cartesianMax;
     }
 
     @JsonProperty("spatial.cartesian-3d.min")
     @JsonPropertyDescription("Lower bounds of the 3D cartesian space.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Double> jsonCartesian3DMin() {
-        return Objects.equals(this.cartesian3DMin, Kt.listOf(-1000000.0, -1000000.0, -1000000.0)) ? null : this.cartesian3DMin;
+        return Objects.equals(this.cartesian3DMin, List.of(-1000000.0, -1000000.0, -1000000.0)) ? null : this.cartesian3DMin;
     }
 
     @JsonProperty("spatial.cartesian-3d.max")
     @JsonPropertyDescription("Upper bounds of the 3D cartesian space.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Double> jsonCartesian3DMax() {
-        return Objects.equals(this.cartesian3DMax, Kt.listOf(1000000.0, 1000000.0, 1000000.0)) ? null : this.cartesian3DMax;
+        return Objects.equals(this.cartesian3DMax, List.of(1000000.0, 1000000.0, 1000000.0)) ? null : this.cartesian3DMax;
     }
 
     @JsonProperty("spatial.wgs-84.min")
     @JsonPropertyDescription("Lower bounds of the 2D WGS-84 space.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Double> jsonWgs84Min() {
-        return Objects.equals(this.wgs84Min, Kt.listOf(-180.0, -90.0)) ? null : this.wgs84Min;
+        return Objects.equals(this.wgs84Min, List.of(-180.0, -90.0)) ? null : this.wgs84Min;
     }
 
     @JsonProperty("spatial.wgs-84.max")
     @JsonPropertyDescription("Upper bounds of the 2D WGS-84 space.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Double> jsonWgs84Max() {
-        return Objects.equals(this.wgs84Max, Kt.listOf(180.0, 90.0)) ? null : this.wgs84Max;
+        return Objects.equals(this.wgs84Max, List.of(180.0, 90.0)) ? null : this.wgs84Max;
     }
 
     @JsonProperty("spatial.wgs-84-3d.min")
     @JsonPropertyDescription("Lower bounds of the 3D WGS-84 space.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Double> jsonWgs843DMin() {
-        return Objects.equals(this.wgs843DMin, Kt.listOf(-180.0, -90.0, -1000000.0)) ? null : this.wgs843DMin;
+        return Objects.equals(this.wgs843DMin, List.of(-180.0, -90.0, -1000000.0)) ? null : this.wgs843DMin;
     }
 
     @JsonProperty("spatial.wgs-84-3d.max")
     @JsonPropertyDescription("Upper bounds of the 3D WGS-84 space.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Double> jsonWgs843DMax() {
-        return Objects.equals(this.wgs843DMax, Kt.listOf(180.0, 90.0, 1000000.0)) ? null : this.wgs843DMax;
+        return Objects.equals(this.wgs843DMax, List.of(180.0, 90.0, 1000000.0)) ? null : this.wgs843DMax;
     }
 
     @JsonCreator
@@ -230,13 +229,13 @@ public final class PointIndexOption implements IndexOption {
             @JsonProperty("spatial.wgs-84.max") List<Double> wgs84Max,
             @JsonProperty("spatial.wgs-84-3d.min") List<Double> wgs843DMin,
             @JsonProperty("spatial.wgs-84-3d.max") List<Double> wgs843DMax) {
-        return new PointIndexOption(cartesianMin != null ? cartesianMin : Kt.listOf(-1000000.0, -1000000.0),
-                    cartesianMax != null ? cartesianMax : Kt.listOf(1000000.0, 1000000.0),
-                    cartesian3DMin != null ? cartesian3DMin : Kt.listOf(-1000000.0, -1000000.0, -1000000.0),
-                    cartesian3DMax != null ? cartesian3DMax : Kt.listOf(1000000.0, 1000000.0, 1000000.0),
-                    wgs84Min != null ? wgs84Min : Kt.listOf(-180.0, -90.0),
-                    wgs84Max != null ? wgs84Max : Kt.listOf(180.0, 90.0),
-                    wgs843DMin != null ? wgs843DMin : Kt.listOf(-180.0, -90.0, -1000000.0),
-                    wgs843DMax != null ? wgs843DMax : Kt.listOf(180.0, 90.0, 1000000.0));
+        return new PointIndexOption(cartesianMin != null ? cartesianMin : List.of(-1000000.0, -1000000.0),
+                    cartesianMax != null ? cartesianMax : List.of(1000000.0, 1000000.0),
+                    cartesian3DMin != null ? cartesian3DMin : List.of(-1000000.0, -1000000.0, -1000000.0),
+                    cartesian3DMax != null ? cartesian3DMax : List.of(1000000.0, 1000000.0, 1000000.0),
+                    wgs84Min != null ? wgs84Min : List.of(-180.0, -90.0),
+                    wgs84Max != null ? wgs84Max : List.of(180.0, 90.0),
+                    wgs843DMin != null ? wgs843DMin : List.of(-180.0, -90.0, -1000000.0),
+                    wgs843DMax != null ? wgs843DMax : List.of(180.0, 90.0, 1000000.0));
     }
 }

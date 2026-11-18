@@ -4,7 +4,7 @@ package org.neo4j.spec.graph.codec.schema;
 import java.util.AbstractList;
 import java.util.List;
 import java.util.Objects;
-import org.neo4j.spec.graph.internal.Kt;
+import java.util.stream.Collectors;
 
 public final class SchemaList extends AbstractList<SchemaElement> implements SchemaElement {
     private final List<SchemaElement> content;
@@ -92,6 +92,6 @@ public final class SchemaList extends AbstractList<SchemaElement> implements Sch
 
     @Override
     public String toString() {
-        return Kt.joinToString(getContent(), ",", "[", "]");
+        return getContent().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]"));
     }
 }

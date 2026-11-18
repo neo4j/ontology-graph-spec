@@ -6,7 +6,7 @@ import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.relationship.Relationship;
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipIndex;
 import org.neo4j.spec.graph.validate.Issue;
-import org.neo4j.spec.graph.validate.duplicate.DuplicateEntriesKt;
+import org.neo4j.spec.graph.validate.duplicate.DuplicateEntries;
 
 /**
  * A relationship index must list each property once.
@@ -20,6 +20,6 @@ public final class RelationshipIndexPropertyDuplicate implements RelationshipVal
     @Override
     public void validateIndex(GraphModel model, String relationshipId, Relationship relationship,
             String indexId, RelationshipIndex index, List<Issue> issues) {
-        issues.addAll(DuplicateEntriesKt.duplicateEntryIssues("duplicate_relationship_index_property", "property", "index '" + indexId + "' on relationship '" + relationshipId + "'", index.getProperties(), "relationships." + relationshipId + ".extensions.indexes." + indexId + ".properties"));
+        issues.addAll(DuplicateEntries.duplicateEntryIssues("duplicate_relationship_index_property", "property", "index '" + indexId + "' on relationship '" + relationshipId + "'", index.getProperties(), "relationships." + relationshipId + ".extensions.indexes." + indexId + ".properties"));
     }
 }

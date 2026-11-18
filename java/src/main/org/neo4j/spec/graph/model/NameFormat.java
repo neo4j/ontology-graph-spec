@@ -3,7 +3,7 @@ package org.neo4j.spec.graph.model;
 
 import java.util.List;
 import java.util.Locale;
-import org.neo4j.spec.graph.internal.Kt;
+import java.util.stream.Collectors;
 import org.neo4j.spec.graph.model.type.ConstraintType;
 import org.neo4j.spec.graph.model.type.IndexType;
 
@@ -30,13 +30,13 @@ public final class NameFormat {
     }
 
     private static String build(List<String> properties, String entity, String suffix) {
-        String propertyPart = Kt.joinToString(properties, "_", it -> NameFormat.escape(it));
+        String propertyPart = properties.stream().map(NameFormat::escape).collect(Collectors.joining("_"));
         if (propertyPart.isEmpty()) {
             return "";
         }
         String base = entity.isEmpty() ? propertyPart : propertyPart + "_" + NameFormat.escape(entity);
         String suffixPart = suffix == null ? "" : "_" + suffix;
-        return Kt.take(base, Math.max(NameFormat.MAX_LENGTH - suffixPart.length(), 0)) + suffixPart;
+        return base.substring(0, Math.min(Math.max(NameFormat.MAX_LENGTH - suffixPart.length(), 0), base.length())) + suffixPart;
     }
 
     private static String suffixFrom(ConstraintType type) {

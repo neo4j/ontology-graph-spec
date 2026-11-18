@@ -1,6 +1,9 @@
 // Generated from org/neo4j/spec/graph/model/Notation.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -10,7 +13,7 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import org.neo4j.spec.graph.internal.Kt;
+import java.util.stream.Collectors;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 import org.neo4j.spec.graph.model.node.Constraint;
 import org.neo4j.spec.graph.model.node.Labels;
@@ -82,7 +85,8 @@ public final class Notation {
         for (var entry : constraints.entrySet()) {
             var key = entry.getKey();
             var constraint = entry.getValue();
-            String propertyKey = Kt.singleOrNull(constraint.getProperties());
+            List<String> constraintProperties = constraint.getProperties();
+            String propertyKey = constraintProperties.size() == 1 ? constraintProperties.get(0) : null;
             if (propertyKey == null) {
                 continue;
             }
@@ -91,7 +95,7 @@ public final class Notation {
                 continue;
             }
             String value = property.getName();
-            String expected = NameFormat.constraintName(Kt.listOf(value != null ? value : propertyKey), label, constraint.getType());
+            String expected = NameFormat.constraintName(Collections.singletonList(value != null ? value : propertyKey), label, constraint.getType());
             if (!extensions.apply(constraint).getCustom().isEmpty() || constraint.getName() != null && !Objects.equals(constraint.getName(), expected)) {
                 continue;
             }
@@ -125,9 +129,9 @@ public final class Notation {
             Consumer<ConstraintType> add = type -> {
                 var tokenOrNull = property.getName();
                 String token = tokenOrNull != null ? tokenOrNull : key;
-                C created = constraint.apply(type, Kt.mutableListOf(key));
-                String name = NameFormat.constraintName(Kt.listOf(token), label, type);
-                if (Kt.isNotBlank(name)) {
+                C created = constraint.apply(type, new ArrayList<>(Collections.singletonList(key)));
+                String name = NameFormat.constraintName(Collections.singletonList(token), label, type);
+                if (!name.isBlank()) {
                     created.setName(name);
                 }
                 constraints.put(Notation.deterministicId(entity, type, token), created);
@@ -148,6 +152,6 @@ public final class Notation {
     }
 
     public static String deterministicId(String entity, ConstraintType type, String... properties) {
-        return type.name().toLowerCase(Locale.ROOT) + "_" + entity + "_" + Kt.joinToString(Kt.sorted(Kt.distinct(properties)), "_");
+        return type.name().toLowerCase(Locale.ROOT) + "_" + entity + "_" + Arrays.stream(properties).distinct().sorted().collect(Collectors.joining("_"));
     }
 }

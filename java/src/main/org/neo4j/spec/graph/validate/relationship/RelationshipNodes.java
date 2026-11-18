@@ -2,7 +2,6 @@
 package org.neo4j.spec.graph.validate.relationship;
 
 import java.util.List;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.relationship.Relationship;
 import org.neo4j.spec.graph.validate.Issue;
@@ -16,10 +15,10 @@ public final class RelationshipNodes implements RelationshipValidation {
     @Override
     public void validateRelationship(GraphModel model, String relationshipId,
             Relationship relationship, List<Issue> issues) {
-        if (Kt.isNotBlank(relationship.getFrom().getNode()) && !model.getNodes().containsKey(relationship.getFrom().getNode())) {
+        if (!relationship.getFrom().getNode().isBlank() && !model.getNodes().containsKey(relationship.getFrom().getNode())) {
             issues.add(new Issue("missing_relationship_from_node", "Missing node with id '" + relationship.getFrom().getNode() + "' for relationship '" + relationshipId + "'", "relationships." + relationshipId + ".from." + relationship.getFrom().getNode()));
         }
-        if (Kt.isNotBlank(relationship.getTo().getNode()) && !model.getNodes().containsKey(relationship.getTo().getNode())) {
+        if (!relationship.getTo().getNode().isBlank() && !model.getNodes().containsKey(relationship.getTo().getNode())) {
             issues.add(new Issue("missing_relationship_to_node", "Missing node with id '" + relationship.getTo().getNode() + "' for relationship '" + relationshipId + "'", "relationships." + relationshipId + ".to." + relationship.getTo().getNode()));
         }
     }

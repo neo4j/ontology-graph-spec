@@ -2,7 +2,6 @@
 package org.neo4j.spec.graph.validate.relationship;
 
 import java.util.List;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.relationship.Relationship;
 import org.neo4j.spec.graph.validate.Issue;
@@ -16,7 +15,7 @@ public final class RelationshipType implements RelationshipValidation {
     @Override
     public void validateRelationship(GraphModel model, String relationshipId,
             Relationship relationship, List<Issue> issues) {
-        if (Kt.isBlank(relationship.getType())) {
+        if (relationship.getType().isBlank()) {
             issues.add(new Issue("missing_relationship_type", "Missing type for relationship '" + relationshipId + "'", "relationships." + relationshipId + ".type"));
         }
     }

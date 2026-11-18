@@ -6,7 +6,7 @@ import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.relationship.Relationship;
 import org.neo4j.spec.graph.model.relationship.RelationshipConstraint;
 import org.neo4j.spec.graph.validate.Issue;
-import org.neo4j.spec.graph.validate.duplicate.DuplicateEntriesKt;
+import org.neo4j.spec.graph.validate.duplicate.DuplicateEntries;
 import org.neo4j.spec.graph.validate.relationship.RelationshipValidation;
 
 /**
@@ -22,6 +22,6 @@ public final class RelationshipConstraintPropertyDuplicate implements Relationsh
     public void validateConstraint(GraphModel model, String relationshipId,
             Relationship relationship, String constraintId, RelationshipConstraint constraint,
             List<Issue> issues) {
-        issues.addAll(DuplicateEntriesKt.duplicateEntryIssues("duplicate_relationship_constraint_property", "property", "constraint '" + constraintId + "' on relationship '" + relationshipId + "'", constraint.getProperties(), "relationships." + relationshipId + ".constraints." + constraintId + ".properties"));
+        issues.addAll(DuplicateEntries.duplicateEntryIssues("duplicate_relationship_constraint_property", "property", "constraint '" + constraintId + "' on relationship '" + relationshipId + "'", constraint.getProperties(), "relationships." + relationshipId + ".constraints." + constraintId + ".properties"));
     }
 }

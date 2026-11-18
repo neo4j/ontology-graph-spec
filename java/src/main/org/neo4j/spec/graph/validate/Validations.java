@@ -1,8 +1,10 @@
 // Generated from org/neo4j/spec/graph/validate/Validations.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.validate;
 
+import java.util.LinkedHashSet;
 import java.util.List;
-import org.neo4j.spec.graph.internal.Kt;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.neo4j.spec.graph.validate.length.StringLength;
 import org.neo4j.spec.graph.validate.mapping.MappingDependencies;
 import org.neo4j.spec.graph.validate.node.NodeAliasDuplicate;
@@ -60,19 +62,21 @@ import org.neo4j.spec.graph.validate.table.TableColumnSupportedDuplicate;
 import org.neo4j.spec.graph.validate.table.TableColumnType;
 
 public final class Validations {
-    private static final List<Validation> core = Kt.listOf(NodeTypeConstraint.INSTANCE, RelationshipTypeConstraint.INSTANCE, NodeConstraints.INSTANCE, RelationshipConstraints.INSTANCE, NodeIndexesExists.INSTANCE, NodeIndexOptions.INSTANCE, RelationshipIndexes.INSTANCE, RelationshipIndexOptions.INSTANCE, NodeExistenceConstraint.INSTANCE, RelationshipExistenceConstraint.INSTANCE, RelationshipNodes.INSTANCE, RelationshipTargetCount.INSTANCE, NodePropertyPatternOneOf.INSTANCE, RelationshipPropertyPatternOneOf.INSTANCE, RelationshipMappingKey.INSTANCE, StringLength.INSTANCE, NodeAliasDuplicate.INSTANCE, RelationshipAliasDuplicate.INSTANCE, NodePropertyAliasDuplicate.INSTANCE, RelationshipPropertyAliasDuplicate.INSTANCE, NodeLabelDuplicate.INSTANCE, NodeIndexLabelDuplicate.INSTANCE, NodeIndexPropertyDuplicate.INSTANCE, RelationshipIndexPropertyDuplicate.INSTANCE, NodeConstraintPropertyDuplicate.INSTANCE, RelationshipConstraintPropertyDuplicate.INSTANCE, NodeMappingKeyDuplicate.INSTANCE, RelationshipMappingKeyDuplicate.INSTANCE, TableColumnSupportedDuplicate.INSTANCE);
+    private static final List<Validation> core = List.of(NodeTypeConstraint.INSTANCE, RelationshipTypeConstraint.INSTANCE, NodeConstraints.INSTANCE, RelationshipConstraints.INSTANCE, NodeIndexesExists.INSTANCE, NodeIndexOptions.INSTANCE, RelationshipIndexes.INSTANCE, RelationshipIndexOptions.INSTANCE, NodeExistenceConstraint.INSTANCE, RelationshipExistenceConstraint.INSTANCE, RelationshipNodes.INSTANCE, RelationshipTargetCount.INSTANCE, NodePropertyPatternOneOf.INSTANCE, RelationshipPropertyPatternOneOf.INSTANCE, RelationshipMappingKey.INSTANCE, StringLength.INSTANCE, NodeAliasDuplicate.INSTANCE, RelationshipAliasDuplicate.INSTANCE, NodePropertyAliasDuplicate.INSTANCE, RelationshipPropertyAliasDuplicate.INSTANCE, NodeLabelDuplicate.INSTANCE, NodeIndexLabelDuplicate.INSTANCE, NodeIndexPropertyDuplicate.INSTANCE, RelationshipIndexPropertyDuplicate.INSTANCE, NodeConstraintPropertyDuplicate.INSTANCE, RelationshipConstraintPropertyDuplicate.INSTANCE, NodeMappingKeyDuplicate.INSTANCE, RelationshipMappingKeyDuplicate.INSTANCE, TableColumnSupportedDuplicate.INSTANCE);
 
-    private static final List<Validation> labelled = Kt.listOf(NodeLabel.INSTANCE, RelationshipType.INSTANCE);
+    private static final List<Validation> labelled = List.of(NodeLabel.INSTANCE, RelationshipType.INSTANCE);
 
-    private static final List<Validation> consistentSchema = Kt.listOf(NodePropertyEmptyName.INSTANCE, NodePropertyDuplicateName.INSTANCE, RelationshipPropertyEmptyName.INSTANCE, RelationshipPropertyDuplicateName.INSTANCE, NodeIndexProperties.INSTANCE, RelationshipIndexProperties.INSTANCE, NodeConstraintProperties.INSTANCE, NodeConstraintDuplicatePropertySet.INSTANCE, RelationshipConstraintDuplicatePropertySet.INSTANCE, NodeExistenceCompositeConflict.INSTANCE, NodeIndexConstraintNameConflict.INSTANCE);
+    private static final List<Validation> consistentSchema = List.of(NodePropertyEmptyName.INSTANCE, NodePropertyDuplicateName.INSTANCE, RelationshipPropertyEmptyName.INSTANCE, RelationshipPropertyDuplicateName.INSTANCE, NodeIndexProperties.INSTANCE, RelationshipIndexProperties.INSTANCE, NodeConstraintProperties.INSTANCE, NodeConstraintDuplicatePropertySet.INSTANCE, RelationshipConstraintDuplicatePropertySet.INSTANCE, NodeExistenceCompositeConflict.INSTANCE, NodeIndexConstraintNameConflict.INSTANCE);
 
-    private static final List<Validation> mappable = Kt.listOf(NodeMappingKey.INSTANCE, MappingDependencies.INSTANCE, TableColumnEmptyName.INSTANCE, TableColumnDuplicateName.INSTANCE, TableColumnType.INSTANCE);
+    private static final List<Validation> mappable = List.of(NodeMappingKey.INSTANCE, MappingDependencies.INSTANCE, TableColumnEmptyName.INSTANCE, TableColumnDuplicateName.INSTANCE, TableColumnType.INSTANCE);
 
-    private static final List<Validation> bulkImportable = Kt.listOf(NodeLabelToken.INSTANCE, RelationshipTypeToken.INSTANCE, NodeMappingKeyType.INSTANCE, NodeCompositeConstraintPropertyType.INSTANCE);
+    private static final List<Validation> bulkImportable = List.of(NodeLabelToken.INSTANCE, RelationshipTypeToken.INSTANCE, NodeMappingKeyType.INSTANCE, NodeCompositeConstraintPropertyType.INSTANCE);
 
-    private static final List<Validation> wellConstrained = Kt.listOf(NodeProperties.INSTANCE, NodeConstraintCoverage.INSTANCE, NodeKeyOverlap.INSTANCE, RelationshipKeyOverlap.INSTANCE);
+    private static final List<Validation> wellConstrained = List.of(NodeProperties.INSTANCE, NodeConstraintCoverage.INSTANCE, NodeKeyOverlap.INSTANCE, RelationshipKeyOverlap.INSTANCE);
 
-    private static final List<Validation> all = Kt.distinct(Kt.plusAll(Kt.plusAll(Kt.plusAll(Kt.plusAll(Kt.plusAll(Validations.getCore(), Validations.getLabelled()), Validations.getConsistentSchema()), Validations.getMappable()), Validations.getBulkImportable()), Validations.getWellConstrained()));
+    private static final List<Validation> all = List.copyOf(Stream.of(core, labelled, consistentSchema, mappable, bulkImportable, wellConstrained)
+            .flatMap(List::stream)
+            .collect(Collectors.toCollection(LinkedHashSet::new)));
 
     public Validations() {
     }

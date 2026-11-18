@@ -1,10 +1,10 @@
 // Generated from org/neo4j/spec/graph/validate/relationship/RelationshipMappingKey.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.validate.relationship;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import org.neo4j.spec.graph.internal.Kt;
-import org.neo4j.spec.graph.internal.Pair;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping;
 import org.neo4j.spec.graph.model.relationship.Relationship;
@@ -26,14 +26,19 @@ public final class RelationshipMappingKey implements RelationshipValidation {
         for (var entry : model.getExtensions().getDataSourceMappings().entrySet()) {
             var mappingId = entry.getKey();
             var mappings = entry.getValue();
-            for (var item : Kt.withIndex(mappings)) {
-                var index = item.getIndex();
-                var mapping = item.getValue();
+            for (int index = 0; index < mappings.size(); index++) {
+                var mapping = mappings.get(index);
                 if (!(mapping instanceof RelationshipMapping) || !Objects.equals(((RelationshipMapping) ((RelationshipMapping) mapping)).getRelationship(), relationshipId)) {
                     continue;
                 }
-                for (var propertyId : Kt.filterNot(((RelationshipMapping) ((RelationshipMapping) mapping)).getKey(), it -> relationship.getProperties().containsKey(it))) {
-                    issues.add(new Issue("invalid_relationship_mapping_key", "Mapping key '" + propertyId + "' is not a property of relationship '" + relationshipId + "'", "extensions.data_source_mappings." + mappingId + "[" + index + "].key", Kt.mapOf(new Pair<>("relationship", relationshipId), new Pair<>("property", propertyId))));
+                for (var propertyId : ((RelationshipMapping) mapping).getKey()) {
+                    if (relationship.getProperties().containsKey(propertyId)) {
+                        continue;
+                    }
+                    Map<String, String> details = new LinkedHashMap<>();
+                    details.put("relationship", relationshipId);
+                    details.put("property", propertyId);
+                    issues.add(new Issue("invalid_relationship_mapping_key", "Mapping key '" + propertyId + "' is not a property of relationship '" + relationshipId + "'", "extensions.data_source_mappings." + mappingId + "[" + index + "].key", details));
                 }
             }
         }

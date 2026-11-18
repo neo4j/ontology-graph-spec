@@ -1,12 +1,11 @@
 // Generated from org/neo4j/spec/graph/migrate/migration/dataModel/DataModelWrapper.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.migrate.migration.dataModel;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.neo4j.spec.graph.codec.schema.SchemaElement;
-import org.neo4j.spec.graph.codec.schema.SchemaElements;
 import org.neo4j.spec.graph.codec.schema.SchemaMap;
-import org.neo4j.spec.graph.internal.Kt;
-import org.neo4j.spec.graph.internal.Pair;
 import org.neo4j.spec.graph.model.Version;
 
 /**
@@ -16,13 +15,13 @@ import org.neo4j.spec.graph.model.Version;
 public final class DataModelWrapper {
     public static final String DATA_MODEL = "dataModel";
 
-    private static final List<String> FIELDS = Kt.listOf("visualisation", "description");
+    private static final List<String> FIELDS = Collections.unmodifiableList(Arrays.asList("visualisation", "description"));
 
     private DataModelWrapper() {
     }
 
     public static boolean isWrapped(SchemaMap schema) {
-        return Kt.containsKey(schema, DataModelWrapper.DATA_MODEL);
+        return schema.containsKey(DataModelWrapper.DATA_MODEL);
     }
 
     /**
@@ -46,7 +45,7 @@ public final class DataModelWrapper {
         if (DataModelWrapper.isWrapped(schema)) {
             return schema;
         }
-        SchemaMap wrapped = SchemaElements.schemaMapOf(new Pair<>("version", Version.DATA_MODEL_WRAPPED_V3_0));
+        SchemaMap wrapped = DataModelUtils.schemaMapOf("version", Version.DATA_MODEL_WRAPPED_V3_0);
         wrapped.set(DataModelWrapper.DATA_MODEL, schema);
         DataModelWrapper.moveFields(schema, wrapped);
         return wrapped;

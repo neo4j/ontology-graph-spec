@@ -5,7 +5,7 @@ import java.util.List;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.node.Node;
 import org.neo4j.spec.graph.validate.Issue;
-import org.neo4j.spec.graph.validate.duplicate.DuplicateEntriesKt;
+import org.neo4j.spec.graph.validate.duplicate.DuplicateEntries;
 
 /**
  * A node's aliases are alternative names so must not repeat.
@@ -18,6 +18,6 @@ public final class NodeAliasDuplicate implements NodeValidation {
 
     @Override
     public void validateNode(GraphModel model, String nodeId, Node node, List<Issue> issues) {
-        issues.addAll(DuplicateEntriesKt.duplicateEntryIssues("duplicate_node_alias", "alias", "node '" + nodeId + "'", node.getAliases(), "nodes." + nodeId + ".aliases"));
+        issues.addAll(DuplicateEntries.duplicateEntryIssues("duplicate_node_alias", "alias", "node '" + nodeId + "'", node.getAliases(), "nodes." + nodeId + ".aliases"));
     }
 }

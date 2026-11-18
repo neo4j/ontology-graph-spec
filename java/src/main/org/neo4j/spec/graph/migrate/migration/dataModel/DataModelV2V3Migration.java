@@ -1,14 +1,12 @@
 // Generated from org/neo4j/spec/graph/migrate/migration/dataModel/DataModelV2V3Migration.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.migrate.migration.dataModel;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import org.neo4j.spec.graph.codec.schema.SchemaElements;
 import org.neo4j.spec.graph.codec.schema.SchemaMap;
 import org.neo4j.spec.graph.codec.schema.SchemaPrimitive;
-import org.neo4j.spec.graph.internal.Kt;
-import org.neo4j.spec.graph.internal.Pair;
 import org.neo4j.spec.graph.migrate.Migration;
 import org.neo4j.spec.graph.model.Type;
 import org.neo4j.spec.graph.model.Version;
@@ -27,19 +25,24 @@ public final class DataModelV2V3Migration extends Migration {
         Map<String, String> references = new LinkedHashMap<String, String>();
         for (var property : nodeKeyProperties) {
             SchemaMap key = property.removeMap("keyProperty");
-            property.set("keyProperties", Kt.mutableListOf(key));
-            String nodeRef = DataModelUtilsKt.ref(property, "node");
-            references.put(nodeRef, DataModelUtilsKt.ref(key));
+            List<SchemaMap> keyProperties = new ArrayList<>();
+            keyProperties.add(key);
+            property.set("keyProperties", keyProperties);
+            String nodeRef = DataModelUtils.ref(property, "node");
+            references.put(nodeRef, DataModelUtils.ref(key));
         }
-        Map<String, SchemaMap> relationshipObjectTypes = Kt.associateBy(schema.map("graphSchemaRepresentation").map("graphSchema").listOfMaps("relationshipObjectTypes"), it -> DataModelUtilsKt.id(it));
+        Map<String, SchemaMap> relationshipObjectTypes = new LinkedHashMap<>();
+        for (SchemaMap objectType : schema.map("graphSchemaRepresentation").map("graphSchema").listOfMaps("relationshipObjectTypes")) {
+            relationshipObjectTypes.put(DataModelUtils.id(objectType), objectType);
+        }
         for (var mapping : schema.map("graphMappingRepresentation").listOfMaps("relationshipMappings")) {
-            String relationshipRef = DataModelUtilsKt.ref(mapping, "relationship");
+            String relationshipRef = DataModelUtils.ref(mapping, "relationship");
             SchemaMap objectType = relationshipObjectTypes.get(relationshipRef);
             if (objectType == null) {
                 throw new IllegalStateException("Could not find relationship object " + relationshipRef);
             }
-            String fromNodeRef = DataModelUtilsKt.ref(objectType, "from");
-            String toNodeRef = DataModelUtilsKt.ref(objectType, "to");
+            String fromNodeRef = DataModelUtils.ref(objectType, "from");
+            String toNodeRef = DataModelUtils.ref(objectType, "to");
             updateMapping(references, mapping, fromNodeRef, "fromMapping");
             updateMapping(references, mapping, toNodeRef, "toMapping");
         }
@@ -53,7 +56,7 @@ public final class DataModelV2V3Migration extends Migration {
             throw new IllegalStateException("Unable to resolve nodeKeyProperties to node ref " + nodeRef);
         }
         SchemaPrimitive toFieldName = mapping.map(key).literal("fieldName");
-        mapping.set(key + "s", SchemaElements.schemaMapOf(new Pair<>(toPropertyRef, toFieldName)));
+        mapping.set(key + "s", DataModelUtils.schemaMapOf(toPropertyRef, toFieldName));
         mapping.remove(key);
     }
 }

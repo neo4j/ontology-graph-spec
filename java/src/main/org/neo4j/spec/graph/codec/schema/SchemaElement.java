@@ -1,7 +1,6 @@
 // Generated from org/neo4j/spec/graph/codec/schema/SchemaElement.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.codec.schema;
 
-import org.neo4j.spec.graph.internal.Kt;
 
 /**
  * A format agnostic AST used for transforms and migrations.
@@ -28,9 +27,9 @@ public interface SchemaElement {
     default String getPath() {
         SchemaElement receiver = getParent();
         String prefix = receiver == null ? null : receiver.getPath();
-        if (Kt.isNullOrEmpty(prefix)) {
+        if (prefix == null || prefix.isEmpty()) {
             return getIdentifier();
-        } else if (Kt.startsWith(getIdentifier(), '[')) {
+        } else if (getIdentifier().startsWith("[")) {
             return prefix + getIdentifier();
         } else {
             return prefix + "." + getIdentifier();

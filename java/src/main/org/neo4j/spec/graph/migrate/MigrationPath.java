@@ -2,13 +2,14 @@
 package org.neo4j.spec.graph.migrate;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import org.neo4j.spec.graph.codec.schema.SchemaMap;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.migrate.migration.dataModel.DataModelWrapper;
 import org.neo4j.spec.graph.model.Type;
 import org.neo4j.spec.graph.model.Version;
@@ -46,11 +47,16 @@ public final class MigrationPath {
     }
 
     private String version(String version, String type) {
-        String semver = Kt.substringBefore(Kt.substringBefore(version, '-'), '+');
-        if (Kt.count(semver, it -> it == '.') > 1) {
-            semver = Kt.substringBeforeLast(semver, '.') + ".0";
+        String semver = substringBefore(substringBefore(version, '-'), '+');
+        if (semver.chars().filter(c -> c == '.').count() > 1) {
+            semver = semver.substring(0, semver.lastIndexOf('.')) + ".0";
         }
         return type + ":" + semver;
+    }
+
+    private static String substringBefore(String string, char delimiter) {
+        int index = string.indexOf(delimiter);
+        return index == -1 ? string : string.substring(0, index);
     }
 
     /**
@@ -100,13 +106,15 @@ public final class MigrationPath {
      */
     public List<Migration> findPath(String from, String to) {
         if (Objects.equals(from, to)) {
-            return Kt.<Migration>emptyList();
+            return Collections.emptyList();
         }
         Map<String, Migration> frontier = new LinkedHashMap<String, Migration>();
-        Set<String> visited = Kt.mutableSetOf(from);
-        List<String> stack = Kt.mutableListOf(from);
+        Set<String> visited = new LinkedHashSet<>();
+        visited.add(from);
+        List<String> stack = new ArrayList<>();
+        stack.add(from);
         while (!stack.isEmpty()) {
-            String version = Kt.removeFirst(stack);
+            String version = stack.remove(0);
             List<Migration> value = getMigrations().get(version);
             if (value == null) {
                 continue;

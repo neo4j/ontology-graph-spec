@@ -2,7 +2,6 @@
 package org.neo4j.spec.graph.model;
 
 import java.util.List;
-import org.neo4j.spec.graph.internal.Kt;
 
 public final class Version {
     public static final String DATA_MODEL_V2_3 = "2.3.0";
@@ -21,7 +20,7 @@ public final class Version {
 
     public static final String LATEST = Version.V1_1;
 
-    private static final List<String> GRAPH_SPEC_VERSIONS = Kt.listOf(Version.V1, Version.LATEST);
+    private static final List<String> GRAPH_SPEC_VERSIONS = List.of(Version.V1, Version.LATEST);
 
     public static final String SCHEMA_BASE = "https://neo4j.com/docs/ontology-graph-spec/";
 
@@ -52,10 +51,23 @@ public final class Version {
     }
 
     public static String parseSchemaVersion(String schema) {
-        String version = Kt.substringAfterLast(Kt.trimEnd(Kt.removeSuffix(Kt.trimEnd(Kt.trim(schema), '/'), Version.SCHEMA_FILE), '/'), '/');
-        if (!Kt.isNotBlank(version)) {
+        String path = trimTrailingSlashes(schema.strip());
+        if (path.endsWith(Version.SCHEMA_FILE)) {
+            path = path.substring(0, path.length() - Version.SCHEMA_FILE.length());
+        }
+        String version = trimTrailingSlashes(path);
+        version = version.substring(version.lastIndexOf('/') + 1);
+        if (version.isBlank()) {
             throw new IllegalArgumentException(String.valueOf("Unable to determine version from schema '" + schema + "'"));
         }
         return version;
+    }
+
+    private static String trimTrailingSlashes(String value) {
+        int end = value.length();
+        while (end > 0 && value.charAt(end - 1) == '/') {
+            end--;
+        }
+        return value.substring(0, end);
     }
 }

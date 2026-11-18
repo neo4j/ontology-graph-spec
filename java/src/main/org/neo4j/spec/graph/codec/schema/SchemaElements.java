@@ -1,13 +1,13 @@
 // Generated from org/neo4j/spec/graph/codec/schema/SchemaElement.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.codec.schema;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
-import org.neo4j.spec.graph.internal.Kt;
-import org.neo4j.spec.graph.internal.Pair;
 
 public final class SchemaElements {
     private SchemaElements() {
@@ -38,13 +38,17 @@ public final class SchemaElements {
         } else if (receiver instanceof SchemaElement) {
             return ((SchemaElement) receiver).repath(path);
         } else if (receiver instanceof Map) {
-            return new SchemaMap(Kt.associateTo(((Map<?, ?>) receiver).entrySet(), new LinkedHashMap<String, SchemaElement>(), entry -> {
-                var k = entry.getKey();
-                var v = entry.getValue();
-                return new Pair<>(String.valueOf(k), SchemaElements.toSchemaElement(v));
-            }), path);
+            Map<String, SchemaElement> content = new LinkedHashMap<>();
+            for (Map.Entry<?, ?> entry : ((Map<?, ?>) receiver).entrySet()) {
+                content.put(String.valueOf(entry.getKey()), SchemaElements.toSchemaElement(entry.getValue()));
+            }
+            return new SchemaMap(content, path);
         } else if (receiver instanceof Iterable) {
-            return new SchemaList(Kt.mapTo(((Iterable<?>) receiver), new ArrayList<SchemaElement>(), it -> SchemaElements.toSchemaElement(it)), path);
+            List<SchemaElement> content = new ArrayList<>();
+            for (Object item : (Iterable<?>) receiver) {
+                content.add(SchemaElements.toSchemaElement(item));
+            }
+            return new SchemaList(content, path);
         } else if (receiver instanceof String) {
             return new SchemaLiteral(((String) receiver), path, true);
         } else {
@@ -57,28 +61,39 @@ public final class SchemaElements {
     }
 
     public static SchemaList schemaListOf(Object... elements) {
-        return new SchemaList(Kt.toMutableList(Kt.map(elements, it -> SchemaElements.toSchemaElement(it))));
+        List<SchemaElement> content = new ArrayList<>();
+        for (Object element : elements) {
+            content.add(SchemaElements.toSchemaElement(element));
+        }
+        return new SchemaList(content);
     }
 
-    public static SchemaMap schemaMapOf(Pair<String, ?>... pairs) {
-        return new SchemaMap(Kt.associateTo(Kt.filter(pairs, it -> it.getSecond() != null), new LinkedHashMap<String, SchemaElement>(), it -> new Pair<>(it.getFirst(), SchemaElements.toSchemaElement(Objects.requireNonNull(it.getSecond())))));
+    /** Entries with a null value are skipped. */
+    public static SchemaMap schemaMapOf(Map.Entry<String, ?>... entries) {
+        Map<String, SchemaElement> content = new LinkedHashMap<>();
+        for (Map.Entry<String, ?> entry : entries) {
+            if (entry.getValue() != null) {
+                content.put(entry.getKey(), SchemaElements.toSchemaElement(entry.getValue()));
+            }
+        }
+        return new SchemaMap(content);
     }
 
-    public static <A> Pair<A, Map<String, Object>> toNotEmpty(A receiver, Map<String, ?> that) {
+    public static <A> Map.Entry<A, Map<String, Object>> toNotEmpty(A receiver, Map<String, ?> that) {
         Map<String, Object> result = null;
         if (that != null) {
             Map<String, Object> value = ((Map<String, Object>) that);
             result = !value.isEmpty() ? value : null;
         }
-        return new Pair<>(receiver, result);
+        return new AbstractMap.SimpleEntry<>(receiver, result);
     }
 
-    public static <A> Pair<A, Collection<Object>> toNotEmpty(A receiver, Collection<?> that) {
+    public static <A> Map.Entry<A, Collection<Object>> toNotEmpty(A receiver, Collection<?> that) {
         Collection<Object> result = null;
         if (that != null) {
             Collection<Object> value = ((Collection<Object>) that);
             result = !value.isEmpty() ? value : null;
         }
-        return new Pair<>(receiver, result);
+        return new AbstractMap.SimpleEntry<>(receiver, result);
     }
 }

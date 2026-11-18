@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 import org.neo4j.spec.graph.model.property.Neo4jType;
 
@@ -69,23 +69,23 @@ public final class TableColumn implements CustomExtensions {
     }
 
     public TableColumn(String name, String type, int size, Neo4jType suggested) {
-        this(name, type, size, suggested, Kt.<Neo4jType>emptyList(), true, null, new LinkedHashMap<String, Object>());
+        this(name, type, size, suggested, Collections.<Neo4jType>emptyList(), true, null, new LinkedHashMap<String, Object>());
     }
 
     public TableColumn(String name, String type, int size) {
-        this(name, type, size, Neo4jType.ANY, Kt.<Neo4jType>emptyList(), true, null, new LinkedHashMap<String, Object>());
+        this(name, type, size, Neo4jType.ANY, Collections.<Neo4jType>emptyList(), true, null, new LinkedHashMap<String, Object>());
     }
 
     public TableColumn(String name, String type) {
-        this(name, type, -1, Neo4jType.ANY, Kt.<Neo4jType>emptyList(), true, null, new LinkedHashMap<String, Object>());
+        this(name, type, -1, Neo4jType.ANY, Collections.<Neo4jType>emptyList(), true, null, new LinkedHashMap<String, Object>());
     }
 
     public TableColumn(String name) {
-        this(name, "", -1, Neo4jType.ANY, Kt.<Neo4jType>emptyList(), true, null, new LinkedHashMap<String, Object>());
+        this(name, "", -1, Neo4jType.ANY, Collections.<Neo4jType>emptyList(), true, null, new LinkedHashMap<String, Object>());
     }
 
     public TableColumn() {
-        this("", "", -1, Neo4jType.ANY, Kt.<Neo4jType>emptyList(), true, null, new LinkedHashMap<String, Object>());
+        this("", "", -1, Neo4jType.ANY, Collections.<Neo4jType>emptyList(), true, null, new LinkedHashMap<String, Object>());
     }
 
     public String getName() {
@@ -194,7 +194,7 @@ public final class TableColumn implements CustomExtensions {
     @JsonPropertyDescription("Neo4j types values of this column can be converted to when using the import tool.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Neo4jType> jsonSupported() {
-        return Objects.equals(this.supported, Kt.<Neo4jType>emptyList()) ? null : this.supported;
+        return Objects.equals(this.supported, Collections.<Neo4jType>emptyList()) ? null : this.supported;
     }
 
     @JsonProperty("nullable")
@@ -230,7 +230,7 @@ public final class TableColumn implements CustomExtensions {
                     type != null ? type : "",
                     size != null ? size : -1,
                     suggested != null ? suggested : Neo4jType.ANY,
-                    supported != null ? supported : Kt.<Neo4jType>emptyList(),
+                    supported != null ? supported : Collections.<Neo4jType>emptyList(),
                     nullable != null ? nullable : true,
                     dimension != null ? dimension : null,
                     custom != null ? custom : new LinkedHashMap<String, Object>());

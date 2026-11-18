@@ -2,10 +2,10 @@
 package org.neo4j.spec.graph.validate.node;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.node.Node;
 import org.neo4j.spec.graph.validate.Issue;
@@ -32,7 +32,7 @@ public final class NodeIndexConstraintNameConflict implements NodeValidation {
             var indexId = entry.getKey();
             var index = entry.getValue();
             String name = index.getName();
-            if (!Kt.isNullOrEmpty(name) && duplicateNames.contains(name)) {
+            if (name != null && !name.isEmpty() && duplicateNames.contains(name)) {
                 issues.add(new Issue("duplicate_node_index_constraint_name", "Index '" + indexId + "' on node '" + nodeId + "' reuses name '" + name + "' " + "already used by another index or constraint", "nodes." + nodeId + ".extensions.indexes." + indexId + ".name"));
             }
         }
@@ -40,7 +40,7 @@ public final class NodeIndexConstraintNameConflict implements NodeValidation {
             var constraintId = entry.getKey();
             var constraint = entry.getValue();
             String name = constraint.getName();
-            if (!Kt.isNullOrEmpty(name) && duplicateNames.contains(name)) {
+            if (name != null && !name.isEmpty() && duplicateNames.contains(name)) {
                 issues.add(new Issue("duplicate_node_index_constraint_name", "Constraint '" + constraintId + "' on node '" + nodeId + "' reuses name '" + name + "' " + "already used by another index or constraint", "nodes." + nodeId + ".constraints." + constraintId + ".name"));
             }
         }
@@ -51,19 +51,25 @@ public final class NodeIndexConstraintNameConflict implements NodeValidation {
         for (var node : model.getNodes().values()) {
             for (var index : node.getExtensions().getIndexes().values()) {
                 String name = index.getName();
-                if (!Kt.isNullOrEmpty(name)) {
+                if (name != null && !name.isEmpty()) {
                     Integer value = seen.get(name);
                     seen.put(name, (value != null ? value : 0) + 1);
                 }
             }
             for (var constraint : node.getConstraints().values()) {
                 String name = constraint.getName();
-                if (!Kt.isNullOrEmpty(name)) {
+                if (name != null && !name.isEmpty()) {
                     Integer value = seen.get(name);
                     seen.put(name, (value != null ? value : 0) + 1);
                 }
             }
         }
-        return Kt.filterValues(seen, it -> it > 1).keySet();
+        Set<String> duplicates = new LinkedHashSet<String>();
+        for (var entry : seen.entrySet()) {
+            if (entry.getValue() > 1) {
+                duplicates.add(entry.getKey());
+            }
+        }
+        return duplicates;
     }
 }

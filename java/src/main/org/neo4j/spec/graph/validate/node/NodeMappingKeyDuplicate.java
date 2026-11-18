@@ -5,7 +5,7 @@ import java.util.List;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.node.Node;
 import org.neo4j.spec.graph.validate.Issue;
-import org.neo4j.spec.graph.validate.duplicate.DuplicateEntriesKt;
+import org.neo4j.spec.graph.validate.duplicate.DuplicateEntries;
 
 /**
  * A node mapping key must list each property once.
@@ -18,11 +18,11 @@ public final class NodeMappingKeyDuplicate implements NodeValidation {
 
     @Override
     public void validateNode(GraphModel model, String nodeId, Node node, List<Issue> issues) {
-        for (var item : LocatedNodeMappingKt.findNodeMappings(model, nodeId)) {
+        for (var item : LocatedNodeMappings.findNodeMappings(model, nodeId)) {
             var mappingId = item.getMappingId();
             var index = item.getIndex();
             var nodeMapping = item.getMapping();
-            issues.addAll(DuplicateEntriesKt.duplicateEntryIssues("duplicate_node_mapping_key", "mapping key", "node '" + nodeId + "'", nodeMapping.getKey(), "extensions.data_source_mappings." + mappingId + "[" + index + "].key"));
+            issues.addAll(DuplicateEntries.duplicateEntryIssues("duplicate_node_mapping_key", "mapping key", "node '" + nodeId + "'", nodeMapping.getKey(), "extensions.data_source_mappings." + mappingId + "[" + index + "].key"));
         }
     }
 }
