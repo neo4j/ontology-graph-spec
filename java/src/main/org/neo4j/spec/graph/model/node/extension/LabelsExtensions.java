@@ -1,0 +1,69 @@
+// Generated from org/neo4j/spec/graph/model/node/extension/LabelsExtensions.kt by :java:generator. Do not edit.
+package org.neo4j.spec.graph.model.node.extension;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonClassDescription;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
+import org.neo4j.spec.graph.model.extension.CustomExtensions;
+
+@JsonClassDescription("Extensions for the labels of a node.")
+@JsonAutoDetect(
+        fieldVisibility = JsonAutoDetect.Visibility.NONE,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
+        setterVisibility = JsonAutoDetect.Visibility.NONE,
+        creatorVisibility = JsonAutoDetect.Visibility.NONE
+)
+public final class LabelsExtensions implements CustomExtensions {
+    private final Map<String, Object> custom;
+
+    public LabelsExtensions(Map<String, Object> custom) {
+        this.custom = custom;
+    }
+
+    public LabelsExtensions() {
+        this(new LinkedHashMap<String, Object>());
+    }
+
+    @Override
+    public Map<String, Object> getCustom() {
+        return this.custom;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof LabelsExtensions)) return false;
+        LabelsExtensions that = (LabelsExtensions) other;
+        return Objects.equals(custom, that.custom);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(custom);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "LabelsExtensions(custom=" + custom + ")";
+    }
+
+    @JsonProperty("custom")
+    @JsonPropertyDescription("User-defined arbitrary data.")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Map<String, Object> jsonCustom() {
+        return Objects.equals(this.custom, new LinkedHashMap<String, Object>()) ? null : this.custom;
+    }
+
+    @JsonCreator
+    private static LabelsExtensions fromJson(@JsonProperty("custom") Map<String, Object> custom) {
+        return new LabelsExtensions(custom != null ? custom : new LinkedHashMap<String, Object>());
+    }
+}
