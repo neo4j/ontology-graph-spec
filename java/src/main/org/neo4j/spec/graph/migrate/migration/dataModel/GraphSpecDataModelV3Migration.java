@@ -14,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// Generated from org/neo4j/spec/graph/migrate/migration/dataModel/GraphSpecDataModelV3Migration.kt by :java:generator.
-// Do not edit.
 package org.neo4j.spec.graph.migrate.migration.dataModel;
 
 import static org.neo4j.spec.graph.migrate.migration.dataModel.DataModelUtils.nullIfEmpty;

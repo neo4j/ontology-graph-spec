@@ -87,8 +87,7 @@ spotless {
         importOrder()
         trimTrailingWhitespace()
         endWithNewline()
-        // Files carry a "// Generated from ..." marker between the header and the package, keep it.
-        licenseHeaderFile(rootProject.file("build-logic/license-header.txt"), "(// Generated|package )")
+        licenseHeaderFile(rootProject.file("build-logic/license-header.txt"), "package ")
     }
     kotlinGradle {
         target("*.gradle.kts")

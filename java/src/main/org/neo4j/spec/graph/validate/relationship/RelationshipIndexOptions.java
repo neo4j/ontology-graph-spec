@@ -14,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// Generated from org/neo4j/spec/graph/validate/relationship/RelationshipIndexOptions.kt by :java:generator. Do not
-// edit.
 package org.neo4j.spec.graph.validate.relationship;
 
 import java.util.List;
