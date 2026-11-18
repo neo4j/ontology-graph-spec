@@ -3,7 +3,6 @@ package org.neo4j.spec.graph.validate.property;
 
 import java.util.Map;
 import java.util.Objects;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.model.property.Property;
 import org.neo4j.spec.graph.validate.Issue;
 
@@ -19,7 +18,7 @@ public final class PropertyNames {
      */
     public static Issue emptyPropertyName(String propertyId, Property property, String entityPath) {
         String name = property.getName();
-        if (Kt.isNullOrBlank(name)) {
+        if (name == null || name.isBlank()) {
             return new Issue("missing_property_name", "Missing name for property '" + propertyId + "'", entityPath + ".properties." + propertyId + ".name");
         }
         return null;
@@ -31,14 +30,16 @@ public final class PropertyNames {
         if (name == null) {
             return null;
         }
-        if (Kt.isBlank(name)) {
+        if (name.isBlank()) {
             return null;
         }
-        boolean isDuplicate = Kt.any(properties, entry -> {
-            var otherId = entry.getKey();
-            var other = entry.getValue();
-            return !Objects.equals(otherId, propertyId) && Objects.equals(other.getName(), name);
-        });
+        boolean isDuplicate = false;
+        for (var entry : properties.entrySet()) {
+            if (!Objects.equals(entry.getKey(), propertyId) && Objects.equals(entry.getValue().getName(), name)) {
+                isDuplicate = true;
+                break;
+            }
+        }
         if (isDuplicate) {
             return new Issue("duplicate_property_name", "Duplicate property name '" + name + "'", entityPath + ".properties." + propertyId + ".name");
         }

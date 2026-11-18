@@ -2,13 +2,15 @@
 package org.neo4j.spec.graph.validate.mapping;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import org.neo4j.spec.graph.internal.Kt;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.extension.mapping.Mapping;
 import org.neo4j.spec.graph.model.extension.mapping.NodeMapping;
@@ -40,9 +42,8 @@ public final class MappingDependencies implements Validation {
     private void validateList(String listId, List<? extends Mapping> mappings,
             Map<String, ? extends List<? extends Mapping>> lists, List<Issue> issues) {
         Map<String, Integer> indexById = new LinkedHashMap<String, Integer>();
-        for (var item : Kt.withIndex(mappings)) {
-            var index = item.getIndex();
-            var mapping = item.getValue();
+        for (int index = 0; index < mappings.size(); index++) {
+            var mapping = mappings.get(index);
             String id = mappingId(mapping);
             if (id.isEmpty()) {
                 continue;
@@ -54,9 +55,8 @@ public final class MappingDependencies implements Validation {
             }
         }
         Map<Integer, Integer> next = new LinkedHashMap<Integer, Integer>();
-        for (var item : Kt.withIndex(mappings)) {
-            var index = item.getIndex();
-            var mapping = item.getValue();
+        for (int index = 0; index < mappings.size(); index++) {
+            var mapping = mappings.get(index);
             String dependsOn = mappingDependsOn(mapping);
             if (dependsOn.isEmpty()) {
                 continue;
@@ -67,11 +67,7 @@ public final class MappingDependencies implements Validation {
                 issues.add(new Issue("mapping_depends_on_self", "Mapping '" + dependsOn + "' can't depend on itself", path));
             } else if (target != null) {
                 next.put(index, target);
-            } else if (Kt.any(lists, entry -> {
-                var otherId = entry.getKey();
-                var other = entry.getValue();
-                return !Objects.equals(otherId, listId) && Kt.any(other, it -> Objects.equals(mappingId(it), dependsOn));
-            })) {
+            } else if (isInOtherList(lists, listId, dependsOn)) {
                 issues.add(new Issue("mapping_depends_on_other_list", "Mapping depends on '" + dependsOn + "' which is in a different list of mappings, " + "mappings can only depend on others in the same list", path));
             } else {
                 issues.add(new Issue("mapping_depends_on_unknown", "Mapping depends on '" + dependsOn + "' which isn't the id of any mapping in '" + listId + "'", path));
@@ -80,9 +76,24 @@ public final class MappingDependencies implements Validation {
         reportCycles(listId, next, issues);
     }
 
+    private boolean isInOtherList(Map<String, ? extends List<? extends Mapping>> lists, String listId,
+            String mappingId) {
+        for (var entry : lists.entrySet()) {
+            if (Objects.equals(entry.getKey(), listId)) {
+                continue;
+            }
+            for (var other : entry.getValue()) {
+                if (Objects.equals(mappingId(other), mappingId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private void reportCycles(String listId, Map<Integer, Integer> next, List<Issue> issues) {
         Set<Integer> done = new LinkedHashSet<Integer>();
-        for (var start : Kt.sorted(next.keySet())) {
+        for (var start : new TreeSet<>(next.keySet())) {
             if (done.contains(start)) {
                 continue;
             }
@@ -94,8 +105,10 @@ public final class MappingDependencies implements Validation {
             }
             if (current != null && path.contains(current)) {
                 List<Integer> cycle = path.subList(path.indexOf(current), path.size());
-                int first = Kt.min(cycle);
-                issues.add(new Issue("mapping_dependency_cycle", "Mappings " + Kt.joinToString(Kt.sorted(cycle), ", ", it -> "[" + it + "]") + " in '" + listId + "' depend on each other in a cycle", "extensions.data_source_mappings." + listId + "[" + first + "].depends_on"));
+                List<Integer> sortedCycle = new ArrayList<>(cycle);
+                Collections.sort(sortedCycle);
+                int first = sortedCycle.get(0);
+                issues.add(new Issue("mapping_dependency_cycle", "Mappings " + sortedCycle.stream().map(it -> "[" + it + "]").collect(Collectors.joining(", ")) + " in '" + listId + "' depend on each other in a cycle", "extensions.data_source_mappings." + listId + "[" + first + "].depends_on"));
             }
             done.addAll(path);
         }

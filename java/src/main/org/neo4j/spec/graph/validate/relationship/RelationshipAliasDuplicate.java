@@ -5,7 +5,7 @@ import java.util.List;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.relationship.Relationship;
 import org.neo4j.spec.graph.validate.Issue;
-import org.neo4j.spec.graph.validate.duplicate.DuplicateEntriesKt;
+import org.neo4j.spec.graph.validate.duplicate.DuplicateEntries;
 
 /**
  * A relationship's aliases are alternative names so must not repeat.
@@ -19,6 +19,6 @@ public final class RelationshipAliasDuplicate implements RelationshipValidation 
     @Override
     public void validateRelationship(GraphModel model, String relationshipId,
             Relationship relationship, List<Issue> issues) {
-        issues.addAll(DuplicateEntriesKt.duplicateEntryIssues("duplicate_relationship_alias", "alias", "relationship '" + relationshipId + "'", relationship.getAliases(), "relationships." + relationshipId + ".aliases"));
+        issues.addAll(DuplicateEntries.duplicateEntryIssues("duplicate_relationship_alias", "alias", "relationship '" + relationshipId + "'", relationship.getAliases(), "relationships." + relationshipId + ".aliases"));
     }
 }

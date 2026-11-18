@@ -2,7 +2,6 @@
 package org.neo4j.spec.graph.validate.table;
 
 import java.util.List;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.extension.source.Table;
 import org.neo4j.spec.graph.model.extension.source.TableColumn;
@@ -17,7 +16,7 @@ public final class TableColumnEmptyName implements TableValidation {
     @Override
     public void validateTableColumn(GraphModel model, String tableId, Table table, int columnIndex,
             TableColumn column, List<Issue> issues) {
-        if (Kt.isBlank(column.getName())) {
+        if (column.getName().isBlank()) {
             issues.add(new Issue("missing_table_column_name", "Missing name for table column at index " + columnIndex + " in table '" + tableId + "'", "extensions.data_source_tables." + tableId + ".columns[" + columnIndex + "].name"));
         }
     }

@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import org.neo4j.spec.graph.internal.Kt;
-import org.neo4j.spec.graph.internal.Pair;
+import java.util.stream.Collectors;
 
 public final class SchemaMap extends AbstractMap<String, SchemaElement> implements SchemaElement {
     private final Map<String, SchemaElement> content;
@@ -107,15 +106,9 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
 
     @Override
     public String toString() {
-        return Kt.joinToString(getContent().entrySet(), ",", "{", "}", entry -> {
-            var k = entry.getKey();
-            var v = entry.getValue();
-            StringBuilder builder = new StringBuilder();
-            builder.append('"').append(k).append('"');
-            builder.append(':');
-            builder.append(v);
-            return builder.toString();
-        });
+        return getContent().entrySet().stream()
+                .map(entry -> "\"" + entry.getKey() + "\":" + entry.getValue())
+                .collect(Collectors.joining(",", "{", "}"));
     }
 
     public void set(String key, Object value) {
@@ -185,7 +178,12 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
     }
 
     public SchemaMap mapOrPut(String key) {
-        return (SchemaMap) Kt.getOrPut(getContent(), key, () -> SchemaElements.adopt(this, new SchemaMap(), key));
+        SchemaElement existing = getContent().get(key);
+        if (existing == null) {
+            existing = SchemaElements.adopt(this, new SchemaMap(), key);
+            getContent().put(key, existing);
+        }
+        return (SchemaMap) existing;
     }
 
     public SchemaPrimitive literal(String key) {
@@ -206,12 +204,23 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
     }
 
     public boolean bool(String key) {
-        return Kt.toBooleanStrict(string(key));
+        String value = string(key);
+        if ("true".equals(value)) {
+            return true;
+        } else if ("false".equals(value)) {
+            return false;
+        }
+        throw new IllegalArgumentException("The string doesn't represent a boolean value: " + value);
     }
 
     public Boolean boolOrNull(String key) {
         String receiver = stringOrNull(key);
-        return receiver == null ? null : Kt.toBooleanStrictOrNull(receiver);
+        if ("true".equals(receiver)) {
+            return Boolean.TRUE;
+        } else if ("false".equals(receiver)) {
+            return Boolean.FALSE;
+        }
+        return null;
     }
 
     public String string(String key) {
@@ -230,7 +239,14 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
 
     public Integer integerOrNull(String key) {
         String receiver = stringOrNull(key);
-        return receiver == null ? null : Kt.toIntOrNull(receiver);
+        if (receiver == null || receiver.isEmpty()) {
+            return null;
+        }
+        try {
+            return Integer.parseInt(receiver);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
     public Map<String, SchemaMap> mapOfMaps(String key) {
@@ -242,15 +258,17 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
         if (schemaMap == null) {
             throw new IllegalStateException("Expected map, found invalid type " + map.getClass().getSimpleName() + " at " + path(key));
         }
-        return Kt.toMap(Kt.map(schemaMap.getContent(), entry -> {
-            var key2 = entry.getKey();
-            var element = entry.getValue();
+        Map<String, SchemaMap> result = new LinkedHashMap<>();
+        for (Map.Entry<String, SchemaElement> entry : schemaMap.getContent().entrySet()) {
+            String key2 = entry.getKey();
+            SchemaElement element = entry.getValue();
             SchemaMap child = element instanceof SchemaMap ? (SchemaMap) element : null;
             if (child == null) {
                 throw new IllegalStateException("Expected map, found invalid type " + ((SchemaMap) map).getClass().getSimpleName() + " at " + path(key2));
             }
-            return new Pair<>(key2, child);
-        }));
+            result.put(key2, child);
+        }
+        return result;
     }
 
     public Map<String, SchemaMap> mapOfMapsOrNull(String key) {
@@ -308,13 +326,17 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
         if (schemaList == null) {
             throw new IllegalStateException("Expected list, found invalid type " + list.getClass().getSimpleName() + " at " + path(key));
         }
-        return Kt.mapIndexed(schemaList.getContent(), (index, element) -> {
+        List<SchemaMap> result = new ArrayList<>();
+        int index = 0;
+        for (SchemaElement element : schemaList.getContent()) {
             SchemaMap value = element instanceof SchemaMap ? (SchemaMap) element : null;
             if (value == null) {
                 throw new IllegalStateException("Expected map, found invalid type " + ((SchemaList) list).getClass().getSimpleName() + " at " + getPath() + "[" + index + "]." + key);
             }
-            return value;
-        });
+            result.add(value);
+            index++;
+        }
+        return result;
     }
 
     public List<SchemaMap> listOfMapsOrNull(String key) {

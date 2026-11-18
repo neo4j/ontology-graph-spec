@@ -6,7 +6,7 @@ import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.property.Property;
 import org.neo4j.spec.graph.model.relationship.Relationship;
 import org.neo4j.spec.graph.validate.Issue;
-import org.neo4j.spec.graph.validate.duplicate.DuplicateEntriesKt;
+import org.neo4j.spec.graph.validate.duplicate.DuplicateEntries;
 
 /**
  * A relationship property's aliases are alternative names so must not repeat.
@@ -20,6 +20,6 @@ public final class RelationshipPropertyAliasDuplicate implements RelationshipVal
     @Override
     public void validateProperty(GraphModel model, String relationshipId, Relationship relationship,
             String propertyId, Property property, List<Issue> issues) {
-        issues.addAll(DuplicateEntriesKt.duplicateEntryIssues("duplicate_relationship_property_alias", "alias", "property '" + propertyId + "' of relationship '" + relationshipId + "'", property.getAliases(), "relationships." + relationshipId + ".properties." + propertyId + ".aliases"));
+        issues.addAll(DuplicateEntries.duplicateEntryIssues("duplicate_relationship_property_alias", "alias", "property '" + propertyId + "' of relationship '" + relationshipId + "'", property.getAliases(), "relationships." + relationshipId + ".properties." + propertyId + ".aliases"));
     }
 }

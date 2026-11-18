@@ -6,7 +6,7 @@ import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.node.Node;
 import org.neo4j.spec.graph.model.node.extension.NodeIndex;
 import org.neo4j.spec.graph.validate.Issue;
-import org.neo4j.spec.graph.validate.duplicate.DuplicateEntriesKt;
+import org.neo4j.spec.graph.validate.duplicate.DuplicateEntries;
 
 /**
  * A node index must list each label once.
@@ -20,6 +20,6 @@ public final class NodeIndexLabelDuplicate implements NodeValidation {
     @Override
     public void validateIndex(GraphModel model, String nodeId, Node node, String indexId,
             NodeIndex index, List<Issue> issues) {
-        issues.addAll(DuplicateEntriesKt.duplicateEntryIssues("duplicate_node_index_label", "label", "index '" + indexId + "' on node '" + nodeId + "'", index.getLabels(), "nodes." + nodeId + ".extensions.indexes." + indexId + ".labels"));
+        issues.addAll(DuplicateEntries.duplicateEntryIssues("duplicate_node_index_label", "label", "index '" + indexId + "' on node '" + nodeId + "'", index.getLabels(), "nodes." + nodeId + ".extensions.indexes." + indexId + ".labels"));
     }
 }

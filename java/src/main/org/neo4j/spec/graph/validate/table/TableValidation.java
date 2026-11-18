@@ -2,7 +2,6 @@
 package org.neo4j.spec.graph.validate.table;
 
 import java.util.List;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.extension.source.Table;
 import org.neo4j.spec.graph.model.extension.source.TableColumn;
@@ -16,9 +15,8 @@ public interface TableValidation extends Validation {
             var tableId = entry.getKey();
             var table = entry.getValue();
             validateTable(model, tableId, table, issues);
-            for (var item : Kt.withIndex(table.getColumns())) {
-                var index = item.getIndex();
-                var column = item.getValue();
+            for (int index = 0; index < table.getColumns().size(); index++) {
+                var column = table.getColumns().get(index);
                 validateTableColumn(model, tableId, table, index, column, issues);
             }
         }

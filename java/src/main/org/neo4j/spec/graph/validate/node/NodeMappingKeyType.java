@@ -16,7 +16,7 @@ public final class NodeMappingKeyType implements NodeValidation {
 
     @Override
     public void validateNode(GraphModel model, String nodeId, Node node, List<Issue> issues) {
-        for (var item : LocatedNodeMappingKt.findNodeMappings(model, nodeId)) {
+        for (var item : LocatedNodeMappings.findNodeMappings(model, nodeId)) {
             var mappingId = item.getMappingId();
             var index = item.getIndex();
             var nodeMapping = item.getMapping();

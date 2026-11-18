@@ -6,7 +6,7 @@ import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.node.Node;
 import org.neo4j.spec.graph.model.property.Property;
 import org.neo4j.spec.graph.validate.Issue;
-import org.neo4j.spec.graph.validate.duplicate.DuplicateEntriesKt;
+import org.neo4j.spec.graph.validate.duplicate.DuplicateEntries;
 
 /**
  * A node property's aliases are alternative names so must not repeat.
@@ -20,6 +20,6 @@ public final class NodePropertyAliasDuplicate implements NodeValidation {
     @Override
     public void validateProperty(GraphModel model, String nodeId, Node node, String propertyId,
             Property property, List<Issue> issues) {
-        issues.addAll(DuplicateEntriesKt.duplicateEntryIssues("duplicate_node_property_alias", "alias", "property '" + propertyId + "' of node '" + nodeId + "'", property.getAliases(), "nodes." + nodeId + ".properties." + propertyId + ".aliases"));
+        issues.addAll(DuplicateEntries.duplicateEntryIssues("duplicate_node_property_alias", "alias", "property '" + propertyId + "' of node '" + nodeId + "'", property.getAliases(), "nodes." + nodeId + ".properties." + propertyId + ".aliases"));
     }
 }

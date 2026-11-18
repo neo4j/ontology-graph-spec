@@ -1,9 +1,7 @@
 // Generated from org/neo4j/spec/graph/migrate/migration/dataModel/GraphSpecDataModelWrappedMigration.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.migrate.migration.dataModel;
 
-import org.neo4j.spec.graph.codec.schema.SchemaElements;
 import org.neo4j.spec.graph.codec.schema.SchemaMap;
-import org.neo4j.spec.graph.internal.Pair;
 import org.neo4j.spec.graph.migrate.Migration;
 import org.neo4j.spec.graph.model.Type;
 import org.neo4j.spec.graph.model.Version;
@@ -24,7 +22,7 @@ public final class GraphSpecDataModelWrappedMigration extends Migration {
     @Override
     public SchemaMap migrate(SchemaMap schema) {
         SchemaMap model = this.dataModel.migrate(schema);
-        model.putAll(SchemaElements.schemaMapOf(SchemaElements.toNotEmpty("visualisation", this.dataModel.convertVisualisation(schema)), new Pair<>("description", schema.literalOrNull("description"))));
+        model.putAll(DataModelUtils.schemaMapOf("visualisation", DataModelUtils.nullIfEmpty(this.dataModel.convertVisualisation(schema)), "description", schema.literalOrNull("description")));
         return DataModelWrapper.wrap(model);
     }
 }

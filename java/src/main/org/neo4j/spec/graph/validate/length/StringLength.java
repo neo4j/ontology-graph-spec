@@ -1,10 +1,9 @@
 // Generated from org/neo4j/spec/graph/validate/length/StringLength.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.validate.length;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import org.neo4j.spec.graph.internal.Kt;
-import org.neo4j.spec.graph.internal.Pair;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.property.Property;
 import org.neo4j.spec.graph.model.type.Named;
@@ -75,7 +74,10 @@ public final class StringLength implements Validation {
 
     private void check(String field, String value, int max, String path, List<Issue> issues) {
         if (value != null && value.length() > max) {
-            issues.add(new Issue(field + "_too_long", "The " + field + " at '" + path + "' is " + value.length() + " characters long, the maximum is " + max, path, Kt.mapOf(new Pair<>("length", String.valueOf(value.length())), new Pair<>("max", String.valueOf(max)))));
+            Map<String, String> details = new LinkedHashMap<>();
+            details.put("length", String.valueOf(value.length()));
+            details.put("max", String.valueOf(max));
+            issues.add(new Issue(field + "_too_long", "The " + field + " at '" + path + "' is " + value.length() + " characters long, the maximum is " + max, path, details));
         }
     }
 }

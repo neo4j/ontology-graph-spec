@@ -6,7 +6,7 @@ import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.node.Node;
 import org.neo4j.spec.graph.model.node.NodeConstraint;
 import org.neo4j.spec.graph.validate.Issue;
-import org.neo4j.spec.graph.validate.duplicate.DuplicateEntriesKt;
+import org.neo4j.spec.graph.validate.duplicate.DuplicateEntries;
 import org.neo4j.spec.graph.validate.node.NodeValidation;
 
 /**
@@ -21,6 +21,6 @@ public final class NodeConstraintPropertyDuplicate implements NodeValidation {
     @Override
     public void validateConstraint(GraphModel model, String nodeId, Node node, String constraintId,
             NodeConstraint constraint, List<Issue> issues) {
-        issues.addAll(DuplicateEntriesKt.duplicateEntryIssues("duplicate_node_constraint_property", "property", "constraint '" + constraintId + "' on node '" + nodeId + "'", constraint.getProperties(), "nodes." + nodeId + ".constraints." + constraintId + ".properties"));
+        issues.addAll(DuplicateEntries.duplicateEntryIssues("duplicate_node_constraint_property", "property", "constraint '" + constraintId + "' on node '" + nodeId + "'", constraint.getProperties(), "nodes." + nodeId + ".constraints." + constraintId + ".properties"));
     }
 }

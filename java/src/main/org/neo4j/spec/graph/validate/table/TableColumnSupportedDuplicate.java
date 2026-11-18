@@ -6,7 +6,7 @@ import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.extension.source.Table;
 import org.neo4j.spec.graph.model.extension.source.TableColumn;
 import org.neo4j.spec.graph.validate.Issue;
-import org.neo4j.spec.graph.validate.duplicate.DuplicateEntriesKt;
+import org.neo4j.spec.graph.validate.duplicate.DuplicateEntries;
 
 /**
  * A table column must list each supported type once.
@@ -20,6 +20,6 @@ public final class TableColumnSupportedDuplicate implements TableValidation {
     @Override
     public void validateTableColumn(GraphModel model, String tableId, Table table, int columnIndex,
             TableColumn column, List<Issue> issues) {
-        issues.addAll(DuplicateEntriesKt.duplicateEntryIssues("duplicate_table_column_supported_type", "supported type", "table column '" + column.getName() + "'", column.getSupported(), "extensions.data_source_tables." + tableId + ".columns[" + columnIndex + "].supported"));
+        issues.addAll(DuplicateEntries.duplicateEntryIssues("duplicate_table_column_supported_type", "supported type", "table column '" + column.getName() + "'", column.getSupported(), "extensions.data_source_tables." + tableId + ".columns[" + columnIndex + "].supported"));
     }
 }

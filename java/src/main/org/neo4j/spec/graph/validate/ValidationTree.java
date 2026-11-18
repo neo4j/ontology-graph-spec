@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.model.GraphModel;
 
 public final class ValidationTree {
@@ -30,7 +29,7 @@ public final class ValidationTree {
                 continue;
             }
             for (var dependent : dependencies) {
-                Kt.getOrPut(this.tree, dependent, () -> new ArrayList<Validation>()).add(validation);
+                this.tree.computeIfAbsent(dependent, key -> new ArrayList<>()).add(validation);
             }
         }
     }

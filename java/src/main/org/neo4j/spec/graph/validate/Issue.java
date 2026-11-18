@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
-import org.neo4j.spec.graph.internal.Kt;
 
 @JsonAutoDetect(
         fieldVisibility = JsonAutoDetect.Visibility.NONE,
@@ -33,11 +33,11 @@ public final class Issue {
     }
 
     public Issue(String code, String message, String path) {
-        this(code, message, path, Kt.<String, String>emptyMap());
+        this(code, message, path, Collections.emptyMap());
     }
 
     public Issue(String code, String message) {
-        this(code, message, null, Kt.<String, String>emptyMap());
+        this(code, message, null, Collections.emptyMap());
     }
 
     public String getCode() {
@@ -102,7 +102,7 @@ public final class Issue {
     @JsonProperty("details")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, String> jsonDetails() {
-        return Objects.equals(this.details, Kt.<String, String>emptyMap()) ? null : this.details;
+        return Objects.equals(this.details, Collections.emptyMap()) ? null : this.details;
     }
 
     @JsonCreator
@@ -112,6 +112,6 @@ public final class Issue {
         return new Issue(Objects.requireNonNull(code, "Field 'code' is required"),
                     Objects.requireNonNull(message, "Field 'message' is required"),
                     path != null ? path : null,
-                    details != null ? details : Kt.<String, String>emptyMap());
+                    details != null ? details : Collections.emptyMap());
     }
 }

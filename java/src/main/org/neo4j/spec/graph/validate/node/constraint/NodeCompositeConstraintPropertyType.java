@@ -2,7 +2,6 @@
 package org.neo4j.spec.graph.validate.node.constraint;
 
 import java.util.List;
-import org.neo4j.spec.graph.internal.Kt;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.node.Node;
 import org.neo4j.spec.graph.model.node.NodeConstraint;
@@ -24,13 +23,14 @@ public final class NodeCompositeConstraintPropertyType implements NodeValidation
         if (!Compositeness.isCompositeConstraint(constraint.getProperties())) {
             return;
         }
-        boolean hasInvalidType = Kt.any(constraint.getProperties(), propertyId -> {
+        boolean hasInvalidType = false;
+        for (var propertyId : constraint.getProperties()) {
             Property property = node.getProperties().get(propertyId);
-            if (property == null) {
-                return false;
+            if (property != null && property.getType() != Neo4jType.STRING && property.getType() != Neo4jType.INTEGER) {
+                hasInvalidType = true;
+                break;
             }
-            return property.getType() != Neo4jType.STRING && property.getType() != Neo4jType.INTEGER;
-        });
+        }
         if (hasInvalidType) {
             issues.add(new Issue("invalid_node_composite_constraint_property_type", "Composite constraint '" + constraintId + "' on node '" + nodeId + "' " + "properties must be STRING or INTEGER for bulk import", "nodes." + nodeId + ".constraints." + constraintId));
         }
