@@ -43,33 +43,33 @@ import org.neo4j.spec.graph.model.GraphModel;
  */
 public final class YamlFormat implements Format {
     private static final YamlFormat DEFAULT = new YamlFormat(
-        YAMLMapper.builder()
-            .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
-            .enable(DeserializationFeature.USE_LONG_FOR_INTS)
-            .build(),
-        JsonFormat.getDefault(),
-        new YamlPrintOptions(
-            2,
-            true,
-            Set.of(
-                "nodes.*.properties.*",
-                "nodes.*.constraints.*.properties",
-                "nodes.*.extensions.indexes.*.labels",
-                "nodes.*.extensions.indexes.*.properties",
-                "relationships.*.properties.*",
-                "relationships.*.from",
-                "relationships.*.to",
-                "relationships.*.constraints.*.properties",
-                "relationships.*.extensions.indexes.*.properties",
-                "relationships.*.extensions.indexes.*.options.*",
-                "extensions.data_source_tables.*.columns[*].supported",
-                "extensions.data_source_tables.*.primary_keys",
-                "extensions.data_source_tables.*.foreign_keys.*.columns",
-                "extensions.data_source_tables.*.foreign_keys.*.references.columns",
-                "extensions.data_source_mappings.*[*].properties.*",
-                "extensions.data_source_mappings.*[*].key",
-                "extensions.data_source_mappings.*[*].from_node.properties.*",
-                "extensions.data_source_mappings.*[*].to_node.properties.*")));
+            YAMLMapper.builder()
+                    .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
+                    .enable(DeserializationFeature.USE_LONG_FOR_INTS)
+                    .build(),
+            JsonFormat.getDefault(),
+            new YamlPrintOptions(
+                    2,
+                    true,
+                    Set.of(
+                            "nodes.*.properties.*",
+                            "nodes.*.constraints.*.properties",
+                            "nodes.*.extensions.indexes.*.labels",
+                            "nodes.*.extensions.indexes.*.properties",
+                            "relationships.*.properties.*",
+                            "relationships.*.from",
+                            "relationships.*.to",
+                            "relationships.*.constraints.*.properties",
+                            "relationships.*.extensions.indexes.*.properties",
+                            "relationships.*.extensions.indexes.*.options.*",
+                            "extensions.data_source_tables.*.columns[*].supported",
+                            "extensions.data_source_tables.*.primary_keys",
+                            "extensions.data_source_tables.*.foreign_keys.*.columns",
+                            "extensions.data_source_tables.*.foreign_keys.*.references.columns",
+                            "extensions.data_source_mappings.*[*].properties.*",
+                            "extensions.data_source_mappings.*[*].key",
+                            "extensions.data_source_mappings.*[*].from_node.properties.*",
+                            "extensions.data_source_mappings.*[*].to_node.properties.*")));
 
     private static final Pattern NUMBER = Pattern.compile("-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][-+]?[0-9]+)?");
 
@@ -98,7 +98,9 @@ public final class YamlFormat implements Format {
             JsonToken token = parser.nextToken();
             return token == null ? new SchemaNull("") : element(parser, token);
         } catch (IOException e) {
-            String message = e instanceof JsonProcessingException ? ((JsonProcessingException) e).getOriginalMessage() : e.getMessage();
+            String message = e instanceof JsonProcessingException
+                    ? ((JsonProcessingException) e).getOriginalMessage()
+                    : e.getMessage();
             throw new IllegalArgumentException(message, e);
         }
     }

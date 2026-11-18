@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/node/extension/NodeDisplay.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.node.extension;
 
@@ -18,8 +34,7 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class NodeDisplay implements CustomExtensions {
     private double x;
 
@@ -79,9 +94,9 @@ public final class NodeDisplay implements CustomExtensions {
         if (!(other instanceof NodeDisplay)) return false;
         NodeDisplay that = (NodeDisplay) other;
         return Double.compare(x, that.x) == 0
-                        && Double.compare(y, that.y) == 0
-                        && Objects.equals(colour, that.colour)
-                        && Objects.equals(custom, that.custom);
+                && Double.compare(y, that.y) == 0
+                && Objects.equals(colour, that.colour)
+                && Objects.equals(custom, that.custom);
     }
 
     @Override
@@ -127,12 +142,15 @@ public final class NodeDisplay implements CustomExtensions {
     }
 
     @JsonCreator
-    private static NodeDisplay fromJson(@JsonProperty("x") Double x, @JsonProperty("y") Double y,
+    private static NodeDisplay fromJson(
+            @JsonProperty("x") Double x,
+            @JsonProperty("y") Double y,
             @JsonProperty("colour") String colour,
             @JsonProperty("custom") Map<String, Object> custom) {
-        return new NodeDisplay(Objects.requireNonNull(x, "Field 'x' is required"),
-                    Objects.requireNonNull(y, "Field 'y' is required"),
-                    colour != null ? colour : null,
-                    custom != null ? custom : new LinkedHashMap<String, Object>());
+        return new NodeDisplay(
+                Objects.requireNonNull(x, "Field 'x' is required"),
+                Objects.requireNonNull(y, "Field 'y' is required"),
+                colour != null ? colour : null,
+                custom != null ? custom : new LinkedHashMap<String, Object>());
     }
 }

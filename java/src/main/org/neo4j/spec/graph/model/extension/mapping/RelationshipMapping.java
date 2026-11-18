@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/extension/mapping/RelationshipMapping.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.extension.mapping;
 
@@ -21,8 +37,7 @@ import java.util.Objects;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class RelationshipMapping implements Mapping {
     private String relationship;
 
@@ -44,9 +59,17 @@ public final class RelationshipMapping implements Mapping {
 
     private String id;
 
-    public RelationshipMapping(String relationship, String table, TargetMapping fromNode,
-            TargetMapping toNode, String matchLabel, Map<String, PropertyMapping> properties,
-            MappingMode mode, List<String> key, String dependsOn, String id) {
+    public RelationshipMapping(
+            String relationship,
+            String table,
+            TargetMapping fromNode,
+            TargetMapping toNode,
+            String matchLabel,
+            Map<String, PropertyMapping> properties,
+            MappingMode mode,
+            List<String> key,
+            String dependsOn,
+            String id) {
         this.relationship = relationship;
         this.table = table;
         this.fromNode = fromNode;
@@ -59,37 +82,89 @@ public final class RelationshipMapping implements Mapping {
         this.id = id;
     }
 
-    public RelationshipMapping(String relationship, String table, TargetMapping fromNode,
-            TargetMapping toNode, String matchLabel, Map<String, PropertyMapping> properties,
-            MappingMode mode, List<String> key, String dependsOn) {
+    public RelationshipMapping(
+            String relationship,
+            String table,
+            TargetMapping fromNode,
+            TargetMapping toNode,
+            String matchLabel,
+            Map<String, PropertyMapping> properties,
+            MappingMode mode,
+            List<String> key,
+            String dependsOn) {
         this(relationship, table, fromNode, toNode, matchLabel, properties, mode, key, dependsOn, "");
     }
 
-    public RelationshipMapping(String relationship, String table, TargetMapping fromNode,
-            TargetMapping toNode, String matchLabel, Map<String, PropertyMapping> properties,
-            MappingMode mode, List<String> key) {
+    public RelationshipMapping(
+            String relationship,
+            String table,
+            TargetMapping fromNode,
+            TargetMapping toNode,
+            String matchLabel,
+            Map<String, PropertyMapping> properties,
+            MappingMode mode,
+            List<String> key) {
         this(relationship, table, fromNode, toNode, matchLabel, properties, mode, key, "", "");
     }
 
-    public RelationshipMapping(String relationship, String table, TargetMapping fromNode,
-            TargetMapping toNode, String matchLabel, Map<String, PropertyMapping> properties,
+    public RelationshipMapping(
+            String relationship,
+            String table,
+            TargetMapping fromNode,
+            TargetMapping toNode,
+            String matchLabel,
+            Map<String, PropertyMapping> properties,
             MappingMode mode) {
         this(relationship, table, fromNode, toNode, matchLabel, properties, mode, new ArrayList<String>(), "", "");
     }
 
-    public RelationshipMapping(String relationship, String table, TargetMapping fromNode,
-            TargetMapping toNode, String matchLabel, Map<String, PropertyMapping> properties) {
-        this(relationship, table, fromNode, toNode, matchLabel, properties, MappingMode.MERGE, new ArrayList<String>(), "", "");
+    public RelationshipMapping(
+            String relationship,
+            String table,
+            TargetMapping fromNode,
+            TargetMapping toNode,
+            String matchLabel,
+            Map<String, PropertyMapping> properties) {
+        this(
+                relationship,
+                table,
+                fromNode,
+                toNode,
+                matchLabel,
+                properties,
+                MappingMode.MERGE,
+                new ArrayList<String>(),
+                "",
+                "");
     }
 
-    public RelationshipMapping(String relationship, String table, TargetMapping fromNode,
-            TargetMapping toNode, String matchLabel) {
-        this(relationship, table, fromNode, toNode, matchLabel, new LinkedHashMap<String, PropertyMapping>(), MappingMode.MERGE, new ArrayList<String>(), "", "");
+    public RelationshipMapping(
+            String relationship, String table, TargetMapping fromNode, TargetMapping toNode, String matchLabel) {
+        this(
+                relationship,
+                table,
+                fromNode,
+                toNode,
+                matchLabel,
+                new LinkedHashMap<String, PropertyMapping>(),
+                MappingMode.MERGE,
+                new ArrayList<String>(),
+                "",
+                "");
     }
 
-    public RelationshipMapping(String relationship, String table, TargetMapping fromNode,
-            TargetMapping toNode) {
-        this(relationship, table, fromNode, toNode, null, new LinkedHashMap<String, PropertyMapping>(), MappingMode.MERGE, new ArrayList<String>(), "", "");
+    public RelationshipMapping(String relationship, String table, TargetMapping fromNode, TargetMapping toNode) {
+        this(
+                relationship,
+                table,
+                fromNode,
+                toNode,
+                null,
+                new LinkedHashMap<String, PropertyMapping>(),
+                MappingMode.MERGE,
+                new ArrayList<String>(),
+                "",
+                "");
     }
 
     public String getRelationship() {
@@ -162,15 +237,15 @@ public final class RelationshipMapping implements Mapping {
         if (!(other instanceof RelationshipMapping)) return false;
         RelationshipMapping that = (RelationshipMapping) other;
         return Objects.equals(relationship, that.relationship)
-                        && Objects.equals(table, that.table)
-                        && Objects.equals(fromNode, that.fromNode)
-                        && Objects.equals(toNode, that.toNode)
-                        && Objects.equals(matchLabel, that.matchLabel)
-                        && Objects.equals(properties, that.properties)
-                        && Objects.equals(mode, that.mode)
-                        && Objects.equals(key, that.key)
-                        && Objects.equals(dependsOn, that.dependsOn)
-                        && Objects.equals(id, that.id);
+                && Objects.equals(table, that.table)
+                && Objects.equals(fromNode, that.fromNode)
+                && Objects.equals(toNode, that.toNode)
+                && Objects.equals(matchLabel, that.matchLabel)
+                && Objects.equals(properties, that.properties)
+                && Objects.equals(mode, that.mode)
+                && Objects.equals(key, that.key)
+                && Objects.equals(dependsOn, that.dependsOn)
+                && Objects.equals(id, that.id);
     }
 
     @Override
@@ -190,7 +265,9 @@ public final class RelationshipMapping implements Mapping {
 
     @Override
     public String toString() {
-        return "RelationshipMapping(relationship=" + relationship + ", table=" + table + ", fromNode=" + fromNode + ", toNode=" + toNode + ", matchLabel=" + matchLabel + ", properties=" + properties + ", mode=" + mode + ", key=" + key + ", dependsOn=" + dependsOn + ", id=" + id + ")";
+        return "RelationshipMapping(relationship=" + relationship + ", table=" + table + ", fromNode=" + fromNode
+                + ", toNode=" + toNode + ", matchLabel=" + matchLabel + ", properties=" + properties + ", mode=" + mode
+                + ", key=" + key + ", dependsOn=" + dependsOn + ", id=" + id + ")";
     }
 
     @JsonProperty("relationship")
@@ -250,36 +327,43 @@ public final class RelationshipMapping implements Mapping {
     }
 
     @JsonProperty("depends_on")
-    @JsonPropertyDescription("Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency.")
+    @JsonPropertyDescription(
+            "Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String jsonDependsOn() {
         return Objects.equals(this.dependsOn, "") ? null : this.dependsOn;
     }
 
     @JsonProperty("id")
-    @JsonPropertyDescription("Optional id of this mapping, so other mappings in the same list can reference it in depends_on.")
+    @JsonPropertyDescription(
+            "Optional id of this mapping, so other mappings in the same list can reference it in depends_on.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String jsonId() {
         return Objects.equals(this.id, "") ? null : this.id;
     }
 
     @JsonCreator
-    private static RelationshipMapping fromJson(@JsonProperty("relationship") String relationship,
-            @JsonProperty("table") String table, @JsonProperty("from_node") TargetMapping fromNode,
+    private static RelationshipMapping fromJson(
+            @JsonProperty("relationship") String relationship,
+            @JsonProperty("table") String table,
+            @JsonProperty("from_node") TargetMapping fromNode,
             @JsonProperty("to_node") TargetMapping toNode,
             @JsonProperty("match_label") String matchLabel,
             @JsonProperty("properties") Map<String, PropertyMapping> properties,
-            @JsonProperty("mode") MappingMode mode, @JsonProperty("key") List<String> key,
-            @JsonProperty("depends_on") String dependsOn, @JsonProperty("id") String id) {
-        return new RelationshipMapping(Objects.requireNonNull(relationship, "Field 'relationship' is required"),
-                    Objects.requireNonNull(table, "Field 'table' is required"),
-                    Objects.requireNonNull(fromNode, "Field 'from_node' is required"),
-                    Objects.requireNonNull(toNode, "Field 'to_node' is required"),
-                    matchLabel != null ? matchLabel : null,
-                    properties != null ? properties : new LinkedHashMap<String, PropertyMapping>(),
-                    mode != null ? mode : MappingMode.MERGE,
-                    key != null ? key : new ArrayList<String>(),
-                    dependsOn != null ? dependsOn : "",
-                    id != null ? id : "");
+            @JsonProperty("mode") MappingMode mode,
+            @JsonProperty("key") List<String> key,
+            @JsonProperty("depends_on") String dependsOn,
+            @JsonProperty("id") String id) {
+        return new RelationshipMapping(
+                Objects.requireNonNull(relationship, "Field 'relationship' is required"),
+                Objects.requireNonNull(table, "Field 'table' is required"),
+                Objects.requireNonNull(fromNode, "Field 'from_node' is required"),
+                Objects.requireNonNull(toNode, "Field 'to_node' is required"),
+                matchLabel != null ? matchLabel : null,
+                properties != null ? properties : new LinkedHashMap<String, PropertyMapping>(),
+                mode != null ? mode : MappingMode.MERGE,
+                key != null ? key : new ArrayList<String>(),
+                dependsOn != null ? dependsOn : "",
+                id != null ? id : "");
     }
 }

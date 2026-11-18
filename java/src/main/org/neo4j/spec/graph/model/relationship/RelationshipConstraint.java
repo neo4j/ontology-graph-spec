@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/relationship/RelationshipConstraint.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.relationship;
 
@@ -20,8 +36,7 @@ import org.neo4j.spec.graph.model.type.Named;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class RelationshipConstraint implements Constraint, Named {
     private ConstraintType type;
 
@@ -31,16 +46,16 @@ public final class RelationshipConstraint implements Constraint, Named {
 
     private String name;
 
-    public RelationshipConstraint(ConstraintType type, List<String> properties,
-            RelationshipConstraintExtensions extensions, String name) {
+    public RelationshipConstraint(
+            ConstraintType type, List<String> properties, RelationshipConstraintExtensions extensions, String name) {
         this.type = type;
         this.properties = properties;
         this.extensions = extensions;
         this.name = name;
     }
 
-    public RelationshipConstraint(ConstraintType type, List<String> properties,
-            RelationshipConstraintExtensions extensions) {
+    public RelationshipConstraint(
+            ConstraintType type, List<String> properties, RelationshipConstraintExtensions extensions) {
         this(type, properties, extensions, null);
     }
 
@@ -81,9 +96,9 @@ public final class RelationshipConstraint implements Constraint, Named {
         if (!(other instanceof RelationshipConstraint)) return false;
         RelationshipConstraint that = (RelationshipConstraint) other;
         return Objects.equals(type, that.type)
-                        && Objects.equals(properties, that.properties)
-                        && Objects.equals(extensions, that.extensions)
-                        && Objects.equals(name, that.name);
+                && Objects.equals(properties, that.properties)
+                && Objects.equals(extensions, that.extensions)
+                && Objects.equals(name, that.name);
     }
 
     @Override
@@ -97,7 +112,8 @@ public final class RelationshipConstraint implements Constraint, Named {
 
     @Override
     public String toString() {
-        return "RelationshipConstraint(type=" + type + ", properties=" + properties + ", extensions=" + extensions + ", name=" + name + ")";
+        return "RelationshipConstraint(type=" + type + ", properties=" + properties + ", extensions=" + extensions
+                + ", name=" + name + ")";
     }
 
     @JsonProperty("type")
@@ -129,13 +145,15 @@ public final class RelationshipConstraint implements Constraint, Named {
     }
 
     @JsonCreator
-    private static RelationshipConstraint fromJson(@JsonProperty("type") ConstraintType type,
+    private static RelationshipConstraint fromJson(
+            @JsonProperty("type") ConstraintType type,
             @JsonProperty("properties") List<String> properties,
             @JsonProperty("extensions") RelationshipConstraintExtensions extensions,
             @JsonProperty("name") String name) {
-        return new RelationshipConstraint(Objects.requireNonNull(type, "Field 'type' is required"),
-                    Objects.requireNonNull(properties, "Field 'properties' is required"),
-                    extensions != null ? extensions : new RelationshipConstraintExtensions(),
-                    name != null ? name : null);
+        return new RelationshipConstraint(
+                Objects.requireNonNull(type, "Field 'type' is required"),
+                Objects.requireNonNull(properties, "Field 'properties' is required"),
+                extensions != null ? extensions : new RelationshipConstraintExtensions(),
+                name != null ? name : null);
     }
 }

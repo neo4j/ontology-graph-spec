@@ -1,4 +1,21 @@
-// Generated from org/neo4j/spec/graph/model/relationship/extension/RelationshipIndex.kt by :java:generator. Do not edit.
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+// Generated from org/neo4j/spec/graph/model/relationship/extension/RelationshipIndex.kt by :java:generator. Do not
+// edit.
 package org.neo4j.spec.graph.model.relationship.extension;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -22,8 +39,7 @@ import org.neo4j.spec.graph.model.type.Named;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class RelationshipIndex implements CustomExtensions, Named {
     private IndexType type;
 
@@ -35,8 +51,8 @@ public final class RelationshipIndex implements CustomExtensions, Named {
 
     private String name;
 
-    public RelationshipIndex(IndexType type, List<String> properties, IndexOption options,
-            Map<String, Object> custom, String name) {
+    public RelationshipIndex(
+            IndexType type, List<String> properties, IndexOption options, Map<String, Object> custom, String name) {
         this.type = type;
         this.properties = properties;
         this.options = options;
@@ -44,8 +60,7 @@ public final class RelationshipIndex implements CustomExtensions, Named {
         this.name = name;
     }
 
-    public RelationshipIndex(IndexType type, List<String> properties, IndexOption options,
-            Map<String, Object> custom) {
+    public RelationshipIndex(IndexType type, List<String> properties, IndexOption options, Map<String, Object> custom) {
         this(type, properties, options, custom, null);
     }
 
@@ -93,10 +108,10 @@ public final class RelationshipIndex implements CustomExtensions, Named {
         if (!(other instanceof RelationshipIndex)) return false;
         RelationshipIndex that = (RelationshipIndex) other;
         return Objects.equals(type, that.type)
-                        && Objects.equals(properties, that.properties)
-                        && Objects.equals(options, that.options)
-                        && Objects.equals(custom, that.custom)
-                        && Objects.equals(name, that.name);
+                && Objects.equals(properties, that.properties)
+                && Objects.equals(options, that.options)
+                && Objects.equals(custom, that.custom)
+                && Objects.equals(name, that.name);
     }
 
     @Override
@@ -111,7 +126,8 @@ public final class RelationshipIndex implements CustomExtensions, Named {
 
     @Override
     public String toString() {
-        return "RelationshipIndex(type=" + type + ", properties=" + properties + ", options=" + options + ", custom=" + custom + ", name=" + name + ")";
+        return "RelationshipIndex(type=" + type + ", properties=" + properties + ", options=" + options + ", custom="
+                + custom + ", name=" + name + ")";
     }
 
     @JsonProperty("type")
@@ -150,14 +166,17 @@ public final class RelationshipIndex implements CustomExtensions, Named {
     }
 
     @JsonCreator
-    private static RelationshipIndex fromJson(@JsonProperty("type") IndexType type,
+    private static RelationshipIndex fromJson(
+            @JsonProperty("type") IndexType type,
             @JsonProperty("properties") List<String> properties,
             @JsonProperty("options") IndexOption options,
-            @JsonProperty("custom") Map<String, Object> custom, @JsonProperty("name") String name) {
-        return new RelationshipIndex(Objects.requireNonNull(type, "Field 'type' is required"),
-                    Objects.requireNonNull(properties, "Field 'properties' is required"),
-                    options != null ? options : null,
-                    custom != null ? custom : new LinkedHashMap<String, Object>(),
-                    name != null ? name : null);
+            @JsonProperty("custom") Map<String, Object> custom,
+            @JsonProperty("name") String name) {
+        return new RelationshipIndex(
+                Objects.requireNonNull(type, "Field 'type' is required"),
+                Objects.requireNonNull(properties, "Field 'properties' is required"),
+                options != null ? options : null,
+                custom != null ? custom : new LinkedHashMap<String, Object>(),
+                name != null ? name : null);
     }
 }

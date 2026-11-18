@@ -50,7 +50,8 @@ import org.neo4j.spec.graph.model.GraphModel;
  * Hand-written: the rest of the library is generated from the Kotlin sources.
  */
 public final class JsonFormat implements Format {
-    private static final JsonFormat DEFAULT = new JsonFormat(builder().enable(SerializationFeature.INDENT_OUTPUT).build());
+    private static final JsonFormat DEFAULT =
+            new JsonFormat(builder().enable(SerializationFeature.INDENT_OUTPUT).build());
 
     private final ObjectMapper mapper;
 
@@ -69,19 +70,19 @@ public final class JsonFormat implements Format {
      */
     public static JsonMapper.Builder builder() {
         Separators separators = Separators.createDefaultInstance()
-            .withObjectFieldValueSpacing(Separators.Spacing.AFTER)
-            .withObjectEmptySeparator("")
-            .withArrayEmptySeparator("");
+                .withObjectFieldValueSpacing(Separators.Spacing.AFTER)
+                .withObjectEmptySeparator("")
+                .withArrayEmptySeparator("");
         DefaultPrettyPrinter printer = new DefaultPrettyPrinter(separators)
-            .withObjectIndenter(new DefaultIndenter("    ", "\n"))
-            .withArrayIndenter(new DefaultIndenter("    ", "\n"));
+                .withObjectIndenter(new DefaultIndenter("    ", "\n"))
+                .withArrayIndenter(new DefaultIndenter("    ", "\n"));
         return JsonMapper.builder()
-            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-            .enable(DeserializationFeature.USE_LONG_FOR_INTS)
-            .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
-            .enable(JsonReadFeature.ALLOW_UNQUOTED_FIELD_NAMES)
-            .enable(JsonReadFeature.ALLOW_SINGLE_QUOTES)
-            .defaultPrettyPrinter(printer);
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                .enable(DeserializationFeature.USE_LONG_FOR_INTS)
+                .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
+                .enable(JsonReadFeature.ALLOW_UNQUOTED_FIELD_NAMES)
+                .enable(JsonReadFeature.ALLOW_SINGLE_QUOTES)
+                .defaultPrettyPrinter(printer);
     }
 
     public ObjectMapper getMapper() {
@@ -168,7 +169,8 @@ public final class JsonFormat implements Format {
         }
         if (element instanceof SchemaMap) {
             ObjectNode object = factory.objectNode();
-            for (Map.Entry<String, SchemaElement> entry : ((SchemaMap) element).getContent().entrySet()) {
+            for (Map.Entry<String, SchemaElement> entry :
+                    ((SchemaMap) element).getContent().entrySet()) {
                 object.set(entry.getKey(), toJson(entry.getValue()));
             }
             return object;

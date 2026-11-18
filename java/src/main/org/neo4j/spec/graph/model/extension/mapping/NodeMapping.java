@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/extension/mapping/NodeMapping.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.extension.mapping;
 
@@ -20,8 +36,7 @@ import java.util.Objects;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class NodeMapping implements Mapping {
     private String node;
 
@@ -39,8 +54,15 @@ public final class NodeMapping implements Mapping {
 
     private String id;
 
-    public NodeMapping(String node, String table, Map<String, PropertyMapping> properties,
-            MappingMode mode, String matchLabel, List<String> key, String dependsOn, String id) {
+    public NodeMapping(
+            String node,
+            String table,
+            Map<String, PropertyMapping> properties,
+            MappingMode mode,
+            String matchLabel,
+            List<String> key,
+            String dependsOn,
+            String id) {
         this.node = node;
         this.table = table;
         this.properties = properties;
@@ -51,23 +73,33 @@ public final class NodeMapping implements Mapping {
         this.id = id;
     }
 
-    public NodeMapping(String node, String table, Map<String, PropertyMapping> properties,
-            MappingMode mode, String matchLabel, List<String> key, String dependsOn) {
+    public NodeMapping(
+            String node,
+            String table,
+            Map<String, PropertyMapping> properties,
+            MappingMode mode,
+            String matchLabel,
+            List<String> key,
+            String dependsOn) {
         this(node, table, properties, mode, matchLabel, key, dependsOn, "");
     }
 
-    public NodeMapping(String node, String table, Map<String, PropertyMapping> properties,
-            MappingMode mode, String matchLabel, List<String> key) {
+    public NodeMapping(
+            String node,
+            String table,
+            Map<String, PropertyMapping> properties,
+            MappingMode mode,
+            String matchLabel,
+            List<String> key) {
         this(node, table, properties, mode, matchLabel, key, "", "");
     }
 
-    public NodeMapping(String node, String table, Map<String, PropertyMapping> properties,
-            MappingMode mode, String matchLabel) {
+    public NodeMapping(
+            String node, String table, Map<String, PropertyMapping> properties, MappingMode mode, String matchLabel) {
         this(node, table, properties, mode, matchLabel, new ArrayList<String>(), "", "");
     }
 
-    public NodeMapping(String node, String table, Map<String, PropertyMapping> properties,
-            MappingMode mode) {
+    public NodeMapping(String node, String table, Map<String, PropertyMapping> properties, MappingMode mode) {
         this(node, table, properties, mode, null, new ArrayList<String>(), "", "");
     }
 
@@ -137,13 +169,13 @@ public final class NodeMapping implements Mapping {
         if (!(other instanceof NodeMapping)) return false;
         NodeMapping that = (NodeMapping) other;
         return Objects.equals(node, that.node)
-                        && Objects.equals(table, that.table)
-                        && Objects.equals(properties, that.properties)
-                        && Objects.equals(mode, that.mode)
-                        && Objects.equals(matchLabel, that.matchLabel)
-                        && Objects.equals(key, that.key)
-                        && Objects.equals(dependsOn, that.dependsOn)
-                        && Objects.equals(id, that.id);
+                && Objects.equals(table, that.table)
+                && Objects.equals(properties, that.properties)
+                && Objects.equals(mode, that.mode)
+                && Objects.equals(matchLabel, that.matchLabel)
+                && Objects.equals(key, that.key)
+                && Objects.equals(dependsOn, that.dependsOn)
+                && Objects.equals(id, that.id);
     }
 
     @Override
@@ -161,7 +193,8 @@ public final class NodeMapping implements Mapping {
 
     @Override
     public String toString() {
-        return "NodeMapping(node=" + node + ", table=" + table + ", properties=" + properties + ", mode=" + mode + ", matchLabel=" + matchLabel + ", key=" + key + ", dependsOn=" + dependsOn + ", id=" + id + ")";
+        return "NodeMapping(node=" + node + ", table=" + table + ", properties=" + properties + ", mode=" + mode
+                + ", matchLabel=" + matchLabel + ", key=" + key + ", dependsOn=" + dependsOn + ", id=" + id + ")";
     }
 
     @JsonProperty("node")
@@ -207,33 +240,39 @@ public final class NodeMapping implements Mapping {
     }
 
     @JsonProperty("depends_on")
-    @JsonPropertyDescription("Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency.")
+    @JsonPropertyDescription(
+            "Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String jsonDependsOn() {
         return Objects.equals(this.dependsOn, "") ? null : this.dependsOn;
     }
 
     @JsonProperty("id")
-    @JsonPropertyDescription("Optional id of this mapping, so other mappings in the same list can reference it in depends_on.")
+    @JsonPropertyDescription(
+            "Optional id of this mapping, so other mappings in the same list can reference it in depends_on.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String jsonId() {
         return Objects.equals(this.id, "") ? null : this.id;
     }
 
     @JsonCreator
-    private static NodeMapping fromJson(@JsonProperty("node") String node,
+    private static NodeMapping fromJson(
+            @JsonProperty("node") String node,
             @JsonProperty("table") String table,
             @JsonProperty("properties") Map<String, PropertyMapping> properties,
-            @JsonProperty("mode") MappingMode mode, @JsonProperty("match_label") String matchLabel,
-            @JsonProperty("key") List<String> key, @JsonProperty("depends_on") String dependsOn,
+            @JsonProperty("mode") MappingMode mode,
+            @JsonProperty("match_label") String matchLabel,
+            @JsonProperty("key") List<String> key,
+            @JsonProperty("depends_on") String dependsOn,
             @JsonProperty("id") String id) {
-        return new NodeMapping(Objects.requireNonNull(node, "Field 'node' is required"),
-                    Objects.requireNonNull(table, "Field 'table' is required"),
-                    Objects.requireNonNull(properties, "Field 'properties' is required"),
-                    mode != null ? mode : MappingMode.MERGE,
-                    matchLabel != null ? matchLabel : null,
-                    key != null ? key : new ArrayList<String>(),
-                    dependsOn != null ? dependsOn : "",
-                    id != null ? id : "");
+        return new NodeMapping(
+                Objects.requireNonNull(node, "Field 'node' is required"),
+                Objects.requireNonNull(table, "Field 'table' is required"),
+                Objects.requireNonNull(properties, "Field 'properties' is required"),
+                mode != null ? mode : MappingMode.MERGE,
+                matchLabel != null ? matchLabel : null,
+                key != null ? key : new ArrayList<String>(),
+                dependsOn != null ? dependsOn : "",
+                id != null ? id : "");
     }
 }

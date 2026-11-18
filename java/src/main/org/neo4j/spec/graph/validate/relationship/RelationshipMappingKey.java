@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/validate/relationship/RelationshipMappingKey.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.validate.relationship;
 
@@ -17,18 +33,20 @@ import org.neo4j.spec.graph.validate.Issue;
 public final class RelationshipMappingKey implements RelationshipValidation {
     public static final RelationshipMappingKey INSTANCE = new RelationshipMappingKey();
 
-    private RelationshipMappingKey() {
-    }
+    private RelationshipMappingKey() {}
 
     @Override
-    public void validateRelationship(GraphModel model, String relationshipId,
-            Relationship relationship, List<Issue> issues) {
+    public void validateRelationship(
+            GraphModel model, String relationshipId, Relationship relationship, List<Issue> issues) {
         for (var entry : model.getExtensions().getDataSourceMappings().entrySet()) {
             var mappingId = entry.getKey();
             var mappings = entry.getValue();
             for (int index = 0; index < mappings.size(); index++) {
                 var mapping = mappings.get(index);
-                if (!(mapping instanceof RelationshipMapping) || !Objects.equals(((RelationshipMapping) ((RelationshipMapping) mapping)).getRelationship(), relationshipId)) {
+                if (!(mapping instanceof RelationshipMapping)
+                        || !Objects.equals(
+                                ((RelationshipMapping) ((RelationshipMapping) mapping)).getRelationship(),
+                                relationshipId)) {
                     continue;
                 }
                 for (var propertyId : ((RelationshipMapping) mapping).getKey()) {
@@ -38,7 +56,12 @@ public final class RelationshipMappingKey implements RelationshipValidation {
                     Map<String, String> details = new LinkedHashMap<>();
                     details.put("relationship", relationshipId);
                     details.put("property", propertyId);
-                    issues.add(new Issue("invalid_relationship_mapping_key", "Mapping key '" + propertyId + "' is not a property of relationship '" + relationshipId + "'", "extensions.data_source_mappings." + mappingId + "[" + index + "].key", details));
+                    issues.add(new Issue(
+                            "invalid_relationship_mapping_key",
+                            "Mapping key '" + propertyId + "' is not a property of relationship '" + relationshipId
+                                    + "'",
+                            "extensions.data_source_mappings." + mappingId + "[" + index + "].key",
+                            details));
                 }
             }
         }

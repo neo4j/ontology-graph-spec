@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/extension/source/Table.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.extension.source;
 
@@ -20,8 +36,7 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class Table implements CustomExtensions {
     private String source;
 
@@ -33,8 +48,12 @@ public final class Table implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public Table(String source, List<TableColumn> columns, List<String> primaryKeys,
-            Map<String, ForeignKey> foreignKeys, Map<String, Object> custom) {
+    public Table(
+            String source,
+            List<TableColumn> columns,
+            List<String> primaryKeys,
+            Map<String, ForeignKey> foreignKeys,
+            Map<String, Object> custom) {
         this.source = source;
         this.columns = columns;
         this.primaryKeys = primaryKeys;
@@ -42,21 +61,36 @@ public final class Table implements CustomExtensions {
         this.custom = custom;
     }
 
-    public Table(String source, List<TableColumn> columns, List<String> primaryKeys,
-            Map<String, ForeignKey> foreignKeys) {
+    public Table(
+            String source, List<TableColumn> columns, List<String> primaryKeys, Map<String, ForeignKey> foreignKeys) {
         this(source, columns, primaryKeys, foreignKeys, new LinkedHashMap<String, Object>());
     }
 
     public Table(String source, List<TableColumn> columns, List<String> primaryKeys) {
-        this(source, columns, primaryKeys, new LinkedHashMap<String, ForeignKey>(), new LinkedHashMap<String, Object>());
+        this(
+                source,
+                columns,
+                primaryKeys,
+                new LinkedHashMap<String, ForeignKey>(),
+                new LinkedHashMap<String, Object>());
     }
 
     public Table(String source, List<TableColumn> columns) {
-        this(source, columns, new ArrayList<String>(), new LinkedHashMap<String, ForeignKey>(), new LinkedHashMap<String, Object>());
+        this(
+                source,
+                columns,
+                new ArrayList<String>(),
+                new LinkedHashMap<String, ForeignKey>(),
+                new LinkedHashMap<String, Object>());
     }
 
     public Table(String source) {
-        this(source, new ArrayList<TableColumn>(), new ArrayList<String>(), new LinkedHashMap<String, ForeignKey>(), new LinkedHashMap<String, Object>());
+        this(
+                source,
+                new ArrayList<TableColumn>(),
+                new ArrayList<String>(),
+                new LinkedHashMap<String, ForeignKey>(),
+                new LinkedHashMap<String, Object>());
     }
 
     public String getSource() {
@@ -90,10 +124,10 @@ public final class Table implements CustomExtensions {
         if (!(other instanceof Table)) return false;
         Table that = (Table) other;
         return Objects.equals(source, that.source)
-                        && Objects.equals(columns, that.columns)
-                        && Objects.equals(primaryKeys, that.primaryKeys)
-                        && Objects.equals(foreignKeys, that.foreignKeys)
-                        && Objects.equals(custom, that.custom);
+                && Objects.equals(columns, that.columns)
+                && Objects.equals(primaryKeys, that.primaryKeys)
+                && Objects.equals(foreignKeys, that.foreignKeys)
+                && Objects.equals(custom, that.custom);
     }
 
     @Override
@@ -108,7 +142,8 @@ public final class Table implements CustomExtensions {
 
     @Override
     public String toString() {
-        return "Table(source=" + source + ", columns=" + columns + ", primaryKeys=" + primaryKeys + ", foreignKeys=" + foreignKeys + ", custom=" + custom + ")";
+        return "Table(source=" + source + ", columns=" + columns + ", primaryKeys=" + primaryKeys + ", foreignKeys="
+                + foreignKeys + ", custom=" + custom + ")";
     }
 
     @JsonProperty("source")
@@ -147,15 +182,17 @@ public final class Table implements CustomExtensions {
     }
 
     @JsonCreator
-    private static Table fromJson(@JsonProperty("source") String source,
+    private static Table fromJson(
+            @JsonProperty("source") String source,
             @JsonProperty("columns") List<TableColumn> columns,
             @JsonProperty("primary_keys") List<String> primaryKeys,
             @JsonProperty("foreign_keys") Map<String, ForeignKey> foreignKeys,
             @JsonProperty("custom") Map<String, Object> custom) {
-        return new Table(Objects.requireNonNull(source, "Field 'source' is required"),
-                    columns != null ? columns : new ArrayList<TableColumn>(),
-                    primaryKeys != null ? primaryKeys : new ArrayList<String>(),
-                    foreignKeys != null ? foreignKeys : new LinkedHashMap<String, ForeignKey>(),
-                    custom != null ? custom : new LinkedHashMap<String, Object>());
+        return new Table(
+                Objects.requireNonNull(source, "Field 'source' is required"),
+                columns != null ? columns : new ArrayList<TableColumn>(),
+                primaryKeys != null ? primaryKeys : new ArrayList<String>(),
+                foreignKeys != null ? foreignKeys : new LinkedHashMap<String, ForeignKey>(),
+                custom != null ? custom : new LinkedHashMap<String, Object>());
     }
 }

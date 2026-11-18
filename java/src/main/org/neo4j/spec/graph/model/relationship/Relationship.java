@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/relationship/Relationship.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.relationship;
 
@@ -21,8 +37,7 @@ import org.neo4j.spec.graph.model.relationship.extension.RelationshipExtensions;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class Relationship {
     private String type;
 
@@ -42,9 +57,15 @@ public final class Relationship {
 
     private final String reference;
 
-    public Relationship(String type, RelationshipTarget from, RelationshipTarget to,
-            Map<String, Property> properties, Map<String, RelationshipConstraint> constraints,
-            RelationshipExtensions extensions, String description, List<String> aliases,
+    public Relationship(
+            String type,
+            RelationshipTarget from,
+            RelationshipTarget to,
+            Map<String, Property> properties,
+            Map<String, RelationshipConstraint> constraints,
+            RelationshipExtensions extensions,
+            String description,
+            List<String> aliases,
             String reference) {
         this.type = type;
         this.from = from;
@@ -57,36 +78,72 @@ public final class Relationship {
         this.reference = reference;
     }
 
-    public Relationship(String type, RelationshipTarget from, RelationshipTarget to,
-            Map<String, Property> properties, Map<String, RelationshipConstraint> constraints,
-            RelationshipExtensions extensions, String description, List<String> aliases) {
+    public Relationship(
+            String type,
+            RelationshipTarget from,
+            RelationshipTarget to,
+            Map<String, Property> properties,
+            Map<String, RelationshipConstraint> constraints,
+            RelationshipExtensions extensions,
+            String description,
+            List<String> aliases) {
         this(type, from, to, properties, constraints, extensions, description, aliases, "");
     }
 
-    public Relationship(String type, RelationshipTarget from, RelationshipTarget to,
-            Map<String, Property> properties, Map<String, RelationshipConstraint> constraints,
-            RelationshipExtensions extensions, String description) {
+    public Relationship(
+            String type,
+            RelationshipTarget from,
+            RelationshipTarget to,
+            Map<String, Property> properties,
+            Map<String, RelationshipConstraint> constraints,
+            RelationshipExtensions extensions,
+            String description) {
         this(type, from, to, properties, constraints, extensions, description, new ArrayList<String>(), "");
     }
 
-    public Relationship(String type, RelationshipTarget from, RelationshipTarget to,
-            Map<String, Property> properties, Map<String, RelationshipConstraint> constraints,
+    public Relationship(
+            String type,
+            RelationshipTarget from,
+            RelationshipTarget to,
+            Map<String, Property> properties,
+            Map<String, RelationshipConstraint> constraints,
             RelationshipExtensions extensions) {
         this(type, from, to, properties, constraints, extensions, "", new ArrayList<String>(), "");
     }
 
-    public Relationship(String type, RelationshipTarget from, RelationshipTarget to,
-            Map<String, Property> properties, Map<String, RelationshipConstraint> constraints) {
+    public Relationship(
+            String type,
+            RelationshipTarget from,
+            RelationshipTarget to,
+            Map<String, Property> properties,
+            Map<String, RelationshipConstraint> constraints) {
         this(type, from, to, properties, constraints, new RelationshipExtensions(), "", new ArrayList<String>(), "");
     }
 
-    public Relationship(String type, RelationshipTarget from, RelationshipTarget to,
-            Map<String, Property> properties) {
-        this(type, from, to, properties, new LinkedHashMap<String, RelationshipConstraint>(), new RelationshipExtensions(), "", new ArrayList<String>(), "");
+    public Relationship(String type, RelationshipTarget from, RelationshipTarget to, Map<String, Property> properties) {
+        this(
+                type,
+                from,
+                to,
+                properties,
+                new LinkedHashMap<String, RelationshipConstraint>(),
+                new RelationshipExtensions(),
+                "",
+                new ArrayList<String>(),
+                "");
     }
 
     public Relationship(String type, RelationshipTarget from, RelationshipTarget to) {
-        this(type, from, to, new LinkedHashMap<String, Property>(), new LinkedHashMap<String, RelationshipConstraint>(), new RelationshipExtensions(), "", new ArrayList<String>(), "");
+        this(
+                type,
+                from,
+                to,
+                new LinkedHashMap<String, Property>(),
+                new LinkedHashMap<String, RelationshipConstraint>(),
+                new RelationshipExtensions(),
+                "",
+                new ArrayList<String>(),
+                "");
     }
 
     public String getType() {
@@ -135,14 +192,14 @@ public final class Relationship {
         if (!(other instanceof Relationship)) return false;
         Relationship that = (Relationship) other;
         return Objects.equals(type, that.type)
-                        && Objects.equals(from, that.from)
-                        && Objects.equals(to, that.to)
-                        && Objects.equals(properties, that.properties)
-                        && Objects.equals(constraints, that.constraints)
-                        && Objects.equals(extensions, that.extensions)
-                        && Objects.equals(description, that.description)
-                        && Objects.equals(aliases, that.aliases)
-                        && Objects.equals(reference, that.reference);
+                && Objects.equals(from, that.from)
+                && Objects.equals(to, that.to)
+                && Objects.equals(properties, that.properties)
+                && Objects.equals(constraints, that.constraints)
+                && Objects.equals(extensions, that.extensions)
+                && Objects.equals(description, that.description)
+                && Objects.equals(aliases, that.aliases)
+                && Objects.equals(reference, that.reference);
     }
 
     @Override
@@ -161,7 +218,9 @@ public final class Relationship {
 
     @Override
     public String toString() {
-        return "Relationship(type=" + type + ", from=" + from + ", to=" + to + ", properties=" + properties + ", constraints=" + constraints + ", extensions=" + extensions + ", description=" + description + ", aliases=" + aliases + ", reference=" + reference + ")";
+        return "Relationship(type=" + type + ", from=" + from + ", to=" + to + ", properties=" + properties
+                + ", constraints=" + constraints + ", extensions=" + extensions + ", description=" + description
+                + ", aliases=" + aliases + ", reference=" + reference + ")";
     }
 
     @JsonProperty("type")
@@ -196,7 +255,9 @@ public final class Relationship {
     @JsonPropertyDescription("Constraints on the relationship keyed by id.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, RelationshipConstraint> jsonConstraints() {
-        return Objects.equals(this.constraints, new LinkedHashMap<String, RelationshipConstraint>()) ? null : this.constraints;
+        return Objects.equals(this.constraints, new LinkedHashMap<String, RelationshipConstraint>())
+                ? null
+                : this.constraints;
     }
 
     @JsonProperty("extensions")
@@ -228,7 +289,8 @@ public final class Relationship {
     }
 
     @JsonCreator
-    private static Relationship fromJson(@JsonProperty("type") String type,
+    private static Relationship fromJson(
+            @JsonProperty("type") String type,
             @JsonProperty("from") RelationshipTarget from,
             @JsonProperty("to") RelationshipTarget to,
             @JsonProperty("properties") Map<String, Property> properties,
@@ -237,14 +299,15 @@ public final class Relationship {
             @JsonProperty("description") String description,
             @JsonProperty("aliases") List<String> aliases,
             @JsonProperty("reference") String reference) {
-        return new Relationship(Objects.requireNonNull(type, "Field 'type' is required"),
-                    Objects.requireNonNull(from, "Field 'from' is required"),
-                    Objects.requireNonNull(to, "Field 'to' is required"),
-                    properties != null ? properties : new LinkedHashMap<String, Property>(),
-                    constraints != null ? constraints : new LinkedHashMap<String, RelationshipConstraint>(),
-                    extensions != null ? extensions : new RelationshipExtensions(),
-                    description != null ? description : "",
-                    aliases != null ? aliases : new ArrayList<String>(),
-                    reference != null ? reference : "");
+        return new Relationship(
+                Objects.requireNonNull(type, "Field 'type' is required"),
+                Objects.requireNonNull(from, "Field 'from' is required"),
+                Objects.requireNonNull(to, "Field 'to' is required"),
+                properties != null ? properties : new LinkedHashMap<String, Property>(),
+                constraints != null ? constraints : new LinkedHashMap<String, RelationshipConstraint>(),
+                extensions != null ? extensions : new RelationshipExtensions(),
+                description != null ? description : "",
+                aliases != null ? aliases : new ArrayList<String>(),
+                reference != null ? reference : "");
     }
 }

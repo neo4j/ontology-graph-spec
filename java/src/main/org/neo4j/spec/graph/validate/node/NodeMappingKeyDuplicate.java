@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/validate/node/NodeMappingKeyDuplicate.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.validate.node;
 
@@ -13,8 +29,7 @@ import org.neo4j.spec.graph.validate.duplicate.DuplicateEntries;
 public final class NodeMappingKeyDuplicate implements NodeValidation {
     public static final NodeMappingKeyDuplicate INSTANCE = new NodeMappingKeyDuplicate();
 
-    private NodeMappingKeyDuplicate() {
-    }
+    private NodeMappingKeyDuplicate() {}
 
     @Override
     public void validateNode(GraphModel model, String nodeId, Node node, List<Issue> issues) {
@@ -22,7 +37,12 @@ public final class NodeMappingKeyDuplicate implements NodeValidation {
             var mappingId = item.getMappingId();
             var index = item.getIndex();
             var nodeMapping = item.getMapping();
-            issues.addAll(DuplicateEntries.duplicateEntryIssues("duplicate_node_mapping_key", "mapping key", "node '" + nodeId + "'", nodeMapping.getKey(), "extensions.data_source_mappings." + mappingId + "[" + index + "].key"));
+            issues.addAll(DuplicateEntries.duplicateEntryIssues(
+                    "duplicate_node_mapping_key",
+                    "mapping key",
+                    "node '" + nodeId + "'",
+                    nodeMapping.getKey(),
+                    "extensions.data_source_mappings." + mappingId + "[" + index + "].key"));
         }
     }
 }

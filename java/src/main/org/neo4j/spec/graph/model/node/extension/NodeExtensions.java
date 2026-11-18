@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/node/extension/NodeExtensions.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.node.extension;
 
@@ -18,8 +34,7 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE
-)
+        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class NodeExtensions implements CustomExtensions {
     private final Map<String, NodeIndex> indexes;
 
@@ -27,8 +42,7 @@ public final class NodeExtensions implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public NodeExtensions(Map<String, NodeIndex> indexes, NodeDisplay display,
-            Map<String, Object> custom) {
+    public NodeExtensions(Map<String, NodeIndex> indexes, NodeDisplay display, Map<String, Object> custom) {
         this.indexes = indexes;
         this.display = display;
         this.custom = custom;
@@ -65,8 +79,8 @@ public final class NodeExtensions implements CustomExtensions {
         if (!(other instanceof NodeExtensions)) return false;
         NodeExtensions that = (NodeExtensions) other;
         return Objects.equals(indexes, that.indexes)
-                        && Objects.equals(display, that.display)
-                        && Objects.equals(custom, that.custom);
+                && Objects.equals(display, that.display)
+                && Objects.equals(custom, that.custom);
     }
 
     @Override
@@ -104,11 +118,13 @@ public final class NodeExtensions implements CustomExtensions {
     }
 
     @JsonCreator
-    private static NodeExtensions fromJson(@JsonProperty("indexes") Map<String, NodeIndex> indexes,
+    private static NodeExtensions fromJson(
+            @JsonProperty("indexes") Map<String, NodeIndex> indexes,
             @JsonProperty("display") NodeDisplay display,
             @JsonProperty("custom") Map<String, Object> custom) {
-        return new NodeExtensions(indexes != null ? indexes : new LinkedHashMap<String, NodeIndex>(),
-                    display != null ? display : null,
-                    custom != null ? custom : new LinkedHashMap<String, Object>());
+        return new NodeExtensions(
+                indexes != null ? indexes : new LinkedHashMap<String, NodeIndex>(),
+                display != null ? display : null,
+                custom != null ? custom : new LinkedHashMap<String, Object>());
     }
 }

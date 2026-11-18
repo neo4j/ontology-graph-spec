@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/validate/length/StringLength.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.validate.length;
 
@@ -38,17 +54,33 @@ public final class StringLength implements Validation {
         for (var entry : model.getNodes().entrySet()) {
             var nodeId = entry.getKey();
             var node = entry.getValue();
-            checkEntity("nodes." + nodeId, node.getDescription(), node.getProperties(), node.getConstraints(), node.getExtensions().getIndexes(), issues);
+            checkEntity(
+                    "nodes." + nodeId,
+                    node.getDescription(),
+                    node.getProperties(),
+                    node.getConstraints(),
+                    node.getExtensions().getIndexes(),
+                    issues);
         }
         for (var entry : model.getRelationships().entrySet()) {
             var relationshipId = entry.getKey();
             var relationship = entry.getValue();
-            checkEntity("relationships." + relationshipId, relationship.getDescription(), relationship.getProperties(), relationship.getConstraints(), relationship.getExtensions().getIndexes(), issues);
+            checkEntity(
+                    "relationships." + relationshipId,
+                    relationship.getDescription(),
+                    relationship.getProperties(),
+                    relationship.getConstraints(),
+                    relationship.getExtensions().getIndexes(),
+                    issues);
         }
     }
 
-    private void checkEntity(String path, String description, Map<String, Property> properties,
-            Map<String, ? extends Named> constraints, Map<String, ? extends Named> indexes,
+    private void checkEntity(
+            String path,
+            String description,
+            Map<String, Property> properties,
+            Map<String, ? extends Named> constraints,
+            Map<String, ? extends Named> indexes,
             List<Issue> issues) {
         check("description", description, this.MAX_DESCRIPTION_LENGTH, path + ".description", issues);
         for (var entry : properties.entrySet()) {
@@ -56,7 +88,12 @@ public final class StringLength implements Validation {
             var property = entry.getValue();
             String propertyPath = path + ".properties." + propertyId;
             check("name", property.getName(), this.MAX_NAME_LENGTH, propertyPath + ".name", issues);
-            check("description", property.getDescription(), this.MAX_DESCRIPTION_LENGTH, propertyPath + ".description", issues);
+            check(
+                    "description",
+                    property.getDescription(),
+                    this.MAX_DESCRIPTION_LENGTH,
+                    propertyPath + ".description",
+                    issues);
         }
         for (var entry : constraints.entrySet()) {
             var constraintId = entry.getKey();
@@ -77,7 +114,12 @@ public final class StringLength implements Validation {
             Map<String, String> details = new LinkedHashMap<>();
             details.put("length", String.valueOf(value.length()));
             details.put("max", String.valueOf(max));
-            issues.add(new Issue(field + "_too_long", "The " + field + " at '" + path + "' is " + value.length() + " characters long, the maximum is " + max, path, details));
+            issues.add(new Issue(
+                    field + "_too_long",
+                    "The " + field + " at '" + path + "' is " + value.length() + " characters long, the maximum is "
+                            + max,
+                    path,
+                    details));
         }
     }
 }

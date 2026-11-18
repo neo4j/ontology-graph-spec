@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/property/Neo4jType.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model.property;
 
@@ -112,8 +128,7 @@ public enum Neo4jType {
 
     UUID;
 
-    Neo4jType() {
-    }
+    Neo4jType() {}
 
     public static Neo4jType fromString(String string) {
         if (Objects.equals(string, "ANY")) {
@@ -284,7 +299,12 @@ public enum Neo4jType {
     }
 
     public static boolean isVector(Neo4jType type) {
-        if ((type == Neo4jType.VECTOR_FLOAT) || (type == Neo4jType.VECTOR_FLOAT32) || (type == Neo4jType.VECTOR_INTEGER) || (type == Neo4jType.VECTOR_INTEGER32) || (type == Neo4jType.VECTOR_INTEGER16) || (type == Neo4jType.VECTOR_INTEGER8)) {
+        if ((type == Neo4jType.VECTOR_FLOAT)
+                || (type == Neo4jType.VECTOR_FLOAT32)
+                || (type == Neo4jType.VECTOR_INTEGER)
+                || (type == Neo4jType.VECTOR_INTEGER32)
+                || (type == Neo4jType.VECTOR_INTEGER16)
+                || (type == Neo4jType.VECTOR_INTEGER8)) {
             return true;
         } else {
             return false;

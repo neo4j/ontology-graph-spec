@@ -1,4 +1,21 @@
-// Generated from org/neo4j/spec/graph/migrate/migration/dataModel/DataModelV2V3Migration.kt by :java:generator. Do not edit.
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+// Generated from org/neo4j/spec/graph/migrate/migration/dataModel/DataModelV2V3Migration.kt by :java:generator. Do not
+// edit.
 package org.neo4j.spec.graph.migrate.migration.dataModel;
 
 import java.util.ArrayList;
@@ -21,7 +38,8 @@ public final class DataModelV2V3Migration extends Migration {
 
     @Override
     public SchemaMap migrate(SchemaMap schema) {
-        List<SchemaMap> nodeKeyProperties = schema.map("graphSchemaExtensionsRepresentation").listOfMaps("nodeKeyProperties");
+        List<SchemaMap> nodeKeyProperties =
+                schema.map("graphSchemaExtensionsRepresentation").listOfMaps("nodeKeyProperties");
         Map<String, String> references = new LinkedHashMap<String, String>();
         for (var property : nodeKeyProperties) {
             SchemaMap key = property.removeMap("keyProperty");
@@ -32,7 +50,8 @@ public final class DataModelV2V3Migration extends Migration {
             references.put(nodeRef, DataModelUtils.ref(key));
         }
         Map<String, SchemaMap> relationshipObjectTypes = new LinkedHashMap<>();
-        for (SchemaMap objectType : schema.map("graphSchemaRepresentation").map("graphSchema").listOfMaps("relationshipObjectTypes")) {
+        for (SchemaMap objectType :
+                schema.map("graphSchemaRepresentation").map("graphSchema").listOfMaps("relationshipObjectTypes")) {
             relationshipObjectTypes.put(DataModelUtils.id(objectType), objectType);
         }
         for (var mapping : schema.map("graphMappingRepresentation").listOfMaps("relationshipMappings")) {
@@ -49,8 +68,7 @@ public final class DataModelV2V3Migration extends Migration {
         return schema;
     }
 
-    private void updateMapping(Map<String, String> references, SchemaMap mapping, String nodeRef,
-            String key) {
+    private void updateMapping(Map<String, String> references, SchemaMap mapping, String nodeRef, String key) {
         String toPropertyRef = references.get(nodeRef);
         if (toPropertyRef == null) {
             throw new IllegalStateException("Unable to resolve nodeKeyProperties to node ref " + nodeRef);

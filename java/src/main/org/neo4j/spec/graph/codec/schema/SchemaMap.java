@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/codec/schema/SchemaMap.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.codec.schema;
 
@@ -126,7 +142,8 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
         }
         SchemaMap value = map instanceof SchemaMap ? (SchemaMap) map : null;
         if (value == null) {
-            throw new IllegalStateException("Expected map, found invalid type " + map.getClass().getSimpleName() + " at " + path(key));
+            throw new IllegalStateException(
+                    "Expected map, found invalid type " + map.getClass().getSimpleName() + " at " + path(key));
         }
         return value;
     }
@@ -150,7 +167,8 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
         }
         SchemaList value = list instanceof SchemaList ? (SchemaList) list : null;
         if (value == null) {
-            throw new IllegalStateException("Expected list, found invalid type " + list.getClass().getSimpleName() + " at " + path(key));
+            throw new IllegalStateException(
+                    "Expected list, found invalid type " + list.getClass().getSimpleName() + " at " + path(key));
         }
         return value;
     }
@@ -167,7 +185,8 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
         }
         SchemaMap value = map instanceof SchemaMap ? (SchemaMap) map : null;
         if (value == null) {
-            throw new IllegalStateException("Expected map, found invalid type " + map.getClass().getSimpleName() + " at " + path(key));
+            throw new IllegalStateException(
+                    "Expected map, found invalid type " + map.getClass().getSimpleName() + " at " + path(key));
         }
         return value;
     }
@@ -193,7 +212,8 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
         }
         SchemaPrimitive value = literal instanceof SchemaPrimitive ? (SchemaPrimitive) literal : null;
         if (value == null) {
-            throw new IllegalStateException("Expected literal, found invalid type " + literal.getClass().getSimpleName() + " at " + path(key));
+            throw new IllegalStateException(
+                    "Expected literal, found invalid type " + literal.getClass().getSimpleName() + " at " + path(key));
         }
         return value;
     }
@@ -256,7 +276,8 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
         }
         SchemaMap schemaMap = map instanceof SchemaMap ? (SchemaMap) map : null;
         if (schemaMap == null) {
-            throw new IllegalStateException("Expected map, found invalid type " + map.getClass().getSimpleName() + " at " + path(key));
+            throw new IllegalStateException(
+                    "Expected map, found invalid type " + map.getClass().getSimpleName() + " at " + path(key));
         }
         Map<String, SchemaMap> result = new LinkedHashMap<>();
         for (Map.Entry<String, SchemaElement> entry : schemaMap.getContent().entrySet()) {
@@ -264,7 +285,8 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
             SchemaElement element = entry.getValue();
             SchemaMap child = element instanceof SchemaMap ? (SchemaMap) element : null;
             if (child == null) {
-                throw new IllegalStateException("Expected map, found invalid type " + ((SchemaMap) map).getClass().getSimpleName() + " at " + path(key2));
+                throw new IllegalStateException("Expected map, found invalid type "
+                        + ((SchemaMap) map).getClass().getSimpleName() + " at " + path(key2));
             }
             result.put(key2, child);
         }
@@ -324,14 +346,17 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
         }
         SchemaList schemaList = list instanceof SchemaList ? (SchemaList) list : null;
         if (schemaList == null) {
-            throw new IllegalStateException("Expected list, found invalid type " + list.getClass().getSimpleName() + " at " + path(key));
+            throw new IllegalStateException(
+                    "Expected list, found invalid type " + list.getClass().getSimpleName() + " at " + path(key));
         }
         List<SchemaMap> result = new ArrayList<>();
         int index = 0;
         for (SchemaElement element : schemaList.getContent()) {
             SchemaMap value = element instanceof SchemaMap ? (SchemaMap) element : null;
             if (value == null) {
-                throw new IllegalStateException("Expected map, found invalid type " + ((SchemaList) list).getClass().getSimpleName() + " at " + getPath() + "[" + index + "]." + key);
+                throw new IllegalStateException("Expected map, found invalid type "
+                        + ((SchemaList) list).getClass().getSimpleName() + " at " + getPath() + "[" + index + "]."
+                        + key);
             }
             result.add(value);
             index++;

@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 // Generated from org/neo4j/spec/graph/model/Notation.kt by :java:generator. Do not edit.
 package org.neo4j.spec.graph.model;
 
@@ -32,8 +48,7 @@ import org.neo4j.spec.graph.model.type.Named;
  * {@code longhand} expands shorthand, {@code shorthand} collapses longhand back where doing so loses no information.
  */
 public final class Notation {
-    private Notation() {
-    }
+    private Notation() {}
 
     public static void longhand(GraphModel model) {
         for (var node : model.getNodes().values()) {
@@ -49,28 +64,46 @@ public final class Notation {
             var key = entry.getKey();
             var node = entry.getValue();
             String value = node.getLabels().getIdentifier();
-            Notation.expand(node.getConstraints(), node.getProperties(), key, value != null ? value : "", (type, props) -> new NodeConstraint(type, props));
+            Notation.expand(
+                    node.getConstraints(),
+                    node.getProperties(),
+                    key,
+                    value != null ? value : "",
+                    (type, props) -> new NodeConstraint(type, props));
         }
         for (var entry : model.getRelationships().entrySet()) {
             var key = entry.getKey();
             var relationship = entry.getValue();
-            Notation.expand(relationship.getConstraints(), relationship.getProperties(), key, relationship.getType(), (type, props) -> new RelationshipConstraint(type, props));
+            Notation.expand(
+                    relationship.getConstraints(),
+                    relationship.getProperties(),
+                    key,
+                    relationship.getType(),
+                    (type, props) -> new RelationshipConstraint(type, props));
         }
     }
 
     public static void shorthand(GraphModel model) {
         for (var node : model.getNodes().values()) {
             String value = node.getLabels().getIdentifier();
-            Notation.collapse(node.getConstraints(), node.getProperties(), value != null ? value : "", it -> it.getExtensions());
+            Notation.collapse(
+                    node.getConstraints(), node.getProperties(), value != null ? value : "", it -> it.getExtensions());
             Labels labels = node.getLabels();
             String identifier = labels.getIdentifier();
-            if (identifier != null && labels.getImplied().isEmpty() && labels.getOptional().isEmpty() && labels.getExtensions().getCustom().isEmpty()) {
+            if (identifier != null
+                    && labels.getImplied().isEmpty()
+                    && labels.getOptional().isEmpty()
+                    && labels.getExtensions().getCustom().isEmpty()) {
                 node.setLabel(identifier);
                 labels.setIdentifier(null);
             }
         }
         for (var relationship : model.getRelationships().values()) {
-            Notation.collapse(relationship.getConstraints(), relationship.getProperties(), relationship.getType(), it -> it.getExtensions());
+            Notation.collapse(
+                    relationship.getConstraints(),
+                    relationship.getProperties(),
+                    relationship.getType(),
+                    it -> it.getExtensions());
         }
     }
 
@@ -78,8 +111,10 @@ public final class Notation {
      * Converts single property constraints into shorthand flags on the property.
      * Constraints with a custom name or extensions are kept, as that data would be lost.
      */
-    private static <C extends Constraint & Named> void collapse(Map<String, C> constraints,
-            Map<String, Property> properties, String label,
+    private static <C extends Constraint & Named> void collapse(
+            Map<String, C> constraints,
+            Map<String, Property> properties,
+            String label,
             Function<C, CustomExtensions> extensions) {
         Set<String> collapsed = new LinkedHashSet<String>();
         for (var entry : constraints.entrySet()) {
@@ -95,8 +130,10 @@ public final class Notation {
                 continue;
             }
             String value = property.getName();
-            String expected = NameFormat.constraintName(Collections.singletonList(value != null ? value : propertyKey), label, constraint.getType());
-            if (!extensions.apply(constraint).getCustom().isEmpty() || constraint.getName() != null && !Objects.equals(constraint.getName(), expected)) {
+            String expected = NameFormat.constraintName(
+                    Collections.singletonList(value != null ? value : propertyKey), label, constraint.getType());
+            if (!extensions.apply(constraint).getCustom().isEmpty()
+                    || constraint.getName() != null && !Objects.equals(constraint.getName(), expected)) {
                 continue;
             }
             ConstraintType subject = constraint.getType();
@@ -120,8 +157,11 @@ public final class Notation {
      * Converts shorthand property constraints into long-hand constraints.
      * Doesn't check or transform (e.g. for overlapping)
      */
-    private static <C extends Constraint & Named> void expand(Map<String, C> constraints,
-            Map<String, Property> properties, String entity, String label,
+    private static <C extends Constraint & Named> void expand(
+            Map<String, C> constraints,
+            Map<String, Property> properties,
+            String entity,
+            String label,
             BiFunction<ConstraintType, List<String>, C> constraint) {
         for (var entry : properties.entrySet()) {
             var key = entry.getKey();
@@ -152,6 +192,7 @@ public final class Notation {
     }
 
     public static String deterministicId(String entity, ConstraintType type, String... properties) {
-        return type.name().toLowerCase(Locale.ROOT) + "_" + entity + "_" + Arrays.stream(properties).distinct().sorted().collect(Collectors.joining("_"));
+        return type.name().toLowerCase(Locale.ROOT) + "_" + entity + "_"
+                + Arrays.stream(properties).distinct().sorted().collect(Collectors.joining("_"));
     }
 }
