@@ -16,8 +16,12 @@
  */
 package org.neo4j.spec.graph.validate;
 
+import org.neo4j.spec.graph.validate.core.CoreValidators;
+
 /** The built-in sets of validators. Combine them with each other and your own using {@link ValidatorSet#and}. */
 public final class Validators {
+
+    private static final ValidatorSet CORE = ValidatorSet.of(CoreValidators.all());
 
     private Validators() {}
 
@@ -26,6 +30,6 @@ public final class Validators {
      * {@code schema} URL.
      */
     public static ValidatorSet core() {
-        throw new UnsupportedOperationException("TODO");
+        return CORE;
     }
 }

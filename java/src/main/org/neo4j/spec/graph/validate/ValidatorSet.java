@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -101,11 +102,82 @@ public final class ValidatorSet implements Validator, Iterable<Validator> {
      * Runs the validators and their dependencies against a model. Each runs once, after its dependencies, and is
      * skipped if any of them found issues.
      *
-     * @return every issue found, empty when the model has none
+     * @return every issue found, in the order the validators ran, as an unmodifiable list; empty when the model has none
+     * @throws IllegalStateException if validators depend on each other in a cycle
      */
     @Override
     public List<Issue> validate(GraphModel model) {
-        throw new UnsupportedOperationException("TODO");
+        Objects.requireNonNull(model, "model");
+        Set<Validator> ordered = new LinkedHashSet<>();
+        Set<Validator> visiting = new LinkedHashSet<>();
+        for (Validator validator : validators) {
+            order(validator, ordered, visiting);
+        }
+        Set<Validator> unhealthy = new HashSet<>();
+        List<Issue> issues = new ArrayList<>();
+        for (Validator validator : ordered) {
+            if (validator instanceof ValidatorSet) {
+                continue;
+            }
+            if (dependencies(validator).stream().anyMatch(unhealthy::contains)) {
+                unhealthy.add(validator);
+                continue;
+            }
+            List<Issue> found = Objects.requireNonNull(validator.validate(model), "issues of " + validator);
+            if (!found.isEmpty()) {
+                unhealthy.add(validator);
+                issues.addAll(found);
+            }
+        }
+        return Collections.unmodifiableList(issues);
+    }
+
+    /** Adds the validator after its dependencies, depth first, so earlier entries never depend on later ones. */
+    private static void order(Validator validator, Set<Validator> ordered, Set<Validator> visiting) {
+        if (validator instanceof ValidatorSet) {
+            for (Validator member : ((ValidatorSet) validator).validators) {
+                order(member, ordered, visiting);
+            }
+            return;
+        }
+        if (ordered.contains(validator)) {
+            return;
+        }
+        if (!visiting.add(validator)) {
+            throw new IllegalStateException("Validators have a dependency cycle: " + cycle(visiting, validator));
+        }
+        for (Validator dependency : dependencies(validator)) {
+            order(dependency, ordered, visiting);
+        }
+        visiting.remove(validator);
+        ordered.add(validator);
+    }
+
+    private static String cycle(Set<Validator> visiting, Validator repeated) {
+        List<String> names = new ArrayList<>();
+        boolean inCycle = false;
+        for (Validator validator : visiting) {
+            inCycle = inCycle || validator.equals(repeated);
+            if (inCycle) {
+                names.add(String.valueOf(validator));
+            }
+        }
+        names.add(String.valueOf(repeated));
+        return String.join(" -> ", names);
+    }
+
+    /** The direct dependencies of a validator, with any nested sets flattened. */
+    private static List<Validator> dependencies(Validator validator) {
+        List<Validator> result = new ArrayList<>();
+        for (Validator dependency : validator.dependsOn()) {
+            Objects.requireNonNull(dependency, "dependency of " + validator);
+            if (dependency instanceof ValidatorSet) {
+                result.addAll(((ValidatorSet) dependency).validators);
+            } else {
+                result.add(dependency);
+            }
+        }
+        return result;
     }
 
     @Override
