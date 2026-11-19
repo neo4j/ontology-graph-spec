@@ -132,7 +132,7 @@ public final class YamlEmitter {
     private void block(JsonNode node, int indent, List<String> path, boolean inline) {
         boolean first = true;
         if (node.isObject()) {
-            Iterator<Map.Entry<String, JsonNode>> it = node.fields();
+            Iterator<Map.Entry<String, JsonNode>> it = node.properties().iterator();
             while (it.hasNext()) {
                 Map.Entry<String, JsonNode> e = it.next();
                 if (!(first && inline)) {
@@ -196,7 +196,7 @@ public final class YamlEmitter {
             }
             out.append("{ ");
             boolean first = true;
-            Iterator<Map.Entry<String, JsonNode>> it = node.fields();
+            Iterator<Map.Entry<String, JsonNode>> it = node.properties().iterator();
             while (it.hasNext()) {
                 Map.Entry<String, JsonNode> e = it.next();
                 if (!first) {

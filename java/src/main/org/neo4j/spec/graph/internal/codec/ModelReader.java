@@ -501,7 +501,7 @@ public final class ModelReader {
             List<Mapping> list = new ArrayList<>();
             int i = 0;
             for (JsonNode item : e.getValue()) {
-                list.add(mapping(item, path + "." + i++));
+                list.add(mapping(item, path + "[" + i++ + "]"));
             }
             b.dataSourceMapping(e.getKey(), list);
             any = true;
@@ -524,7 +524,7 @@ public final class ModelReader {
             for (JsonNode item : columns) {
                 b.column(column(new Obj(
                         item,
-                        base + "." + i++,
+                        base + "[" + i++ + "]",
                         "name",
                         "type",
                         "size",
@@ -790,7 +790,7 @@ public final class ModelReader {
             int i = 0;
             for (JsonNode item : v) {
                 if (!item.isNumber()) {
-                    throw error(key + "." + i, "expected a number");
+                    throw error(key + "[" + i + "]", "expected a number");
                 }
                 list.add(item.doubleValue());
                 i++;
@@ -810,7 +810,7 @@ public final class ModelReader {
             int i = 0;
             for (JsonNode item : v) {
                 if (!item.isTextual()) {
-                    throw error(key + "." + i, "expected a string");
+                    throw error(key + "[" + i + "]", "expected a string");
                 }
                 list.add(item.textValue());
                 i++;
@@ -842,7 +842,7 @@ public final class ModelReader {
             List<E> list = new ArrayList<>();
             int i = 0;
             for (String s : strings(key)) {
-                list.add(lookup(key + "." + i++, s, values, wire));
+                list.add(lookup(key + "[" + i++ + "]", s, values, wire));
             }
             return list;
         }
@@ -941,7 +941,7 @@ public final class ModelReader {
             List<Object> list = new ArrayList<>();
             int i = 0;
             for (JsonNode item : n) {
-                list.add(plain(item, path + "." + i++));
+                list.add(plain(item, path + "[" + i++ + "]"));
             }
             return list;
         }

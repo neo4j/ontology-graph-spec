@@ -107,6 +107,7 @@ class CodecTests {
         assertPath("nodes.a.aliases", doc("\"a\":{\"aliases\":\"x\"}"));
         assertPath("nodes.a.properties.p.dimension", doc("\"a\":{\"properties\":{\"p\":{\"dimension\":\"3\"}}}"));
         assertPath("nodes.a", doc("\"a\":[]"));
+        assertPath("nodes.a.aliases[1]", doc("\"a\":{\"aliases\":[\"x\",5]}"));
     }
 
     @Test

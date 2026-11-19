@@ -360,7 +360,7 @@ public final class ModelWriter {
                 }
                 c.nullable().filter(v -> !v).ifPresent(v -> co.put("nullable", false));
                 c.dimension().ifPresent(v -> co.put("dimension", v));
-                custom(co, "custom", c.custom(), path + ".columns." + i++ + ".custom");
+                custom(co, "custom", c.custom(), path + ".columns[" + i++ + "].custom");
             }
         }
         if (!t.primaryKeys().isEmpty()) {
@@ -511,7 +511,7 @@ public final class ModelWriter {
             ArrayNode a = F.arrayNode();
             int i = 0;
             for (Object item : (Collection<?>) value) {
-                a.add(plain(item, path + "." + i++));
+                a.add(plain(item, path + "[" + i++ + "]"));
             }
             return a;
         }
