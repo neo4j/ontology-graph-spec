@@ -49,6 +49,10 @@ compared exactly and committed with LF line endings so Windows checks the same b
 Kotlin-generated `expected.json`; failure cases require an error with a nonblank diagnostic, not a fixed stack trace.
 These fixtures are JSON-only so Go can run them too. .NET and Kotlin also test YAML migration at the adapter level.
 
+For Data Importer exports, the Go runner compares `dataSourceSchema.tableSchemas` by table name: they originate in an
+unordered graph-spec object, and Go's JSON encoder sorts its keys. Every table and its full content must still match;
+all other array ordering is preserved.
+
 Cases cover graph spec 1.0.0 upgrades, flat and wrapped Data Importer 2.3.0/2.4.0/3.0.0 imports, flat and wrapped 3.0.0
 exports, custom-data loss, unsupported reverse routes and unrepresentable graph-spec input. Export expectations are
 not assumed to be lossless. Only the Kotlin reference runner updates expected files.

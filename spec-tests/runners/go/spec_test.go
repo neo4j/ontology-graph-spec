@@ -38,10 +38,40 @@ func TestMigrate(t *testing.T) {
 				require.NotEmpty(t, err.Error())
 			} else {
 				require.NoError(t, err)
-				require.JSONEq(t, read(t, filepath.Join(dir, "expected.json")), actual)
+				require.Equal(t,
+					migrationJSON(t, read(t, filepath.Join(dir, "expected.json")), options.TargetType),
+					migrationJSON(t, actual, options.TargetType))
 			}
 		})
 	}
+}
+
+func migrationJSON(t *testing.T, content, targetType string) map[string]any {
+	t.Helper()
+	var document map[string]any
+	require.NoError(t, json.Unmarshal([]byte(content), &document))
+	if targetType != "data_model" && targetType != "data_model_wrapped" {
+		return document
+	}
+
+	path := []string{"graphMappingRepresentation", "dataSourceSchema"}
+	if targetType == "data_model_wrapped" {
+		path = append([]string{"dataModel"}, path...)
+	}
+	current := document
+	for _, key := range path {
+		require.IsType(t, map[string]any{}, current[key])
+		current = current[key].(map[string]any)
+	}
+	require.IsType(t, []any{}, current["tableSchemas"])
+	tables := current["tableSchemas"].([]any)
+	// Table schemas originate in a graph-spec object keyed by table name. Go's JSON
+	// encoder sorts those keys; their insertion order is not part of that contract.
+	// Preserve every table, field and all other array ordering in the comparison.
+	sort.SliceStable(tables, func(i, j int) bool {
+		return tables[i].(map[string]any)["name"].(string) < tables[j].(map[string]any)["name"].(string)
+	})
+	return document
 }
 
 func TestDocuments(t *testing.T) {
