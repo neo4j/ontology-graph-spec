@@ -1,0 +1,17 @@
+[
+    {
+        "code": "node_type_constraint_property_untyped",
+        "path": "nodes.person.constraints.any.properties[0]",
+        "details": {}
+    },
+    {
+        "code": "node_type_constraint_property_untyped",
+        "path": "nodes.person.constraints.untyped.properties[0]",
+        "details": {}
+    },
+    {
+        "code": "relationship_type_constraint_property_untyped",
+        "path": "relationships.knows.constraints.untyped.properties[0]",
+        "details": {}
+    }
+]

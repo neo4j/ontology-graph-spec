@@ -23,12 +23,56 @@ constraint.
 | All | Running every built-in check.
 |===
 
-The xref:java.adoc[Java library] includes the Core set.
+The xref:java.adoc[Java library] includes the Core, Labelled, Consistent Schema and Well Constrained sets, and All, which
+runs every built-in check in that library.
 
 Combine sets to check a model against more than one, such as Core and Labelled.
 
 A validator can depend on others, and only runs when they found no issues. This avoids a cascade of issues from a single
 mistake, but means fixing an issue can reveal new ones.
+
+== What the Java library's sets check
+
+The xref:java.adoc[Java library] implements the Labelled, Consistent Schema and Well Constrained sets as below. Their
+issue codes are specific to the Java library. Issue codes name the owner as `node` or `relationship`.
+
+=== Labelled
+
+* Every node has an identifier label (`unset_node_identifier_label`).
+* Every relationship has a type (`unset_relationship_type`).
+* Every relationship has a `from` and a `to` node (`unset_relationship_from_node`, `unset_relationship_to_node`). A node
+that doesn't exist is a Core issue instead.
+
+=== Consistent Schema
+
+Runs only when Core finds no issues with references, constraint property counts or index options, so a dangling id is
+reported once.
+
+* Every constraint and index has a name (`unset_node_constraint_name`, `unset_relationship_constraint_name`,
+`unset_node_index_name`, `unset_relationship_index_name`).
+* Names are unique. Constraints and indexes share one namespace across all nodes and relationships
+(`duplicate_schema_name`).
+* Constraints aren't duplicated: the same type over the same set of properties on the same target, which is a node's
+identifier label (or the node itself without one) or a relationship's type (`duplicate_node_constraint`,
+`duplicate_relationship_constraint`).
+* Indexes aren't duplicated: the same type, labels and ordered properties on the same target (`duplicate_node_index`,
+`duplicate_relationship_index`).
+* A `RANGE` index doesn't have the same ordered properties as a `UNIQUE` or `KEY` constraint on the same target, since
+Neo4j backs those constraints with a range index (`node_index_conflicts_with_constraint`,
+`relationship_index_conflicts_with_constraint`).
+* Indexes have a number of properties and labels that suits their type, and every label is one of the node's labels
+(`invalid_node_index_property_count`, `invalid_relationship_index_property_count`, `invalid_node_index_label_count`,
+`node_index_label_not_on_node`).
+* Indexed properties have a type that suits the index, when they have one (`node_index_property_type_mismatch`,
+`relationship_index_property_type_mismatch`).
+* The `vector.dimensions` of a `VECTOR` index match the `dimension` of its property (`vector_index_dimension_mismatch`).
+* The property of a `PROPERTY_TYPE` constraint has a type (`node_type_constraint_property_untyped`,
+`relationship_type_constraint_property_untyped`).
+
+=== Well Constrained
+
+* Every node has properties (`node_without_properties`) and a constraint (`node_without_constraint`).
+* Every property has a type (`property_without_type`).
 
 == Issues
 

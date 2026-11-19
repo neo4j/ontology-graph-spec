@@ -1,0 +1,18 @@
+[
+    {
+        "code": "vector_index_dimension_mismatch",
+        "path": "nodes.place.extensions.indexes.wrong.options",
+        "details": {
+            "index": "4",
+            "property": "3"
+        }
+    },
+    {
+        "code": "vector_index_dimension_mismatch",
+        "path": "relationships.near.extensions.indexes.wrong.options",
+        "details": {
+            "index": "3",
+            "property": "2"
+        }
+    }
+]

@@ -1,0 +1,260 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "index-property-types",
+  "description": "Indexes over properties whose type the index type can't handle.",
+  "nodes": {
+    "person": {
+      "labels": {
+        "identifier": "Person"
+      },
+      "properties": {
+        "name": {
+          "type": "STRING"
+        },
+        "tags": {
+          "type": "LIST<STRING>"
+        },
+        "loc": {
+          "type": "POINT"
+        },
+        "emb": {
+          "type": "VECTOR<FLOAT>"
+        },
+        "emb2": {
+          "type": "LIST<FLOAT>"
+        },
+        "emb3": {
+          "type": "LIST<INTEGER8>"
+        },
+        "age": {
+          "type": "INTEGER"
+        },
+        "free": {}
+      },
+      "extensions": {
+        "indexes": {
+          "text-name": {
+            "type": "TEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "name"
+            ],
+            "name": "person_text-name"
+          },
+          "text-age": {
+            "type": "TEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "age"
+            ],
+            "name": "person_text-age"
+          },
+          "text-tags": {
+            "type": "TEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "tags"
+            ],
+            "name": "person_text-tags"
+          },
+          "text-free": {
+            "type": "TEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "free"
+            ],
+            "name": "person_text-free"
+          },
+          "full-ok": {
+            "type": "FULLTEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "name",
+              "tags"
+            ],
+            "name": "person_full-ok"
+          },
+          "full-age": {
+            "type": "FULLTEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "name",
+              "age"
+            ],
+            "name": "person_full-age"
+          },
+          "point-loc": {
+            "type": "POINT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "loc"
+            ],
+            "name": "person_point-loc"
+          },
+          "point-name": {
+            "type": "POINT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "name"
+            ],
+            "name": "person_point-name"
+          },
+          "vec-emb": {
+            "type": "VECTOR",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "emb"
+            ],
+            "name": "person_vec-emb"
+          },
+          "vec-emb2": {
+            "type": "VECTOR",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "emb2"
+            ],
+            "name": "person_vec-emb2"
+          },
+          "vec-emb3": {
+            "type": "VECTOR",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "emb3"
+            ],
+            "name": "person_vec-emb3"
+          },
+          "vec-name": {
+            "type": "VECTOR",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "name"
+            ],
+            "name": "person_vec-name"
+          },
+          "vec-age": {
+            "type": "VECTOR",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "age"
+            ],
+            "name": "person_vec-age"
+          },
+          "range-loc": {
+            "type": "RANGE",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "loc"
+            ],
+            "name": "person_range-loc"
+          },
+          "range-tags": {
+            "type": "RANGE",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "tags"
+            ],
+            "name": "person_range-tags"
+          }
+        }
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {},
+      "to": {},
+      "properties": {
+        "note": {
+          "type": "STRING"
+        },
+        "tags": {
+          "type": "LIST<STRING>"
+        },
+        "place": {
+          "type": "POINT"
+        },
+        "count": {
+          "type": "INTEGER"
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "text-note": {
+            "type": "TEXT",
+            "properties": [
+              "note"
+            ],
+            "name": "knows_text-note"
+          },
+          "text-count": {
+            "type": "TEXT",
+            "properties": [
+              "count"
+            ],
+            "name": "knows_text-count"
+          },
+          "full-tags": {
+            "type": "FULLTEXT",
+            "properties": [
+              "tags"
+            ],
+            "name": "knows_full-tags"
+          },
+          "point-place": {
+            "type": "POINT",
+            "properties": [
+              "place"
+            ],
+            "name": "knows_point-place"
+          },
+          "point-count": {
+            "type": "POINT",
+            "properties": [
+              "count"
+            ],
+            "name": "knows_point-count"
+          },
+          "vec-count": {
+            "type": "VECTOR",
+            "properties": [
+              "count"
+            ],
+            "name": "knows_vec-count"
+          }
+        }
+      }
+    }
+  }
+}

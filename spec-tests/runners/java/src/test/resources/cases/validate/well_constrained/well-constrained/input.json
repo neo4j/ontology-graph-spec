@@ -1,0 +1,49 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "well-constrained",
+  "description": "Every node has typed properties and a constraint.",
+  "nodes": {
+    "person": {
+      "labels": {
+        "identifier": "Person"
+      },
+      "properties": {
+        "name": {
+          "type": "STRING",
+          "must_exist": true
+        }
+      }
+    },
+    "movie": {
+      "labels": {
+        "identifier": "Movie"
+      },
+      "properties": {
+        "title": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "title_key": {
+          "type": "KEY",
+          "properties": [
+            "title"
+          ],
+          "name": "movie_title_key"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "acted-in": {
+      "type": "ACTED_IN",
+      "from": {
+        "node": "person"
+      },
+      "to": {
+        "node": "movie"
+      }
+    }
+  }
+}

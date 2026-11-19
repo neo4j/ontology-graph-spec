@@ -1,0 +1,32 @@
+[
+    {
+        "code": "unset_node_constraint_name",
+        "path": "nodes.person.constraints.blank-name.name",
+        "details": {}
+    },
+    {
+        "code": "unset_node_constraint_name",
+        "path": "nodes.person.constraints.no-name.name",
+        "details": {}
+    },
+    {
+        "code": "unset_node_index_name",
+        "path": "nodes.person.extensions.indexes.blank-name.name",
+        "details": {}
+    },
+    {
+        "code": "unset_node_index_name",
+        "path": "nodes.person.extensions.indexes.no-name.name",
+        "details": {}
+    },
+    {
+        "code": "unset_relationship_constraint_name",
+        "path": "relationships.knows.constraints.no-name.name",
+        "details": {}
+    },
+    {
+        "code": "unset_relationship_index_name",
+        "path": "relationships.knows.extensions.indexes.no-name.name",
+        "details": {}
+    }
+]

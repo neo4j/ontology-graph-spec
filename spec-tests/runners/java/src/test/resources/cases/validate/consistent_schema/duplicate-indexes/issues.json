@@ -1,0 +1,44 @@
+[
+    {
+        "code": "duplicate_node_index",
+        "path": "nodes.person-copy.extensions.indexes.first",
+        "details": {
+            "first": "nodes.person.extensions.indexes.first"
+        }
+    },
+    {
+        "code": "duplicate_node_index",
+        "path": "nodes.person.extensions.indexes.full-swapped",
+        "details": {
+            "first": "nodes.person.extensions.indexes.full"
+        }
+    },
+    {
+        "code": "duplicate_node_index",
+        "path": "nodes.person.extensions.indexes.same",
+        "details": {
+            "first": "nodes.person.extensions.indexes.first"
+        }
+    },
+    {
+        "code": "duplicate_node_index",
+        "path": "nodes.person.extensions.indexes.text-again",
+        "details": {
+            "first": "nodes.person.extensions.indexes.text"
+        }
+    },
+    {
+        "code": "duplicate_relationship_index",
+        "path": "relationships.knows-too.extensions.indexes.since",
+        "details": {
+            "first": "relationships.knows.extensions.indexes.since"
+        }
+    },
+    {
+        "code": "duplicate_relationship_index",
+        "path": "relationships.knows.extensions.indexes.since-again",
+        "details": {
+            "first": "relationships.knows.extensions.indexes.since"
+        }
+    }
+]

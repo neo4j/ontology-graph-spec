@@ -1,0 +1,124 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "unset-names",
+  "description": "Constraints and indexes without a name, or with a blank one.",
+  "nodes": {
+    "person": {
+      "labels": {
+        "identifier": "Person"
+      },
+      "properties": {
+        "name": {
+          "type": "STRING"
+        },
+        "age": {
+          "type": "INTEGER"
+        }
+      },
+      "constraints": {
+        "no-name": {
+          "type": "EXISTS",
+          "properties": [
+            "name"
+          ]
+        },
+        "blank-name": {
+          "type": "EXISTS",
+          "properties": [
+            "age"
+          ],
+          "name": "  "
+        },
+        "named": {
+          "type": "UNIQUE",
+          "properties": [
+            "name"
+          ],
+          "name": "person_named"
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "no-name": {
+            "type": "RANGE",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "age"
+            ]
+          },
+          "blank-name": {
+            "type": "TEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "name"
+            ],
+            "name": ""
+          },
+          "named-index": {
+            "type": "RANGE",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "age",
+              "name"
+            ],
+            "name": "person_named-index"
+          }
+        }
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {},
+      "to": {},
+      "properties": {
+        "since": {
+          "type": "DATE"
+        },
+        "note": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "no-name": {
+          "type": "EXISTS",
+          "properties": [
+            "since"
+          ]
+        },
+        "named": {
+          "type": "EXISTS",
+          "properties": [
+            "note"
+          ],
+          "name": "knows_named"
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "no-name": {
+            "type": "RANGE",
+            "properties": [
+              "since"
+            ]
+          },
+          "named-index": {
+            "type": "TEXT",
+            "properties": [
+              "note"
+            ],
+            "name": "knows_named-index"
+          }
+        }
+      }
+    }
+  }
+}

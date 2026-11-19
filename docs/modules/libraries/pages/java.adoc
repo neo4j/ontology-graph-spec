@@ -140,8 +140,15 @@ for (Issue issue : issues) {
 }
 ----
 
-The library includes the Core set. Its validators are also available on their own from `CoreValidators`, such as
-`CoreValidators.REFERENCES`.
+The library includes the `core()`, `labelled()`, `consistentSchema()` and `wellConstrained()` sets, and `all()`, which is
+every built-in check in the library. Their validators are also available on their own from `CoreValidators`,
+`LabelledValidators`, `ConsistentSchemaValidators` and `WellConstrainedValidators`, such as `CoreValidators.REFERENCES`.
+Combine sets with `and`:
+
+[source,java]
+----
+List<Issue> issues = spec.validate(model, Validators.core().and(Validators.labelled()));
+----
 
 [#custom-validators]
 === Custom validators

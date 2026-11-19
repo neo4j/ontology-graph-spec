@@ -1,0 +1,24 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "end-node-does-not-exist",
+  "description": "An end naming a missing node is a core issue, not an unset end.",
+  "nodes": {
+    "person": {
+      "labels": {
+        "identifier": "Person"
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {
+        "node": "person"
+      },
+      "to": {
+        "node": "ghost"
+      }
+    }
+  }
+}

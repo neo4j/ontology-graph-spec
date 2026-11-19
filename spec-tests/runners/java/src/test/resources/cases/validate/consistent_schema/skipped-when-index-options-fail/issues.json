@@ -1,0 +1,7 @@
+[
+    {
+        "code": "node_index_type_options_mismatch",
+        "path": "nodes.person.extensions.indexes.mismatch.options",
+        "details": {}
+    }
+]

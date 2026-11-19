@@ -1,0 +1,15 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "consistent-schema-skipped"
+description: "A core reference issue skips the consistent schema checks but not the others."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+    properties:
+      name: {}
+    constraints:
+      ghost:
+        type: "EXISTS"
+        properties: ["missing"]
+  nothing: {}

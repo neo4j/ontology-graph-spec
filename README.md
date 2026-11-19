@@ -165,8 +165,8 @@ String encoded = GraphSpec.getYaml().encodeToString(model);
 ### Java (pure Java library)
 
 A separate Java implementation with no dependencies beyond Jackson, published as
-`org.neo4j.spec.graph:ontology-graph-spec-java`. It passes the same spec tests, and adds migration to any version and
-custom validators. See [docs/modules/libraries/pages/java.adoc](docs/modules/libraries/pages/java.adoc).
+`org.neo4j.spec.graph:ontology-graph-spec-java`. It passes the same spec tests, implements the Core, Labelled, Consistent
+Schema and Well Constrained validator sets, and adds migration to any version and custom validators. See [docs/modules/libraries/pages/java.adoc](docs/modules/libraries/pages/java.adoc).
 
 ```java
 import org.neo4j.spec.graph.Format;

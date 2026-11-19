@@ -1,0 +1,138 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "vector-dimensions",
+  "description": "Vector indexes whose dimensions differ from the dimension of the property.",
+  "nodes": {
+    "place": {
+      "labels": {
+        "identifier": "Place"
+      },
+      "properties": {
+        "emb": {
+          "type": "VECTOR<FLOAT>",
+          "dimension": 3
+        },
+        "emb2": {
+          "type": "VECTOR<FLOAT>"
+        },
+        "emb4": {
+          "type": "VECTOR<FLOAT>",
+          "dimension": 4
+        },
+        "emb5": {
+          "type": "VECTOR<FLOAT>",
+          "dimension": 8
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "wrong": {
+            "type": "VECTOR",
+            "labels": [
+              "Place"
+            ],
+            "properties": [
+              "emb"
+            ],
+            "options": {
+              "type": "VECTOR",
+              "vector.similarity_function": "cosine",
+              "vector.dimensions": 4
+            },
+            "name": "place_wrong"
+          },
+          "right": {
+            "type": "VECTOR",
+            "labels": [
+              "Place"
+            ],
+            "properties": [
+              "emb4"
+            ],
+            "options": {
+              "type": "VECTOR",
+              "vector.similarity_function": "cosine",
+              "vector.dimensions": 4
+            },
+            "name": "place_right"
+          },
+          "no-index-dimensions": {
+            "type": "VECTOR",
+            "labels": [
+              "Place"
+            ],
+            "properties": [
+              "emb5"
+            ],
+            "options": {
+              "type": "VECTOR",
+              "vector.similarity_function": "cosine"
+            },
+            "name": "place_no-index-dimensions"
+          },
+          "no-property-dimension": {
+            "type": "VECTOR",
+            "labels": [
+              "Place"
+            ],
+            "properties": [
+              "emb2"
+            ],
+            "options": {
+              "type": "VECTOR",
+              "vector.similarity_function": "cosine",
+              "vector.dimensions": 5
+            },
+            "name": "place_no-property-dimension"
+          }
+        }
+      }
+    }
+  },
+  "relationships": {
+    "near": {
+      "type": "NEAR",
+      "from": {},
+      "to": {},
+      "properties": {
+        "emb": {
+          "type": "VECTOR<FLOAT>",
+          "dimension": 2
+        },
+        "emb2": {
+          "type": "VECTOR<FLOAT>",
+          "dimension": 3
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "wrong": {
+            "type": "VECTOR",
+            "properties": [
+              "emb"
+            ],
+            "options": {
+              "type": "VECTOR",
+              "vector.similarity_function": "cosine",
+              "vector.dimensions": 3
+            },
+            "name": "near_wrong"
+          },
+          "right": {
+            "type": "VECTOR",
+            "properties": [
+              "emb2"
+            ],
+            "options": {
+              "type": "VECTOR",
+              "vector.similarity_function": "cosine",
+              "vector.dimensions": 3
+            },
+            "name": "near_right"
+          }
+        }
+      }
+    }
+  }
+}

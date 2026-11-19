@@ -1,0 +1,133 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "duplicate-names",
+  "description": "Constraints and indexes share one namespace of names across nodes and relationships.",
+  "nodes": {
+    "person": {
+      "labels": {
+        "identifier": "Person"
+      },
+      "properties": {
+        "name": {
+          "type": "STRING"
+        },
+        "bio": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "first": {
+          "type": "EXISTS",
+          "properties": [
+            "name"
+          ],
+          "name": "shared"
+        },
+        "second": {
+          "type": "UNIQUE",
+          "properties": [
+            "name"
+          ],
+          "name": "shared"
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "third": {
+            "type": "TEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "name"
+            ],
+            "name": "shared"
+          },
+          "fourth": {
+            "type": "TEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "bio"
+            ],
+            "name": "own"
+          }
+        }
+      }
+    },
+    "movie": {
+      "labels": {
+        "identifier": "Movie"
+      },
+      "properties": {
+        "title": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "fifth": {
+          "type": "EXISTS",
+          "properties": [
+            "title"
+          ],
+          "name": "shared"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "acted-in": {
+      "type": "ACTED_IN",
+      "from": {},
+      "to": {},
+      "properties": {
+        "role": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "sixth": {
+          "type": "EXISTS",
+          "properties": [
+            "role"
+          ],
+          "name": "rel-shared"
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "seventh": {
+            "type": "TEXT",
+            "properties": [
+              "role"
+            ],
+            "name": "rel-shared"
+          }
+        }
+      }
+    },
+    "directed": {
+      "type": "DIRECTED",
+      "from": {},
+      "to": {},
+      "properties": {
+        "year": {
+          "type": "INTEGER"
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "eighth": {
+            "type": "RANGE",
+            "properties": [
+              "year"
+            ],
+            "name": "own"
+          }
+        }
+      }
+    }
+  }
+}

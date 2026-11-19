@@ -1,0 +1,24 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "skipped-when-index-options-fail"
+description: "Consistent schema checks don't run when index options don't match the index type."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+    properties:
+      name:
+        type: "STRING"
+    constraints:
+      unnamed:
+        type: "EXISTS"
+        properties: ["name"]
+    extensions:
+      indexes:
+        mismatch:
+          type: "TEXT"
+          labels: ["Person"]
+          properties: ["name"]
+          options:
+            type: "FULLTEXT"
+          name: "person_mismatch"

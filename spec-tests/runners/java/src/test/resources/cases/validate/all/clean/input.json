@@ -1,0 +1,161 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "clean",
+  "description": "A model that passes every built-in check.",
+  "nodes": {
+    "person": {
+      "labels": {
+        "identifier": "Person"
+      },
+      "properties": {
+        "name": {
+          "type": "STRING"
+        },
+        "bio": {
+          "type": "STRING"
+        },
+        "loc": {
+          "type": "POINT"
+        },
+        "emb": {
+          "type": "VECTOR<FLOAT>",
+          "dimension": 3
+        }
+      },
+      "constraints": {
+        "name_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "name"
+          ],
+          "name": "person_name_unique"
+        },
+        "bio_type": {
+          "type": "PROPERTY_TYPE",
+          "properties": [
+            "bio"
+          ],
+          "name": "person_bio_type"
+        },
+        "bio_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "bio"
+          ],
+          "name": "person_bio_exists"
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "bio": {
+            "type": "TEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "bio"
+            ],
+            "name": "person_bio"
+          },
+          "full": {
+            "type": "FULLTEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "name",
+              "bio"
+            ],
+            "name": "person_full"
+          },
+          "loc": {
+            "type": "POINT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "loc"
+            ],
+            "name": "person_loc"
+          },
+          "emb": {
+            "type": "VECTOR",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "emb"
+            ],
+            "options": {
+              "type": "VECTOR",
+              "vector.similarity_function": "cosine",
+              "vector.dimensions": 3
+            },
+            "name": "person_emb"
+          },
+          "lookup": {
+            "type": "LOOKUP",
+            "labels": [],
+            "properties": [],
+            "name": "person_lookup"
+          }
+        }
+      }
+    },
+    "movie": {
+      "labels": {
+        "identifier": "Movie"
+      },
+      "properties": {
+        "title": {
+          "type": "STRING",
+          "key": true
+        }
+      }
+    }
+  },
+  "relationships": {
+    "acted-in": {
+      "type": "ACTED_IN",
+      "from": {
+        "node": "person"
+      },
+      "to": {
+        "node": "movie"
+      },
+      "properties": {
+        "role": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "role_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "role"
+          ],
+          "name": "acted-in_role_exists"
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "role": {
+            "type": "TEXT",
+            "properties": [
+              "role"
+            ],
+            "name": "acted-in_role"
+          },
+          "role-range": {
+            "type": "RANGE",
+            "properties": [
+              "role"
+            ],
+            "name": "acted-in_role-range"
+          }
+        }
+      }
+    }
+  }
+}

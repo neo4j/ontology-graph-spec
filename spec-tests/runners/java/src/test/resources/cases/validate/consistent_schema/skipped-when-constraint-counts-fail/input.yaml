@@ -1,0 +1,23 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "skipped-when-constraint-counts-fail"
+description: "Consistent schema checks don't run when a constraint covers the wrong number of properties."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+    properties:
+      name:
+        type: "STRING"
+      age:
+        type: "INTEGER"
+    constraints:
+      two:
+        type: "EXISTS"
+        properties: ["name", "age"]
+    extensions:
+      indexes:
+        unnamed:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["name"]

@@ -1,0 +1,75 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "design",
+  "description": "Nodes without properties or constraints, and properties without a type.",
+  "nodes": {
+    "empty": {
+      "labels": {
+        "identifier": "Empty"
+      }
+    },
+    "unconstrained": {
+      "labels": {
+        "identifier": "Plain"
+      },
+      "properties": {
+        "x": {
+          "type": "STRING"
+        }
+      }
+    },
+    "shorthand": {
+      "labels": {
+        "identifier": "Short"
+      },
+      "properties": {
+        "id": {
+          "type": "STRING",
+          "unique": true
+        }
+      }
+    },
+    "untyped": {
+      "labels": {
+        "identifier": "Loose"
+      },
+      "properties": {
+        "free": {},
+        "any": {
+          "type": "ANY"
+        },
+        "typed": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "typed_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "typed"
+          ],
+          "name": "untyped_typed_exists"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {},
+      "to": {},
+      "properties": {
+        "since": {},
+        "note": {
+          "type": "STRING"
+        }
+      }
+    },
+    "bare": {
+      "type": "BARE",
+      "from": {},
+      "to": {}
+    }
+  }
+}

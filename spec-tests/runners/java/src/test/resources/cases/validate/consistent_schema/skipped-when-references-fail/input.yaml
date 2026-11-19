@@ -1,0 +1,21 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "skipped-when-references-fail"
+description: "Consistent schema checks don't run when a reference doesn't resolve; only the core issue is reported."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+    properties:
+      name:
+        type: "STRING"
+    constraints:
+      ghost:
+        type: "UNIQUE"
+        properties: ["name", "ghost"]
+    extensions:
+      indexes:
+        unnamed:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["name"]

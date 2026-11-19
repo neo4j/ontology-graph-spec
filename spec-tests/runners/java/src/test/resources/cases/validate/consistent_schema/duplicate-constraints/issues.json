@@ -1,0 +1,51 @@
+[
+    {
+        "code": "duplicate_node_constraint",
+        "path": "nodes.anon-two.constraints.email_unique_again",
+        "details": {
+            "first": "nodes.anon-two.constraints.email_unique"
+        }
+    },
+    {
+        "code": "duplicate_node_constraint",
+        "path": "nodes.person-copy.constraints.email_unique",
+        "details": {
+            "first": "nodes.person.constraints.email_unique"
+        }
+    },
+    {
+        "code": "duplicate_node_constraint",
+        "path": "nodes.person.constraints.ba",
+        "details": {
+            "first": "nodes.person.constraints.ab"
+        }
+    },
+    {
+        "code": "duplicate_node_constraint",
+        "path": "nodes.person.constraints.email_unique_again",
+        "details": {
+            "first": "nodes.person.constraints.email_unique"
+        }
+    },
+    {
+        "code": "duplicate_node_constraint",
+        "path": "nodes.person.constraints.key_person_id",
+        "details": {
+            "first": "nodes.person.constraints.id_key"
+        }
+    },
+    {
+        "code": "duplicate_relationship_constraint",
+        "path": "relationships.knows-too.constraints.since_unique",
+        "details": {
+            "first": "relationships.knows.constraints.since_unique"
+        }
+    },
+    {
+        "code": "duplicate_relationship_constraint",
+        "path": "relationships.knows.constraints.since_unique_again",
+        "details": {
+            "first": "relationships.knows.constraints.since_unique"
+        }
+    }
+]

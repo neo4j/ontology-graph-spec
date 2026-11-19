@@ -1,0 +1,23 @@
+[
+    {
+        "code": "node_index_conflicts_with_constraint",
+        "path": "nodes.person.extensions.indexes.ab",
+        "details": {
+            "constraint": "nodes.person.constraints.ab_key"
+        }
+    },
+    {
+        "code": "node_index_conflicts_with_constraint",
+        "path": "nodes.person.extensions.indexes.email",
+        "details": {
+            "constraint": "nodes.person.constraints.email_unique"
+        }
+    },
+    {
+        "code": "relationship_index_conflicts_with_constraint",
+        "path": "relationships.knows.extensions.indexes.since",
+        "details": {
+            "constraint": "relationships.knows.constraints.since_unique"
+        }
+    }
+]

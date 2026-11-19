@@ -1,0 +1,42 @@
+[
+    {
+        "code": "duplicate_schema_name",
+        "path": "nodes.movie.constraints.fifth.name",
+        "details": {
+            "value": "shared",
+            "first": "nodes.person.constraints.first.name"
+        }
+    },
+    {
+        "code": "duplicate_schema_name",
+        "path": "nodes.person.constraints.second.name",
+        "details": {
+            "value": "shared",
+            "first": "nodes.person.constraints.first.name"
+        }
+    },
+    {
+        "code": "duplicate_schema_name",
+        "path": "nodes.person.extensions.indexes.third.name",
+        "details": {
+            "value": "shared",
+            "first": "nodes.person.constraints.first.name"
+        }
+    },
+    {
+        "code": "duplicate_schema_name",
+        "path": "relationships.acted-in.extensions.indexes.seventh.name",
+        "details": {
+            "value": "rel-shared",
+            "first": "relationships.acted-in.constraints.sixth.name"
+        }
+    },
+    {
+        "code": "duplicate_schema_name",
+        "path": "relationships.directed.extensions.indexes.eighth.name",
+        "details": {
+            "value": "own",
+            "first": "nodes.person.extensions.indexes.fourth.name"
+        }
+    }
+]

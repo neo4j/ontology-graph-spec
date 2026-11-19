@@ -1,0 +1,32 @@
+[
+    {
+        "code": "node_without_constraint",
+        "path": "nodes.empty",
+        "details": {}
+    },
+    {
+        "code": "node_without_constraint",
+        "path": "nodes.unconstrained",
+        "details": {}
+    },
+    {
+        "code": "node_without_properties",
+        "path": "nodes.empty",
+        "details": {}
+    },
+    {
+        "code": "property_without_type",
+        "path": "nodes.untyped.properties.any",
+        "details": {}
+    },
+    {
+        "code": "property_without_type",
+        "path": "nodes.untyped.properties.free",
+        "details": {}
+    },
+    {
+        "code": "property_without_type",
+        "path": "relationships.knows.properties.since",
+        "details": {}
+    }
+]

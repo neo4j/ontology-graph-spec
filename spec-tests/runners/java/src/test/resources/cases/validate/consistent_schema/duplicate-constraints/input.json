@@ -1,0 +1,238 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "duplicate-constraints",
+  "description": "Constraints of the same type over the same properties on the same target.",
+  "nodes": {
+    "person": {
+      "labels": {
+        "identifier": "Person"
+      },
+      "properties": {
+        "id": {
+          "type": "STRING",
+          "key": true
+        },
+        "email": {
+          "type": "STRING"
+        },
+        "a": {
+          "type": "STRING"
+        },
+        "b": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "id_key": {
+          "type": "KEY",
+          "properties": [
+            "id"
+          ],
+          "name": "person_id_key"
+        },
+        "email_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "email"
+          ],
+          "name": "person_email_unique"
+        },
+        "email_unique_again": {
+          "type": "UNIQUE",
+          "properties": [
+            "email"
+          ],
+          "name": "person_email_unique_again"
+        },
+        "email_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "email"
+          ],
+          "name": "person_email_exists"
+        },
+        "email_key": {
+          "type": "KEY",
+          "properties": [
+            "email"
+          ],
+          "name": "person_email_key"
+        },
+        "ab": {
+          "type": "UNIQUE",
+          "properties": [
+            "a",
+            "b"
+          ],
+          "name": "person_ab"
+        },
+        "ba": {
+          "type": "UNIQUE",
+          "properties": [
+            "b",
+            "a"
+          ],
+          "name": "person_ba"
+        },
+        "a_only": {
+          "type": "UNIQUE",
+          "properties": [
+            "a"
+          ],
+          "name": "person_a_only"
+        }
+      }
+    },
+    "person-copy": {
+      "labels": {
+        "identifier": "Person"
+      },
+      "properties": {
+        "email": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "email_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "email"
+          ],
+          "name": "person-copy_email_unique"
+        }
+      }
+    },
+    "robot": {
+      "labels": {
+        "identifier": "Robot"
+      },
+      "properties": {
+        "email": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "email_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "email"
+          ],
+          "name": "robot_email_unique"
+        }
+      }
+    },
+    "anon-one": {
+      "properties": {
+        "email": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "email_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "email"
+          ],
+          "name": "anon-one_email_unique"
+        }
+      }
+    },
+    "anon-two": {
+      "properties": {
+        "email": {
+          "type": "STRING"
+        }
+      },
+      "constraints": {
+        "email_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "email"
+          ],
+          "name": "anon-two_email_unique"
+        },
+        "email_unique_again": {
+          "type": "UNIQUE",
+          "properties": [
+            "email"
+          ],
+          "name": "anon-two_email_unique_again"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {},
+      "to": {},
+      "properties": {
+        "since": {
+          "type": "DATE"
+        }
+      },
+      "constraints": {
+        "since_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "since"
+          ],
+          "name": "knows_since_unique"
+        },
+        "since_unique_again": {
+          "type": "UNIQUE",
+          "properties": [
+            "since"
+          ],
+          "name": "knows_since_unique_again"
+        },
+        "since_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "since"
+          ],
+          "name": "knows_since_exists"
+        }
+      }
+    },
+    "knows-too": {
+      "type": "KNOWS",
+      "from": {},
+      "to": {},
+      "properties": {
+        "since": {
+          "type": "DATE"
+        }
+      },
+      "constraints": {
+        "since_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "since"
+          ],
+          "name": "knows-too_since_unique"
+        }
+      }
+    },
+    "likes": {
+      "type": "LIKES",
+      "from": {},
+      "to": {},
+      "properties": {
+        "since": {
+          "type": "DATE"
+        }
+      },
+      "constraints": {
+        "since_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "since"
+          ],
+          "name": "likes_since_unique"
+        }
+      }
+    }
+  }
+}

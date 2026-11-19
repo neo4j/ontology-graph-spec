@@ -25,6 +25,10 @@ tasks.test {
     val cases = layout.projectDirectory.dir("../../cases")
     inputs.dir(cases)
     systemProperty("specTests.cases", cases.asFile.path)
+    // Cases for this library only, whose expected issues aren't shared with the other runners.
+    val javaCases = layout.projectDirectory.dir("src/test/resources/cases")
+    inputs.dir(javaCases)
+    systemProperty("specTests.javaCases", javaCases.asFile.path)
     testLogging {
         events("failed")
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL

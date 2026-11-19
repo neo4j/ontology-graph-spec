@@ -40,7 +40,10 @@ import org.neo4j.spec.graph.validate.Issue;
 import org.neo4j.spec.graph.validate.Validator;
 import org.neo4j.spec.graph.validate.ValidatorSet;
 import org.neo4j.spec.graph.validate.Validators;
+import org.neo4j.spec.graph.validate.consistent.ConsistentSchemaValidators;
 import org.neo4j.spec.graph.validate.core.CoreValidators;
+import org.neo4j.spec.graph.validate.labelled.LabelledValidators;
+import org.neo4j.spec.graph.validate.wellconstrained.WellConstrainedValidators;
 
 /** Unit tests of the validation engine and the core validators, using models built in code. */
 class ValidationTests {
@@ -660,6 +663,149 @@ class ValidationTests {
         assertEquals(List.of(a, b, c), nested.validators());
         nested.validate(model().build());
         assertEquals(List.of("a", "b", "c"), log);
+    }
+
+    // ---- labelled, consistent schema, well constrained and all ----
+
+    @Test
+    void setsAreSharedAndHaveEveryValidator() {
+        assertSame(Validators.labelled(), Validators.labelled());
+        assertSame(Validators.consistentSchema(), Validators.consistentSchema());
+        assertSame(Validators.wellConstrained(), Validators.wellConstrained());
+        assertSame(Validators.all(), Validators.all());
+        assertEquals(3, Validators.labelled().size());
+        assertEquals(9, Validators.consistentSchema().size());
+        assertEquals(3, Validators.wellConstrained().size());
+        assertEquals(ValidatorSet.of(LabelledValidators.all()), Validators.labelled());
+        assertEquals(ValidatorSet.of(ConsistentSchemaValidators.all()), Validators.consistentSchema());
+        assertEquals(ValidatorSet.of(WellConstrainedValidators.all()), Validators.wellConstrained());
+        assertEquals("NodeIdentifierLabelValidator", LabelledValidators.NODE_IDENTIFIER_LABELS.toString());
+        assertEquals("DuplicateIndexValidator", ConsistentSchemaValidators.DUPLICATE_INDEXES.toString());
+        assertEquals("PropertyTypeValidator", WellConstrainedValidators.PROPERTY_TYPES.toString());
+    }
+
+    @Test
+    void allContainsEachSetInOrder() {
+        List<Validator> expected = new ArrayList<>(Validators.core().validators());
+        expected.addAll(Validators.labelled().validators());
+        expected.addAll(Validators.consistentSchema().validators());
+        expected.addAll(Validators.wellConstrained().validators());
+        assertEquals(expected, Validators.all().validators());
+        assertEquals(Validators.core().and(Validators.labelled()).and(Validators.consistentSchema()).and(Validators.wellConstrained()), Validators.all());
+    }
+
+    @Test
+    void consistentSchemaValidatorsDependOnCore() {
+        for (Validator validator : Validators.consistentSchema()) {
+            assertEquals(
+                    Set.of(
+                            CoreValidators.REFERENCES,
+                            CoreValidators.CONSTRAINT_PROPERTY_COUNTS,
+                            CoreValidators.INDEX_OPTIONS),
+                    validator.dependsOn(),
+                    validator.toString());
+        }
+        for (Validator validator : Validators.labelled()) {
+            assertEquals(Set.of(), validator.dependsOn(), validator.toString());
+        }
+        for (Validator validator : Validators.wellConstrained()) {
+            assertEquals(Set.of(), validator.dependsOn(), validator.toString());
+        }
+    }
+
+    @Test
+    void consistentSchemaIsSkippedWhenCoreReferencesFail() {
+        Node person = Node.builder()
+                .labels(Labels.builder().identifier("Person").build())
+                .property("name", property(Neo4jType.STRING).build())
+                .constraint(
+                        "ghost",
+                        NodeConstraint.builder()
+                                .type(ConstraintType.EXISTS)
+                                .property("missing")
+                                .build())
+                .build();
+        GraphModel model = model().node("person", person).build();
+        List<Issue> issues = Validators.consistentSchema().validate(model);
+        assertEquals(List.of("missing_node_constraint_property"), codes(issues));
+        // the checks themselves find the unset name when run without their dependencies' result mattering
+        assertEquals(
+                List.of("unset_node_constraint_name"),
+                codes(ConsistentSchemaValidators.SCHEMA_NAMES.validate(model)));
+    }
+
+    @Test
+    void consistentSchemaRunsOnceCoreIsClean() {
+        Node person = Node.builder()
+                .labels(Labels.builder().identifier("Person").build())
+                .property("name", property(Neo4jType.STRING).build())
+                .constraint(
+                        "unnamed",
+                        NodeConstraint.builder()
+                                .type(ConstraintType.EXISTS)
+                                .property("name")
+                                .build())
+                .build();
+        List<Issue> issues = Validators.consistentSchema().validate(model().node("person", person).build());
+        assertEquals(1, issues.size(), issues.toString());
+        assertIssue(issues, "unset_node_constraint_name", "nodes.person.constraints.unnamed.name", Map.of());
+    }
+
+    @Test
+    void labelledAndWellConstrainedRunDespiteCoreIssues() {
+        GraphModel model = model().schema("x").node("nothing", Node.builder().build()).build();
+        assertEquals(
+                List.of("unknown_schema", "unset_node_identifier_label"),
+                codes(Validators.core().and(Validators.labelled()).validate(model)));
+        assertEquals(
+                List.of("node_without_properties", "node_without_constraint"),
+                codes(Validators.wellConstrained().validate(model)));
+    }
+
+    @Test
+    void allFindsIssuesOfEverySet() {
+        Node nothing = Node.builder().build();
+        GraphModel model = model().schema("x").node("nothing", nothing).build();
+        assertEquals(
+                List.of(
+                        "unknown_schema",
+                        "unset_node_identifier_label",
+                        "node_without_properties",
+                        "node_without_constraint"),
+                codes(Validators.all().validate(model)));
+    }
+
+    @Test
+    void duplicateSchemaNamesShareOneNamespaceAcrossOwners() {
+        Node person = Node.builder()
+                .property("name", property(Neo4jType.STRING).build())
+                .constraint(
+                        "c",
+                        NodeConstraint.builder()
+                                .type(ConstraintType.EXISTS)
+                                .property("name")
+                                .name("shared")
+                                .build())
+                .build();
+        Relationship rel = knows().property("since", property(Neo4jType.DATE).build())
+                .extensions(RelationshipExtensions.builder()
+                        .index(
+                                "i",
+                                RelationshipIndex.builder()
+                                        .type(IndexType.RANGE)
+                                        .property("since")
+                                        .name("shared")
+                                        .build())
+                        .build())
+                .build();
+        List<Issue> issues = ConsistentSchemaValidators.UNIQUE_SCHEMA_NAMES.validate(
+                model().node("person", person).relationship("knows", rel).build());
+        assertEquals(1, issues.size(), issues.toString());
+        assertIssue(
+                issues,
+                "duplicate_schema_name",
+                "relationships.knows.extensions.indexes.i.name",
+                Map.of("value", "shared", "first", "nodes.person.constraints.c.name"));
     }
 
     private static List<String> codes(List<Issue> issues) {

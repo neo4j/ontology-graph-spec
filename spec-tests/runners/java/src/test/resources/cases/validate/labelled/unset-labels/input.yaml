@@ -1,0 +1,48 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "unset-labels"
+description: "Nodes without an identifier label and relationships without a type or ends."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+  nothing: {}
+  implied-only:
+    labels:
+      implied: ["Agent"]
+  blank:
+    labels:
+      identifier: "  "
+relationships:
+  complete:
+    type: "KNOWS"
+    from:
+      node: "person"
+    to:
+      node: "person"
+  no-type:
+    type: ""
+    from:
+      node: "person"
+    to:
+      node: "person"
+  blank-type:
+    type: "   "
+    from:
+      node: "person"
+    to:
+      node: "person"
+  no-from:
+    type: "OWNS"
+    from: {}
+    to:
+      node: "person"
+  no-to:
+    type: "MADE"
+    from:
+      node: "person"
+    to: {}
+  no-ends:
+    type: "LIKES"
+    from: {}
+    to: {}

@@ -1,0 +1,112 @@
+[
+    {
+        "code": "invalid_node_index_label_count",
+        "path": "nodes.person.extensions.indexes.full-no-labels.labels",
+        "details": {
+            "type": "FULLTEXT",
+            "count": "0"
+        }
+    },
+    {
+        "code": "invalid_node_index_label_count",
+        "path": "nodes.person.extensions.indexes.lookup-label.labels",
+        "details": {
+            "type": "LOOKUP",
+            "count": "1"
+        }
+    },
+    {
+        "code": "invalid_node_index_label_count",
+        "path": "nodes.person.extensions.indexes.range-two-labels.labels",
+        "details": {
+            "type": "RANGE",
+            "count": "2"
+        }
+    },
+    {
+        "code": "invalid_node_index_property_count",
+        "path": "nodes.person.extensions.indexes.lookup-props.properties",
+        "details": {
+            "type": "LOOKUP",
+            "count": "1"
+        }
+    },
+    {
+        "code": "invalid_node_index_property_count",
+        "path": "nodes.person.extensions.indexes.point-two.properties",
+        "details": {
+            "type": "POINT",
+            "count": "2"
+        }
+    },
+    {
+        "code": "invalid_node_index_property_count",
+        "path": "nodes.person.extensions.indexes.range-none.properties",
+        "details": {
+            "type": "RANGE",
+            "count": "0"
+        }
+    },
+    {
+        "code": "invalid_node_index_property_count",
+        "path": "nodes.person.extensions.indexes.text-two.properties",
+        "details": {
+            "type": "TEXT",
+            "count": "2"
+        }
+    },
+    {
+        "code": "invalid_node_index_property_count",
+        "path": "nodes.person.extensions.indexes.vector-none.properties",
+        "details": {
+            "type": "VECTOR",
+            "count": "0"
+        }
+    },
+    {
+        "code": "invalid_relationship_index_property_count",
+        "path": "relationships.knows.extensions.indexes.lookup-props.properties",
+        "details": {
+            "type": "LOOKUP",
+            "count": "1"
+        }
+    },
+    {
+        "code": "invalid_relationship_index_property_count",
+        "path": "relationships.knows.extensions.indexes.range-none.properties",
+        "details": {
+            "type": "RANGE",
+            "count": "0"
+        }
+    },
+    {
+        "code": "invalid_relationship_index_property_count",
+        "path": "relationships.knows.extensions.indexes.text-two.properties",
+        "details": {
+            "type": "TEXT",
+            "count": "2"
+        }
+    },
+    {
+        "code": "invalid_relationship_index_property_count",
+        "path": "relationships.knows.extensions.indexes.vector-none.properties",
+        "details": {
+            "type": "VECTOR",
+            "count": "0"
+        }
+    },
+    {
+        "code": "node_index_label_not_on_node",
+        "path": "nodes.person.extensions.indexes.full-ghost.labels[1]",
+        "details": {
+            "value": "Ghost"
+        }
+    },
+    {
+        "code": "node_index_label_not_on_node",
+        "path": "nodes.person.extensions.indexes.ghost.labels[0]",
+        "details": {
+            "value": "Ghost"
+        }
+    }
+]

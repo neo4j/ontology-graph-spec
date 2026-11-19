@@ -1,0 +1,122 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "index-shape"
+description: "Indexes with a number of properties or labels their type doesn't allow, or labels the node doesn't have."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+      implied: ["Agent"]
+    properties:
+      a: {}
+      b: {}
+    extensions:
+      indexes:
+        text-two:
+          type: "TEXT"
+          labels: ["Person"]
+          properties: ["a", "b"]
+          name: "person_text-two"
+        range-none:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: []
+          name: "person_range-none"
+        lookup-props:
+          type: "LOOKUP"
+          labels: []
+          properties: ["a"]
+          name: "person_lookup-props"
+        lookup-label:
+          type: "LOOKUP"
+          labels: ["Person"]
+          properties: []
+          name: "person_lookup-label"
+        full-no-labels:
+          type: "FULLTEXT"
+          labels: []
+          properties: ["a"]
+          name: "person_full-no-labels"
+        range-two-labels:
+          type: "RANGE"
+          labels: ["Person", "Agent"]
+          properties: ["a"]
+          name: "person_range-two-labels"
+        point-two:
+          type: "POINT"
+          labels: ["Person"]
+          properties: ["a", "b"]
+          name: "person_point-two"
+        vector-none:
+          type: "VECTOR"
+          labels: ["Person"]
+          properties: []
+          name: "person_vector-none"
+        ghost:
+          type: "RANGE"
+          labels: ["Ghost"]
+          properties: ["b"]
+          name: "person_ghost"
+        full-ghost:
+          type: "FULLTEXT"
+          labels: ["Person", "Ghost"]
+          properties: ["a", "b"]
+          name: "person_full-ghost"
+        range-ok:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["a", "b"]
+          name: "person_range-ok"
+        full-ok:
+          type: "FULLTEXT"
+          labels: ["Person", "Agent"]
+          properties: ["a"]
+          name: "person_full-ok"
+        point-ok:
+          type: "POINT"
+          labels: ["Person"]
+          properties: ["a"]
+          name: "person_point-ok"
+        lookup-ok:
+          type: "LOOKUP"
+          labels: []
+          properties: []
+          name: "person_lookup-ok"
+relationships:
+  knows:
+    type: "KNOWS"
+    from: {}
+    to: {}
+    properties:
+      a: {}
+      b: {}
+    extensions:
+      indexes:
+        text-two:
+          type: "TEXT"
+          properties: ["a", "b"]
+          name: "knows_text-two"
+        lookup-props:
+          type: "LOOKUP"
+          properties: ["a"]
+          name: "knows_lookup-props"
+        vector-none:
+          type: "VECTOR"
+          properties: []
+          name: "knows_vector-none"
+        range-none:
+          type: "RANGE"
+          properties: []
+          name: "knows_range-none"
+        lookup-ok:
+          type: "LOOKUP"
+          properties: []
+          name: "knows_lookup-ok"
+        full-ok:
+          type: "FULLTEXT"
+          properties: ["a", "b"]
+          name: "knows_full-ok"
+        range-ok:
+          type: "RANGE"
+          properties: ["a"]
+          name: "knows_range-ok"

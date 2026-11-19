@@ -33,11 +33,17 @@ import org.neo4j.spec.graph.validate.Validators;
 class SpecTests {
 
     private static final Path CASES = Paths.get(System.getProperty("specTests.cases", "../../cases"));
+    private static final Path JAVA_CASES = Paths.get(System.getProperty("specTests.javaCases", "src/test/resources/cases"));
     private static final ObjectMapper JSON = new ObjectMapper();
     private static final GraphSpec SPEC = GraphSpec.defaults();
 
     private static final Map<String, java.util.function.Supplier<ValidatorSet>> SETS =
-            Map.of("core", Validators::core);
+            Map.of(
+                    "core", Validators::core,
+                    "labelled", Validators::labelled,
+                    "consistent_schema", Validators::consistentSchema,
+                    "well_constrained", Validators::wellConstrained,
+                    "all", Validators::all);
 
     @TestFactory
     Stream<DynamicTest> documents() {
@@ -47,9 +53,15 @@ class SpecTests {
 
     @TestFactory
     Stream<DynamicTest> validate() {
-        return caseDirs(CASES.resolve("validate")).flatMap(set -> caseDirs(set)
+        return Stream.concat(
+                validationTests(CASES.resolve("validate"), "validate/"),
+                validationTests(JAVA_CASES.resolve("validate"), "java/validate/"));
+    }
+
+    private static Stream<DynamicTest> validationTests(Path root, String prefix) {
+        return caseDirs(root).flatMap(set -> caseDirs(set)
                 .map(dir -> DynamicTest.dynamicTest(
-                        "validate/" + set.getFileName() + "/" + dir.getFileName(),
+                        prefix + set.getFileName() + "/" + dir.getFileName(),
                         () -> validation(set.getFileName().toString(), dir))));
     }
 

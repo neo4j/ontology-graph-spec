@@ -1,0 +1,7 @@
+[
+    {
+        "code": "missing_node_constraint_property",
+        "path": "nodes.person.constraints.ghost.properties.ghost",
+        "details": {}
+    }
+]

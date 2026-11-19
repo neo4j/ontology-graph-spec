@@ -1,0 +1,47 @@
+[
+    {
+        "code": "unset_node_identifier_label",
+        "path": "nodes.blank.labels.identifier",
+        "details": {}
+    },
+    {
+        "code": "unset_node_identifier_label",
+        "path": "nodes.implied-only.labels.identifier",
+        "details": {}
+    },
+    {
+        "code": "unset_node_identifier_label",
+        "path": "nodes.nothing.labels.identifier",
+        "details": {}
+    },
+    {
+        "code": "unset_relationship_from_node",
+        "path": "relationships.no-ends.from.node",
+        "details": {}
+    },
+    {
+        "code": "unset_relationship_from_node",
+        "path": "relationships.no-from.from.node",
+        "details": {}
+    },
+    {
+        "code": "unset_relationship_to_node",
+        "path": "relationships.no-ends.to.node",
+        "details": {}
+    },
+    {
+        "code": "unset_relationship_to_node",
+        "path": "relationships.no-to.to.node",
+        "details": {}
+    },
+    {
+        "code": "unset_relationship_type",
+        "path": "relationships.blank-type.type",
+        "details": {}
+    },
+    {
+        "code": "unset_relationship_type",
+        "path": "relationships.no-type.type",
+        "details": {}
+    }
+]

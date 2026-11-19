@@ -1,0 +1,74 @@
+[
+    {
+        "code": "node_index_property_type_mismatch",
+        "path": "nodes.person.extensions.indexes.full-age.properties[1]",
+        "details": {
+            "index_type": "FULLTEXT",
+            "property_type": "INTEGER"
+        }
+    },
+    {
+        "code": "node_index_property_type_mismatch",
+        "path": "nodes.person.extensions.indexes.point-name.properties[0]",
+        "details": {
+            "index_type": "POINT",
+            "property_type": "STRING"
+        }
+    },
+    {
+        "code": "node_index_property_type_mismatch",
+        "path": "nodes.person.extensions.indexes.text-age.properties[0]",
+        "details": {
+            "index_type": "TEXT",
+            "property_type": "INTEGER"
+        }
+    },
+    {
+        "code": "node_index_property_type_mismatch",
+        "path": "nodes.person.extensions.indexes.text-tags.properties[0]",
+        "details": {
+            "index_type": "TEXT",
+            "property_type": "LIST<STRING>"
+        }
+    },
+    {
+        "code": "node_index_property_type_mismatch",
+        "path": "nodes.person.extensions.indexes.vec-age.properties[0]",
+        "details": {
+            "index_type": "VECTOR",
+            "property_type": "INTEGER"
+        }
+    },
+    {
+        "code": "node_index_property_type_mismatch",
+        "path": "nodes.person.extensions.indexes.vec-name.properties[0]",
+        "details": {
+            "index_type": "VECTOR",
+            "property_type": "STRING"
+        }
+    },
+    {
+        "code": "relationship_index_property_type_mismatch",
+        "path": "relationships.knows.extensions.indexes.point-count.properties[0]",
+        "details": {
+            "index_type": "POINT",
+            "property_type": "INTEGER"
+        }
+    },
+    {
+        "code": "relationship_index_property_type_mismatch",
+        "path": "relationships.knows.extensions.indexes.text-count.properties[0]",
+        "details": {
+            "index_type": "TEXT",
+            "property_type": "INTEGER"
+        }
+    },
+    {
+        "code": "relationship_index_property_type_mismatch",
+        "path": "relationships.knows.extensions.indexes.vec-count.properties[0]",
+        "details": {
+            "index_type": "VECTOR",
+            "property_type": "INTEGER"
+        }
+    }
+]

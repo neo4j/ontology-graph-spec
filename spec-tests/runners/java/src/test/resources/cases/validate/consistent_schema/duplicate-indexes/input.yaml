@@ -1,0 +1,168 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "duplicate-indexes"
+description: "Indexes of the same type over the same labels and ordered properties on the same target."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+      implied: ["Agent"]
+    properties:
+      name:
+        type: "STRING"
+      age:
+        type: "INTEGER"
+      bio:
+        type: "STRING"
+    extensions:
+      indexes:
+        first:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["name", "age"]
+          name: "person_first"
+        same:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["name", "age"]
+          name: "person_same"
+        reordered:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["age", "name"]
+          name: "person_reordered"
+        text:
+          type: "TEXT"
+          labels: ["Person"]
+          properties: ["name"]
+          name: "person_text"
+        text-again:
+          type: "TEXT"
+          labels: ["Person"]
+          properties: ["name"]
+          name: "person_text-again"
+        other-type:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["name"]
+          name: "person_other-type"
+        other-label:
+          type: "RANGE"
+          labels: ["Agent"]
+          properties: ["name"]
+          name: "person_other-label"
+        full:
+          type: "FULLTEXT"
+          labels: ["Person", "Agent"]
+          properties: ["name", "bio"]
+          name: "person_full"
+        full-swapped:
+          type: "FULLTEXT"
+          labels: ["Agent", "Person"]
+          properties: ["name", "bio"]
+          name: "person_full-swapped"
+        full-reordered:
+          type: "FULLTEXT"
+          labels: ["Person", "Agent"]
+          properties: ["bio", "name"]
+          name: "person_full-reordered"
+        lookup:
+          type: "LOOKUP"
+          labels: []
+          properties: []
+          name: "person_lookup"
+  person-copy:
+    labels:
+      identifier: "Person"
+    properties:
+      name:
+        type: "STRING"
+      age:
+        type: "INTEGER"
+    extensions:
+      indexes:
+        first:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["name", "age"]
+          name: "person-copy_first"
+  anon-one:
+    labels:
+      optional: ["Thing"]
+    properties:
+      name:
+        type: "STRING"
+    extensions:
+      indexes:
+        name:
+          type: "RANGE"
+          labels: ["Thing"]
+          properties: ["name"]
+          name: "anon-one_name"
+  anon-two:
+    labels:
+      optional: ["Thing"]
+    properties:
+      name:
+        type: "STRING"
+    extensions:
+      indexes:
+        name:
+          type: "RANGE"
+          labels: ["Thing"]
+          properties: ["name"]
+          name: "anon-two_name"
+relationships:
+  knows:
+    type: "KNOWS"
+    from: {}
+    to: {}
+    properties:
+      since:
+        type: "DATE"
+      note:
+        type: "STRING"
+    extensions:
+      indexes:
+        since:
+          type: "RANGE"
+          properties: ["since"]
+          name: "knows_since"
+        since-again:
+          type: "RANGE"
+          properties: ["since"]
+          name: "knows_since-again"
+        since-text:
+          type: "RANGE"
+          properties: ["since", "note"]
+          name: "knows_since-text"
+        note:
+          type: "TEXT"
+          properties: ["note"]
+          name: "knows_note"
+  knows-too:
+    type: "KNOWS"
+    from: {}
+    to: {}
+    properties:
+      since:
+        type: "DATE"
+    extensions:
+      indexes:
+        since:
+          type: "RANGE"
+          properties: ["since"]
+          name: "knows-too_since"
+  likes:
+    type: "LIKES"
+    from: {}
+    to: {}
+    properties:
+      since:
+        type: "DATE"
+    extensions:
+      indexes:
+        since:
+          type: "RANGE"
+          properties: ["since"]
+          name: "likes_since"

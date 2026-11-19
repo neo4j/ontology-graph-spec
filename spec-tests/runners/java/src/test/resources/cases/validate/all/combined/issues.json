@@ -1,0 +1,44 @@
+[
+    {
+        "code": "duplicate_node_alias",
+        "path": "nodes.person.aliases[1]",
+        "details": {
+            "value": "P"
+        }
+    },
+    {
+        "code": "node_without_constraint",
+        "path": "nodes.nothing",
+        "details": {}
+    },
+    {
+        "code": "node_without_properties",
+        "path": "nodes.nothing",
+        "details": {}
+    },
+    {
+        "code": "property_without_type",
+        "path": "nodes.person.properties.name",
+        "details": {}
+    },
+    {
+        "code": "unset_node_constraint_name",
+        "path": "nodes.person.constraints.unnamed.name",
+        "details": {}
+    },
+    {
+        "code": "unset_node_identifier_label",
+        "path": "nodes.nothing.labels.identifier",
+        "details": {}
+    },
+    {
+        "code": "unset_relationship_to_node",
+        "path": "relationships.r.to.node",
+        "details": {}
+    },
+    {
+        "code": "unset_relationship_type",
+        "path": "relationships.r.type",
+        "details": {}
+    }
+]

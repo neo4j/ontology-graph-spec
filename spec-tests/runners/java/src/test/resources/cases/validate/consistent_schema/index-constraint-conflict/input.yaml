@@ -1,0 +1,127 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "index-constraint-conflict"
+description: "A RANGE index on the same ordered properties as a UNIQUE or KEY constraint."
+nodes:
+  person:
+    labels:
+      identifier: "Person"
+    properties:
+      email:
+        type: "STRING"
+      a:
+        type: "STRING"
+      b:
+        type: "STRING"
+      x:
+        type: "STRING"
+      "y":
+        type: "STRING"
+    constraints:
+      email_unique:
+        type: "UNIQUE"
+        properties: ["email"]
+        name: "person_email_unique"
+      ab_key:
+        type: "KEY"
+        properties: ["a", "b"]
+        name: "person_ab_key"
+      x_unique:
+        type: "UNIQUE"
+        properties: ["x"]
+        name: "person_x_unique"
+      y_exists:
+        type: "EXISTS"
+        properties: ["y"]
+        name: "person_y_exists"
+    extensions:
+      indexes:
+        email:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["email"]
+          name: "person_email"
+        ab:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["a", "b"]
+          name: "person_ab"
+        ba:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["b", "a"]
+          name: "person_ba"
+        x-text:
+          type: "TEXT"
+          labels: ["Person"]
+          properties: ["x"]
+          name: "person_x-text"
+        "y":
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["y"]
+          name: "person_y"
+        a-only:
+          type: "RANGE"
+          labels: ["Person"]
+          properties: ["a"]
+          name: "person_a-only"
+  other:
+    labels:
+      identifier: "Other"
+    properties:
+      email:
+        type: "STRING"
+    extensions:
+      indexes:
+        email:
+          type: "RANGE"
+          labels: ["Other"]
+          properties: ["email"]
+          name: "other_email"
+relationships:
+  knows:
+    type: "KNOWS"
+    from: {}
+    to: {}
+    properties:
+      since:
+        type: "DATE"
+      note:
+        type: "STRING"
+    constraints:
+      since_unique:
+        type: "UNIQUE"
+        properties: ["since"]
+        name: "knows_since_unique"
+      note_exists:
+        type: "EXISTS"
+        properties: ["note"]
+        name: "knows_note_exists"
+    extensions:
+      indexes:
+        since:
+          type: "RANGE"
+          properties: ["since"]
+          name: "knows_since"
+        note:
+          type: "RANGE"
+          properties: ["note"]
+          name: "knows_note"
+        since-note:
+          type: "RANGE"
+          properties: ["since", "note"]
+          name: "knows_since-note"
+  likes:
+    type: "LIKES"
+    from: {}
+    to: {}
+    properties:
+      since:
+        type: "DATE"
+    extensions:
+      indexes:
+        since:
+          type: "RANGE"
+          properties: ["since"]
+          name: "likes_since"

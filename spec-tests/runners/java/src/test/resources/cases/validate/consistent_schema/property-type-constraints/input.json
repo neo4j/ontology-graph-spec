@@ -1,0 +1,88 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "property-type-constraints",
+  "description": "PROPERTY_TYPE constraints on properties that have no type.",
+  "nodes": {
+    "person": {
+      "labels": {
+        "identifier": "Person"
+      },
+      "properties": {
+        "name": {
+          "type": "STRING"
+        },
+        "nick": {},
+        "any": {
+          "type": "ANY"
+        }
+      },
+      "constraints": {
+        "typed": {
+          "type": "PROPERTY_TYPE",
+          "properties": [
+            "name"
+          ],
+          "name": "person_typed"
+        },
+        "untyped": {
+          "type": "PROPERTY_TYPE",
+          "properties": [
+            "nick"
+          ],
+          "name": "person_untyped"
+        },
+        "any": {
+          "type": "PROPERTY_TYPE",
+          "properties": [
+            "any"
+          ],
+          "name": "person_any"
+        },
+        "exists": {
+          "type": "EXISTS",
+          "properties": [
+            "nick"
+          ],
+          "name": "person_exists"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {},
+      "to": {},
+      "properties": {
+        "since": {
+          "type": "DATE"
+        },
+        "note": {}
+      },
+      "constraints": {
+        "typed": {
+          "type": "PROPERTY_TYPE",
+          "properties": [
+            "since"
+          ],
+          "name": "knows_typed"
+        },
+        "untyped": {
+          "type": "PROPERTY_TYPE",
+          "properties": [
+            "note"
+          ],
+          "name": "knows_untyped"
+        },
+        "exists": {
+          "type": "EXISTS",
+          "properties": [
+            "note"
+          ],
+          "name": "knows_exists"
+        }
+      }
+    }
+  }
+}
