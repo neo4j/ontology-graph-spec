@@ -83,5 +83,8 @@ Use the host RID from [the .NET README](../dotnet/README.md). The runner copies 
 never maintains a second fixture set, and fails if fixtures are missing. The Go runner is JSON-only and must use
 native libraries rebuilt from this commit for newly exposed validation sets.
 
+CI publishes an unsigned local Maven test package for the Java runner, with `CI=false` scoped to that local publication
+command. This requires no signing secret or external registry access. Normal release publication retains its signing checks.
+
 To add a case, create its directory and input, regenerate the expected files with the Kotlin runner, review them, and
 run every runner.

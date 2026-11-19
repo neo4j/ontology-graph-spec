@@ -101,7 +101,9 @@ jobs:
           if (git status --porcelain -- ontology-graph-spec.schema.json go/model dotnet/src/Neo4j.OntologyGraphSpec/Model/Generated) { throw 'Generated output is out of date' }
       - name: Shared Kotlin, Java and JavaScript conformance
         run: |
-          ./gradlew :spec-tests-kotlin:test jvmTest spotlessCheck publishJvmPublicationToMavenLocal publishKotlinMultiplatformPublicationToMavenLocal jsNodeProductionLibraryDistribution -Pversion=0.0.0-local --no-daemon
+          ./gradlew :spec-tests-kotlin:test jvmTest spotlessCheck jsNodeProductionLibraryDistribution -Pversion=0.0.0-local --no-daemon
+          # Only the local test publication is unsigned. No registry is contacted by these tasks.
+          CI=false ./gradlew publishJvmPublicationToMavenLocal publishKotlinMultiplatformPublicationToMavenLocal -Pversion=0.0.0-local --no-daemon
           ./gradlew -p spec-tests/runners/java test --no-daemon
           npm --prefix spec-tests/runners/js install
           npm --prefix spec-tests/runners/js test
