@@ -205,8 +205,41 @@ jobs:
       # The merged commit is already on main, so the pull request diff would find nothing to check
       check-all: true
 
-  publish-npm:
+  publish-tags:
     needs: [determine-version, validate-kotlin, validate-go]
+    runs-on: ubuntu-latest
+    steps:
+      # Authenticates with a write deploy key, which is on the bypass list of the tag ruleset. The default
+      # GITHUB_TOKEN cannot create these tags because github-actions[bot] cannot be added to a bypass list.
+      # https://github.com/orgs/community/discussions/13836
+      - name: Checkout Repository at specific SHA
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.determine-version.outputs.sha }}
+          ssh-key: ${{ secrets.RELEASE_TAG_DEPLOY_KEY }}
+
+      - name: Create and Push Unified Tags
+        env:
+          VERSION: ${{ needs.determine-version.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          echo "Creating and pushing tags for version v${VERSION}"
+
+          # The library release tag, read by determine-version
+          git tag -a "release/v${VERSION}" -m "release v${VERSION}"
+
+          # The Go module tag, for the module in the go/ subfolder
+          git tag -a "go/v${VERSION}" -m "go v${VERSION}"
+
+          git push --atomic origin "refs/tags/release/v${VERSION}" "refs/tags/go/v${VERSION}"
+
+  publish-npm:
+    needs: [determine-version, publish-tags]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -254,7 +287,7 @@ jobs:
           fi
 
   publish-maven:
-    needs: [determine-version, validate-kotlin, validate-go]
+    needs: [determine-version, publish-tags]
     runs-on: macos-latest  # mac-os host is needed to build and compile macosArm64 targets
     steps:
       - name: Checkout Repository
@@ -278,37 +311,3 @@ jobs:
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
-
-  publish-tags:
-    needs: [determine-version, validate-go, publish-npm]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout Repository at specific SHA
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-        with:
-          ref: ${{ needs.determine-version.outputs.sha }}
-          fetch-depth: 0
-
-      - name: Create and Push Unified Tags
-        shell: bash
-        run: |
-          set -euo pipefail
-          
-          # Configure Git Identity for the runner
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          VERSION="${{ needs.determine-version.outputs.version }}"
-          
-          echo "Creating and pushing tags for version v${VERSION}"
-          
-          # Create an annotated tag for the main release/spec
-          git tag -a "release/v${VERSION}" -m "release v${VERSION}"
-          
-          # Create an annotated tag for the Go module subfolder
-          git tag -a "go/v${VERSION}" -m "go v${VERSION}"
-          
-          # Push all newly created tags to the remote repository
-          git push origin --tags
