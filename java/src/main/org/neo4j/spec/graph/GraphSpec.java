@@ -16,12 +16,19 @@
  */
 package org.neo4j.spec.graph;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import org.neo4j.spec.graph.internal.codec.ModelReader;
+import org.neo4j.spec.graph.internal.codec.ModelWriter;
+import org.neo4j.spec.graph.internal.codec.TreeCodec;
+import org.neo4j.spec.graph.migrate.DocumentType;
 import org.neo4j.spec.graph.migrate.DocumentVersion;
 import org.neo4j.spec.graph.migrate.Migrations;
 import org.neo4j.spec.graph.migrate.SpecVersion;
@@ -102,7 +109,7 @@ public final class GraphSpec {
     public GraphModel decode(String text, Format format, DocumentVersion inputVersion) {
         Objects.requireNonNull(text, "text");
         Objects.requireNonNull(format, "format");
-        throw new UnsupportedOperationException("TODO");
+        return decode(new StringReader(text), format, inputVersion);
     }
 
     /** Decodes a document read from a {@link Reader}, detecting its version. The reader isn't closed. */
@@ -114,7 +121,10 @@ public final class GraphSpec {
     public GraphModel decode(Reader reader, Format format, DocumentVersion inputVersion) {
         Objects.requireNonNull(reader, "reader");
         Objects.requireNonNull(format, "format");
-        throw new UnsupportedOperationException("TODO");
+        ObjectNode tree = TreeCodec.parse(reader, format);
+        DocumentVersion version = inputVersion == null ? migrations.detect(tree) : inputVersion;
+        ObjectNode latest = migrations.migrate(tree, version, SpecVersion.LATEST);
+        return new ModelReader(failOnUnknownFields).read(latest);
     }
 
     /** Encodes a model as a document of the {@linkplain SpecVersion#LATEST latest} version, in longhand. */
@@ -131,13 +141,23 @@ public final class GraphSpec {
         Objects.requireNonNull(model, "model");
         Objects.requireNonNull(format, "format");
         Objects.requireNonNull(outputVersion, "outputVersion");
-        throw new UnsupportedOperationException("TODO");
+        StringWriter writer = new StringWriter();
+        encode(model, format, outputVersion, writer);
+        return writer.toString();
     }
 
     /** Encodes a model to a {@link Writer} as a document of the given version. The writer isn't closed. */
     public void encode(GraphModel model, Format format, DocumentVersion outputVersion, Writer writer) {
+        Objects.requireNonNull(model, "model");
+        Objects.requireNonNull(format, "format");
+        Objects.requireNonNull(outputVersion, "outputVersion");
         Objects.requireNonNull(writer, "writer");
-        throw new UnsupportedOperationException("TODO");
+        ObjectNode tree = migrations.migrate(ModelWriter.write(model), SpecVersion.LATEST, outputVersion);
+        if (DocumentType.GRAPH_SPEC.equals(outputVersion.type())
+                && SpecVersion.fromSchemaUrl(model.schema()).isPresent()) {
+            tree.put("schema", SpecVersion.schemaUrl(outputVersion));
+        }
+        TreeCodec.write(tree, format, writer);
     }
 
     /**
