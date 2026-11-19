@@ -46,7 +46,7 @@ data class Property @JvmOverloads constructor(
     var key: Boolean? = null,
     @Description("Extensions for the property.")
     val extensions: PropertyExtensions = PropertyExtensions(),
-    @Description("Name of the property in the database, when different from its id.")
+    @Description("Name of the property in the database.")
     override var name: String? = null,
     @Description("Description of the property.")
     val description: String = "",

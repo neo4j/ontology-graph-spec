@@ -39,7 +39,7 @@ importing RDF maps them. | covered
 
 | `rdfs:label` | `aliases` on a xref:format:reference/nodes.adoc[node],
 xref:format:reference/relationships.adoc[relationship] or xref:format:reference/properties.adoc[property]. A property
-also has `name` (its name in the database when different from its id). A node has no name field. | covered
+also has `name` (its name in the database). A node has no name field. | covered
 
 | `rdfs:comment` | `description` on the model, a node, a relationship or a property: one string each, capped as the
 xref:format:rules.adoc[length rules] set out. | covered
@@ -99,7 +99,7 @@ ends. IRIs collapse into relationships and labels, literals into property types.
 blank node: blank nodes have no carrier. | lossy
 
 | `sh:name`, `sh:description` | `description` on a node, relationship or property. The only `name` fields are a
-property's (its name in the database when different from its id) and the model's own. No display name for a node or
+property's (its name in the database) and the model's own. No display name for a node or
 relationship. | lossy
 
 | `sh:message`, `sh:severity` | No native field. Rides xref:format:reference/extensions.adoc[custom data]. The format

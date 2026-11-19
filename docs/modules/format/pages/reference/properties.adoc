@@ -33,7 +33,7 @@ decoded.
 | `unique` | boolean | No | Shorthand for a uniqueness constraint. Expanded into constraints when the model is decoded.
 | `key` | boolean | No | Shorthand for a key constraint. Expanded into constraints when the model is decoded.
 | `extensions` | xref:reference/extensions.adoc#_custom_data[custom data] | No | Extensions for the property.
-| `name` | string | No | Name of the property in the database, when different from its id.
+| `name` | string | No | Name of the property in the database.
 | `description` | string | No | Description of the property.
 | `aliases` | list of strings | No | Alternative names for the property.
 | `reference` | string | No | Reference or URI of an external resource describing the property.
