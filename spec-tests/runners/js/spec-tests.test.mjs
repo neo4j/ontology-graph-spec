@@ -10,6 +10,23 @@ import { GraphModel, GraphSpec, Validations } from "@neo4j/ontology-graph-spec";
 
 const cases = join(import.meta.dirname, "../../cases");
 
+for (const dir of readdirSync(join(cases, "migrate"), { withFileTypes: true }).filter((entry) => entry.isDirectory())) {
+  test(`migrate/${dir.name}`, () => {
+    const path = join(cases, "migrate", dir.name);
+    const options = JSON.parse(readFileSync(join(path, "case.json"), "utf8"));
+    const migrate = () => GraphSpec.Json.encodeToString(
+      GraphSpec.Json.decodeFromString(readFileSync(join(path, "input.json"), "utf8"), options.source_type),
+      options.target_type,
+      options.target_version,
+    );
+    if (options.fails) {
+      assert.throws(migrate, (error) => Boolean(error.message?.trim()));
+    } else {
+      assert.deepEqual(JSON.parse(migrate()), JSON.parse(readFileSync(join(path, "expected.json"), "utf8")));
+    }
+  });
+}
+
 const sets = {
   core: Validations.core,
   labelled: Validations.labelled,

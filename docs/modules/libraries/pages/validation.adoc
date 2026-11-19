@@ -18,6 +18,7 @@ node, and a type and `from` and `to` nodes set on every relationship.
 and unique, constraints aren't duplicated and definitions don't conflict.
 | Mappable | Checking a model's data source mappings can be used to import data, so every node mapping has a key and
 mappings and table columns are complete.
+| Bulk Importable | Checking that node labels, relationship types and property names use tokens supported by bulk import.
 | Well Constrained | Reviewing a model's design against recommended practice, such as every node having properties and a
 constraint.
 | All | Running every built-in check.
@@ -39,6 +40,19 @@ mistake, but means fixing an issue can reveal new ones.
 | `path` | Where the issue is, as a dot-separated path such as `relationships.acted-in.to.film`. Optional.
 | `details` | Extra information as string keys and values. Often empty.
 |===
+
+== C#/.NET
+
+[source,csharp]
+----
+using Neo4j.OntologyGraphSpec.Validation;
+
+var issues = model.Validate(ValidationSet.Core, ValidationSet.Labelled, ValidationSet.BulkImportable);
+----
+
+With no arguments, `Validate()` selects `Core`. All seven sets are available, and overlapping sets do not duplicate
+issues. Validation problems are returned as issues; parse, migration and native failures throw `GraphSpecException`.
+See xref:dotnet.adoc[]. Go exposes the same native set as `validation.SetBulkImportable`.
 
 == Custom checks
 

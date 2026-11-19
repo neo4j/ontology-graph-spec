@@ -1,0 +1,21 @@
+name: .NET PR Quality Guard
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dotnet-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate-dotnet.yaml
+    with:
+      ref: ${{ github.event.pull_request.head.sha || github.sha }}

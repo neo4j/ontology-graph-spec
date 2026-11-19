@@ -1,0 +1,190 @@
+name: Validate .NET and NuGet
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'The commit to build, package and test'
+        required: true
+        type: string
+      version:
+        description: 'Library version for the tested NuGet artifact'
+        type: string
+        default: '0.0.0-local'
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  TESTINGPLATFORM_TELEMETRY_OPTOUT: '1'
+
+# Deliberately runs for every PR: shared code, fixtures, generator, build and docs changes all affect this binding.
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2025
+            rid: win-x64
+            tasks: linkReleaseSharedMingwX64 mingwX64Test
+          - os: ubuntu-24.04
+            rid: linux-x64
+            tasks: linkReleaseSharedLinuxX64 linkReleaseSharedLinuxArm64 linuxX64Test
+          - os: macos-15
+            rid: osx-arm64
+            tasks: linkReleaseSharedMacosArm64 macosArm64Test
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.ref }}
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          java-version: '17'
+          distribution: temurin
+      - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+      - name: Build native core and run native tests
+        shell: bash
+        env:
+          TASKS: ${{ matrix.tasks }}
+        run: ./gradlew $TASKS --no-daemon --max-workers=1 -Pkotlin.native.jvmArgs=-Xmx5g '-Dorg.gradle.jvmargs=-Xmx1g -XX:MaxMetaspaceSize=512m'
+      - name: Stage native assets
+        shell: pwsh
+        run: ./dotnet/scripts/build-native.ps1 -RuntimeIdentifier '${{ matrix.rid }}' -SkipBuild
+      - name: Stage cross-compiled Linux ARM64 asset
+        if: matrix.rid == 'linux-x64'
+        shell: pwsh
+        run: ./dotnet/scripts/build-native.ps1 -RuntimeIdentifier linux-arm64 -SkipBuild
+      - name: Inspect native dependencies
+        if: matrix.rid != 'win-x64'
+        shell: bash
+        run: |
+          case '${{ matrix.rid }}' in
+            linux-x64) ldd dotnet/artifacts/native/linux-x64/native/libgraphdatamodel.so ;;
+            osx-arm64) otool -L dotnet/artifacts/native/osx-arm64/native/libgraphdatamodel.dylib ;;
+          esac
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: dotnet-native-${{ matrix.rid }}
+          path: dotnet/artifacts/native/
+          if-no-files-found: error
+
+  generated-and-docs:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          java-version: '17'
+          distribution: temurin
+      - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version-file: tools/schema-generator/go.mod
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Test generator and regenerate both languages
+        shell: pwsh
+        run: |
+          go -C tools/schema-generator test ./...
+          if ($LASTEXITCODE -ne 0) { throw 'Generator tests failed' }
+          ./dotnet/scripts/generate-models.ps1
+          go -C tools/schema-generator run . --schema ../../ontology-graph-spec.schema.json --out ../../go/model/model.go --package model
+          if ($LASTEXITCODE -ne 0) { throw 'Go generation failed' }
+          if (git status --porcelain -- ontology-graph-spec.schema.json go/model dotnet/src/Neo4j.OntologyGraphSpec/Model/Generated) { throw 'Generated output is out of date' }
+      - name: Shared Kotlin, Java and JavaScript conformance
+        run: |
+          ./gradlew :spec-tests-kotlin:test jvmTest spotlessCheck publishJvmPublicationToMavenLocal publishKotlinMultiplatformPublicationToMavenLocal jsNodeProductionLibraryDistribution -Pversion=0.0.0-local --no-daemon
+          ./gradlew -p spec-tests/runners/java test --no-daemon
+          npm --prefix spec-tests/runners/js install
+          npm --prefix spec-tests/runners/js test
+      - name: Build documentation preview
+        working-directory: docs
+        run: |
+          npm install --package-lock=false
+          npm run build:preview
+
+  package:
+    needs: [native, generated-and-docs]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.ref }}
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          global-json-file: dotnet/global.json
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          pattern: dotnet-native-*
+          merge-multiple: true
+          path: dotnet/artifacts/native
+      - name: Pack the tested commit with every native runtime
+        working-directory: dotnet
+        env:
+          PACKAGE_VERSION: ${{ inputs.version }}
+          SOURCE_COMMIT: ${{ inputs.ref }}
+        run: dotnet pack src/Neo4j.OntologyGraphSpec/Neo4j.OntologyGraphSpec.csproj -c Release -p:PackageVersion="$PACKAGE_VERSION" -p:RepositoryCommit="$SOURCE_COMMIT" -p:ContinuousIntegrationBuild=true -p:RequireAllNativeAssets=true -o artifacts/packages
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: dotnet-package
+          path: dotnet/artifacts/packages/*.nupkg
+          if-no-files-found: error
+
+  test:
+    needs: package
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2025
+            rid: win-x64
+          - os: ubuntu-24.04
+            rid: linux-x64
+          - os: ubuntu-24.04-arm
+            rid: linux-arm64
+          - os: macos-15
+            rid: osx-arm64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.ref }}
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          global-json-file: dotnet/global.json
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          pattern: dotnet-native-*
+          merge-multiple: true
+          path: dotnet/artifacts/native
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: dotnet-package
+          path: dotnet/artifacts/packages
+      - name: Unit and shared conformance tests
+        working-directory: dotnet
+        run: dotnet test --solution Neo4j.OntologyGraphSpec.slnx --configuration Release
+      - name: Run isolated NuGet consumer and RID-specific publish
+        shell: pwsh
+        env:
+          PACKAGE_VERSION: ${{ inputs.version }}
+        run: ./dotnet/scripts/test-package.ps1 -PackagePath "dotnet/artifacts/packages/Neo4j.OntologyGraphSpec.$env:PACKAGE_VERSION.nupkg" -RuntimeIdentifier '${{ matrix.rid }}' -RequireAllRuntimes
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        if: matrix.rid != 'win-x64'
+        with:
+          go-version-file: go/go.mod
+      - name: Go ABI compatibility and shared conformance against the new native core
+        if: matrix.rid != 'win-x64'
+        shell: bash
+        run: |
+          export GRAPHDATAMODEL_LIB_PATH="$GITHUB_WORKSPACE/dotnet/artifacts/native/${{ matrix.rid }}/native/$(test '${{ matrix.rid }}' = 'osx-arm64' && echo libgraphdatamodel.dylib || echo libgraphdatamodel.so)"
+          go -C go test ./...
+          go -C spec-tests/runners/go test ./...

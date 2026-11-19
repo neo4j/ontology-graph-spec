@@ -37,6 +37,7 @@ private val validationLabelsToSet: Map<String, List<Validation>> = mapOf(
     "labelled" to Validations.labelled,
     "consistent_schema" to Validations.consistentSchema,
     "mappable" to Validations.mappable,
+    "bulk_importable" to Validations.bulkImportable,
     "well_constrained" to Validations.wellConstrained,
     "all" to Validations.all
 )

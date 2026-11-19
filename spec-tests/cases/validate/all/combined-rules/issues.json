@@ -1,0 +1,37 @@
+[
+    {
+        "code": "duplicate_property_name",
+        "path": "nodes.person.properties.first.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_property_name",
+        "path": "nodes.person.properties.second.name",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_label_token",
+        "path": "nodes.person.labels.identifier",
+        "details": {}
+    },
+    {
+        "code": "missing_node_constraint_coverage",
+        "path": "nodes.person.constraints",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_from",
+        "path": "relationships.knows.from.node",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_to",
+        "path": "relationships.knows.to.node",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_type",
+        "path": "relationships.knows.type",
+        "details": {}
+    }
+]

@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../Test.props" />
+  <ItemGroup>
+    <ProjectReference Include="../../src/Neo4j.OntologyGraphSpec/Neo4j.OntologyGraphSpec.csproj" />
+    <Compile Include="../../../tools/schema-generator/internal/generator/testdata/expected/*.cs.expected" Link="Generated/%(Filename).cs" />
+  </ItemGroup>
+</Project>

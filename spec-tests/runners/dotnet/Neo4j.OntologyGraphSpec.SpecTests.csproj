@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../../dotnet/Directory.Build.props" />
+  <Import Project="../../../dotnet/tests/Test.props" />
+  <ItemGroup>
+    <ProjectReference Include="../../../dotnet/src/Neo4j.OntologyGraphSpec/Neo4j.OntologyGraphSpec.csproj" />
+    <None Include="../../cases/**/*" Link="cases/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

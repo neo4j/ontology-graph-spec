@@ -10,12 +10,39 @@ import (
 	"sort"
 	"testing"
 
+	"github.com/neo4j/ontology-graph-spec/go/migration"
 	"github.com/neo4j/ontology-graph-spec/go/model"
 	"github.com/neo4j/ontology-graph-spec/go/validation"
 	"github.com/stretchr/testify/require"
 )
 
 const cases = "../../cases"
+
+func TestMigrate(t *testing.T) {
+	for _, dir := range caseDirs(t, "migrate") {
+		t.Run(filepath.Base(dir), func(t *testing.T) {
+			var options struct {
+				SourceType    string `json:"source_type"`
+				TargetType    string `json:"target_type"`
+				TargetVersion string `json:"target_version"`
+				Fails         bool   `json:"fails"`
+			}
+			require.NoError(t, json.Unmarshal([]byte(read(t, filepath.Join(dir, "case.json"))), &options))
+			graph, err := migration.ToGraphSpec(read(t, filepath.Join(dir, "input.json")), migration.ModelType(options.SourceType))
+			var actual string
+			if err == nil {
+				actual, err = migration.FromGraphSpec(graph, migration.ModelType(options.TargetType), migration.ModelVersion(options.TargetVersion))
+			}
+			if options.Fails {
+				require.Error(t, err)
+				require.NotEmpty(t, err.Error())
+			} else {
+				require.NoError(t, err)
+				require.JSONEq(t, read(t, filepath.Join(dir, "expected.json")), actual)
+			}
+		})
+	}
+}
 
 func TestDocuments(t *testing.T) {
 	for _, dir := range caseDirs(t, "documents") {

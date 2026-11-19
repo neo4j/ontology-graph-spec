@@ -22,6 +22,10 @@ go get github.com/neo4j/ontology-graph-spec/go@vX.Y.Z
 > [!NOTE]
 > Because it is a glibc-based Kotlin/Native library, the runtime must provide `glibc` and `libstdc++`.
 
+All built-in validation sets are available: `SetCore`, `SetLabelled`, `SetConsistentSchema`, `SetMappable`,
+`SetBulkImportable`, `SetWellConstrained` and `SetAll`. `SetBulkImportable` checks import token restrictions using the
+shared native implementation. When overriding the native library path, use a library built from the matching release.
+
 ## How the Kotlin/Native library is loaded
 
 The migration and validation methods call into a Kotlin/Native shared library

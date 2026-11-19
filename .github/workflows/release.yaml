@@ -205,8 +205,24 @@ jobs:
       # The merged commit is already on main, so the pull request diff would find nothing to check
       check-all: true
 
+  validate-dotnet:
+    needs: determine-version
+    uses: ./.github/workflows/validate-dotnet.yaml
+    with:
+      ref: ${{ needs.determine-version.outputs.sha }}
+      version: ${{ needs.determine-version.outputs.version }}
+
+  check-nuget-configuration:
+    needs: determine-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require NuGet publication credentials before claiming the version
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: test -n "$NUGET_API_KEY" || { echo 'Configure NUGET_API_KEY for Neo4j.OntologyGraphSpec before releasing.' >&2; exit 1; }
+
   publish-tags:
-    needs: [determine-version, validate-kotlin, validate-go]
+    needs: [determine-version, validate-kotlin, validate-go, validate-dotnet, check-nuget-configuration]
     runs-on: ubuntu-latest
     steps:
       # Authenticates with a write deploy key, which is on the bypass list of the tag ruleset. The default
@@ -285,6 +301,23 @@ jobs:
             echo "Directory $TARGET_DIR not found. Check your Gradle JS/TS build configurations."
             exit 1
           fi
+
+  publish-nuget:
+    needs: [determine-version, publish-tags]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          dotnet-version: '10.0.x'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: dotnet-package
+          path: packages
+      - name: Publish the exact package verified on all four runtimes
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+          PACKAGE_VERSION: ${{ needs.determine-version.outputs.version }}
+        run: dotnet nuget push "packages/Neo4j.OntologyGraphSpec.${PACKAGE_VERSION}.nupkg" --source https://api.nuget.org/v3/index.json --api-key "$NUGET_API_KEY"
 
   publish-maven:
     needs: [determine-version, publish-tags]

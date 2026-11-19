@@ -1,0 +1,17 @@
+[
+    {
+        "code": "duplicate_property_name",
+        "path": "nodes.person.properties.first.name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_property_name",
+        "path": "nodes.person.properties.second.name",
+        "details": {}
+    },
+    {
+        "code": "missing_property_name",
+        "path": "nodes.person.properties.blank.name",
+        "details": {}
+    }
+]

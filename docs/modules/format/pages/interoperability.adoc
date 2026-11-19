@@ -18,6 +18,10 @@ gets one of these verdicts:
 * *excluded*: deliberately out.
 * *n/a*: not a construct of that vocabulary.
 
+The tables apply equally to the .NET binding, which delegates to the shared Kotlin codecs and validation rules.
+Exposing `bulk_importable` through the native bridge adds access to existing token checks for .NET and Go; it does
+not add database enforcement or alter the field mappings and verdicts below.
+
 == RDFS coverage
 
 [cols="2,4,1"]

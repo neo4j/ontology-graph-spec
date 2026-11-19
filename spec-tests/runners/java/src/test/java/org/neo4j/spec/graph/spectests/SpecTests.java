@@ -4,6 +4,7 @@ import static java.util.Comparator.comparing;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -93,6 +94,23 @@ class SpecTests {
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    @TestFactory
+    Stream<DynamicTest> migrate() {
+        return caseDirs("migrate").map(dir -> dynamicTest(dir.getFileName().toString(), () -> {
+            JsonNode options = JSON.readTree(read(dir.resolve("case.json")));
+            java.util.concurrent.Callable<String> migrate = () -> GraphSpec.getJson().encodeToString(
+                GraphSpec.getJson().decodeFromString(read(dir.resolve("input.json")), options.get("source_type").asText()),
+                options.get("target_type").asText(), options.get("target_version").asText());
+            if (options.get("fails").asBoolean()) {
+                Exception error = assertThrows(Exception.class, migrate::call);
+                assertNotNull(error.getMessage());
+                assertFalse(error.getMessage().isBlank());
+            } else {
+                assertEquals(JSON.readTree(read(dir.resolve("expected.json"))), JSON.readTree(migrate.call()));
+            }
+        }));
     }
 
     /** The canonical {@code model.json} and {@code model.yaml} first, then every alternative form of the same model. */

@@ -34,7 +34,8 @@ npm install @neo4j/ontology-graph-spec@{library-version}
 go get github.com/neo4j/ontology-graph-spec/go@v{library-version}
 ----
 
-Each platform's page lists its requirements.
+For C#/.NET, see xref:dotnet.adoc[] for the .NET 10 platform requirements and local-package installation before the
+first NuGet release. Each platform's page lists its requirements.
 
 == Get a model
 
@@ -146,6 +147,19 @@ func main() {
 		fmt.Printf("%s at %s: %s\n", issue.Code, issue.Path, issue.Message)
 	}
 }
+----
+
+.C#
+[source,csharp]
+----
+using Neo4j.OntologyGraphSpec;
+using Neo4j.OntologyGraphSpec.Validation;
+
+var model = GraphSpec.Json.DecodeFromString(File.ReadAllText("movies.json"));
+var issues = model.Validate();
+if (issues.Count == 0) Console.WriteLine("No issues found");
+foreach (var issue in issues)
+    Console.WriteLine($"{issue.Code} at {issue.Path}: {issue.Message}");
 ----
 
 Running it prints:

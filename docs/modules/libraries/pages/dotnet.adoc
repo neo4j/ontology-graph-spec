@@ -1,0 +1,94 @@
+= .NET / C#
+:description: Read, write, validate and migrate ontology documents in C# on Windows, Linux and macOS using the shared Kotlin core.
+
+The `Neo4j.OntologyGraphSpec` package provides generated C# models and the same JSON/YAML codecs, validation and
+migration as the Kotlin library. Its native runtime is bundled in NuGet; applications do not need Java, Go or a Neo4j server.
+
+== Requirements and installation
+
+Use .NET 10 and PackageReference. These runtime identifiers are supported:
+
+[cols="1,2"]
+|===
+| Runtime | Requirement
+| `win-x64` | Windows x64; only Windows system DLLs are required.
+| `linux-x64` | Linux x64 with glibc and libstdc++.
+| `linux-arm64` | Linux ARM64 with glibc and libstdc++.
+| `osx-arm64` | macOS on Apple Silicon.
+|===
+
+Alpine/musl, Windows ARM64, macOS Intel, browsers and .NET Framework are not supported. Trimming, Native AOT and
+single-file deployment are not verified. CI tests normal framework-dependent builds and RID-specific publishes.
+
+NOTE: The package ID is proposed for the first .NET release. Before it is published, use the local package instructions
+in https://github.com/neo4j/ontology-graph-spec/tree/main/dotnet[the .NET README]. Package ownership and publishing
+credentials must be configured by the maintainers before release.
+
+After publication, install the library version you need:
+
+[source,shell,subs="attributes+"]
+----
+dotnet add package Neo4j.OntologyGraphSpec --version {library-version}
+----
+
+== Decode, validate and encode
+
+[source,csharp]
+----
+using Neo4j.OntologyGraphSpec;
+using Neo4j.OntologyGraphSpec.Validation;
+
+var model = GraphSpec.Json.DecodeFromString(File.ReadAllText("movies.json"));
+foreach (var issue in model.Validate(ValidationSet.Core, ValidationSet.Labelled))
+    Console.WriteLine($"{issue.Code} at {issue.Path}: {issue.Message}");
+
+File.WriteAllText("movies.yaml", GraphSpec.Yaml.EncodeToString(model));
+----
+
+`GraphSpec.Json` and `GraphSpec.Yaml` expose the same methods. Decode expands shorthand and upgrades supported older
+specification versions. Encode preserves shorthand in caller-created models when writing graph spec. Encoding and
+validation leave the caller's model unchanged. Use `GraphSpec` for document conversion; direct `System.Text.Json`
+serialization does not provide normalization or canonical output.
+
+Models live in `Neo4j.OntologyGraphSpec.Model`. Required fields use C# `required` members, optional fields are nullable,
+enumerations use their schema tokens, and union interfaces have typed implementations. Custom data uses `JsonElement`;
+clone values extracted from a `JsonDocument` before disposing that document.
+
+`model.Validate()` selects `ValidationSet.Core`. Other built-in sets are `Labelled`, `ConsistentSchema`, `Mappable`,
+`BulkImportable`, `WellConstrained` and `All`. Shared rules execute once when sets overlap. See xref:validation.adoc[].
+
+== Migration
+
+[source,csharp]
+----
+var model = GraphSpec.Json.DecodeFromString(importerJson, ModelType.DataModel);
+var importerFile = GraphSpec.Json.EncodeToString(model, ModelType.DataModelWrapped, "3.0.0");
+----
+
+Both JSON and YAML support the routes in xref:migration.adoc[]. Always provide `"3.0.0"` when exporting Data Importer
+models; the default output version is `GraphSpec.LatestVersion`. Unsupported routes raise an error. Migrations may
+lose fields the destination cannot represent. Arbitrary custom metadata is not preserved in Data Importer output.
+
+== Errors and lifetime
+
+Semantic checks return issues with `Code`, `Message`, optional `Path`, and `Details`. Malformed documents, failed
+migrations, invalid transport and native loading failures throw `GraphSpecException`. Its `Operation` identifies the
+failed call. Unsupported platforms throw `PlatformNotSupportedException`; invalid API arguments throw argument exceptions.
+Literal NUL characters in input strings are rejected, while escaped JSON `\u0000` values are supported.
+
+Models hold no native handles and require no disposal. The shared core has its own garbage collector, whose memory
+is part of the process but is not counted by the .NET GC. Bound concurrent processing of large models according to
+the application's memory budget. `GRAPHSPEC_MAX_HEAP_BYTES`, set before the first call, bounds native GC autotuning;
+it is not a hard limit on allocations. Independent models can be processed concurrently; do not mutate a model while
+another thread is using it.
+
+== Contributor workflow
+
+The public types are generated from the same schema as Go. The .NET adapter calls the additive `graphspec_decode`
+and `graphspec_encode` native exports and the existing `validate` export. Kotlin owns formatting and rules, so the
+binding does not maintain a second implementation of them.
+
+Native compilation and model generation are explicit contributor steps. See
+https://github.com/neo4j/ontology-graph-spec/tree/main/dotnet[the .NET README] for build commands. The solution includes
+the language-neutral conformance runner. CI also restores the packed artifact into a separate application and runs
+it on each supported architecture.

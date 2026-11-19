@@ -1,0 +1,22 @@
+[
+    {
+        "code": "missing_node_identifier_label",
+        "path": "nodes.person.labels.identifier",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_from",
+        "path": "relationships.knows.from.node",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_to",
+        "path": "relationships.knows.to.node",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_type",
+        "path": "relationships.knows.type",
+        "details": {}
+    }
+]

@@ -1,0 +1,7 @@
+# Golden documents and generator snapshots are compared byte for byte on every OS.
+/spec-tests/cases/** text eol=lf
+/src/jvmTest/resources/**/*.yaml text eol=lf
+/tools/schema-generator/internal/generator/testdata/expected/*.expected text eol=lf
+*.g.cs text eol=lf
+/gradlew text eol=lf
+*.sh text eol=lf

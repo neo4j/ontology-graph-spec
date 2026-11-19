@@ -1,0 +1,15 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "combined-rules"
+nodes:
+  person:
+    labels:
+      identifier: "Person:Detail"
+    properties:
+      first: { name: "email" }
+      second: { name: "email" }
+relationships:
+  knows:
+    type: ""
+    from: {}
+    to: {}
