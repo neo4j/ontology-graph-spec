@@ -23,6 +23,8 @@ constraint.
 | All | Running every built-in check.
 |===
 
+The xref:java.adoc[Java library] includes the Core set.
+
 Combine sets to check a model against more than one, such as Core and Labelled.
 
 A validator can depend on others, and only runs when they found no issues. This avoids a cascade of issues from a single
@@ -45,5 +47,5 @@ mistake, but means fixing an issue can reveal new ones.
 For validation beyond the standard sets, custom checks can be written against the model in your own code.
 
 TIP: On the JVM, implement the `Validation` interface and pass it to `validate` alongside a built-in set, so your checks
-run as part of validation.
+run as part of validation. In the xref:java.adoc#custom-validators[Java library], implement `Validator`.
 

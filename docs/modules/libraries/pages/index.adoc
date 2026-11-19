@@ -4,8 +4,9 @@
 The libraries read, write, validate and migrate models, for tools that work with the xref:format:concepts.adoc[format]:
 
 * xref:jvm.adoc[] for Kotlin, Java and other JVM languages
+* xref:java.adoc[], a pure Java library depending only on Jackson
 * xref:javascript.adoc[]
 * xref:go.adoc[]
 
-All three are built from the same Kotlin code, so validation and migration behave the same on every platform. To try
-one, see xref:getting-started.adoc[].
+The JVM, JavaScript and Go libraries are built from the same Kotlin code. The Java library is a separate
+implementation that passes the same language-neutral spec tests. To try one, see xref:getting-started.adoc[].

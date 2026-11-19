@@ -13,6 +13,9 @@ Migration converts models between this specification and the Aura Data Importer 
 information | 2.3.0, 2.4.0, 3.0.0 | 3.0.0
 |===
 
+The xref:java.adoc[Java library] reads and writes `graph_spec` 1.0.0 and 1.1.0, and can be extended with other
+formats.
+
 The version of a document is read from the document: from the `schema` URL for this specification, and from the data
 model's `version` field for the Aura Data Importer formats.
 

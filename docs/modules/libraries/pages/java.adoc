@@ -1,0 +1,171 @@
+= Java
+:description: Use the pure Java Neo4j Ontology Graph Specification library to read, write, migrate and validate models.
+
+A Java library with no dependencies beyond Jackson. Requires Java 11 or later.
+
+NOTE: This is a separate library from the xref:jvm.adoc[JVM library], which is built from Kotlin. Both use the
+`org.neo4j.spec.graph` packages, so use one or the other, not both.
+
+== Install
+
+[.tabs]
+.Gradle
+[source,kotlin,subs="attributes+"]
+----
+implementation("org.neo4j.spec.graph:ontology-graph-spec-java:{library-version}")
+----
+
+.Maven
+[source,xml,subs="attributes+"]
+----
+<dependency>
+    <groupId>org.neo4j.spec.graph</groupId>
+    <artifactId>ontology-graph-spec-java</artifactId>
+    <version>{library-version}</version>
+</dependency>
+----
+
+== Read and write models
+
+`GraphSpec` decodes documents into a `GraphModel` and encodes models back into documents, as JSON or YAML. Decoding
+expands any xref:format:shorthand.adoc[shorthand], and encoding always writes longhand.
+
+[source,java]
+----
+import org.neo4j.spec.graph.Format;
+import org.neo4j.spec.graph.GraphSpec;
+import org.neo4j.spec.graph.model.GraphModel;
+
+GraphSpec spec = GraphSpec.defaults();
+GraphModel model = spec.decode(yaml, Format.YAML);
+String json = spec.encode(model, Format.JSON);
+----
+
+`decode` and `encode` also read from a `Reader` and write to a `Writer`. Problems with a document, such as a field of
+the wrong type, throw a `GraphSpecException` whose `path()` says where the problem is, such as
+`nodes.person.properties.name.type`.
+
+`GraphModel` and everything in it are immutable. Build or change a model with its builders:
+
+[source,java]
+----
+import org.neo4j.spec.graph.model.Labels;
+import org.neo4j.spec.graph.model.Node;
+
+GraphModel withPerson = model.toBuilder()
+        .node("person", Node.builder()
+                .labels(Labels.builder().identifier("Person").build())
+                .build())
+        .build();
+----
+
+=== Settings
+
+`GraphSpec.builder()` configures an instance:
+
+[cols="1,3"]
+|===
+| Setting | Description
+
+| `failOnUnknownFields` | Whether decoding rejects fields the format doesn't define, outside of custom data.
+Defaults to `true`.
+| `migrations` | The migrations used to convert documents between versions. Defaults to `Migrations.defaults()`.
+|===
+
+== Versions and migration
+
+A `GraphModel` represents the latest version of the format. Decoding detects a document's version from its `schema`
+URL and migrates it to the latest version. Encoding writes the latest version, or migrates the model to the version
+given.
+
+[source,java]
+----
+import org.neo4j.spec.graph.migrate.SpecVersion;
+
+GraphModel detected = spec.decode(json, Format.JSON);                  // version from the schema URL
+GraphModel given = spec.decode(json, Format.JSON, SpecVersion.V1_0_0); // version given
+String latest = spec.encode(detected, Format.YAML);                    // latest version
+String older = spec.encode(detected, Format.YAML, SpecVersion.V1_0_0); // an earlier version
+----
+
+Migrations are steps between a `DocumentVersion`, a document type and a version, and another. `Migrations` chains
+as many steps as needed, forwards or backwards. To read or write another format, give it a `DocumentType`, a
+`VersionDetector` and steps to and from the graph spec:
+
+[source,java]
+----
+import org.neo4j.spec.graph.migrate.DocumentType;
+import org.neo4j.spec.graph.migrate.DocumentVersion;
+import org.neo4j.spec.graph.migrate.Migrations;
+import org.neo4j.spec.graph.migrate.TreeMigration;
+
+DocumentVersion toyV1 = DocumentVersion.of(DocumentType.of("toy"), "1.0.0");
+
+GraphSpec spec = GraphSpec.builder()
+        .migrations(Migrations.defaults().toBuilder()
+                .add(new TreeMigration(toyV1, SpecVersion.LATEST) {
+                    @Override
+                    protected ObjectNode transform(ObjectNode document) {
+                        // convert a toy document into a graph spec one
+                    }
+                })
+                .add(new TreeMigration(SpecVersion.LATEST, toyV1) {
+                    @Override
+                    protected ObjectNode transform(ObjectNode document) {
+                        // and back again
+                    }
+                })
+                .build())
+        .build();
+
+GraphModel model = spec.decode(toyJson, Format.JSON, toyV1);
+String toy = spec.encode(model, Format.JSON, toyV1);
+----
+
+See xref:migration.adoc[] for the versions of the format.
+
+== Validate models
+
+`validate` checks a model against one or more validators, and returns the issues found.
+
+[source,java]
+----
+import java.util.List;
+import org.neo4j.spec.graph.validate.Issue;
+import org.neo4j.spec.graph.validate.Validators;
+
+List<Issue> issues = spec.validate(model, Validators.core());
+for (Issue issue : issues) {
+    System.out.println(issue.code() + " at " + issue.path().orElse("") + ": " + issue.message());
+}
+----
+
+The library includes the Core set. Its validators are also available on their own from `CoreValidators`, such as
+`CoreValidators.REFERENCES`.
+
+[#custom-validators]
+=== Custom validators
+
+A `Validator` is a function from a model to a list of issues, so a custom check can be a lambda. Pass any mix of
+validators and sets, or combine them into a `ValidatorSet`:
+
+[source,java]
+----
+import org.neo4j.spec.graph.validate.Validator;
+import org.neo4j.spec.graph.validate.ValidatorSet;
+import org.neo4j.spec.graph.validate.core.CoreValidators;
+
+Validator named = model -> model.name().isPresent()
+        ? List.of()
+        : List.of(Issue.of("missing_model_name", "The model has no name.", "name"));
+
+List<Issue> issues = spec.validate(model, Validators.core(), named);
+
+ValidatorSet mine = ValidatorSet.of(CoreValidators.REFERENCES, named);
+List<Issue> fewer = spec.validate(model, mine);
+----
+
+A validator can override `dependsOn()` to run only when other validators found no issues. Dependencies run even when
+they weren't passed to `validate`, and each validator runs once.
+
+See xref:validation.adoc[] for the validator sets and issues.

@@ -18,6 +18,7 @@
 * xref:libraries:index.adoc[Libraries]
 ** xref:libraries:getting-started.adoc[]
 ** xref:libraries:jvm.adoc[]
+** xref:libraries:java.adoc[]
 ** xref:libraries:javascript.adoc[]
 ** xref:libraries:go.adoc[]
 ** xref:libraries:validation.adoc[]

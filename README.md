@@ -26,7 +26,7 @@ the right shape, validating consistency, and exchanging models between tools.
 ## What's in this repository?
 
 - **A format**: ontologies as YAML or JSON, described by a published [JSON Schema](ontology-graph-spec.schema.json).
-- **Libraries**: one Kotlin codebase published for JVM, JS/TS and Go, providing:
+- **Libraries**: one Kotlin codebase published for JVM, JS/TS and Go, and a pure Java library, providing:
   - **Encoding and decoding** between YAML/JSON and a typed `GraphModel`
   - **Validation**, reporting issues in a model
   - **Migration** from older or related model formats to the latest version, and back
@@ -160,6 +160,34 @@ for (Issue issue : model.validate(Validations.getCore())) {
 
 // Encode
 String encoded = GraphSpec.getYaml().encodeToString(model);
+```
+
+### Java (pure Java library)
+
+A separate Java implementation with no dependencies beyond Jackson, published as
+`org.neo4j.spec.graph:ontology-graph-spec-java`. It passes the same spec tests, and adds migration to any version and
+custom validators. See [docs/modules/libraries/pages/java.adoc](docs/modules/libraries/pages/java.adoc).
+
+```java
+import org.neo4j.spec.graph.Format;
+import org.neo4j.spec.graph.GraphSpec;
+import org.neo4j.spec.graph.migrate.SpecVersion;
+import org.neo4j.spec.graph.model.GraphModel;
+import org.neo4j.spec.graph.validate.Issue;
+import org.neo4j.spec.graph.validate.Validators;
+
+GraphSpec spec = GraphSpec.defaults();
+
+// Decode, detecting the version from the schema URL and migrating to the latest
+GraphModel model = spec.decode(json, Format.JSON);
+
+// Validate
+for (Issue issue : spec.validate(model, Validators.core())) {
+    System.out.println(issue.code() + ": " + issue.message());
+}
+
+// Encode, at the latest version or an earlier one
+String encoded = spec.encode(model, Format.YAML, SpecVersion.V1_0_0);
 ```
 
 ### JavaScript / TypeScript
