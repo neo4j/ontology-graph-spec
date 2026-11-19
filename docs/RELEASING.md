@@ -35,6 +35,15 @@ Invalid combinations (the workflow fails):
 
 No manual `npm publish` or Gradle task is needed - just merge a labelled PR.
 
+The workflow pushes the `release/vX.Y.Z` and `go/vX.Y.Z` tags before publishing to npm and Maven Central, which makes failures easier to recover from.
+The next version is computed from the `release/v*` tags, so pushing them first claims the version.
+If tagging fails, nothing is published and the next run computes the same version.
+If publishing fails, the version is already claimed and is never computed again.
+To recover, either delete both tags to reset the version, or carry on with the next release if you are happy to skip a version.
+Once the Go module proxy has fetched a `go/v*` version, it keeps it even if the tag is deleted, so only reuse a version from the same commit.
+
+The tags are protected by the repository tag ruleset, so the workflow pushes them over SSH with the `RELEASE_TAG_DEPLOY_KEY` secret (see below).
+
 ## Releasing the spec
 
 The spec (the JSON schema published to the website) is versioned independently of the libraries and released by merging a version bump to `main`: the Release Spec workflow then creates the `release-spec/vX.Y.Z` tag, which triggers publishing the schema to the website (in TeamCity). Never tag by hand.
@@ -70,3 +79,4 @@ The Release Spec workflow runs on every push to `main`. If the schema `$id` vers
 Merging an unchanged version does nothing.
 `release-spec/*` tags are protected by a repository tag ruleset, so only the Release Spec workflow creates them.
 The workflow pushes the tag over SSH with the `RELEASE_TAG_DEPLOY_KEY` secret, a write deploy key that is on the bypass list of that ruleset.
+The Release workflow uses the same key for the `release/*` and `go/*` tags.
