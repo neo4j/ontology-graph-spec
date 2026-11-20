@@ -1,7 +1,7 @@
-schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+schema: "https://example.com/ontology-graph-spec/1.1.0/schema.json"
 version: "1"
 id: "references"
-description: "Constraints, indexes and relationship ends that refer to properties or nodes that don't exist."
+description: "A schema url that isn't a released schema, and constraints, indexes and relationship ends that refer to properties or nodes that don't exist."
 nodes:
   person:
     labels:

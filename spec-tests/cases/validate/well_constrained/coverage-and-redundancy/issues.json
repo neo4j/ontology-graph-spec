@@ -1,0 +1,22 @@
+[
+    {
+        "code": "missing_node_constraint_coverage",
+        "path": "/nodes/tag/constraints",
+        "details": {}
+    },
+    {
+        "code": "missing_node_properties",
+        "path": "/nodes/tag/properties",
+        "details": {}
+    },
+    {
+        "code": "redundant_node_constraint_key_overlap",
+        "path": "/nodes/person/constraints/id_unique",
+        "details": {}
+    },
+    {
+        "code": "redundant_relationship_constraint_key_overlap",
+        "path": "/relationships/knows/constraints/since_exists",
+        "details": {}
+    }
+]
