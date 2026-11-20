@@ -102,8 +102,3 @@ public sealed class OrderLine
     [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("sku")]
     public required string Sku { get; set; }
 }
-
-internal sealed class SchemaStringEnumConverter<T> : global::System.Text.Json.Serialization.JsonStringEnumConverter<T> where T : struct, global::System.Enum
-{
-    public SchemaStringEnumConverter() : base(namingPolicy: null, allowIntegerValues: false) { }
-}

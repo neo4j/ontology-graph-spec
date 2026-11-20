@@ -245,7 +245,8 @@ construct-by-construct tables and what each verdict means.
 
 The .NET binding uses the same format and validation rules, including the `bulk_importable` set now exposed by the
 native bridge for .NET and Go. These checks validate model definitions; they do not enforce cardinality or `one_of`
-against database contents. Adding the binding does not change the coverage counts below.
+against database contents. Generated .NET enum converters reject unknown or combined tokens instead of coercing them
+to another property type. This transport check and the binding do not change the coverage counts below.
 
 Construct counts by verdict:
 

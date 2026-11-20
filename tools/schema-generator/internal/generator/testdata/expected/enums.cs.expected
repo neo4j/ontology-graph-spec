@@ -20,7 +20,7 @@ public sealed class Palette
 /// <summary>
 /// A primary colour.
 /// </summary>
-[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<Colour>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(ColourJsonConverter))]
 public enum Colour
 {
     [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("RED")]
@@ -31,7 +31,7 @@ public enum Colour
     Blue,
 }
 
-[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<DataType>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(DataTypeJsonConverter))]
 public enum DataType
 {
     [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cSTRING\u003e")]
@@ -52,7 +52,83 @@ public enum DataType
     Value3d,
 }
 
-internal sealed class SchemaStringEnumConverter<T> : global::System.Text.Json.Serialization.JsonStringEnumConverter<T> where T : struct, global::System.Enum
+
+internal sealed class ColourJsonConverter : global::System.Text.Json.Serialization.JsonConverter<Colour>
 {
-    public SchemaStringEnumConverter() : base(namingPolicy: null, allowIntegerValues: false) { }
+    public override Colour Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
+    {
+        if (reader.TokenType != global::System.Text.Json.JsonTokenType.String)
+            throw new global::System.Text.Json.JsonException("Expected a string for Colour");
+        return Parse(reader.GetString());
+    }
+
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, Colour value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WriteStringValue(Token(value));
+
+    public override Colour ReadAsPropertyName(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options) =>
+        Parse(reader.GetString());
+
+    public override void WriteAsPropertyName(global::System.Text.Json.Utf8JsonWriter writer, Colour value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WritePropertyName(Token(value));
+
+    private static Colour Parse(string? value) => value switch
+    {
+        "RED" => global::Generated.enums.Colour.Red,
+        "GREEN" => global::Generated.enums.Colour.Green,
+        "BLUE" => global::Generated.enums.Colour.Blue,
+        _ => throw new global::System.Text.Json.JsonException("Unknown token for Colour")
+    };
+
+    private static string Token(Colour value) => value switch
+    {
+        global::Generated.enums.Colour.Red => "RED",
+        global::Generated.enums.Colour.Green => "GREEN",
+        global::Generated.enums.Colour.Blue => "BLUE",
+        _ => throw new global::System.Text.Json.JsonException("Unknown value for Colour")
+    };
+}
+
+internal sealed class DataTypeJsonConverter : global::System.Text.Json.Serialization.JsonConverter<DataType>
+{
+    public override DataType Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
+    {
+        if (reader.TokenType != global::System.Text.Json.JsonTokenType.String)
+            throw new global::System.Text.Json.JsonException("Expected a string for DataType");
+        return Parse(reader.GetString());
+    }
+
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, DataType value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WriteStringValue(Token(value));
+
+    public override DataType ReadAsPropertyName(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options) =>
+        Parse(reader.GetString());
+
+    public override void WriteAsPropertyName(global::System.Text.Json.Utf8JsonWriter writer, DataType value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WritePropertyName(Token(value));
+
+    private static DataType Parse(string? value) => value switch
+    {
+        "LIST\u003cSTRING\u003e" => global::Generated.enums.DataType.ListString,
+        "LOCAL DATETIME" => global::Generated.enums.DataType.LocalDatetime,
+        "kebab-case" => global::Generated.enums.DataType.KebabCase,
+        "snake_case" => global::Generated.enums.DataType.SnakeCase,
+        "camelCase" => global::Generated.enums.DataType.CamelCase,
+        "user.id" => global::Generated.enums.DataType.UserId,
+        "http-url" => global::Generated.enums.DataType.HttpUrl,
+        "3d" => global::Generated.enums.DataType.Value3d,
+        _ => throw new global::System.Text.Json.JsonException("Unknown token for DataType")
+    };
+
+    private static string Token(DataType value) => value switch
+    {
+        global::Generated.enums.DataType.ListString => "LIST\u003cSTRING\u003e",
+        global::Generated.enums.DataType.LocalDatetime => "LOCAL DATETIME",
+        global::Generated.enums.DataType.KebabCase => "kebab-case",
+        global::Generated.enums.DataType.SnakeCase => "snake_case",
+        global::Generated.enums.DataType.CamelCase => "camelCase",
+        global::Generated.enums.DataType.UserId => "user.id",
+        global::Generated.enums.DataType.HttpUrl => "http-url",
+        global::Generated.enums.DataType.Value3d => "3d",
+        _ => throw new global::System.Text.Json.JsonException("Unknown value for DataType")
+    };
 }

@@ -69,7 +69,7 @@ public sealed class GraphModel
 /// <summary>
 /// The type of a constraint.
 /// </summary>
-[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<ConstraintType>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(ConstraintTypeJsonConverter))]
 public enum ConstraintType
 {
     [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("EXISTS")]
@@ -227,7 +227,7 @@ public interface IndexOption { }
 /// <summary>
 /// The type of an index.
 /// </summary>
-[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<IndexType>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(IndexTypeJsonConverter))]
 public enum IndexType
 {
     [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("FULLTEXT")]
@@ -300,7 +300,7 @@ public interface Mapping { }
 /// <summary>
 /// Write approach used when importing data (merged into existing data or always created).
 /// </summary>
-[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<MappingMode>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(MappingModeJsonConverter))]
 public enum MappingMode
 {
     [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("MERGE")]
@@ -374,7 +374,7 @@ public sealed class NodeMapping : Mapping
 /// <summary>
 /// A Neo4j property type.
 /// </summary>
-[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<Neo4jType>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(Neo4jTypeJsonConverter))]
 public enum Neo4jType
 {
     [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("ANY")]
@@ -1349,9 +1349,42 @@ public sealed class VectorIndexOption : IndexOption
     public string? VectorSimilarityFunction { get; set; }
 }
 
-internal sealed class SchemaStringEnumConverter<T> : global::System.Text.Json.Serialization.JsonStringEnumConverter<T> where T : struct, global::System.Enum
+
+internal sealed class ConstraintTypeJsonConverter : global::System.Text.Json.Serialization.JsonConverter<ConstraintType>
 {
-    public SchemaStringEnumConverter() : base(namingPolicy: null, allowIntegerValues: false) { }
+    public override ConstraintType Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
+    {
+        if (reader.TokenType != global::System.Text.Json.JsonTokenType.String)
+            throw new global::System.Text.Json.JsonException("Expected a string for ConstraintType");
+        return Parse(reader.GetString());
+    }
+
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, ConstraintType value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WriteStringValue(Token(value));
+
+    public override ConstraintType ReadAsPropertyName(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options) =>
+        Parse(reader.GetString());
+
+    public override void WriteAsPropertyName(global::System.Text.Json.Utf8JsonWriter writer, ConstraintType value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WritePropertyName(Token(value));
+
+    private static ConstraintType Parse(string? value) => value switch
+    {
+        "EXISTS" => global::Neo4j.OntologyGraphSpec.Model.ConstraintType.Exists,
+        "KEY" => global::Neo4j.OntologyGraphSpec.Model.ConstraintType.Key,
+        "PROPERTY_TYPE" => global::Neo4j.OntologyGraphSpec.Model.ConstraintType.PropertyType,
+        "UNIQUE" => global::Neo4j.OntologyGraphSpec.Model.ConstraintType.Unique,
+        _ => throw new global::System.Text.Json.JsonException("Unknown token for ConstraintType")
+    };
+
+    private static string Token(ConstraintType value) => value switch
+    {
+        global::Neo4j.OntologyGraphSpec.Model.ConstraintType.Exists => "EXISTS",
+        global::Neo4j.OntologyGraphSpec.Model.ConstraintType.Key => "KEY",
+        global::Neo4j.OntologyGraphSpec.Model.ConstraintType.PropertyType => "PROPERTY_TYPE",
+        global::Neo4j.OntologyGraphSpec.Model.ConstraintType.Unique => "UNIQUE",
+        _ => throw new global::System.Text.Json.JsonException("Unknown value for ConstraintType")
+    };
 }
 
 internal sealed class IndexOptionJsonConverter : global::System.Text.Json.Serialization.JsonConverter<IndexOption>
@@ -1390,6 +1423,47 @@ internal sealed class IndexOptionJsonConverter : global::System.Text.Json.Serial
     }
 }
 
+internal sealed class IndexTypeJsonConverter : global::System.Text.Json.Serialization.JsonConverter<IndexType>
+{
+    public override IndexType Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
+    {
+        if (reader.TokenType != global::System.Text.Json.JsonTokenType.String)
+            throw new global::System.Text.Json.JsonException("Expected a string for IndexType");
+        return Parse(reader.GetString());
+    }
+
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, IndexType value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WriteStringValue(Token(value));
+
+    public override IndexType ReadAsPropertyName(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options) =>
+        Parse(reader.GetString());
+
+    public override void WriteAsPropertyName(global::System.Text.Json.Utf8JsonWriter writer, IndexType value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WritePropertyName(Token(value));
+
+    private static IndexType Parse(string? value) => value switch
+    {
+        "FULLTEXT" => global::Neo4j.OntologyGraphSpec.Model.IndexType.Fulltext,
+        "POINT" => global::Neo4j.OntologyGraphSpec.Model.IndexType.Point,
+        "RANGE" => global::Neo4j.OntologyGraphSpec.Model.IndexType.Range,
+        "TEXT" => global::Neo4j.OntologyGraphSpec.Model.IndexType.Text,
+        "VECTOR" => global::Neo4j.OntologyGraphSpec.Model.IndexType.Vector,
+        "LOOKUP" => global::Neo4j.OntologyGraphSpec.Model.IndexType.Lookup,
+        _ => throw new global::System.Text.Json.JsonException("Unknown token for IndexType")
+    };
+
+    private static string Token(IndexType value) => value switch
+    {
+        global::Neo4j.OntologyGraphSpec.Model.IndexType.Fulltext => "FULLTEXT",
+        global::Neo4j.OntologyGraphSpec.Model.IndexType.Point => "POINT",
+        global::Neo4j.OntologyGraphSpec.Model.IndexType.Range => "RANGE",
+        global::Neo4j.OntologyGraphSpec.Model.IndexType.Text => "TEXT",
+        global::Neo4j.OntologyGraphSpec.Model.IndexType.Vector => "VECTOR",
+        global::Neo4j.OntologyGraphSpec.Model.IndexType.Lookup => "LOOKUP",
+        _ => throw new global::System.Text.Json.JsonException("Unknown value for IndexType")
+    };
+}
+
 internal sealed class MappingJsonConverter : global::System.Text.Json.Serialization.JsonConverter<Mapping>
 {
     public override Mapping Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
@@ -1424,4 +1498,144 @@ internal sealed class MappingJsonConverter : global::System.Text.Json.Serializat
                 throw new global::System.Text.Json.JsonException("Unsupported implementation of Mapping");
         }
     }
+}
+
+internal sealed class MappingModeJsonConverter : global::System.Text.Json.Serialization.JsonConverter<MappingMode>
+{
+    public override MappingMode Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
+    {
+        if (reader.TokenType != global::System.Text.Json.JsonTokenType.String)
+            throw new global::System.Text.Json.JsonException("Expected a string for MappingMode");
+        return Parse(reader.GetString());
+    }
+
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, MappingMode value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WriteStringValue(Token(value));
+
+    public override MappingMode ReadAsPropertyName(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options) =>
+        Parse(reader.GetString());
+
+    public override void WriteAsPropertyName(global::System.Text.Json.Utf8JsonWriter writer, MappingMode value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WritePropertyName(Token(value));
+
+    private static MappingMode Parse(string? value) => value switch
+    {
+        "MERGE" => global::Neo4j.OntologyGraphSpec.Model.MappingMode.Merge,
+        "CREATE" => global::Neo4j.OntologyGraphSpec.Model.MappingMode.Create,
+        _ => throw new global::System.Text.Json.JsonException("Unknown token for MappingMode")
+    };
+
+    private static string Token(MappingMode value) => value switch
+    {
+        global::Neo4j.OntologyGraphSpec.Model.MappingMode.Merge => "MERGE",
+        global::Neo4j.OntologyGraphSpec.Model.MappingMode.Create => "CREATE",
+        _ => throw new global::System.Text.Json.JsonException("Unknown value for MappingMode")
+    };
+}
+
+internal sealed class Neo4jTypeJsonConverter : global::System.Text.Json.Serialization.JsonConverter<Neo4jType>
+{
+    public override Neo4jType Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
+    {
+        if (reader.TokenType != global::System.Text.Json.JsonTokenType.String)
+            throw new global::System.Text.Json.JsonException("Expected a string for Neo4jType");
+        return Parse(reader.GetString());
+    }
+
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, Neo4jType value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WriteStringValue(Token(value));
+
+    public override Neo4jType ReadAsPropertyName(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options) =>
+        Parse(reader.GetString());
+
+    public override void WriteAsPropertyName(global::System.Text.Json.Utf8JsonWriter writer, Neo4jType value, global::System.Text.Json.JsonSerializerOptions options) =>
+        writer.WritePropertyName(Token(value));
+
+    private static Neo4jType Parse(string? value) => value switch
+    {
+        "ANY" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Any,
+        "LIST\u003cANY\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListAny,
+        "BOOLEAN" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Boolean,
+        "LIST\u003cBOOLEAN\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListBoolean,
+        "DATE" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Date,
+        "LIST\u003cDATE\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListDate,
+        "DURATION" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Duration,
+        "LIST\u003cDURATION\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListDuration,
+        "FLOAT32" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Float32,
+        "LIST\u003cFLOAT32\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListFloat32,
+        "FLOAT" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Float,
+        "LIST\u003cFLOAT\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListFloat,
+        "INTEGER8" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Integer8,
+        "LIST\u003cINTEGER8\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListInteger8,
+        "INTEGER16" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Integer16,
+        "LIST\u003cINTEGER16\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListInteger16,
+        "INTEGER32" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Integer32,
+        "LIST\u003cINTEGER32\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListInteger32,
+        "INTEGER" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Integer,
+        "LIST\u003cINTEGER\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListInteger,
+        "LOCAL DATETIME" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.LocalDatetime,
+        "LIST\u003cLOCAL DATETIME\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListLocalDatetime,
+        "LOCAL TIME" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.LocalTime,
+        "LIST\u003cLOCAL TIME\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListLocalTime,
+        "POINT" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Point,
+        "LIST\u003cPOINT\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListPoint,
+        "STRING" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.String,
+        "LIST\u003cSTRING\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListString,
+        "VECTOR\u003cFLOAT\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorFloat,
+        "VECTOR\u003cFLOAT32\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorFloat32,
+        "VECTOR\u003cINTEGER\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorInteger,
+        "VECTOR\u003cINTEGER32\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorInteger32,
+        "VECTOR\u003cINTEGER16\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorInteger16,
+        "VECTOR\u003cINTEGER8\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorInteger8,
+        "ZONED DATETIME" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ZonedDatetime,
+        "LIST\u003cZONED DATETIME\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListZonedDatetime,
+        "ZONED TIME" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ZonedTime,
+        "LIST\u003cZONED TIME\u003e" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListZonedTime,
+        "UUID" => global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Uuid,
+        _ => throw new global::System.Text.Json.JsonException("Unknown token for Neo4jType")
+    };
+
+    private static string Token(Neo4jType value) => value switch
+    {
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Any => "ANY",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListAny => "LIST\u003cANY\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Boolean => "BOOLEAN",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListBoolean => "LIST\u003cBOOLEAN\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Date => "DATE",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListDate => "LIST\u003cDATE\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Duration => "DURATION",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListDuration => "LIST\u003cDURATION\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Float32 => "FLOAT32",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListFloat32 => "LIST\u003cFLOAT32\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Float => "FLOAT",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListFloat => "LIST\u003cFLOAT\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Integer8 => "INTEGER8",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListInteger8 => "LIST\u003cINTEGER8\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Integer16 => "INTEGER16",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListInteger16 => "LIST\u003cINTEGER16\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Integer32 => "INTEGER32",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListInteger32 => "LIST\u003cINTEGER32\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Integer => "INTEGER",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListInteger => "LIST\u003cINTEGER\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.LocalDatetime => "LOCAL DATETIME",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListLocalDatetime => "LIST\u003cLOCAL DATETIME\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.LocalTime => "LOCAL TIME",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListLocalTime => "LIST\u003cLOCAL TIME\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Point => "POINT",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListPoint => "LIST\u003cPOINT\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.String => "STRING",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListString => "LIST\u003cSTRING\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorFloat => "VECTOR\u003cFLOAT\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorFloat32 => "VECTOR\u003cFLOAT32\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorInteger => "VECTOR\u003cINTEGER\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorInteger32 => "VECTOR\u003cINTEGER32\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorInteger16 => "VECTOR\u003cINTEGER16\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.VectorInteger8 => "VECTOR\u003cINTEGER8\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ZonedDatetime => "ZONED DATETIME",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListZonedDatetime => "LIST\u003cZONED DATETIME\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ZonedTime => "ZONED TIME",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.ListZonedTime => "LIST\u003cZONED TIME\u003e",
+        global::Neo4j.OntologyGraphSpec.Model.Neo4jType.Uuid => "UUID",
+        _ => throw new global::System.Text.Json.JsonException("Unknown value for Neo4jType")
+    };
 }

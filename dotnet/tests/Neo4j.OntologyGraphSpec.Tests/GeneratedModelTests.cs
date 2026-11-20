@@ -47,6 +47,77 @@ public sealed class GeneratedModelTests
         Assert.Throws<JsonException>(() => JsonSerializer.Serialize((Neo4jType)int.MaxValue));
     }
 
+    [Theory]
+    [InlineData("BOOLEAN, DATE")]
+    [InlineData("STRING, INTEGER")]
+    [InlineData(" STRING ")]
+    [InlineData("string")]
+    [InlineData("String")]
+    [InlineData("1")]
+    public void InvalidEnumTokensCannotBecomeValidPropertyTypes(string token)
+    {
+        var input = new JsonObject
+        {
+            ["schema"] = GraphSpecSchema.Url, ["version"] = "1", ["id"] = "enum-test",
+            ["nodes"] = new JsonObject { ["n"] = new JsonObject
+            {
+                ["label"] = "N", ["properties"] = new JsonObject { ["p"] = new JsonObject { ["type"] = token } }
+            } }
+        }.ToJsonString();
+        Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<GraphModel>(input));
+        Assert.Throws<GraphSpecException>(() => GraphSpec.Json.DecodeFromString(input));
+    }
+
+    [Fact]
+    public void EveryEnumTokenRoundTripsIncludingDictionaryKeys()
+    {
+        foreach (var value in Enum.GetValues<Neo4jType>())
+        {
+            var token = JsonSerializer.Serialize(value);
+            Assert.Equal(value, JsonSerializer.Deserialize<Neo4jType>(token));
+            var map = new Dictionary<Neo4jType, string> { [value] = "value" };
+            var json = JsonSerializer.Serialize(map);
+            Assert.Equal("value", JsonSerializer.Deserialize<Dictionary<Neo4jType, string>>(json)![value]);
+        }
+        Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<Dictionary<Neo4jType, string>>("""{"BOOLEAN, DATE":"value"}"""));
+        Assert.Throws<JsonException>(() => JsonSerializer.Serialize(new Dictionary<Neo4jType, string> { [(Neo4jType)int.MaxValue] = "value" }));
+    }
+
+    [Theory]
+    [InlineData(typeof(Generated.converter_names.Token))]
+    [InlineData(typeof(Generated.converter_names.Parse))]
+    [InlineData(typeof(Generated.converter_names.Read))]
+    [InlineData(typeof(Generated.converter_names.Write))]
+    [InlineData(typeof(Generated.converter_names.ReadAsPropertyName))]
+    [InlineData(typeof(Generated.converter_names.WriteAsPropertyName))]
+    [InlineData(typeof(Generated.converter_names.CanConvert))]
+    public void EnumNamesCanMatchConverterMethods(Type enumType)
+    {
+        var value = JsonSerializer.Deserialize("\"A\"", enumType);
+        Assert.Equal("\"A\"", JsonSerializer.Serialize(value, enumType));
+    }
+
+    [Theory]
+    [InlineData("red,green")]
+    [InlineData(" padded ")]
+    [InlineData("token\u0085next")]
+    [InlineData("LOCAL DATETIME")]
+    [InlineData("quote\"slash\\tab\tend")]
+    [InlineData("emoji🌍")]
+    public void GeneratedWireNamesAndEnumTokensPreserveTheirCharacters(string token)
+    {
+        var input = new JsonObject
+        {
+            ["a\u0085b"] = "NEL", ["carriage\rreturn"] = "CR", ["line\nfeed"] = "LF",
+            ["separator\u2028inside"] = "LS", ["paragraph\u2029inside"] = "PS", ["café"] = "accent",
+            ["token"] = token
+        };
+        var model = JsonSerializer.Deserialize<Generated.lexical.UnusualStrings>(input.ToJsonString())!;
+        Assert.Equal("NEL", model.AB);
+        Assert.Equal("accent", model.Café);
+        Assert.True(JsonNode.DeepEquals(input, JsonNode.Parse(JsonSerializer.Serialize(model))));
+    }
+
     [Fact]
     public void DottedKeysFalseAndZeroArePreserved()
     {

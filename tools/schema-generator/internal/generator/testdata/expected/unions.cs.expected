@@ -110,10 +110,6 @@ public sealed class RectangleShape : Shape
 [global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(ShapeJsonConverter))]
 public interface Shape { }
 
-internal sealed class SchemaStringEnumConverter<T> : global::System.Text.Json.Serialization.JsonStringEnumConverter<T> where T : struct, global::System.Enum
-{
-    public SchemaStringEnumConverter() : base(namingPolicy: null, allowIntegerValues: false) { }
-}
 
 internal sealed class ExprJsonConverter : global::System.Text.Json.Serialization.JsonConverter<Expr>
 {

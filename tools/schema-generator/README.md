@@ -39,6 +39,14 @@ and invalid namespaces fail during generation. Properties and discriminator name
 members are rejected with their schema path. Framework references use `global::System` so custom namespaces such as
 `Review.Enum` cannot shadow them. The root `$id` is emitted as `GraphSpecSchema.Url`.
 
+Enum converters match complete wire tokens exactly, including dictionary keys. They reject numeric values,
+case changes, extra whitespace and comma-separated combinations unless that exact string is a declared token.
+Generated string literals preserve Unicode line separators; documentation and source headers normalize them safely.
+XML-invalid characters in descriptions are shown as Unicode escape text so XML documentation still compiles.
+Enum member references are globally qualified to avoid collisions with converter methods such as `Read` or `Token`.
+Namespace components and generated identifiers support BMP letters, digits after the first character, and underscores.
+Reserved C# tokens and supplementary-plane identifier characters are rejected before source is emitted.
+
 Properties and definitions are deterministic. Existing Go output remains unchanged by the language option. Both emitters
 share parser/model validation, and generator fixtures are compared against snapshots; the C# snapshots are also compiled
 and exercised by the .NET tests. Runtime format validation remains in Kotlin, not in generated C# rules.

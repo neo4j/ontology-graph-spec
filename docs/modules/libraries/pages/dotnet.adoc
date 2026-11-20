@@ -54,6 +54,9 @@ Models live in `Neo4j.OntologyGraphSpec.Model`. Required fields use C# `required
 enumerations use their schema tokens, and union interfaces have typed implementations. Custom data uses `JsonElement`;
 clone values extracted from a `JsonDocument` before disposing that document.
 
+Generated enum converters require exact schema tokens, including when enums are used as dictionary keys. Numeric
+values, case changes, extra whitespace and combined tokens such as `"BOOLEAN, DATE"` are rejected during deserialization.
+
 `model.Validate()` selects `ValidationSet.Core`. Other built-in sets are `Labelled`, `ConsistentSchema`, `Mappable`,
 `BulkImportable`, `WellConstrained` and `All`. Shared rules execute once when sets overlap. See xref:validation.adoc[].
 
@@ -90,7 +93,10 @@ binding does not maintain a second implementation of them.
 
 Generated C# uses globally qualified framework names, so custom generator namespaces can contain names such as
 `Enum` or `Type`. Property and discriminator names that collide with inherited `System.Object` members are rejected with a
-schema-path diagnostic. The generator checks these alongside its existing identifier and name-collision rules.
+schema-path diagnostic. Namespace components and emitted identifiers reject reserved C# tokens and supplementary-plane
+letters; BMP letters, digits after the first character and underscores are supported. Wire strings preserve Unicode
+line separators, while generated documentation normalizes them into safe comment lines and displays XML-invalid
+characters as Unicode escape text. Enum names may match converter method names without changing token handling.
 
 Native compilation and model generation are explicit contributor steps. See
 https://github.com/neo4j/ontology-graph-spec/tree/main/dotnet[the .NET README] for build commands. The solution includes

@@ -58,6 +58,8 @@ the corresponding argument exception. Literal NULs in input strings are rejected
 Models use required C# properties, nullable optional values, string enums and typed union interfaces. Use `GraphSpec`
 for public documents: direct `System.Text.Json` serialization is a model transport and does not perform normalization,
 canonical formatting, or migration. Custom data uses `JsonElement`; clone elements taken from a disposable `JsonDocument`.
+Generated enum converters accept exact schema tokens only; numeric values, case changes, extra whitespace and combined
+tokens such as `"BOOLEAN, DATE"` are rejected, including in enum dictionary keys.
 
 ## Build and verify
 

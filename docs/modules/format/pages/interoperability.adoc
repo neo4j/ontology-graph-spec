@@ -21,6 +21,8 @@ gets one of these verdicts:
 The tables apply equally to the .NET binding, which delegates to the shared Kotlin codecs and validation rules.
 Exposing `bulk_importable` through the native bridge adds access to existing token checks for .NET and Go; it does
 not add database enforcement or alter the field mappings and verdicts below.
+Generated .NET enum converters also require exact schema tokens: a combined token such as `"BOOLEAN, DATE"` is rejected
+instead of becoming a different type. This transport check leaves the coverage tables unchanged.
 
 == RDFS coverage
 
