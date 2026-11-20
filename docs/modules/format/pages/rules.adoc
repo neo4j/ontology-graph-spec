@@ -35,7 +35,7 @@ TIP: The xref:libraries:validation.adoc[libraries] check these rules when they v
 == Relationship counts
 
 * A relationship end can't set `count` together with `min_count` or `max_count`.
-* `count` and `min_count` must not be negative.
+* `count`, `min_count` and `max_count` must not be negative.
 * `min_count` must not be greater than `max_count`.
 
 == Repeated entries

@@ -5,6 +5,7 @@
   "description": "Relationship ends with conflicting, negative or inverted counts.",
   "relationships": {
     "knows": { "type": "KNOWS", "from": { "count": 1, "max_count": 2 }, "to": { "count": -1 } },
-    "follows": { "type": "FOLLOWS", "from": { "min_count": -1 }, "to": { "min_count": 3, "max_count": 2 } }
+    "follows": { "type": "FOLLOWS", "from": { "min_count": -1 }, "to": { "min_count": 3, "max_count": 2 } },
+    "likes": { "type": "LIKES", "from": { "max_count": -1 }, "to": {} }
   }
 }
