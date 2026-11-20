@@ -10,7 +10,8 @@ on:
       version:
         description: 'Library version for the tested NuGet artifact'
         type: string
-        default: '0.0.0-local'
+        # Exercise release metadata independently of the local development version.
+        default: '0.0.1-ci'
 
 permissions:
   contents: read
@@ -133,7 +134,7 @@ jobs:
         env:
           PACKAGE_VERSION: ${{ inputs.version }}
           SOURCE_COMMIT: ${{ inputs.ref }}
-        run: dotnet pack src/Neo4j.OntologyGraphSpec/Neo4j.OntologyGraphSpec.csproj -c Release -p:PackageVersion="$PACKAGE_VERSION" -p:RepositoryCommit="$SOURCE_COMMIT" -p:ContinuousIntegrationBuild=true -p:RequireAllNativeAssets=true -o artifacts/packages
+        run: dotnet pack src/Neo4j.OntologyGraphSpec/Neo4j.OntologyGraphSpec.csproj -c Release -p:Version="$PACKAGE_VERSION" -p:RepositoryCommit="$SOURCE_COMMIT" -p:ContinuousIntegrationBuild=true -p:RequireAllNativeAssets=true -o artifacts/packages
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: dotnet-package

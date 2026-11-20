@@ -1,10 +1,21 @@
+using System.Reflection;
 using System.Runtime.InteropServices;
 using Neo4j.OntologyGraphSpec;
 using Neo4j.OntologyGraphSpec.Model;
 using Neo4j.OntologyGraphSpec.Validation;
 
-if (args.Length != 1 || args[0] != RuntimeInformation.RuntimeIdentifier)
+if (args.Length != 2 || args[0] != RuntimeInformation.RuntimeIdentifier)
     throw new InvalidOperationException($"Unexpected test host: {RuntimeInformation.RuntimeIdentifier}");
+
+var assembly = typeof(GraphSpec).Assembly;
+var packageVersion = args[1].Split('+')[0];
+var numericVersion = Version.Parse(packageVersion.Split('-')[0]);
+var expectedAssemblyVersion = new Version(numericVersion.Major, numericVersion.Minor, numericVersion.Build, 0);
+Require(assembly.GetName().Version == expectedAssemblyVersion, $"Assembly version must match package {packageVersion}");
+Require(assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version == expectedAssemblyVersion.ToString(),
+    $"File version must match package {packageVersion}");
+Require(assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0] == packageVersion,
+    $"Informational version must match package {packageVersion}");
 
 var json = "{\"schema\":\"" + GraphSpecSchema.Url + "\",\"version\":\"1\",\"id\":\"package-test\","
     + "\"nodes\":{\"person\":{\"label\":\"Person\",\"properties\":{\"id\":{\"type\":\"STRING\",\"key\":true}}}}}";
@@ -29,7 +40,7 @@ Require(invalid.Validate(ValidationSet.BulkImportable).Any(i => i.Code == "inval
 try { GraphSpec.Json.DecodeFromString("{}"); throw new InvalidOperationException("Malformed input was accepted"); }
 catch (GraphSpecException error) { Require(!string.IsNullOrWhiteSpace(error.Message), "Error diagnostic"); }
 Parallel.For(0, 100, _ => Require(GraphSpec.Json.DecodeFromString(json).Validate().Count == 0, "Concurrent calls"));
-Console.WriteLine($"PASS: NuGet decode/encode JSON/YAML, validation, migration, errors and concurrency on {args[0]}");
+Console.WriteLine($"PASS: NuGet {packageVersion} metadata, decode/encode JSON/YAML, validation, migration, errors and concurrency on {args[0]}");
 
 static void Require(bool condition, string operation)
 {

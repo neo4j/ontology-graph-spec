@@ -34,7 +34,7 @@ public sealed class SpecTests
     {
         Assert.True(Documents().Count() >= 52, "The complete original document corpus must be present.");
         Assert.True(Validations().Count() >= 28, "Core and non-core validation inputs must be present.");
-        Assert.True(Migrations().Count() >= 13, "Supported and unsupported migration routes must be present.");
+        Assert.True(Migrations().Count() >= 15, "Supported and unsupported migration routes must be present.");
         Assert.Equal(Sets.Keys.Order(StringComparer.Ordinal), Directories("validate").Select(Path.GetFileName).Order(StringComparer.Ordinal));
     }
 

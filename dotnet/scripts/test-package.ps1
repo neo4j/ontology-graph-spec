@@ -43,11 +43,11 @@ Push-Location $scratch
 try {
     dotnet build -c Release "-p:PackageVersion=$version" "-p:RestorePackagesPath=$scratch/packages"
     if ($LASTEXITCODE -ne 0) { throw 'Package consumer build failed.' }
-    dotnet bin/Release/net10.0/PackageConsumer.dll $RuntimeIdentifier
+    dotnet bin/Release/net10.0/PackageConsumer.dll $RuntimeIdentifier $version
     if ($LASTEXITCODE -ne 0) { throw 'Package consumer execution failed.' }
     dotnet publish -c Release -r $RuntimeIdentifier --self-contained false "-p:PackageVersion=$version" "-p:RestorePackagesPath=$scratch/packages" -o published
     if ($LASTEXITCODE -ne 0) { throw 'RID-specific package publish failed.' }
-    dotnet published/PackageConsumer.dll $RuntimeIdentifier
+    dotnet published/PackageConsumer.dll $RuntimeIdentifier $version
     if ($LASTEXITCODE -ne 0) { throw 'Published package consumer failed.' }
     Write-Output "Verified $package ($RuntimeIdentifier). Consumer retained at $scratch"
 } finally { Pop-Location }

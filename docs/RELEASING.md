@@ -94,6 +94,11 @@ tags. `publish-nuget` downloads the exact `dotnet-package` artifact tested by th
 NuGet uses the same `x.y.z`, `x.y.z-alpha.N` or `x.y.z-rc.N` as the other libraries. There is no separate .NET version tag.
 The graph specification version continues to come from the generated schema metadata.
 
+Packing sets the MSBuild `Version` property so the NuGet package and assembly metadata share that library version.
+The isolated consumer checks assembly, file and informational versions against the package manifest, allowing a
+source-commit suffix on the informational version. PR validation uses `0.0.1-ci` to catch accidental reuse of the
+local `0.0.0-local` assembly version; this test package is not published.
+
 Before the first release, a maintainer must establish ownership of the proposed `Neo4j.OntologyGraphSpec` package ID
 on nuget.org and configure the repository secret `NUGET_API_KEY` with permission to publish that package. The name is
 not claimed by this PR. The release checks that the secret is present before creating tags. Fork PR validation and
