@@ -25,10 +25,6 @@ import org.neo4j.spec.graph.validate.jsonPointerOf
  * Index and constraint names must be unique across the whole model. Any name used by more than one
  * index or constraint is a `duplicate_node_index_constraint_name`, attached to every index and constraint
  * carrying that name. Blank and missing names are skipped.
- *
- * Ported from UPX `getNonUniqueNames` (import-shared/src/data-model/errors.ts). Graph-spec supports
- * mapping multiple files or columns to the same node natively, so it does not carry UPX's
- * "identical definition may reuse a name" exception - all duplicate names are flagged.
  */
 object NodeIndexConstraintNameConflict : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
@@ -36,7 +32,7 @@ object NodeIndexConstraintNameConflict : NodeValidation {
 
         for ((indexId, index) in node.extensions.indexes) {
             val name = index.name
-            if (!name.isNullOrEmpty() && name in duplicateNames) {
+            if (!name.isNullOrBlank() && name in duplicateNames) {
                 issues.add(
                     Issue(
                         code = "duplicate_node_index_constraint_name",
@@ -50,7 +46,7 @@ object NodeIndexConstraintNameConflict : NodeValidation {
 
         for ((constraintId, constraint) in node.constraints) {
             val name = constraint.name
-            if (!name.isNullOrEmpty() && name in duplicateNames) {
+            if (!name.isNullOrBlank() && name in duplicateNames) {
                 issues.add(
                     Issue(
                         code = "duplicate_node_index_constraint_name",
@@ -68,13 +64,13 @@ object NodeIndexConstraintNameConflict : NodeValidation {
         for (node in model.nodes.values) {
             for (index in node.extensions.indexes.values) {
                 val name = index.name
-                if (!name.isNullOrEmpty()) {
+                if (!name.isNullOrBlank()) {
                     seen[name] = (seen[name] ?: 0) + 1
                 }
             }
             for (constraint in node.constraints.values) {
                 val name = constraint.name
-                if (!name.isNullOrEmpty()) {
+                if (!name.isNullOrBlank()) {
                     seen[name] = (seen[name] ?: 0) + 1
                 }
             }
