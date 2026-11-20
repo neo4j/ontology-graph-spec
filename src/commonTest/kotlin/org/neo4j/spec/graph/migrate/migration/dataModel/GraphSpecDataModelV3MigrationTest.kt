@@ -113,6 +113,83 @@ class GraphSpecDataModelV3MigrationTest {
     }
 
     @Test
+    fun `label implied by an earlier node gets the properties of its identifier node`() {
+        val actor = "Actor" to schemaMapOf(
+            "labels" to schemaMapOf("identifier" to "Actor", "implied" to listOf("Person")),
+            "properties" to schemaMapOf(
+                "name" to schemaMapOf("type" to "STRING"),
+                "stageName" to schemaMapOf("type" to "STRING")
+            ),
+            "constraints" to schemaMapOf(
+                "key_Actor" to schemaMapOf("type" to "KEY", "properties" to listOf("name"))
+            )
+        )
+        val person = "Person" to schemaMapOf(
+            "labels" to schemaMapOf("identifier" to "Person"),
+            "properties" to schemaMapOf(
+                "name" to schemaMapOf("type" to "STRING"),
+                "born" to schemaMapOf("type" to "DATE")
+            ),
+            "constraints" to schemaMapOf(
+                "key_Person" to schemaMapOf("type" to "KEY", "properties" to listOf("name")),
+                "exists_Person_born" to schemaMapOf("type" to "EXISTS", "properties" to listOf("born"))
+            )
+        )
+
+        listOf(listOf(actor, person), listOf(person, actor)).forEach { nodes ->
+            val order = nodes.map { it.first }
+            val graphSchema = migration.migrate(schemaMapOf("nodes" to schemaMapOf(*nodes.toTypedArray())))
+                .map("graphSchemaRepresentation")
+                .map("graphSchema")
+            val labels = graphSchema.listOfMaps("nodeLabels")
+            val labelProperties = labels.associate { label ->
+                label.string("token") to label.listOfMaps("properties").map { it.string("\$id") }
+            }
+
+            assertEquals(listOf("name", "born"), labelProperties["Person"], "order $order")
+            assertEquals(listOf("name", "stageName"), labelProperties["Actor"], "order $order")
+
+            val propertiesById = labels.associate { label ->
+                "#${label.string("\$id")}" to label.listOfMaps("properties").map { "#${it.string("\$id")}" }.toSet()
+            }
+            graphSchema.listOfMaps("constraints").forEach { constraint ->
+                val labelRef = constraint.map("nodeLabel").string("\$ref")
+                val refs = constraint.listOfMaps("properties").map { it.string("\$ref") }
+                assertTrue(
+                    propertiesById.getValue(labelRef).containsAll(refs),
+                    "order $order: constraint ${constraint.string("\$id")} references $refs, " +
+                        "not all defined on $labelRef"
+                )
+            }
+        }
+    }
+
+    @Test
+    fun `labels that are only implied or optional get no properties`() {
+        val graphSchema = migration.migrate(
+            schemaMapOf(
+                "nodes" to schemaMapOf(
+                    "Actor" to schemaMapOf(
+                        "labels" to schemaMapOf(
+                            "identifier" to "Actor",
+                            "implied" to listOf("Person"),
+                            "optional" to listOf("Director")
+                        ),
+                        "properties" to schemaMapOf("name" to schemaMapOf("type" to "STRING"))
+                    )
+                )
+            )
+        ).map("graphSchemaRepresentation").map("graphSchema")
+        val labelProperties = graphSchema.listOfMaps("nodeLabels").associate { label ->
+            label.string("token") to label.listOfMaps("properties").map { it.string("\$id") }
+        }
+
+        assertEquals(listOf("name"), labelProperties["Actor"])
+        assertEquals(emptyList<String>(), labelProperties["Person"])
+        assertEquals(emptyList<String>(), labelProperties["Director"])
+    }
+
+    @Test
     fun `migrate converts relationships and handles ObjectType references`() {
         val input = schemaMapOf(
             "nodes" to schemaMapOf("n1" to schemaMapOf("labels" to schemaMapOf("identifier" to "A"))),
