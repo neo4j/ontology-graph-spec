@@ -19,6 +19,7 @@ package org.neo4j.spec.graph.validate.node
 import org.neo4j.spec.graph.model.GraphModel
 import org.neo4j.spec.graph.model.node.Node
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 object NodeMappingKey : NodeValidation {
     override fun validateNode(model: GraphModel, nodeId: String, node: Node, issues: MutableList<Issue>) {
         for ((mappingId, index, nodeMapping) in findNodeMappings(model, nodeId)) {
@@ -28,7 +29,7 @@ object NodeMappingKey : NodeValidation {
                         // Replaced legacy code: missing_node_key_property
                         code = "missing_node_mapping_key",
                         message = "Node '$nodeId' has no mapping key defined",
-                        path = "extensions.data_source_mappings.$mappingId[$index].key"
+                        path = jsonPointerOf("extensions", "data_source_mappings", mappingId, index, "key")
                     )
                 )
             }

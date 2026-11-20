@@ -1,26 +1,26 @@
 [
     {
         "code": "duplicate_node_property_alias",
-        "path": "nodes.person.properties.name.aliases[1]",
+        "path": "/nodes/person/properties/name/aliases/1",
         "details": {
             "value": "fullName"
         }
     },
     {
         "code": "duplicate_relationship_property_alias",
-        "path": "relationships.knows.properties.since.aliases[1]",
+        "path": "/relationships/knows/properties/since/aliases/1",
         "details": {
             "value": "from"
         }
     },
     {
         "code": "property_pattern_one_of_conflict",
-        "path": "nodes.person.properties.code",
+        "path": "/nodes/person/properties/code",
         "details": {}
     },
     {
         "code": "property_pattern_one_of_conflict",
-        "path": "relationships.knows.properties.code",
+        "path": "/relationships/knows/properties/code",
         "details": {}
     }
 ]

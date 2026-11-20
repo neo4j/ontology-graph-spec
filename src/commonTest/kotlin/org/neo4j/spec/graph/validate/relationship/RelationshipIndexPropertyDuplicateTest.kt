@@ -60,7 +60,7 @@ class RelationshipIndexPropertyDuplicateTest {
 
         assertEquals(1, issues.size)
         assertEquals("duplicate_relationship_index_property", issues.first().code)
-        assertEquals("relationships.r.extensions.indexes.i.properties[1]", issues.first().path)
+        assertEquals("/relationships/r/extensions/indexes/i/properties/1", issues.first().path)
         assertEquals("a", issues.first().details["value"])
     }
 }

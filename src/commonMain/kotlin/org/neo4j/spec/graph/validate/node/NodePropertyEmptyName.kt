@@ -31,6 +31,6 @@ object NodePropertyEmptyName : NodeValidation {
         property: Property,
         issues: MutableList<Issue>
     ) {
-        emptyPropertyName(propertyId, property, "nodes.$nodeId")?.let { issues.add(it) }
+        emptyPropertyName(propertyId, property, "nodes", nodeId)?.let { issues.add(it) }
     }
 }

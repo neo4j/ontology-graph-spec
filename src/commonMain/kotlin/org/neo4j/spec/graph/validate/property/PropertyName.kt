@@ -20,6 +20,7 @@ package org.neo4j.spec.graph.validate.property
 
 import org.neo4j.spec.graph.model.property.Property
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.jsonPointerOf
 import kotlin.jvm.JvmName
 
 /**
@@ -28,13 +29,13 @@ import kotlin.jvm.JvmName
  *
  * UPX: `getPropertyErrors` (errors.ts#L112-L124), same logic for nodes and relationships.
  */
-fun emptyPropertyName(propertyId: String, property: Property, entityPath: String): Issue? {
+fun emptyPropertyName(propertyId: String, property: Property, vararg entityPath: Any): Issue? {
     val name = property.name
     if (name.isNullOrBlank()) {
         return Issue(
             code = "missing_property_name",
             message = "Missing name for property '$propertyId'",
-            path = "$entityPath.properties.$propertyId.name"
+            path = jsonPointerOf(*entityPath, "properties", propertyId, "name")
         )
     }
     return null
@@ -44,7 +45,7 @@ fun duplicatePropertyName(
     properties: Map<String, Property>,
     propertyId: String,
     property: Property,
-    entityPath: String
+    vararg entityPath: Any
 ): Issue? {
     val name = property.name ?: return null
     if (name.isBlank()) return null
@@ -56,7 +57,7 @@ fun duplicatePropertyName(
         return Issue(
             code = "duplicate_property_name",
             message = "Duplicate property name '$name'",
-            path = "$entityPath.properties.$propertyId.name"
+            path = jsonPointerOf(*entityPath, "properties", propertyId, "name")
         )
     }
     return null
@@ -65,12 +66,12 @@ fun duplicatePropertyName(
 /**
  * A property may restrict its values with either a `pattern` or a `one_of` list, but not both.
  */
-fun patternOneOfConflict(propertyId: String, property: Property, entityPath: String): Issue? {
+fun patternOneOfConflict(propertyId: String, property: Property, vararg entityPath: Any): Issue? {
     if (property.pattern.isNotEmpty() && property.oneOf.isNotEmpty()) {
         return Issue(
             code = "property_pattern_one_of_conflict",
             message = "Property '$propertyId' can't set both pattern and one_of",
-            path = "$entityPath.properties.$propertyId"
+            path = jsonPointerOf(*entityPath, "properties", propertyId)
         )
     }
     return null

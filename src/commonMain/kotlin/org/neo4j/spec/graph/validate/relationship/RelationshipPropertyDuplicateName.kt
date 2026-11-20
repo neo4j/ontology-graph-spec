@@ -31,7 +31,13 @@ object RelationshipPropertyDuplicateName : RelationshipValidation {
         property: Property,
         issues: MutableList<Issue>
     ) {
-        duplicatePropertyName(relationship.properties, propertyId, property, "relationships.$relationshipId")?.let {
+        duplicatePropertyName(
+            relationship.properties,
+            propertyId,
+            property,
+            "relationships",
+            relationshipId
+        )?.let {
             issues.add(it)
         }
     }

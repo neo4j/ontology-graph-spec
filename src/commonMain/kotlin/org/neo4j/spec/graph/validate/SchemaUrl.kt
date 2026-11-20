@@ -32,7 +32,7 @@ object SchemaUrl : Validation {
                 Issue(
                     code = "invalid_schema_url",
                     message = "Schema '$schema' is not the url of a released graph spec schema",
-                    path = "schema"
+                    path = jsonPointerOf("schema")
                 )
             )
         }

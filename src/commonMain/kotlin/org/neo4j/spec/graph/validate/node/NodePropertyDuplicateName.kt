@@ -31,6 +31,8 @@ object NodePropertyDuplicateName : NodeValidation {
         property: Property,
         issues: MutableList<Issue>
     ) {
-        duplicatePropertyName(node.properties, propertyId, property, "nodes.$nodeId")?.let { issues.add(it) }
+        duplicatePropertyName(node.properties, propertyId, property, "nodes", nodeId)?.let {
+            issues.add(it)
+        }
     }
 }

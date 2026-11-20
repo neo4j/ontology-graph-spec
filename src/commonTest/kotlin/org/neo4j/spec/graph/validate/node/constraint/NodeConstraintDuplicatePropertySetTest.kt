@@ -84,12 +84,12 @@ class NodeConstraintDuplicatePropertySetTest {
                 Issue(
                     code = "duplicate_node_constraint_property_set",
                     message = "Constraint 'key1' (KEY on email) on node 'person' duplicates 'key2'",
-                    path = "nodes.person.constraints.key1.properties"
+                    path = "/nodes/person/constraints/key1/properties"
                 ),
                 Issue(
                     code = "duplicate_node_constraint_property_set",
                     message = "Constraint 'key2' (KEY on email) on node 'person' duplicates 'key1'",
-                    path = "nodes.person.constraints.key2.properties"
+                    path = "/nodes/person/constraints/key2/properties"
                 )
             ),
             issues

@@ -31,6 +31,8 @@ object RelationshipPropertyPatternOneOf : RelationshipValidation {
         property: Property,
         issues: MutableList<Issue>
     ) {
-        patternOneOfConflict(propertyId, property, "relationships.$relationshipId")?.let { issues.add(it) }
+        patternOneOfConflict(propertyId, property, "relationships", relationshipId)?.let {
+            issues.add(it)
+        }
     }
 }

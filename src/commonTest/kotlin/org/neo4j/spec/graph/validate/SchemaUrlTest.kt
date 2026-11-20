@@ -58,6 +58,6 @@ class SchemaUrlTest {
 
         assertEquals(1, issues.size)
         assertEquals("invalid_schema_url", issues.first().code)
-        assertEquals("schema", issues.first().path)
+        assertEquals("/schema", issues.first().path)
     }
 }

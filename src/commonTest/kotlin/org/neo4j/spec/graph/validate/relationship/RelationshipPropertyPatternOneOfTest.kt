@@ -62,6 +62,6 @@ class RelationshipPropertyPatternOneOfTest {
         val issues = validate(Property(pattern = "^a+$", oneOf = mutableListOf("a")))
         assertEquals(1, issues.size)
         assertEquals("property_pattern_one_of_conflict", issues.first().code)
-        assertEquals("relationships.r:1.properties.p:1", issues.first().path)
+        assertEquals("/relationships/r:1/properties/p:1", issues.first().path)
     }
 }

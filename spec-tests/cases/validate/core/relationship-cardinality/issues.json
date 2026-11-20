@@ -1,22 +1,22 @@
 [
     {
         "code": "relationship_count_conflict",
-        "path": "relationships.knows.from",
+        "path": "/relationships/knows/from",
         "details": {}
     },
     {
         "code": "relationship_count_negative",
-        "path": "relationships.knows.to.count",
+        "path": "/relationships/knows/to/count",
         "details": {}
     },
     {
         "code": "relationship_min_count_exceeds_max",
-        "path": "relationships.follows.to",
+        "path": "/relationships/follows/to",
         "details": {}
     },
     {
         "code": "relationship_min_count_negative",
-        "path": "relationships.follows.from.min_count",
+        "path": "/relationships/follows/from/min_count",
         "details": {}
     }
 ]
