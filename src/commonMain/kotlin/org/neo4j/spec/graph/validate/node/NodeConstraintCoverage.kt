@@ -27,7 +27,7 @@ object NodeConstraintCoverage : NodeValidation {
             issues.add(
                 Issue(
                     code = "missing_node_constraint_coverage",
-                    message = "Node '$nodeId' has no constraints — add a KEY, UNIQUENESS, or EXISTENCE constraint.",
+                    message = "Node '$nodeId' has no constraints",
                     path = jsonPointerOf("nodes", nodeId, "constraints")
                 )
             )
