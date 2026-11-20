@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using Neo4j.OntologyGraphSpec.Internal;
 using Neo4j.OntologyGraphSpec.Model;
+using UnionModels = global::Generated.System.Enum.Type.JsonConverter.JsonSerializer;
 
 namespace Neo4j.OntologyGraphSpec.Tests;
 
@@ -29,9 +30,9 @@ public sealed class GeneratedModelTests
     public void UnionVariantsCanBeSharedAndUsedDirectly()
     {
         const string json = """{"shapes":[{"type":"CIRCLE","radius":2},{"type":"POINT","x":1,"y":2}],"background":null,"origin":{"type":"POINT","x":3,"y":4},"marker":{"type":"POINT","x":5,"y":6},"expression":{"op":"add","left":{"op":"lit","value":1},"right":{"op":"lit","value":2}}}""";
-        var model = JsonSerializer.Deserialize<Generated.unions.Drawing>(json)!;
-        Assert.IsType<Generated.unions.Point>(model.Shapes[1]);
-        Assert.IsType<Generated.unions.Point>(model.Marker);
+        var model = JsonSerializer.Deserialize<UnionModels.Drawing>(json)!;
+        Assert.IsType<UnionModels.Point>(model.Shapes[1]);
+        Assert.IsType<UnionModels.Point>(model.Marker);
         Assert.True(JsonNode.DeepEquals(JsonNode.Parse(json), JsonNode.Parse(JsonSerializer.Serialize(model))));
         Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<Mapping>("""{"type":"UNKNOWN"}"""));
         Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<IndexOption>("{}"));

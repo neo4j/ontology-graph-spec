@@ -3,6 +3,7 @@ package generator
 import (
 	"errors"
 	"flag"
+	"fmt"
 	"io/fs"
 	"os"
 	"os/exec"
@@ -26,11 +27,16 @@ func TestGenerate_CSharp(t *testing.T) {
 	for _, schemaPath := range cases {
 		name := strings.TrimSuffix(filepath.Base(schemaPath), ".json")
 		t.Run(name, func(t *testing.T) {
+			namespace := "Generated." + name
+			if name == "unions" {
+				// The .NET tests compile this fixture, including its collection and converter references.
+				namespace = "Generated.System.Enum.Type.JsonConverter.JsonSerializer"
+			}
 			data, err := os.ReadFile(schemaPath)
 			require.NoError(t, err)
-			got, err := Generate(data, Options{Language: "csharp", Namespace: "Generated." + name, SchemaName: filepath.Base(schemaPath)})
+			got, err := Generate(data, Options{Language: "csharp", Namespace: namespace, SchemaName: filepath.Base(schemaPath)})
 			require.NoError(t, err)
-			again, err := Generate(data, Options{Language: "csharp", Namespace: "Generated." + name, SchemaName: filepath.Base(schemaPath)})
+			again, err := Generate(data, Options{Language: "csharp", Namespace: namespace, SchemaName: filepath.Base(schemaPath)})
 			require.NoError(t, err)
 			require.Equal(t, got, again)
 			expected := strings.TrimSuffix(schemaPath, ".json") + ".cs.expected"
@@ -61,6 +67,27 @@ func TestGenerate_CSharpRejectsInvalidNames(t *testing.T) {
 		_, err := Generate([]byte(schema), Options{Language: "csharp", Namespace: "Example.Models"})
 		require.Error(t, err, schema)
 	}
+}
+
+func TestGenerate_CSharpRejectsInheritedMembers(t *testing.T) {
+	for _, name := range []string{"equals", "finalize", "getHashCode", "getType", "memberwiseClone", "referenceEquals", "toString"} {
+		t.Run(name, func(t *testing.T) {
+			data := fmt.Sprintf(`{"title":"Example","type":"object","properties":{"%s":{"type":"string"}}}`, name)
+			_, err := Generate([]byte(data), Options{Language: "csharp", Namespace: "Example.Models"})
+			require.ErrorContains(t, err, "#/properties/"+name)
+			require.ErrorContains(t, err, "System.Object.")
+		})
+	}
+	const discriminator = `{"title":"Choice","oneOf":[{"$ref":"#/$defs/A"},{"$ref":"#/$defs/B"}],"$defs":{
+		"A":{"type":"object","properties":{"equals":{"type":"string","const":"A"}},"required":["equals"]},
+		"B":{"type":"object","properties":{"equals":{"type":"string","const":"B"}},"required":["equals"]}
+	}}`
+	_, err := Generate([]byte(discriminator), Options{Language: "csharp", Namespace: "Example.Models"})
+	require.ErrorContains(t, err, "discriminator")
+	require.ErrorContains(t, err, "System.Object.Equals")
+	// Enum values with these names do not hide object members in C#.
+	_, err = Generate([]byte(`{"title":"State","type":"string","enum":["Equals","GetType"]}`), Options{Language: "csharp", Namespace: "Example.Models"})
+	require.NoError(t, err)
 }
 
 func TestGenerate_Success(t *testing.T) {

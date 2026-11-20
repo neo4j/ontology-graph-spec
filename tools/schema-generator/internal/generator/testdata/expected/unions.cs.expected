@@ -2,83 +2,78 @@
 // Copyright Neo4j Sweden AB. Licensed under the Apache License, Version 2.0.
 #nullable enable
 
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
-namespace Generated.unions;
+namespace Generated.System.Enum.Type.JsonConverter.JsonSerializer;
 
 public sealed class Drawing
 {
-    [JsonPropertyName("background")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("background")]
     public required Shape? Background { get; set; }
 
-    [JsonPropertyName("byName")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, Shape>? ByName { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("byName")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, Shape>? ByName { get; set; }
 
-    [JsonPropertyName("expression")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("expression")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public Expr? Expression { get; set; }
 
-    [JsonPropertyName("marker")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("marker")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public Marker? Marker { get; set; }
 
-    [JsonPropertyName("origin")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("origin")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public Point? Origin { get; set; }
 
-    [JsonPropertyName("shapes")]
-    public required List<Shape> Shapes { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("shapes")]
+    public required global::System.Collections.Generic.List<Shape> Shapes { get; set; }
 }
 
 public sealed class AddExpr : Expr
 {
-    [JsonPropertyName("op")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("op")]
     public string Op => "add";
 
-    [JsonPropertyName("left")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("left")]
     public required Expr Left { get; set; }
 
-    [JsonPropertyName("right")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("right")]
     public required Expr Right { get; set; }
 }
 
 public sealed class CircleShape : Shape
 {
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public string Type => "CIRCLE";
 
-    [JsonPropertyName("radius")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("radius")]
     public required double Radius { get; set; }
 }
 
-[JsonConverter(typeof(ExprJsonConverter))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(ExprJsonConverter))]
 public interface Expr { }
 
 public sealed class LiteralExpr : Expr
 {
-    [JsonPropertyName("op")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("op")]
     public string Op => "lit";
 
-    [JsonPropertyName("value")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("value")]
     public required double Value { get; set; }
 }
 
 /// <summary>
 /// Shares the Point variant with Shape.
 /// </summary>
-[JsonConverter(typeof(MarkerJsonConverter))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(MarkerJsonConverter))]
 public interface Marker { }
 
 public sealed class PinMarker : Marker
 {
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public string Type => "PIN";
 
-    [JsonPropertyName("label")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("label")]
     public required string Label { get; set; }
 }
 
@@ -87,135 +82,135 @@ public sealed class PinMarker : Marker
 /// </summary>
 public sealed class Point : Marker, Shape
 {
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public string Type => "POINT";
 
-    [JsonPropertyName("x")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("x")]
     public required double X { get; set; }
 
-    [JsonPropertyName("y")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("y")]
     public required double Y { get; set; }
 }
 
 public sealed class RectangleShape : Shape
 {
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public string Type => "RECTANGLE";
 
-    [JsonPropertyName("height")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("height")]
     public required double Height { get; set; }
 
-    [JsonPropertyName("width")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("width")]
     public required double Width { get; set; }
 }
 
 /// <summary>
 /// A shape, selected by its type.
 /// </summary>
-[JsonConverter(typeof(ShapeJsonConverter))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(ShapeJsonConverter))]
 public interface Shape { }
 
-internal sealed class SchemaStringEnumConverter<T> : JsonStringEnumConverter<T> where T : struct, Enum
+internal sealed class SchemaStringEnumConverter<T> : global::System.Text.Json.Serialization.JsonStringEnumConverter<T> where T : struct, global::System.Enum
 {
     public SchemaStringEnumConverter() : base(namingPolicy: null, allowIntegerValues: false) { }
 }
 
-internal sealed class ExprJsonConverter : JsonConverter<Expr>
+internal sealed class ExprJsonConverter : global::System.Text.Json.Serialization.JsonConverter<Expr>
 {
-    public override Expr Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override Expr Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
     {
-        using var document = JsonDocument.ParseValue(ref reader);
+        using var document = global::System.Text.Json.JsonDocument.ParseValue(ref reader);
         var root = document.RootElement;
-        if (root.ValueKind != JsonValueKind.Object || !root.TryGetProperty("op", out var tag) || tag.ValueKind != JsonValueKind.String)
-            throw new JsonException("Missing string discriminator op for Expr");
+        if (root.ValueKind != global::System.Text.Json.JsonValueKind.Object || !root.TryGetProperty("op", out var tag) || tag.ValueKind != global::System.Text.Json.JsonValueKind.String)
+            throw new global::System.Text.Json.JsonException("Missing string discriminator op for Expr");
         return tag.GetString() switch
         {
-            "add" => root.Deserialize<AddExpr>(options)!,
-            "lit" => root.Deserialize<LiteralExpr>(options)!,
-            _ => throw new JsonException("Unknown discriminator for Expr")
+            "add" => global::System.Text.Json.JsonSerializer.Deserialize<AddExpr>(root, options)!,
+            "lit" => global::System.Text.Json.JsonSerializer.Deserialize<LiteralExpr>(root, options)!,
+            _ => throw new global::System.Text.Json.JsonException("Unknown discriminator for Expr")
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Expr value, JsonSerializerOptions options)
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, Expr value, global::System.Text.Json.JsonSerializerOptions options)
     {
         switch (value)
         {
             case AddExpr variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             case LiteralExpr variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             default:
-                throw new JsonException("Unsupported implementation of Expr");
+                throw new global::System.Text.Json.JsonException("Unsupported implementation of Expr");
         }
     }
 }
 
-internal sealed class MarkerJsonConverter : JsonConverter<Marker>
+internal sealed class MarkerJsonConverter : global::System.Text.Json.Serialization.JsonConverter<Marker>
 {
-    public override Marker Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override Marker Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
     {
-        using var document = JsonDocument.ParseValue(ref reader);
+        using var document = global::System.Text.Json.JsonDocument.ParseValue(ref reader);
         var root = document.RootElement;
-        if (root.ValueKind != JsonValueKind.Object || !root.TryGetProperty("type", out var tag) || tag.ValueKind != JsonValueKind.String)
-            throw new JsonException("Missing string discriminator type for Marker");
+        if (root.ValueKind != global::System.Text.Json.JsonValueKind.Object || !root.TryGetProperty("type", out var tag) || tag.ValueKind != global::System.Text.Json.JsonValueKind.String)
+            throw new global::System.Text.Json.JsonException("Missing string discriminator type for Marker");
         return tag.GetString() switch
         {
-            "PIN" => root.Deserialize<PinMarker>(options)!,
-            "POINT" => root.Deserialize<Point>(options)!,
-            _ => throw new JsonException("Unknown discriminator for Marker")
+            "PIN" => global::System.Text.Json.JsonSerializer.Deserialize<PinMarker>(root, options)!,
+            "POINT" => global::System.Text.Json.JsonSerializer.Deserialize<Point>(root, options)!,
+            _ => throw new global::System.Text.Json.JsonException("Unknown discriminator for Marker")
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Marker value, JsonSerializerOptions options)
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, Marker value, global::System.Text.Json.JsonSerializerOptions options)
     {
         switch (value)
         {
             case PinMarker variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             case Point variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             default:
-                throw new JsonException("Unsupported implementation of Marker");
+                throw new global::System.Text.Json.JsonException("Unsupported implementation of Marker");
         }
     }
 }
 
-internal sealed class ShapeJsonConverter : JsonConverter<Shape>
+internal sealed class ShapeJsonConverter : global::System.Text.Json.Serialization.JsonConverter<Shape>
 {
-    public override Shape Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override Shape Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
     {
-        using var document = JsonDocument.ParseValue(ref reader);
+        using var document = global::System.Text.Json.JsonDocument.ParseValue(ref reader);
         var root = document.RootElement;
-        if (root.ValueKind != JsonValueKind.Object || !root.TryGetProperty("type", out var tag) || tag.ValueKind != JsonValueKind.String)
-            throw new JsonException("Missing string discriminator type for Shape");
+        if (root.ValueKind != global::System.Text.Json.JsonValueKind.Object || !root.TryGetProperty("type", out var tag) || tag.ValueKind != global::System.Text.Json.JsonValueKind.String)
+            throw new global::System.Text.Json.JsonException("Missing string discriminator type for Shape");
         return tag.GetString() switch
         {
-            "CIRCLE" => root.Deserialize<CircleShape>(options)!,
-            "POINT" => root.Deserialize<Point>(options)!,
-            "RECTANGLE" => root.Deserialize<RectangleShape>(options)!,
-            _ => throw new JsonException("Unknown discriminator for Shape")
+            "CIRCLE" => global::System.Text.Json.JsonSerializer.Deserialize<CircleShape>(root, options)!,
+            "POINT" => global::System.Text.Json.JsonSerializer.Deserialize<Point>(root, options)!,
+            "RECTANGLE" => global::System.Text.Json.JsonSerializer.Deserialize<RectangleShape>(root, options)!,
+            _ => throw new global::System.Text.Json.JsonException("Unknown discriminator for Shape")
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Shape value, JsonSerializerOptions options)
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, Shape value, global::System.Text.Json.JsonSerializerOptions options)
     {
         switch (value)
         {
             case CircleShape variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             case Point variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             case RectangleShape variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             default:
-                throw new JsonException("Unsupported implementation of Shape");
+                throw new global::System.Text.Json.JsonException("Unsupported implementation of Shape");
         }
     }
 }

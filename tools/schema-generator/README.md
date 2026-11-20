@@ -16,7 +16,6 @@ go -C tools/schema-generator run . --schema "$PWD/ontology-graph-spec.schema.jso
 | `--schema`  | Path of the JSON Schema to read. Required.                            |  
 | `--out`     | Path of the generated file to write. Required.                               |
 | `--package` | Name of the Go package. Defaults to the name of the output directory. |  
-  
 | `--language` | `go` (default) or `csharp`. |
 | `--namespace` | Required C# namespace when generating C#. |
 
@@ -36,7 +35,9 @@ An interface allows one variant to participate in multiple unions without duplic
 are nullable and omitted when absent; required nullable values preserve null. Required fields use C# `required`.
 Integers become `long`, numbers `double`, arrays `List<T>`, maps `Dictionary<string,T>` and unstructured values
 `JsonElement`. JSON names and discriminator tokens remain unchanged; public identifiers use PascalCase. Name collisions
-and invalid namespaces fail during generation. The root `$id` is emitted as `GraphSpecSchema.Url`.
+and invalid namespaces fail during generation. Properties and discriminator names that hide inherited `System.Object`
+members are rejected with their schema path. Framework references use `global::System` so custom namespaces such as
+`Review.Enum` cannot shadow them. The root `$id` is emitted as `GraphSpecSchema.Url`.
 
 Properties and definitions are deterministic. Existing Go output remains unchanged by the language option. Both emitters
 share parser/model validation, and generator fixtures are compared against snapshots; the C# snapshots are also compiled

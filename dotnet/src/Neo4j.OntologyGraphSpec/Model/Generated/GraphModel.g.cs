@@ -2,11 +2,6 @@
 // Copyright Neo4j Sweden AB. Licensed under the Apache License, Version 2.0.
 #nullable enable
 
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
 namespace Neo4j.OntologyGraphSpec.Model;
 
 /// <summary>The specification described by the generation input.</summary>
@@ -20,70 +15,70 @@ public sealed class GraphModel
     /// <summary>
     /// Description of the model.
     /// </summary>
-    [JsonPropertyName("description")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("description")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Description { get; set; }
 
     /// <summary>
     /// Extensions to the model: data source tables, mappings and external custom data.
     /// </summary>
-    [JsonPropertyName("extensions")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("extensions")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public GraphModelExtensions? Extensions { get; set; }
 
     /// <summary>
     /// Unique identifier of the model, typically a kebab-case version of the name, used for referencing.
     /// </summary>
-    [JsonPropertyName("id")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("id")]
     public required string Id { get; set; }
 
     /// <summary>
     /// Human readable name for the model.
     /// </summary>
-    [JsonPropertyName("name")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("name")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Name { get; set; }
 
     /// <summary>
     /// Node definitions keyed by node id.
     /// </summary>
-    [JsonPropertyName("nodes")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, Node>? Nodes { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("nodes")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, Node>? Nodes { get; set; }
 
     /// <summary>
     /// Relationship definitions keyed by relationship id.
     /// </summary>
-    [JsonPropertyName("relationships")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, Relationship>? Relationships { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("relationships")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, Relationship>? Relationships { get; set; }
 
     /// <summary>
     /// Schema specification uri used.
     /// </summary>
-    [JsonPropertyName("schema")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("schema")]
     public required string Schema { get; set; }
 
     /// <summary>
     /// User-defined version of this model document, e.g. a revision number or label.
     /// </summary>
-    [JsonPropertyName("version")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("version")]
     public required string Version { get; set; }
 }
 
 /// <summary>
 /// The type of a constraint.
 /// </summary>
-[JsonConverter(typeof(SchemaStringEnumConverter<ConstraintType>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<ConstraintType>))]
 public enum ConstraintType
 {
-    [JsonStringEnumMemberName("EXISTS")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("EXISTS")]
     Exists,
-    [JsonStringEnumMemberName("KEY")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("KEY")]
     Key,
-    [JsonStringEnumMemberName("PROPERTY_TYPE")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("PROPERTY_TYPE")]
     PropertyType,
-    [JsonStringEnumMemberName("UNIQUE")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("UNIQUE")]
     Unique,
 }
 
@@ -92,56 +87,56 @@ public enum ConstraintType
 /// </summary>
 public sealed class FulltextIndexOption : IndexOption
 {
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public string Type => "FULLTEXT";
 
     /// <summary>
     /// Analyzer used by the index.
     /// </summary>
-    [JsonPropertyName("fulltext.analyzer")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("fulltext.analyzer")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? FulltextAnalyzer { get; set; }
 
     /// <summary>
     /// Analyzer used when the index doesn&#39;t specify one.
     /// </summary>
-    [JsonPropertyName("fulltext.default_analyzer")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("fulltext.default_analyzer")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? FulltextDefaultAnalyzer { get; set; }
 
     /// <summary>
     /// Whether the index is eventually consistent, updating asynchronously after transactions commit.
     /// </summary>
-    [JsonPropertyName("fulltext.eventually_consistent")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("fulltext.eventually_consistent")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public bool? FulltextEventuallyConsistent { get; set; }
 
     /// <summary>
     /// Number of threads used to apply updates to an eventually consistent index.
     /// </summary>
-    [JsonPropertyName("fulltext.eventually_consistent_apply_parallelism")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("fulltext.eventually_consistent_apply_parallelism")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? FulltextEventuallyConsistentApplyParallelism { get; set; }
 
     /// <summary>
     /// Maximum number of pending updates queued for an eventually consistent index.
     /// </summary>
-    [JsonPropertyName("fulltext.eventually_consistent_index_update_queue_max_length")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("fulltext.eventually_consistent_index_update_queue_max_length")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? FulltextEventuallyConsistentIndexUpdateQueueMaxLength { get; set; }
 
     /// <summary>
     /// How often an eventually consistent index is refreshed.
     /// </summary>
-    [JsonPropertyName("fulltext.eventually_consistent_refresh_interval")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("fulltext.eventually_consistent_refresh_interval")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? FulltextEventuallyConsistentRefreshInterval { get; set; }
 
     /// <summary>
     /// Number of threads used to refresh an eventually consistent index.
     /// </summary>
-    [JsonPropertyName("fulltext.eventually_consistent_refresh_parallelism")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("fulltext.eventually_consistent_refresh_parallelism")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? FulltextEventuallyConsistentRefreshParallelism { get; set; }
 }
 
@@ -153,20 +148,20 @@ public sealed class ForeignKey
     /// <summary>
     /// Names of the columns in this table which make up the key.
     /// </summary>
-    [JsonPropertyName("columns")]
-    public required List<string> Columns { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("columns")]
+    public required global::System.Collections.Generic.List<string> Columns { get; set; }
 
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 
     /// <summary>
     /// The table and columns the key refers to.
     /// </summary>
-    [JsonPropertyName("references")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("references")]
     public required ForeignKeyReference References { get; set; }
 }
 
@@ -178,21 +173,21 @@ public sealed class ForeignKeyReference
     /// <summary>
     /// Names of the referenced columns.
     /// </summary>
-    [JsonPropertyName("columns")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? Columns { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("columns")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<string>? Columns { get; set; }
 
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 
     /// <summary>
     /// Id of the referenced table.
     /// </summary>
-    [JsonPropertyName("table")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("table")]
     public required string Table { get; set; }
 }
 
@@ -204,48 +199,48 @@ public sealed class GraphModelExtensions
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 
     /// <summary>
     /// Sets of data source mappings from tables to nodes and relationships, often used for importing.
     /// </summary>
-    [JsonPropertyName("data_source_mappings")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, List<Mapping>>? DataSourceMappings { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("data_source_mappings")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.List<Mapping>>? DataSourceMappings { get; set; }
 
     /// <summary>
     /// Data source table schemas keyed by table id.
     /// </summary>
-    [JsonPropertyName("data_source_tables")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, Table>? DataSourceTables { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("data_source_tables")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, Table>? DataSourceTables { get; set; }
 }
 
 /// <summary>
 /// Configuration specific to the type of an index.
 /// </summary>
-[JsonConverter(typeof(IndexOptionJsonConverter))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(IndexOptionJsonConverter))]
 public interface IndexOption { }
 
 /// <summary>
 /// The type of an index.
 /// </summary>
-[JsonConverter(typeof(SchemaStringEnumConverter<IndexType>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<IndexType>))]
 public enum IndexType
 {
-    [JsonStringEnumMemberName("FULLTEXT")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("FULLTEXT")]
     Fulltext,
-    [JsonStringEnumMemberName("POINT")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("POINT")]
     Point,
-    [JsonStringEnumMemberName("RANGE")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("RANGE")]
     Range,
-    [JsonStringEnumMemberName("TEXT")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("TEXT")]
     Text,
-    [JsonStringEnumMemberName("VECTOR")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("VECTOR")]
     Vector,
-    [JsonStringEnumMemberName("LOOKUP")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LOOKUP")]
     Lookup,
 }
 
@@ -257,30 +252,30 @@ public sealed class Labels
     /// <summary>
     /// Extensions for the labels.
     /// </summary>
-    [JsonPropertyName("extensions")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("extensions")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public LabelsExtensions? Extensions { get; set; }
 
     /// <summary>
     /// The label which identifies the node.
     /// </summary>
-    [JsonPropertyName("identifier")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("identifier")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Identifier { get; set; }
 
     /// <summary>
     /// Labels implied by the node in addition to the identifier.
     /// </summary>
-    [JsonPropertyName("implied")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? Implied { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("implied")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<string>? Implied { get; set; }
 
     /// <summary>
     /// Labels which may be present on the node but aren&#39;t required.
     /// </summary>
-    [JsonPropertyName("optional")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? Optional { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("optional")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<string>? Optional { get; set; }
 }
 
 /// <summary>
@@ -291,26 +286,26 @@ public sealed class LabelsExtensions
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 }
 
 /// <summary>
 /// A mapping from a data source table to the graph. Either a node, relationship or query mapping.
 /// </summary>
-[JsonConverter(typeof(MappingJsonConverter))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(MappingJsonConverter))]
 public interface Mapping { }
 
 /// <summary>
 /// Write approach used when importing data (merged into existing data or always created).
 /// </summary>
-[JsonConverter(typeof(SchemaStringEnumConverter<MappingMode>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<MappingMode>))]
 public enum MappingMode
 {
-    [JsonStringEnumMemberName("MERGE")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("MERGE")]
     Merge,
-    [JsonStringEnumMemberName("CREATE")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("CREATE")]
     Create,
 }
 
@@ -319,146 +314,146 @@ public enum MappingMode
 /// </summary>
 public sealed class NodeMapping : Mapping
 {
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public string Type => "NODE";
 
     /// <summary>
     /// Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency.
     /// </summary>
-    [JsonPropertyName("depends_on")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("depends_on")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? DependsOn { get; set; }
 
     /// <summary>
     /// Optional id of this mapping, so other mappings in the same list can reference it in depends_on.
     /// </summary>
-    [JsonPropertyName("id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("id")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Id { get; set; }
 
     /// <summary>
     /// Ids of the properties which identify a node.
     /// </summary>
-    [JsonPropertyName("key")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? Key { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("key")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<string>? Key { get; set; }
 
     /// <summary>
     /// Label used to match existing nodes.
     /// </summary>
-    [JsonPropertyName("match_label")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("match_label")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? MatchLabel { get; set; }
 
     /// <summary>
     /// Whether nodes are merged with existing nodes or always created.
     /// </summary>
-    [JsonPropertyName("mode")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("mode")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public MappingMode? Mode { get; set; }
 
     /// <summary>
     /// Id of the node being mapped.
     /// </summary>
-    [JsonPropertyName("node")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("node")]
     public required string Node { get; set; }
 
     /// <summary>
     /// Mappings from property ids to source columns.
     /// </summary>
-    [JsonPropertyName("properties")]
-    public required Dictionary<string, PropertyMapping> Properties { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("properties")]
+    public required global::System.Collections.Generic.Dictionary<string, PropertyMapping> Properties { get; set; }
 
     /// <summary>
     /// Id of the source table.
     /// </summary>
-    [JsonPropertyName("table")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("table")]
     public required string Table { get; set; }
 }
 
 /// <summary>
 /// A Neo4j property type.
 /// </summary>
-[JsonConverter(typeof(SchemaStringEnumConverter<Neo4jType>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<Neo4jType>))]
 public enum Neo4jType
 {
-    [JsonStringEnumMemberName("ANY")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("ANY")]
     Any,
-    [JsonStringEnumMemberName("LIST\u003cANY\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cANY\u003e")]
     ListAny,
-    [JsonStringEnumMemberName("BOOLEAN")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("BOOLEAN")]
     Boolean,
-    [JsonStringEnumMemberName("LIST\u003cBOOLEAN\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cBOOLEAN\u003e")]
     ListBoolean,
-    [JsonStringEnumMemberName("DATE")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("DATE")]
     Date,
-    [JsonStringEnumMemberName("LIST\u003cDATE\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cDATE\u003e")]
     ListDate,
-    [JsonStringEnumMemberName("DURATION")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("DURATION")]
     Duration,
-    [JsonStringEnumMemberName("LIST\u003cDURATION\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cDURATION\u003e")]
     ListDuration,
-    [JsonStringEnumMemberName("FLOAT32")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("FLOAT32")]
     Float32,
-    [JsonStringEnumMemberName("LIST\u003cFLOAT32\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cFLOAT32\u003e")]
     ListFloat32,
-    [JsonStringEnumMemberName("FLOAT")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("FLOAT")]
     Float,
-    [JsonStringEnumMemberName("LIST\u003cFLOAT\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cFLOAT\u003e")]
     ListFloat,
-    [JsonStringEnumMemberName("INTEGER8")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("INTEGER8")]
     Integer8,
-    [JsonStringEnumMemberName("LIST\u003cINTEGER8\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cINTEGER8\u003e")]
     ListInteger8,
-    [JsonStringEnumMemberName("INTEGER16")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("INTEGER16")]
     Integer16,
-    [JsonStringEnumMemberName("LIST\u003cINTEGER16\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cINTEGER16\u003e")]
     ListInteger16,
-    [JsonStringEnumMemberName("INTEGER32")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("INTEGER32")]
     Integer32,
-    [JsonStringEnumMemberName("LIST\u003cINTEGER32\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cINTEGER32\u003e")]
     ListInteger32,
-    [JsonStringEnumMemberName("INTEGER")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("INTEGER")]
     Integer,
-    [JsonStringEnumMemberName("LIST\u003cINTEGER\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cINTEGER\u003e")]
     ListInteger,
-    [JsonStringEnumMemberName("LOCAL DATETIME")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LOCAL DATETIME")]
     LocalDatetime,
-    [JsonStringEnumMemberName("LIST\u003cLOCAL DATETIME\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cLOCAL DATETIME\u003e")]
     ListLocalDatetime,
-    [JsonStringEnumMemberName("LOCAL TIME")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LOCAL TIME")]
     LocalTime,
-    [JsonStringEnumMemberName("LIST\u003cLOCAL TIME\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cLOCAL TIME\u003e")]
     ListLocalTime,
-    [JsonStringEnumMemberName("POINT")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("POINT")]
     Point,
-    [JsonStringEnumMemberName("LIST\u003cPOINT\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cPOINT\u003e")]
     ListPoint,
-    [JsonStringEnumMemberName("STRING")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("STRING")]
     String,
-    [JsonStringEnumMemberName("LIST\u003cSTRING\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cSTRING\u003e")]
     ListString,
-    [JsonStringEnumMemberName("VECTOR\u003cFLOAT\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("VECTOR\u003cFLOAT\u003e")]
     VectorFloat,
-    [JsonStringEnumMemberName("VECTOR\u003cFLOAT32\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("VECTOR\u003cFLOAT32\u003e")]
     VectorFloat32,
-    [JsonStringEnumMemberName("VECTOR\u003cINTEGER\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("VECTOR\u003cINTEGER\u003e")]
     VectorInteger,
-    [JsonStringEnumMemberName("VECTOR\u003cINTEGER32\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("VECTOR\u003cINTEGER32\u003e")]
     VectorInteger32,
-    [JsonStringEnumMemberName("VECTOR\u003cINTEGER16\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("VECTOR\u003cINTEGER16\u003e")]
     VectorInteger16,
-    [JsonStringEnumMemberName("VECTOR\u003cINTEGER8\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("VECTOR\u003cINTEGER8\u003e")]
     VectorInteger8,
-    [JsonStringEnumMemberName("ZONED DATETIME")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("ZONED DATETIME")]
     ZonedDatetime,
-    [JsonStringEnumMemberName("LIST\u003cZONED DATETIME\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cZONED DATETIME\u003e")]
     ListZonedDatetime,
-    [JsonStringEnumMemberName("ZONED TIME")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("ZONED TIME")]
     ZonedTime,
-    [JsonStringEnumMemberName("LIST\u003cZONED TIME\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cZONED TIME\u003e")]
     ListZonedTime,
-    [JsonStringEnumMemberName("UUID")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("UUID")]
     Uuid,
 }
 
@@ -470,57 +465,57 @@ public sealed class Node
     /// <summary>
     /// Alternative names for the node.
     /// </summary>
-    [JsonPropertyName("aliases")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? Aliases { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("aliases")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<string>? Aliases { get; set; }
 
     /// <summary>
     /// Constraints on the node keyed by id.
     /// </summary>
-    [JsonPropertyName("constraints")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, NodeConstraint>? Constraints { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("constraints")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, NodeConstraint>? Constraints { get; set; }
 
     /// <summary>
     /// Description of the node.
     /// </summary>
-    [JsonPropertyName("description")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("description")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Description { get; set; }
 
     /// <summary>
     /// Extensions for the node.
     /// </summary>
-    [JsonPropertyName("extensions")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("extensions")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public NodeExtensions? Extensions { get; set; }
 
     /// <summary>
     /// Shorthand for the identifying label. Expanded into labels when the model is decoded.
     /// </summary>
-    [JsonPropertyName("label")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("label")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Label { get; set; }
 
     /// <summary>
     /// Labels of the node.
     /// </summary>
-    [JsonPropertyName("labels")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("labels")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public Labels? Labels { get; set; }
 
     /// <summary>
     /// Properties of the node keyed by id.
     /// </summary>
-    [JsonPropertyName("properties")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, Property>? Properties { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("properties")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, Property>? Properties { get; set; }
 
     /// <summary>
     /// Reference or URI of an external resource describing the node.
     /// </summary>
-    [JsonPropertyName("reference")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("reference")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Reference { get; set; }
 }
 
@@ -532,27 +527,27 @@ public sealed class NodeConstraint
     /// <summary>
     /// Extensions for the constraint.
     /// </summary>
-    [JsonPropertyName("extensions")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("extensions")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public NodeConstraintExtensions? Extensions { get; set; }
 
     /// <summary>
     /// Name of the constraint in the database.
     /// </summary>
-    [JsonPropertyName("name")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("name")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Name { get; set; }
 
     /// <summary>
     /// Ids of the properties the constraint covers.
     /// </summary>
-    [JsonPropertyName("properties")]
-    public required List<string> Properties { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("properties")]
+    public required global::System.Collections.Generic.List<string> Properties { get; set; }
 
     /// <summary>
     /// Type of the constraint.
     /// </summary>
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public required ConstraintType Type { get; set; }
 }
 
@@ -564,9 +559,9 @@ public sealed class NodeConstraintExtensions
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 }
 
 /// <summary>
@@ -577,27 +572,27 @@ public sealed class NodeDisplay
     /// <summary>
     /// Display colour of the node as a hex string, e.g. #FF8800.
     /// </summary>
-    [JsonPropertyName("colour")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("colour")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Colour { get; set; }
 
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 
     /// <summary>
     /// Horizontal position.
     /// </summary>
-    [JsonPropertyName("x")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("x")]
     public required double X { get; set; }
 
     /// <summary>
     /// Vertical position.
     /// </summary>
-    [JsonPropertyName("y")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("y")]
     public required double Y { get; set; }
 }
 
@@ -609,23 +604,23 @@ public sealed class NodeExtensions
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 
     /// <summary>
     /// Optional visual information of this node.
     /// </summary>
-    [JsonPropertyName("display")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("display")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public NodeDisplay? Display { get; set; }
 
     /// <summary>
     /// Database indexes on this node keyed by id.
     /// </summary>
-    [JsonPropertyName("indexes")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, NodeIndex>? Indexes { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("indexes")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, NodeIndex>? Indexes { get; set; }
 }
 
 /// <summary>
@@ -636,40 +631,40 @@ public sealed class NodeIndex
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 
     /// <summary>
     /// Labels the index covers.
     /// </summary>
-    [JsonPropertyName("labels")]
-    public required List<string> Labels { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("labels")]
+    public required global::System.Collections.Generic.List<string> Labels { get; set; }
 
     /// <summary>
     /// Name of the index in the database.
     /// </summary>
-    [JsonPropertyName("name")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("name")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Name { get; set; }
 
     /// <summary>
     /// Configuration specific to the type of index.
     /// </summary>
-    [JsonPropertyName("options")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("options")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public IndexOption? Options { get; set; }
 
     /// <summary>
     /// Ids of the properties the index covers.
     /// </summary>
-    [JsonPropertyName("properties")]
-    public required List<string> Properties { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("properties")]
+    public required global::System.Collections.Generic.List<string> Properties { get; set; }
 
     /// <summary>
     /// Type of the index.
     /// </summary>
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public required IndexType Type { get; set; }
 }
 
@@ -678,64 +673,64 @@ public sealed class NodeIndex
 /// </summary>
 public sealed class PointIndexOption : IndexOption
 {
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public string Type => "POINT";
 
     /// <summary>
     /// Upper bounds of the 3D cartesian space.
     /// </summary>
-    [JsonPropertyName("spatial.cartesian-3d.max")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<double>? SpatialCartesian3dMax { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("spatial.cartesian-3d.max")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<double>? SpatialCartesian3dMax { get; set; }
 
     /// <summary>
     /// Lower bounds of the 3D cartesian space.
     /// </summary>
-    [JsonPropertyName("spatial.cartesian-3d.min")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<double>? SpatialCartesian3dMin { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("spatial.cartesian-3d.min")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<double>? SpatialCartesian3dMin { get; set; }
 
     /// <summary>
     /// Upper bounds of the 2D cartesian space.
     /// </summary>
-    [JsonPropertyName("spatial.cartesian.max")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<double>? SpatialCartesianMax { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("spatial.cartesian.max")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<double>? SpatialCartesianMax { get; set; }
 
     /// <summary>
     /// Lower bounds of the 2D cartesian space.
     /// </summary>
-    [JsonPropertyName("spatial.cartesian.min")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<double>? SpatialCartesianMin { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("spatial.cartesian.min")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<double>? SpatialCartesianMin { get; set; }
 
     /// <summary>
     /// Upper bounds of the 3D WGS-84 space.
     /// </summary>
-    [JsonPropertyName("spatial.wgs-84-3d.max")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<double>? SpatialWgs843dMax { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("spatial.wgs-84-3d.max")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<double>? SpatialWgs843dMax { get; set; }
 
     /// <summary>
     /// Lower bounds of the 3D WGS-84 space.
     /// </summary>
-    [JsonPropertyName("spatial.wgs-84-3d.min")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<double>? SpatialWgs843dMin { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("spatial.wgs-84-3d.min")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<double>? SpatialWgs843dMin { get; set; }
 
     /// <summary>
     /// Upper bounds of the 2D WGS-84 space.
     /// </summary>
-    [JsonPropertyName("spatial.wgs-84.max")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<double>? SpatialWgs84Max { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("spatial.wgs-84.max")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<double>? SpatialWgs84Max { get; set; }
 
     /// <summary>
     /// Lower bounds of the 2D WGS-84 space.
     /// </summary>
-    [JsonPropertyName("spatial.wgs-84.min")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<double>? SpatialWgs84Min { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("spatial.wgs-84.min")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<double>? SpatialWgs84Min { get; set; }
 }
 
 /// <summary>
@@ -746,85 +741,85 @@ public sealed class Property
     /// <summary>
     /// Alternative names for the property.
     /// </summary>
-    [JsonPropertyName("aliases")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? Aliases { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("aliases")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<string>? Aliases { get; set; }
 
     /// <summary>
     /// Description of the property.
     /// </summary>
-    [JsonPropertyName("description")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("description")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Description { get; set; }
 
     /// <summary>
     /// Dimension of the property when it holds a vector.
     /// </summary>
-    [JsonPropertyName("dimension")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("dimension")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? Dimension { get; set; }
 
     /// <summary>
     /// Extensions for the property.
     /// </summary>
-    [JsonPropertyName("extensions")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("extensions")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public PropertyExtensions? Extensions { get; set; }
 
     /// <summary>
     /// Shorthand for a key constraint. Expanded into constraints when the model is decoded.
     /// </summary>
-    [JsonPropertyName("key")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("key")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public bool? Key { get; set; }
 
     /// <summary>
     /// Shorthand for an existence constraint. Expanded into constraints when the model is decoded.
     /// </summary>
-    [JsonPropertyName("must_exist")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("must_exist")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public bool? MustExist { get; set; }
 
     /// <summary>
     /// Name of the property in the database, when different from its id.
     /// </summary>
-    [JsonPropertyName("name")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("name")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Name { get; set; }
 
     /// <summary>
     /// Values the property is restricted to.
     /// </summary>
-    [JsonPropertyName("one_of")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? OneOf { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("one_of")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<string>? OneOf { get; set; }
 
     /// <summary>
     /// Pattern values of the property are expected to match.
     /// </summary>
-    [JsonPropertyName("pattern")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("pattern")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Pattern { get; set; }
 
     /// <summary>
     /// Reference or URI of an external resource describing the property.
     /// </summary>
-    [JsonPropertyName("reference")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("reference")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Reference { get; set; }
 
     /// <summary>
     /// Neo4j type of the property.
     /// </summary>
-    [JsonPropertyName("type")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public Neo4jType? Type { get; set; }
 
     /// <summary>
     /// Shorthand for a uniqueness constraint. Expanded into constraints when the model is decoded.
     /// </summary>
-    [JsonPropertyName("unique")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("unique")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public bool? Unique { get; set; }
 }
 
@@ -836,9 +831,9 @@ public sealed class PropertyExtensions
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 }
 
 /// <summary>
@@ -849,7 +844,7 @@ public sealed class PropertyMapping
     /// <summary>
     /// Name of the source column.
     /// </summary>
-    [JsonPropertyName("column")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("column")]
     public required string Column { get; set; }
 }
 
@@ -858,33 +853,33 @@ public sealed class PropertyMapping
 /// </summary>
 public sealed class QueryMapping : Mapping
 {
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public string Type => "QUERY";
 
     /// <summary>
     /// Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency.
     /// </summary>
-    [JsonPropertyName("depends_on")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("depends_on")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? DependsOn { get; set; }
 
     /// <summary>
     /// Optional id of this mapping, so other mappings in the same list can reference it in depends_on.
     /// </summary>
-    [JsonPropertyName("id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("id")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Id { get; set; }
 
     /// <summary>
     /// The query to run.
     /// </summary>
-    [JsonPropertyName("query")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("query")]
     public required string Query { get; set; }
 
     /// <summary>
     /// Id of the source table.
     /// </summary>
-    [JsonPropertyName("table")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("table")]
     public required string Table { get; set; }
 }
 
@@ -893,73 +888,73 @@ public sealed class QueryMapping : Mapping
 /// </summary>
 public sealed class RelationshipMapping : Mapping
 {
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public string Type => "RELATIONSHIP";
 
     /// <summary>
     /// Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency.
     /// </summary>
-    [JsonPropertyName("depends_on")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("depends_on")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? DependsOn { get; set; }
 
     /// <summary>
     /// How the start node of the relationship is matched.
     /// </summary>
-    [JsonPropertyName("from_node")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("from_node")]
     public required TargetMapping FromNode { get; set; }
 
     /// <summary>
     /// Optional id of this mapping, so other mappings in the same list can reference it in depends_on.
     /// </summary>
-    [JsonPropertyName("id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("id")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Id { get; set; }
 
     /// <summary>
     /// Ids of the properties which identify a relationship.
     /// </summary>
-    [JsonPropertyName("key")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? Key { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("key")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<string>? Key { get; set; }
 
     /// <summary>
     /// Label used to match existing relationships.
     /// </summary>
-    [JsonPropertyName("match_label")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("match_label")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? MatchLabel { get; set; }
 
     /// <summary>
     /// Whether relationships are merged with existing relationships or always created.
     /// </summary>
-    [JsonPropertyName("mode")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("mode")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public MappingMode? Mode { get; set; }
 
     /// <summary>
     /// Mappings from property ids to source columns.
     /// </summary>
-    [JsonPropertyName("properties")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, PropertyMapping>? Properties { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("properties")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, PropertyMapping>? Properties { get; set; }
 
     /// <summary>
     /// Id of the relationship being mapped.
     /// </summary>
-    [JsonPropertyName("relationship")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("relationship")]
     public required string Relationship { get; set; }
 
     /// <summary>
     /// Id of the source table.
     /// </summary>
-    [JsonPropertyName("table")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("table")]
     public required string Table { get; set; }
 
     /// <summary>
     /// How the end node of the relationship is matched.
     /// </summary>
-    [JsonPropertyName("to_node")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("to_node")]
     public required TargetMapping ToNode { get; set; }
 }
 
@@ -971,61 +966,61 @@ public sealed class Relationship
     /// <summary>
     /// Alternative names for the relationship.
     /// </summary>
-    [JsonPropertyName("aliases")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? Aliases { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("aliases")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<string>? Aliases { get; set; }
 
     /// <summary>
     /// Constraints on the relationship keyed by id.
     /// </summary>
-    [JsonPropertyName("constraints")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, RelationshipConstraint>? Constraints { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("constraints")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, RelationshipConstraint>? Constraints { get; set; }
 
     /// <summary>
     /// Description of the relationship.
     /// </summary>
-    [JsonPropertyName("description")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("description")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Description { get; set; }
 
     /// <summary>
     /// Extensions for the relationship.
     /// </summary>
-    [JsonPropertyName("extensions")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("extensions")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public RelationshipExtensions? Extensions { get; set; }
 
     /// <summary>
     /// The node the relationship starts at.
     /// </summary>
-    [JsonPropertyName("from")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("from")]
     public required RelationshipTarget From { get; set; }
 
     /// <summary>
     /// Properties of the relationship keyed by id.
     /// </summary>
-    [JsonPropertyName("properties")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, Property>? Properties { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("properties")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, Property>? Properties { get; set; }
 
     /// <summary>
     /// Reference or URI of an external resource describing the relationship.
     /// </summary>
-    [JsonPropertyName("reference")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("reference")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Reference { get; set; }
 
     /// <summary>
     /// The node the relationship ends at.
     /// </summary>
-    [JsonPropertyName("to")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("to")]
     public required RelationshipTarget To { get; set; }
 
     /// <summary>
     /// Type of the relationship.
     /// </summary>
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public required string Type { get; set; }
 }
 
@@ -1037,27 +1032,27 @@ public sealed class RelationshipConstraint
     /// <summary>
     /// Extensions for the constraint.
     /// </summary>
-    [JsonPropertyName("extensions")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("extensions")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public RelationshipConstraintExtensions? Extensions { get; set; }
 
     /// <summary>
     /// Name of the constraint in the database.
     /// </summary>
-    [JsonPropertyName("name")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("name")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Name { get; set; }
 
     /// <summary>
     /// Ids of the properties the constraint covers.
     /// </summary>
-    [JsonPropertyName("properties")]
-    public required List<string> Properties { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("properties")]
+    public required global::System.Collections.Generic.List<string> Properties { get; set; }
 
     /// <summary>
     /// Type of the constraint.
     /// </summary>
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public required ConstraintType Type { get; set; }
 }
 
@@ -1069,9 +1064,9 @@ public sealed class RelationshipConstraintExtensions
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 }
 
 /// <summary>
@@ -1082,16 +1077,16 @@ public sealed class RelationshipExtensions
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 
     /// <summary>
     /// Indexes on this relationship keyed by id.
     /// </summary>
-    [JsonPropertyName("indexes")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, RelationshipIndex>? Indexes { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("indexes")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, RelationshipIndex>? Indexes { get; set; }
 }
 
 /// <summary>
@@ -1102,34 +1097,34 @@ public sealed class RelationshipIndex
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 
     /// <summary>
     /// Name of the index in the database.
     /// </summary>
-    [JsonPropertyName("name")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("name")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Name { get; set; }
 
     /// <summary>
     /// Configuration specific to the type of index.
     /// </summary>
-    [JsonPropertyName("options")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("options")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public IndexOption? Options { get; set; }
 
     /// <summary>
     /// Ids of the properties the index covers.
     /// </summary>
-    [JsonPropertyName("properties")]
-    public required List<string> Properties { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("properties")]
+    public required global::System.Collections.Generic.List<string> Properties { get; set; }
 
     /// <summary>
     /// Type of the index.
     /// </summary>
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public required IndexType Type { get; set; }
 }
 
@@ -1141,36 +1136,36 @@ public sealed class RelationshipTarget
     /// <summary>
     /// Exact number of relationships per node at this end. Null when unconstrained.
     /// </summary>
-    [JsonPropertyName("count")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("count")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? Count { get; set; }
 
     /// <summary>
     /// Label of the node at this end.
     /// </summary>
-    [JsonPropertyName("label")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("label")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Label { get; set; }
 
     /// <summary>
     /// Maximum number of relationships per node at this end.
     /// </summary>
-    [JsonPropertyName("max_count")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("max_count")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? MaxCount { get; set; }
 
     /// <summary>
     /// Minimum number of relationships per node at this end.
     /// </summary>
-    [JsonPropertyName("min_count")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("min_count")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? MinCount { get; set; }
 
     /// <summary>
     /// Id of the node at this end.
     /// </summary>
-    [JsonPropertyName("node")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("node")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Node { get; set; }
 }
 
@@ -1182,35 +1177,35 @@ public sealed class Table
     /// <summary>
     /// Columns of the table in their source order.
     /// </summary>
-    [JsonPropertyName("columns")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<TableColumn>? Columns { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("columns")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<TableColumn>? Columns { get; set; }
 
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 
     /// <summary>
     /// Foreign keys of the table keyed by id.
     /// </summary>
-    [JsonPropertyName("foreign_keys")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, ForeignKey>? ForeignKeys { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("foreign_keys")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, ForeignKey>? ForeignKeys { get; set; }
 
     /// <summary>
     /// Names of the columns making up the primary key.
     /// </summary>
-    [JsonPropertyName("primary_keys")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? PrimaryKeys { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("primary_keys")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<string>? PrimaryKeys { get; set; }
 
     /// <summary>
     /// Where the table&#39;s data comes from.
     /// </summary>
-    [JsonPropertyName("source")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("source")]
     public required string Source { get; set; }
 }
 
@@ -1222,57 +1217,57 @@ public sealed class TableColumn
     /// <summary>
     /// User-defined arbitrary data.
     /// </summary>
-    [JsonPropertyName("custom")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, JsonElement>? Custom { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("custom")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, global::System.Text.Json.JsonElement>? Custom { get; set; }
 
     /// <summary>
     /// Dimension of the column when it holds vectors.
     /// </summary>
-    [JsonPropertyName("dimension")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("dimension")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? Dimension { get; set; }
 
     /// <summary>
     /// Name of the column in the source. Unique within the table.
     /// </summary>
-    [JsonPropertyName("name")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("name")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Name { get; set; }
 
     /// <summary>
     /// Whether the column can hold null values.
     /// </summary>
-    [JsonPropertyName("nullable")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("nullable")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public bool? Nullable { get; set; }
 
     /// <summary>
     /// Size of the column.
     /// </summary>
-    [JsonPropertyName("size")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("size")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? Size { get; set; }
 
     /// <summary>
     /// Neo4j type suggested for values of this column.
     /// </summary>
-    [JsonPropertyName("suggested")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("suggested")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public Neo4jType? Suggested { get; set; }
 
     /// <summary>
     /// Neo4j types values of this column can be converted to when using the import tool.
     /// </summary>
-    [JsonPropertyName("supported")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<Neo4jType>? Supported { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("supported")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<Neo4jType>? Supported { get; set; }
 
     /// <summary>
     /// Data type of the column in the source.
     /// </summary>
-    [JsonPropertyName("type")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Type { get; set; }
 }
 
@@ -1284,16 +1279,16 @@ public sealed class TargetMapping
     /// <summary>
     /// Label of the node.
     /// </summary>
-    [JsonPropertyName("label")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("label")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? Label { get; set; }
 
     /// <summary>
     /// Mappings from property ids to source columns used to match the node.
     /// </summary>
-    [JsonPropertyName("properties")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, PropertyMapping>? Properties { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("properties")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, PropertyMapping>? Properties { get; set; }
 }
 
 /// <summary>
@@ -1301,132 +1296,132 @@ public sealed class TargetMapping
 /// </summary>
 public sealed class VectorIndexOption : IndexOption
 {
-    [JsonPropertyName("type")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("type")]
     public string Type => "VECTOR";
 
     /// <summary>
     /// Default expansion factor applied to searches of the index.
     /// </summary>
-    [JsonPropertyName("vector.default_search_expansion_factor")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("vector.default_search_expansion_factor")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public double? VectorDefaultSearchExpansionFactor { get; set; }
 
     /// <summary>
     /// Number of dimensions of the indexed vectors.
     /// </summary>
-    [JsonPropertyName("vector.dimensions")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("vector.dimensions")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? VectorDimensions { get; set; }
 
     /// <summary>
     /// Number of nearest neighbours considered when building the HNSW graph.
     /// </summary>
-    [JsonPropertyName("vector.hnsw.ef_construction")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("vector.hnsw.ef_construction")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? VectorHnswEfConstruction { get; set; }
 
     /// <summary>
     /// Maximum number of connections per node in the HNSW graph.
     /// </summary>
-    [JsonPropertyName("vector.hnsw.m")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("vector.hnsw.m")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public long? VectorHnswM { get; set; }
 
     /// <summary>
     /// Whether vector quantization is enabled.
     /// </summary>
-    [JsonPropertyName("vector.quantization.enabled")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("vector.quantization.enabled")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public bool? VectorQuantizationEnabled { get; set; }
 
     /// <summary>
     /// Type of vector quantization used.
     /// </summary>
-    [JsonPropertyName("vector.quantization.type")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("vector.quantization.type")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? VectorQuantizationType { get; set; }
 
     /// <summary>
     /// Function used to compare vectors, e.g. cosine or euclidean.
     /// </summary>
-    [JsonPropertyName("vector.similarity_function")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("vector.similarity_function")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? VectorSimilarityFunction { get; set; }
 }
 
-internal sealed class SchemaStringEnumConverter<T> : JsonStringEnumConverter<T> where T : struct, Enum
+internal sealed class SchemaStringEnumConverter<T> : global::System.Text.Json.Serialization.JsonStringEnumConverter<T> where T : struct, global::System.Enum
 {
     public SchemaStringEnumConverter() : base(namingPolicy: null, allowIntegerValues: false) { }
 }
 
-internal sealed class IndexOptionJsonConverter : JsonConverter<IndexOption>
+internal sealed class IndexOptionJsonConverter : global::System.Text.Json.Serialization.JsonConverter<IndexOption>
 {
-    public override IndexOption Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override IndexOption Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
     {
-        using var document = JsonDocument.ParseValue(ref reader);
+        using var document = global::System.Text.Json.JsonDocument.ParseValue(ref reader);
         var root = document.RootElement;
-        if (root.ValueKind != JsonValueKind.Object || !root.TryGetProperty("type", out var tag) || tag.ValueKind != JsonValueKind.String)
-            throw new JsonException("Missing string discriminator type for IndexOption");
+        if (root.ValueKind != global::System.Text.Json.JsonValueKind.Object || !root.TryGetProperty("type", out var tag) || tag.ValueKind != global::System.Text.Json.JsonValueKind.String)
+            throw new global::System.Text.Json.JsonException("Missing string discriminator type for IndexOption");
         return tag.GetString() switch
         {
-            "FULLTEXT" => root.Deserialize<FulltextIndexOption>(options)!,
-            "POINT" => root.Deserialize<PointIndexOption>(options)!,
-            "VECTOR" => root.Deserialize<VectorIndexOption>(options)!,
-            _ => throw new JsonException("Unknown discriminator for IndexOption")
+            "FULLTEXT" => global::System.Text.Json.JsonSerializer.Deserialize<FulltextIndexOption>(root, options)!,
+            "POINT" => global::System.Text.Json.JsonSerializer.Deserialize<PointIndexOption>(root, options)!,
+            "VECTOR" => global::System.Text.Json.JsonSerializer.Deserialize<VectorIndexOption>(root, options)!,
+            _ => throw new global::System.Text.Json.JsonException("Unknown discriminator for IndexOption")
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, IndexOption value, JsonSerializerOptions options)
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, IndexOption value, global::System.Text.Json.JsonSerializerOptions options)
     {
         switch (value)
         {
             case FulltextIndexOption variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             case PointIndexOption variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             case VectorIndexOption variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             default:
-                throw new JsonException("Unsupported implementation of IndexOption");
+                throw new global::System.Text.Json.JsonException("Unsupported implementation of IndexOption");
         }
     }
 }
 
-internal sealed class MappingJsonConverter : JsonConverter<Mapping>
+internal sealed class MappingJsonConverter : global::System.Text.Json.Serialization.JsonConverter<Mapping>
 {
-    public override Mapping Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override Mapping Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
     {
-        using var document = JsonDocument.ParseValue(ref reader);
+        using var document = global::System.Text.Json.JsonDocument.ParseValue(ref reader);
         var root = document.RootElement;
-        if (root.ValueKind != JsonValueKind.Object || !root.TryGetProperty("type", out var tag) || tag.ValueKind != JsonValueKind.String)
-            throw new JsonException("Missing string discriminator type for Mapping");
+        if (root.ValueKind != global::System.Text.Json.JsonValueKind.Object || !root.TryGetProperty("type", out var tag) || tag.ValueKind != global::System.Text.Json.JsonValueKind.String)
+            throw new global::System.Text.Json.JsonException("Missing string discriminator type for Mapping");
         return tag.GetString() switch
         {
-            "NODE" => root.Deserialize<NodeMapping>(options)!,
-            "QUERY" => root.Deserialize<QueryMapping>(options)!,
-            "RELATIONSHIP" => root.Deserialize<RelationshipMapping>(options)!,
-            _ => throw new JsonException("Unknown discriminator for Mapping")
+            "NODE" => global::System.Text.Json.JsonSerializer.Deserialize<NodeMapping>(root, options)!,
+            "QUERY" => global::System.Text.Json.JsonSerializer.Deserialize<QueryMapping>(root, options)!,
+            "RELATIONSHIP" => global::System.Text.Json.JsonSerializer.Deserialize<RelationshipMapping>(root, options)!,
+            _ => throw new global::System.Text.Json.JsonException("Unknown discriminator for Mapping")
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Mapping value, JsonSerializerOptions options)
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, Mapping value, global::System.Text.Json.JsonSerializerOptions options)
     {
         switch (value)
         {
             case NodeMapping variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             case QueryMapping variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             case RelationshipMapping variant:
-                JsonSerializer.Serialize(writer, variant, options);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, variant, options);
                 break;
             default:
-                throw new JsonException("Unsupported implementation of Mapping");
+                throw new global::System.Text.Json.JsonException("Unsupported implementation of Mapping");
         }
     }
 }

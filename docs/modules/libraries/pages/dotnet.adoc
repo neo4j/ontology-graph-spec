@@ -88,6 +88,10 @@ The public types are generated from the same schema as Go. The .NET adapter call
 and `graphspec_encode` native exports and the existing `validate` export. Kotlin owns formatting and rules, so the
 binding does not maintain a second implementation of them.
 
+Generated C# uses globally qualified framework names, so custom generator namespaces can contain names such as
+`Enum` or `Type`. Property and discriminator names that collide with inherited `System.Object` members are rejected with a
+schema-path diagnostic. The generator checks these alongside its existing identifier and name-collision rules.
+
 Native compilation and model generation are explicit contributor steps. See
 https://github.com/neo4j/ontology-graph-spec/tree/main/dotnet[the .NET README] for build commands. The solution includes
 the language-neutral conformance runner. CI also restores the packed artifact into a separate application and runs

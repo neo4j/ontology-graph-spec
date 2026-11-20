@@ -2,11 +2,6 @@
 // Copyright Neo4j Sweden AB. Licensed under the Apache License, Version 2.0.
 #nullable enable
 
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
 namespace Generated.objects;
 
 /// <summary>The specification described by the generation input.</summary>
@@ -22,76 +17,76 @@ public static class GraphSpecSchema
 /// </summary>
 public sealed class Order
 {
-    [JsonPropertyName("attributes")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, string>? Attributes { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("attributes")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, string>? Attributes { get; set; }
 
     /// <summary>
     /// Who placed the order.
     /// </summary>
-    [JsonPropertyName("customer")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("customer")]
     public required Customer Customer { get; set; }
 
-    [JsonPropertyName("discounts")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Dictionary<string, Discount>? Discounts { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("discounts")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.Dictionary<string, Discount>? Discounts { get; set; }
 
-    [JsonPropertyName("flags")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("flags")]
     public required Flags Flags { get; set; }
 
-    [JsonPropertyName("gift")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("gift")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public bool? Gift { get; set; }
 
     /// <summary>
     /// Unique identifier of the order.
     /// </summary>
-    [JsonPropertyName("id")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("id")]
     public required string Id { get; set; }
 
-    [JsonPropertyName("lines")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<OrderLine>? Lines { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("lines")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<OrderLine>? Lines { get; set; }
 
-    [JsonPropertyName("matrix")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<List<double>>? Matrix { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("matrix")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<global::System.Collections.Generic.List<double>>? Matrix { get; set; }
 
-    [JsonPropertyName("metadata")]
-    public required JsonElement Metadata { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("metadata")]
+    public required global::System.Text.Json.JsonElement Metadata { get; set; }
 
-    [JsonPropertyName("price")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("price")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public double? Price { get; set; }
 
-    [JsonPropertyName("quantity")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("quantity")]
     public required long Quantity { get; set; }
 
-    [JsonPropertyName("tags")]
-    public required List<string> Tags { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("tags")]
+    public required global::System.Collections.Generic.List<string> Tags { get; set; }
 }
 
 public sealed class Customer
 {
-    [JsonPropertyName("name")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("name")]
     public required string Name { get; set; }
 
     /// <summary>
     /// Recursive references are pointers when optional.
     /// </summary>
-    [JsonPropertyName("referrer")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("referrer")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public Customer? Referrer { get; set; }
 
-    [JsonPropertyName("user_id")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("user_id")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public string? UserId { get; set; }
 }
 
 public sealed class Discount
 {
-    [JsonPropertyName("percent")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("percent")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public double? Percent { get; set; }
 }
 
@@ -101,14 +96,14 @@ public sealed class Flags
 
 public sealed class OrderLine
 {
-    [JsonPropertyName("count")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("count")]
     public required long Count { get; set; }
 
-    [JsonPropertyName("sku")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("sku")]
     public required string Sku { get; set; }
 }
 
-internal sealed class SchemaStringEnumConverter<T> : JsonStringEnumConverter<T> where T : struct, Enum
+internal sealed class SchemaStringEnumConverter<T> : global::System.Text.Json.Serialization.JsonStringEnumConverter<T> where T : struct, global::System.Enum
 {
     public SchemaStringEnumConverter() : base(namingPolicy: null, allowIntegerValues: false) { }
 }

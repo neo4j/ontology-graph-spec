@@ -2,48 +2,43 @@
 // Copyright Neo4j Sweden AB. Licensed under the Apache License, Version 2.0.
 #nullable enable
 
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
 namespace Generated.nullable;
 
 public sealed class Profile
 {
-    [JsonPropertyName("anything")]
-    public required JsonElement Anything { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("anything")]
+    public required global::System.Text.Json.JsonElement Anything { get; set; }
 
-    [JsonPropertyName("nullableItems")]
-    public required List<string?> NullableItems { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("nullableItems")]
+    public required global::System.Collections.Generic.List<string?> NullableItems { get; set; }
 
-    [JsonPropertyName("nullableList")]
-    public required List<string>? NullableList { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("nullableList")]
+    public required global::System.Collections.Generic.List<string>? NullableList { get; set; }
 
-    [JsonPropertyName("nullableMap")]
-    public required Dictionary<string, long>? NullableMap { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("nullableMap")]
+    public required global::System.Collections.Generic.Dictionary<string, long>? NullableMap { get; set; }
 
-    [JsonPropertyName("nullableRef")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("nullableRef")]
     public required Address? NullableRef { get; set; }
 
-    [JsonPropertyName("nullableValues")]
-    public required Dictionary<string, Address?> NullableValues { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("nullableValues")]
+    public required global::System.Collections.Generic.Dictionary<string, Address?> NullableValues { get; set; }
 
-    [JsonPropertyName("optionalNullable")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("optionalNullable")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public bool? OptionalNullable { get; set; }
 
-    [JsonPropertyName("typeArray")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("typeArray")]
     public required string? TypeArray { get; set; }
 }
 
 public sealed class Address
 {
-    [JsonPropertyName("street")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("street")]
     public required string Street { get; set; }
 }
 
-internal sealed class SchemaStringEnumConverter<T> : JsonStringEnumConverter<T> where T : struct, Enum
+internal sealed class SchemaStringEnumConverter<T> : global::System.Text.Json.Serialization.JsonStringEnumConverter<T> where T : struct, global::System.Enum
 {
     public SchemaStringEnumConverter() : base(namingPolicy: null, allowIntegerValues: false) { }
 }

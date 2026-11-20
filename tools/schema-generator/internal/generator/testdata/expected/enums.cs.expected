@@ -2,62 +2,57 @@
 // Copyright Neo4j Sweden AB. Licensed under the Apache License, Version 2.0.
 #nullable enable
 
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
 namespace Generated.enums;
 
 public sealed class Palette
 {
-    [JsonPropertyName("history")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<DataType>? History { get; set; }
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("history")]
+    [global::System.Text.Json.Serialization.JsonIgnoreAttribute(Condition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public global::System.Collections.Generic.List<DataType>? History { get; set; }
 
-    [JsonPropertyName("primary")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("primary")]
     public required Colour Primary { get; set; }
 
-    [JsonPropertyName("secondary")]
+    [global::System.Text.Json.Serialization.JsonPropertyNameAttribute("secondary")]
     public required Colour? Secondary { get; set; }
 }
 
 /// <summary>
 /// A primary colour.
 /// </summary>
-[JsonConverter(typeof(SchemaStringEnumConverter<Colour>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<Colour>))]
 public enum Colour
 {
-    [JsonStringEnumMemberName("RED")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("RED")]
     Red,
-    [JsonStringEnumMemberName("GREEN")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("GREEN")]
     Green,
-    [JsonStringEnumMemberName("BLUE")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("BLUE")]
     Blue,
 }
 
-[JsonConverter(typeof(SchemaStringEnumConverter<DataType>))]
+[global::System.Text.Json.Serialization.JsonConverterAttribute(typeof(SchemaStringEnumConverter<DataType>))]
 public enum DataType
 {
-    [JsonStringEnumMemberName("LIST\u003cSTRING\u003e")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LIST\u003cSTRING\u003e")]
     ListString,
-    [JsonStringEnumMemberName("LOCAL DATETIME")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("LOCAL DATETIME")]
     LocalDatetime,
-    [JsonStringEnumMemberName("kebab-case")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("kebab-case")]
     KebabCase,
-    [JsonStringEnumMemberName("snake_case")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("snake_case")]
     SnakeCase,
-    [JsonStringEnumMemberName("camelCase")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("camelCase")]
     CamelCase,
-    [JsonStringEnumMemberName("user.id")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("user.id")]
     UserId,
-    [JsonStringEnumMemberName("http-url")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("http-url")]
     HttpUrl,
-    [JsonStringEnumMemberName("3d")]
+    [global::System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute("3d")]
     Value3d,
 }
 
-internal sealed class SchemaStringEnumConverter<T> : JsonStringEnumConverter<T> where T : struct, Enum
+internal sealed class SchemaStringEnumConverter<T> : global::System.Text.Json.Serialization.JsonStringEnumConverter<T> where T : struct, global::System.Enum
 {
     public SchemaStringEnumConverter() : base(namingPolicy: null, allowIntegerValues: false) { }
 }
