@@ -22,6 +22,7 @@ import org.neo4j.spec.graph.model.relationship.RelationshipConstraint
 import org.neo4j.spec.graph.model.relationship.RelationshipTarget
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
+import org.neo4j.spec.graph.validate.relationship.RelationshipConstraints
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -77,5 +78,10 @@ class RelationshipTypeConstraintTest {
         val issue = issues.first()
         assertEquals("invalid_relationship_type_constraint_property_count", issue.code)
         assertEquals("/relationships/actedIn/constraints/type_multi/properties", issue.path)
+    }
+
+    @Test
+    fun `depends on relationship constraints`() {
+        assertEquals(listOf(RelationshipConstraints), validator.dependsOn())
     }
 }
