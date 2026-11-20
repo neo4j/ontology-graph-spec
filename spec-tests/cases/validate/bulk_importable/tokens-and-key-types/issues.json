@@ -1,0 +1,22 @@
+[
+    {
+        "code": "invalid_node_composite_constraint_property_type",
+        "path": "/nodes/person/constraints/name_born_key",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_label_token",
+        "path": "/nodes/person/labels/identifier",
+        "details": {}
+    },
+    {
+        "code": "invalid_node_mapping_key_type",
+        "path": "/extensions/data_source_mappings/load/0/key/1",
+        "details": {}
+    },
+    {
+        "code": "invalid_relationship_type_token",
+        "path": "/relationships/knows/type",
+        "details": {}
+    }
+]

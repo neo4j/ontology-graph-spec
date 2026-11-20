@@ -1,0 +1,24 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "every-set"
+description: "An issue from every validation set."
+nodes:
+  person:
+    labels:
+      identifier: "Person:Human"
+    properties:
+      id: { type: "STRING" }
+    aliases:
+      - "Human"
+      - "Human"
+relationships:
+  knows:
+    type: ""
+    from: {}
+    to: {}
+extensions:
+  data_source_tables:
+    people:
+      source: "sql/postgres"
+      columns:
+        - name: "id"
