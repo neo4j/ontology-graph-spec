@@ -76,7 +76,7 @@ class UpxMigrationValidations {
         // RelationshipExistenceConstraint and RelationshipNodes from Validations.core.
         @JsStatic
         @JvmStatic
-        val kgbuilderComplete: List<Validation> = listOf(
+        val readyForUnstructuredImport: List<Validation> = listOf(
             NodeLabel,
             NodeProperties,
             NodeConstraintCoverage,
@@ -94,7 +94,7 @@ class UpxMigrationValidations {
         // Validations.labelled + Validations.consistentSchema + Validations.mappable.
         @JsStatic
         @JvmStatic
-        val importComplete: List<Validation> = listOf(
+        val readyForStructuredImport: List<Validation> = listOf(
             NodeLabel,
             RelationshipType,
             NodeMappingKey,
@@ -142,7 +142,7 @@ class UpxMigrationValidations {
         // Validations.bulkImportable.
         @JsStatic
         @JvmStatic
-        val bulkImportComplete: List<Validation> = listOf(
+        val readyForStructuredBulkImport: List<Validation> = listOf(
             NodeLabelToken,
             RelationshipTypeToken,
             NodeMappingKeyType,
