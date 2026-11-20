@@ -212,6 +212,13 @@ class GraphSpecDataModelV3Migration :
         val nodeLabelsMap = mutableMapOf<String, String>()
         val nodeLabels = mutableListOf<SchemaMap>()
         val nodeObjectTypes = mutableListOf<SchemaMap>()
+        val identifierProperties = mutableMapOf<String, Map<String, SchemaMap>?>()
+        for (node in nodes.values) {
+            val identifier = node.mapOrNull("labels")?.stringOrNull("identifier") ?: continue
+            if (identifier !in identifierProperties) {
+                identifierProperties[identifier] = node.mapOfMapsOrNull("properties")
+            }
+        }
         for ((nodeId, node) in nodes) {
             val labelsInfo = node.mapOrNull("labels")
             val primaryLabel = labelsInfo?.stringOrNull("identifier")
@@ -230,7 +237,7 @@ class GraphSpecDataModelV3Migration :
                         schemaMapOf(
                             "\$id" to labelId,
                             "token" to label,
-                            "properties" to convertProperties(node.mapOfMapsOrNull("properties"))
+                            "properties" to convertProperties(identifierProperties[label])
                         )
                     )
                 }
