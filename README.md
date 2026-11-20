@@ -1,7 +1,7 @@
 # Neo4j Ontology Graph Specification
 
 A format and library for defining, validating and migrating ontologies for Neo4j, expressed as YAML or JSON, with
-support for Java, Kotlin, JavaScript, TypeScript & Go.
+support for Java, Kotlin, JavaScript, TypeScript, Go and C#/.NET.
 
 ## What is an ontology?
 
@@ -26,7 +26,7 @@ the right shape, validating consistency, and exchanging models between tools.
 ## What's in this repository?
 
 - **A format**: ontologies as YAML or JSON, described by a published [JSON Schema](ontology-graph-spec.schema.json).
-- **Libraries**: one Kotlin codebase published for JVM, JS/TS and Go, providing:
+- **Libraries**: one Kotlin codebase published for JVM, JS/TS, Go and .NET, providing:
   - **Encoding and decoding** between YAML/JSON and a typed `GraphModel`
   - **Validation**, reporting issues in a model
   - **Migration** from older or related model formats to the latest version, and back
@@ -119,9 +119,15 @@ go get github.com/neo4j/ontology-graph-spec/go@vX.Y.Z
 The Go library bundles the Kotlin/Native library, which is embedded and loaded automatically. The runtime needs
 `glibc` and `libstdc++`. See the [Go README](go/README.md) for details, including running without embedding.
 
+### .NET / C#
+
+The proposed `Neo4j.OntologyGraphSpec` NuGet package targets .NET 10 on Windows x64, Linux x64/ARM64 and macOS ARM64.
+It bundles the Kotlin/Native core; consumers do not need a JVM. Until the first NuGet release, use the local package
+instructions in [dotnet/README.md](dotnet/README.md). Linux needs glibc and libstdc++; Windows needs only system DLLs.
+
 ## Usage
 
-Every library can **decode** a document into a `GraphModel` and **validate** it. The JVM and JS/TS libraries can also
+Every library can **decode** a document into a `GraphModel` and **validate** it. The JVM, JS/TS and .NET libraries can also
 **encode** a model back to a document, using `GraphSpec.Json` or `GraphSpec.Yaml`. Go works with JSON.
 
 ### Kotlin
@@ -204,6 +210,20 @@ for _, issue := range issues {
 }
 ```
 
+### C#
+
+```csharp
+using Neo4j.OntologyGraphSpec;
+using Neo4j.OntologyGraphSpec.Validation;
+
+var model = GraphSpec.Json.DecodeFromString(json);
+foreach (var issue in model.Validate(ValidationSet.Core))
+    Console.WriteLine($"{issue.Code}: {issue.Message}");
+var yaml = GraphSpec.Yaml.EncodeToString(model);
+```
+
+See the [.NET guide](docs/modules/libraries/pages/dotnet.adoc) for migration, platform support and errors.
+
 ## Documentation
 
 The docs live in `docs/` as an Antora site. To build and preview them locally:
@@ -222,6 +242,11 @@ Use `npm run build:preview` to build without serving, or `npm run serve` to serv
 The format covers the parts of RDFS and SHACL that describe a domain, not all of either. See
 [docs/modules/format/pages/interoperability.adoc](docs/modules/format/pages/interoperability.adoc) for the
 construct-by-construct tables and what each verdict means.
+
+The .NET binding uses the same format and validation rules, including the `bulk_importable` set now exposed by the
+native bridge for .NET and Go. These checks validate model definitions; they do not enforce cardinality or `one_of`
+against database contents. Generated .NET enum converters reject unknown or combined tokens instead of coercing them
+to another property type. This transport check and the binding do not change the coverage counts below.
 
 Construct counts by verdict:
 
@@ -242,8 +267,9 @@ Construct counts by verdict:
 |---|---|
 | `src/commonMain` | Core Kotlin model, codecs, validation and migrations |
 | `src/jvmMain`, `src/jsMain` | Platform-specific code for JVM and JS/TS |
-| `src/bridge` | Kotlin/Native bridge used by the Go library |
+| `src/bridge` | Kotlin/Native bridge used by the Go and .NET libraries |
 | `go/` | Go library and generated Go types |
+| `dotnet/` | .NET library, generated C# types, native packaging and tests |
 | `ontology-graph-spec.schema.json` | JSON Schema for the format |
 | `spec-tests` | Language-neutral cases every library runs, with a runner per language |
 | `docs/` | Documentation |

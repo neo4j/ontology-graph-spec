@@ -1,0 +1,21 @@
+{
+  "title": "UnusualStrings",
+  "description": "CRLF\r\nCR\rLF\nNEL\u0085LS\u2028PS\u2029End & <escaped>. XML controls: \u0000\u0001\u000b\u000c\ufffe\uffff. Emoji: 🌍.",
+  "type": "object",
+  "properties": {
+    "a\u0085b": { "type": "string" },
+    "carriage\rreturn": { "type": "string" },
+    "line\nfeed": { "type": "string" },
+    "separator\u2028inside": { "type": "string" },
+    "paragraph\u2029inside": { "type": "string" },
+    "café": { "type": "string" },
+    "token": { "$ref": "#/$defs/WireToken" }
+  },
+  "required": ["token"],
+  "$defs": {
+    "WireToken": {
+      "type": "string",
+      "enum": ["red,green", " padded ", "token\u0085next", "LOCAL DATETIME", "quote\"slash\\tab\tend", "emoji🌍"]
+    }
+  }
+}

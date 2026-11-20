@@ -71,6 +71,9 @@ kotlin {
     macosArm64 {
         binaries.sharedLib { baseName = "graphdatamodel" }
     }
+    mingwX64 {
+        binaries.sharedLib { baseName = "graphdatamodel" }
+    }
     linuxX64 {
         binaries.sharedLib { baseName = "graphdatamodel" }
     }

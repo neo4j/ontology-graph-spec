@@ -1,0 +1,232 @@
+{
+    "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+    "version": "1.0.0",
+    "id": "graph-model",
+    "nodes": {
+        "n:1": {
+            "labels": {
+                "identifier": "Actor"
+            },
+            "properties": {
+                "p:11": {
+                    "type": "STRING",
+                    "name": "id"
+                },
+                "p:12": {
+                    "type": "STRING",
+                    "name": "name"
+                }
+            }
+        },
+        "n:2": {
+            "labels": {
+                "identifier": "Movie"
+            },
+            "properties": {
+                "p:21": {
+                    "type": "STRING",
+                    "name": "id"
+                }
+            }
+        }
+    },
+    "relationships": {
+        "r:1": {
+            "type": "ACTED_IN",
+            "from": {
+                "node": "n:1"
+            },
+            "to": {
+                "node": "n:2"
+            },
+            "properties": {
+                "p:31": {
+                    "type": "STRING",
+                    "name": "roles"
+                }
+            }
+        }
+    },
+    "extensions": {
+        "data_source_tables": {
+            "actors": {
+                "source": "sql/postgres",
+                "columns": [
+                    {
+                        "name": "actor_id",
+                        "type": "varchar",
+                        "size": 255,
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "actor_name",
+                        "type": "varchar",
+                        "size": 255,
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "actor_id"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "actor_id"
+                        ],
+                        "references": {
+                            "table": "actors",
+                            "columns": [
+                                "actorid"
+                            ]
+                        }
+                    },
+                    "foreignKey2": {
+                        "columns": [
+                            "actor_name"
+                        ],
+                        "references": {
+                            "table": "actors",
+                            "columns": [
+                                "actorname"
+                            ]
+                        }
+                    }
+                }
+            },
+            "movies": {
+                "source": "sql/postgres",
+                "columns": [
+                    {
+                        "name": "id",
+                        "type": "varchar",
+                        "size": 255,
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "field_1",
+                        "type": "varchar",
+                        "size": 255,
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    }
+                ],
+                "primary_keys": [
+                    "id"
+                ],
+                "foreign_keys": {
+                    "foreignKey1": {
+                        "columns": [
+                            "actor_id"
+                        ],
+                        "references": {
+                            "table": "actors",
+                            "columns": [
+                                "actorid"
+                            ]
+                        }
+                    }
+                }
+            },
+            "actors-movies": {
+                "source": "sql/postgres",
+                "columns": [
+                    {
+                        "name": "actor_id",
+                        "type": "varchar",
+                        "size": 255,
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "movie_id",
+                        "type": "varchar",
+                        "size": 255,
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    },
+                    {
+                        "name": "field_1",
+                        "type": "varchar",
+                        "size": 255,
+                        "suggested": "STRING",
+                        "supported": [
+                            "STRING"
+                        ]
+                    }
+                ]
+            }
+        },
+        "data_source_mappings": {
+            "mapping0": [
+                {
+                    "type": "NODE",
+                    "node": "n:1",
+                    "table": "actors",
+                    "properties": {
+                        "p:11": {
+                            "column": "actor_id"
+                        },
+                        "p:12": {
+                            "column": "actor_name"
+                        }
+                    },
+                    "key": [
+                        "p:11"
+                    ]
+                },
+                {
+                    "type": "NODE",
+                    "node": "n:2",
+                    "table": "movies",
+                    "properties": {
+                        "p:21": {
+                            "column": "id"
+                        }
+                    },
+                    "key": [
+                        "p:21"
+                    ]
+                },
+                {
+                    "type": "RELATIONSHIP",
+                    "relationship": "r:1",
+                    "table": "actors-movies",
+                    "from_node": {
+                        "properties": {
+                            "p:11": {
+                                "column": "actor_id"
+                            }
+                        }
+                    },
+                    "to_node": {
+                        "properties": {
+                            "p:21": {
+                                "column": "movie_id"
+                            }
+                        }
+                    },
+                    "properties": {
+                        "p:31": {
+                            "column": "field_1"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

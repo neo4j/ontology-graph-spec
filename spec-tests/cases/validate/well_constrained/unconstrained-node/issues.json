@@ -1,0 +1,12 @@
+[
+    {
+        "code": "missing_node_constraint_coverage",
+        "path": "nodes.person.constraints",
+        "details": {}
+    },
+    {
+        "code": "missing_node_properties",
+        "path": "nodes.person.properties",
+        "details": {}
+    }
+]

@@ -1,0 +1,7 @@
+[
+    {
+        "code": "invalid_node_label_token",
+        "path": "nodes.person.labels.identifier",
+        "details": {}
+    }
+]

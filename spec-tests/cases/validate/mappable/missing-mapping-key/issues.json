@@ -1,0 +1,7 @@
+[
+    {
+        "code": "missing_node_mapping_key",
+        "path": "extensions.data_source_mappings.load[0].key",
+        "details": {}
+    }
+]

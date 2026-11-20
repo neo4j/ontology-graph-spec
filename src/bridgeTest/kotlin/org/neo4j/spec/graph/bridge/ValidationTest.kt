@@ -87,6 +87,7 @@ class ValidationTest {
             "labelled",
             "consistent_schema",
             "mappable",
+            "bulk_importable",
             "well_constrained",
             "all"
         )

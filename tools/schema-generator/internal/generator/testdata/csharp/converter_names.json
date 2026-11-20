@@ -1,0 +1,14 @@
+{
+  "title": "ConverterNames",
+  "type": "object",
+  "properties": {},
+  "$defs": {
+    "Token": { "type": "string", "enum": ["A", "B"] },
+    "Parse": { "type": "string", "enum": ["A", "B"] },
+    "Read": { "type": "string", "enum": ["A", "B"] },
+    "Write": { "type": "string", "enum": ["A", "B"] },
+    "ReadAsPropertyName": { "type": "string", "enum": ["A", "B"] },
+    "WriteAsPropertyName": { "type": "string", "enum": ["A", "B"] },
+    "CanConvert": { "type": "string", "enum": ["A", "B"] }
+  }
+}

@@ -1,0 +1,335 @@
+{
+    "version": "3.0.0",
+    "graphSchemaRepresentation": {
+        "version": "1.0.0",
+        "graphSchema": {
+            "nodeLabels": [
+                {
+                    "$id": "nl:0",
+                    "token": "Actor",
+                    "properties": [
+                        {
+                            "$id": "p:11",
+                            "token": "id",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        },
+                        {
+                            "$id": "p:12",
+                            "token": "name",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                },
+                {
+                    "$id": "nl:1",
+                    "token": "Movie",
+                    "properties": [
+                        {
+                            "$id": "p:21",
+                            "token": "id",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                }
+            ],
+            "relationshipTypes": [
+                {
+                    "$id": "rt:0",
+                    "token": "ACTED_IN",
+                    "properties": [
+                        {
+                            "$id": "p:31",
+                            "token": "roles",
+                            "type": {
+                                "type": "string"
+                            },
+                            "nullable": false
+                        }
+                    ]
+                }
+            ],
+            "nodeObjectTypes": [
+                {
+                    "$id": "n:1",
+                    "labels": [
+                        {
+                            "$ref": "#nl:0"
+                        }
+                    ]
+                },
+                {
+                    "$id": "n:2",
+                    "labels": [
+                        {
+                            "$ref": "#nl:1"
+                        }
+                    ]
+                }
+            ],
+            "relationshipObjectTypes": [
+                {
+                    "$id": "r:1",
+                    "type": {
+                        "$ref": "#rt:0"
+                    },
+                    "from": {
+                        "$ref": "#n:1"
+                    },
+                    "to": {
+                        "$ref": "#n:2"
+                    }
+                }
+            ],
+            "constraints": [],
+            "indexes": []
+        }
+    },
+    "graphSchemaExtensionsRepresentation": {
+        "nodeKeyProperties": [
+            {
+                "node": {
+                    "$ref": "#n:1"
+                },
+                "keyProperties": [
+                    {
+                        "$ref": "#p:11"
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:2"
+                },
+                "keyProperties": [
+                    {
+                        "$ref": "#p:21"
+                    }
+                ]
+            }
+        ]
+    },
+    "graphMappingRepresentation": {
+        "dataSourceSchema": {
+            "type": "sql/postgres",
+            "tableSchemas": [
+                {
+                    "name": "actors",
+                    "expanded": true,
+                    "fields": [
+                        {
+                            "name": "actor_id",
+                            "rawType": "varchar",
+                            "size": 255,
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "actor_name",
+                            "rawType": "varchar",
+                            "size": 255,
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    ],
+                    "primaryKeys": [
+                        "actor_id"
+                    ],
+                    "foreignKeys": [
+                        {
+                            "referencedTable": "actors",
+                            "fields": [
+                                {
+                                    "field": "actor_id",
+                                    "referencedField": "actorid"
+                                }
+                            ]
+                        },
+                        {
+                            "referencedTable": "actors",
+                            "fields": [
+                                {
+                                    "field": "actor_name",
+                                    "referencedField": "actorname"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "movies",
+                    "expanded": true,
+                    "fields": [
+                        {
+                            "name": "id",
+                            "rawType": "varchar",
+                            "size": 255,
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "field_1",
+                            "rawType": "varchar",
+                            "size": 255,
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    ],
+                    "primaryKeys": [
+                        "id"
+                    ],
+                    "foreignKeys": [
+                        {
+                            "referencedTable": "actors",
+                            "fields": [
+                                {
+                                    "field": "actor_id",
+                                    "referencedField": "actorid"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "actors-movies",
+                    "expanded": true,
+                    "fields": [
+                        {
+                            "name": "actor_id",
+                            "rawType": "varchar",
+                            "size": 255,
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "movie_id",
+                            "rawType": "varchar",
+                            "size": 255,
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "field_1",
+                            "rawType": "varchar",
+                            "size": 255,
+                            "recommendedType": {
+                                "type": "string"
+                            },
+                            "supportedTypes": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    ],
+                    "foreignKeys": []
+                }
+            ]
+        },
+        "nodeMappings": [
+            {
+                "node": {
+                    "$ref": "#n:1"
+                },
+                "tableName": "actors",
+                "propertyMappings": [
+                    {
+                        "fieldName": "actor_id",
+                        "property": {
+                            "$ref": "#p:11"
+                        }
+                    },
+                    {
+                        "fieldName": "actor_name",
+                        "property": {
+                            "$ref": "#p:12"
+                        }
+                    }
+                ]
+            },
+            {
+                "node": {
+                    "$ref": "#n:2"
+                },
+                "tableName": "movies",
+                "propertyMappings": [
+                    {
+                        "fieldName": "id",
+                        "property": {
+                            "$ref": "#p:21"
+                        }
+                    }
+                ]
+            }
+        ],
+        "relationshipMappings": [
+            {
+                "relationship": {
+                    "$ref": "#r:1"
+                },
+                "tableName": "actors-movies",
+                "fromMappings": {
+                    "#p:11": "actor_id"
+                },
+                "toMappings": {
+                    "#p:21": "movie_id"
+                },
+                "propertyMappings": [
+                    {
+                        "fieldName": "field_1",
+                        "property": {
+                            "$ref": "#p:31"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "configurations": {
+        "idsToIgnore": []
+    }
+}

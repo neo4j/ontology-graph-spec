@@ -23,6 +23,7 @@ const (
 	SetLabelled         Set = "labelled"
 	SetConsistentSchema Set = "consistent_schema"
 	SetMappable         Set = "mappable"
+	SetBulkImportable   Set = "bulk_importable"
 	SetWellConstrained  Set = "well_constrained"
 	SetAll              Set = "all"
 )

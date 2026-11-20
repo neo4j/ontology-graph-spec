@@ -20,5 +20,6 @@
 ** xref:libraries:jvm.adoc[]
 ** xref:libraries:javascript.adoc[]
 ** xref:libraries:go.adoc[]
+** xref:libraries:dotnet.adoc[]
 ** xref:libraries:validation.adoc[]
 ** xref:libraries:migration.adoc[]

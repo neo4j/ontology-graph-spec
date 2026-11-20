@@ -42,6 +42,9 @@ func (d *Document) parse(raw json.RawMessage, path string, root bool) (*Element,
 			if key == "$defs" {
 				err = d.parseDefs(val, p)
 			}
+			if key == "$id" {
+				err = decode(val, &d.ID, p, "a string")
+			}
 		case "title":
 			err = decode(val, &e.Title, p, "a string")
 		case "description":

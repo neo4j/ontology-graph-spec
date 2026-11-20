@@ -35,11 +35,11 @@ Invalid combinations (the workflow fails):
 
 No manual `npm publish` or Gradle task is needed - just merge a labelled PR.
 
-The workflow pushes the `release/vX.Y.Z` and `go/vX.Y.Z` tags before publishing to npm and Maven Central, which makes failures easier to recover from.
+The workflow pushes the `release/vX.Y.Z` and `go/vX.Y.Z` tags before publishing to npm, Maven Central and NuGet, which makes failures easier to recover from.
 The next version is computed from the `release/v*` tags, so pushing them first claims the version.
 If tagging fails, nothing is published and the next run computes the same version.
 If publishing fails, the version is already claimed and is never computed again.
-To recover, either delete both tags to reset the version, or carry on with the next release if you are happy to skip a version.
+To recover, rerun only the failed publishing jobs using the same commit, version and retained artifacts, or carry on with the next release. Never move published tags or replace an immutable version with different bits.
 Once the Go module proxy has fetched a `go/v*` version, it keeps it even if the tag is deleted, so only reuse a version from the same commit.
 
 The tags are protected by the repository tag ruleset, so the workflow pushes them over SSH with the `RELEASE_TAG_DEPLOY_KEY` secret (see below).
@@ -52,7 +52,7 @@ The library version needs no bump in the repo: it is derived from the `release/v
 To release a new spec version, bump all of these in the same PR:
 
 - `Version.LATEST` and `Version.GRAPH_SPEC_VERSIONS` (append the new version) in `Version.kt`
-- the schema and Go models, regenerated with `./go/scripts/generate-go-models.sh`, which sets the `$id` in `ontology-graph-spec.schema.json` from `Version.LATEST`
+- the schema and Go models, regenerated with `./go/scripts/generate-go-models.sh`, which sets the `$id` in `ontology-graph-spec.schema.json` from `Version.LATEST`; also run `pwsh ./dotnet/scripts/generate-models.ps1 -SkipSchema` to update C# types and schema metadata
 - `ModelVersionGraphSpecLatest` in `go/migration/migration.go`
 - a migration from the previous spec version, registered in `defaultConfig` in `GraphSpec.kt`.
   If the format did not change, register `GraphSpecNoOpMigration(from, to)`, which only bumps the version.
@@ -72,7 +72,7 @@ These are enforced by the Kotlin and Go validation, which run on every PR, and f
 
 The tests that look at released versions use the `release-spec/v*` git tags, so they skip when no tags are fetched (CI fetches them).
 
-The Kotlin validation skips its checks when a PR changes no Kotlin or Gradle files, and the Go validation skips its checks when a PR only changes docs (`docs/` and Markdown files).
+The Kotlin validation watches Kotlin, Gradle, shared cases, the reference runner and line-ending configuration; and the Go validation skips its checks when a PR only changes docs (`docs/` and Markdown files).
 The release workflows pass `check-all` to always run them.
 
 The Release Spec workflow runs on every push to `main`. If the schema `$id` version has no tag yet, it runs the Kotlin checks and then tags the version.
@@ -80,3 +80,36 @@ Merging an unchanged version does nothing.
 `release-spec/*` tags are protected by a repository tag ruleset, so only the Release Spec workflow creates them.
 The workflow pushes the tag over SSH with the `RELEASE_TAG_DEPLOY_KEY` secret, a write deploy key that is on the bypass list of that ruleset.
 The Release workflow uses the same key for the `release/*` and `go/*` tags.
+
+## .NET / NuGet
+
+The reusable `validate-dotnet.yaml` builds the native core from the supplied SHA, packs `Neo4j.OntologyGraphSpec`, and
+runs the source tests plus an isolated NuGet consumer on Windows x64, Linux x64, Linux ARM64 and macOS ARM64. Linux
+ARM64 is cross-compiled on x64 and executed on an ARM64 runner. The workflow also checks schema/Go/C# generation,
+Kotlin/Java/JS/Go shared conformance and the documentation preview. It runs on every PR and branch push, so fixture-only
+or build-only changes cannot bypass it.
+
+The unified release passes its computed library version into that workflow and waits for all tests before creating
+tags. `publish-nuget` downloads the exact `dotnet-package` artifact tested by that run; it does not rebuild the package.
+NuGet uses the same `x.y.z`, `x.y.z-alpha.N` or `x.y.z-rc.N` as the other libraries. There is no separate .NET version tag.
+The graph specification version continues to come from the generated schema metadata.
+
+Packing sets the MSBuild `Version` property so the NuGet package and assembly metadata share that library version.
+The isolated consumer checks assembly, file and informational versions against the package manifest, allowing a
+source-commit suffix on the informational version. PR validation uses `0.0.1-ci` to catch accidental reuse of the
+local `0.0.0-local` assembly version; this test package is not published.
+
+Before the first release, a maintainer must establish ownership of the proposed `Neo4j.OntologyGraphSpec` package ID
+on nuget.org and configure the repository secret `NUGET_API_KEY` with permission to publish that package. The name is
+not claimed by this PR. The release checks that the secret is present before creating tags. Fork PR validation and
+local packing require no publishing secrets. Confirm ownership and key scope before applying a release label.
+
+For a failed NuGet publication, rerun the failed job while the original package artifact remains available. Do not
+repack an already claimed version from a different commit. If artifact retention has expired, recover the exact
+original package from release records or make a new release. Keep successful registries unchanged when recovering a
+partial npm/Maven/NuGet release; never delete tags to disguise an already published version.
+
+When native bridge behavior changes, refresh the three checked-in Go native libraries using the existing
+`update-native-libs.yaml` workflow (or the native generation script), and commit them with that change. NuGet native
+assets are built in CI and are not checked in. Local packages may contain only the developer's staged RID; release
+packing requires all four native assets and every consumer test must pass.

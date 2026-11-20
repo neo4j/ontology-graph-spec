@@ -7,6 +7,7 @@ import (
 
 // Document is a loaded JSON Schema document.
 type Document struct {
+	ID     string
 	Root   *Element
 	Defs   []*Def // holds the sorted entries of "$defs"
 	byName map[string]*Def

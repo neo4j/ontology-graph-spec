@@ -1,8 +1,8 @@
 = Neo4j Ontology Graph Specification
-:description: The Neo4j Ontology Graph Specification is a format and library for defining, validating and migrating ontologies for Neo4j, expressed as YAML or JSON, with library support for JVM, JavaScript, TypeScript and Go.
+:description: The Neo4j Ontology Graph Specification is a format and library for defining, validating and migrating ontologies for Neo4j, expressed as YAML or JSON, with library support for JVM, JavaScript, TypeScript, Go and C#/.NET.
 
 The Neo4j Ontology Graph Specification is a format and library for defining, validating and migrating ontologies for
-Neo4j, expressed as YAML or JSON. It provides library support for JVM, JavaScript, TypeScript and Go for validation and
+Neo4j, expressed as YAML or JSON. It provides library support for JVM, JavaScript, TypeScript, Go and C#/.NET for validation and
 migration.
 
 The normative definition of the format is the

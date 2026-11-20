@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 env:
-  WATCHED_PATHS: "src/ ontology-graph-spec.schema.json build.gradle.kts settings.gradle.kts gradle.properties gradle/ gradlew"
+  WATCHED_PATHS: "src/ spec-tests/cases/ spec-tests/runners/kotlin/ ontology-graph-spec.schema.json build.gradle.kts settings.gradle.kts gradle.properties gradle/ gradlew .gitattributes .github/workflows/validate-kotlin.yaml"
 
 jobs:
   test-kotlin:

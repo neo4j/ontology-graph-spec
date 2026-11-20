@@ -1,0 +1,6 @@
+{
+  "source_type": "graph_spec",
+  "target_type": "data_model_wrapped",
+  "target_version": "3.0.0",
+  "fails": false
+}

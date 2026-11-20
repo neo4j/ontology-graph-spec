@@ -1,4 +1,4 @@
-// Command schema-generator generates Go types from a JSON Schema.
+// Command schema-generator generates Go or C# types from a JSON Schema.
 //
 // Usage:
 //
@@ -28,8 +28,10 @@ func main() {
 func run(args []string) error {
 	flags := flag.NewFlagSet("schema-generator", flag.ContinueOnError)
 	schemaPath := flags.String("schema", "", "path of the JSON Schema to read (required)")
-	out := flags.String("out", "", "path of the Go file to write (required)")
+	out := flags.String("out", "", "path of the source file to write (required)")
 	pkg := flags.String("package", "", "name of the Go package (default: the name of the output directory)")
+	language := flags.String("language", "go", "output language: go or csharp")
+	namespace := flags.String("namespace", "", "C# namespace (required for csharp)")
 	if err := flags.Parse(args); err != nil {
 		return err
 	}
@@ -38,7 +40,7 @@ func run(args []string) error {
 		return errors.New("--schema and --out are required, and no other arguments are accepted")
 	}
 
-	if *pkg == "" {
+	if *language != "csharp" && *pkg == "" {
 		abs, err := filepath.Abs(*out)
 		if err != nil {
 			return err
@@ -56,6 +58,8 @@ func run(args []string) error {
 	src, err := generator.Generate(data, generator.Options{
 		Package:    *pkg,
 		SchemaName: filepath.Base(*schemaPath),
+		Language:   *language,
+		Namespace:  *namespace,
 	})
 	if err != nil {
 		return err

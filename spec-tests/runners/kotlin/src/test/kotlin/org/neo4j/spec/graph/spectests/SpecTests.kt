@@ -26,6 +26,9 @@ import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.boolean
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -127,6 +130,30 @@ class SpecTests {
 
     private fun caseDirs(path: String): List<File> =
         cases.resolve(path).listFiles { file -> file.isDirectory }!!.sortedBy { it.name }
+
+    @TestFactory
+    fun migrate(): List<DynamicTest> = caseDirs("migrate").map { dir ->
+        dynamicTest(dir.name) {
+            val options = Json.parseToJsonElement(dir.resolve("case.json").readText()).jsonObject
+            fun option(name: String) = options.getValue(name).jsonPrimitive.content
+            val result = runCatching {
+                val model = GraphSpec.Json.decodeFromString(dir.resolve("input.json").readText(), option("source_type"))
+                GraphSpec.Json.encodeToString(model, option("target_type"), option("target_version"))
+            }
+            if (options.getValue("fails").jsonPrimitive.boolean) {
+                val failure = assertNotNull(result.exceptionOrNull(), "expected migration to fail")
+                assertTrue(!failure.message.isNullOrBlank(), "failure has a diagnostic")
+            } else {
+                val actual = result.getOrThrow()
+                val expected = dir.resolve("expected.json")
+                if (update) {
+                    expected.writeText(prettyJson(actual))
+                } else {
+                    assertJsonEquals(expected.readText(), actual, "migration ${dir.name}")
+                }
+            }
+        }
+    }
 
     private fun documentFiles(dir: File): List<File> =
         listOf(dir.resolve("model.json"), dir.resolve("model.yaml")) +

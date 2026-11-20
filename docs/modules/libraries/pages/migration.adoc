@@ -24,3 +24,19 @@ Data model `3.0.0` carries these fields, and they are preserved in both directio
 * `count`, `minCount` and `maxCount` on the `from` and `to` references of a relationship object type, which map to
 `count`, `min_count` and `max_count` on the `from` and `to` ends of a relationship.
 * `pattern` and `one_of` on properties.
+
+== C#/.NET
+
+[source,csharp]
+----
+using Neo4j.OntologyGraphSpec;
+
+var model = GraphSpec.Json.DecodeFromString(importerJson, ModelType.DataModel);
+var output = GraphSpec.Json.EncodeToString(model, ModelType.DataModelWrapped, "3.0.0");
+----
+
+Use `GraphSpec.Yaml` for YAML input or output. The same shared migration code runs on all supported .NET platforms.
+Unsupported versions/types fail with `GraphSpecException`. Data Importer output requires explicit relationship
+endpoint nodes and complete foreign-key references; not every valid graph spec model can be exported. Arbitrary
+custom metadata is not carried into that format. The shared migration fixtures cover supported routes and these
+limitations; a round trip is not guaranteed to preserve every field.

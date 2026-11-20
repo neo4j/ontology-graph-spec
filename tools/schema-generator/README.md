@@ -1,6 +1,6 @@
 # Schema Generator
 
-A tool that generates Go types from a JSON Schema.
+A tool that generates Go and C# types from the same JSON Schema parser and language-neutral model.
 
 Not all JSON schema features are supported. This tool currently supports the subset that kotlinx-schema emits. Anything 
 outside that subset is rejected with the JSON pointer of the offending schema.
@@ -8,15 +8,49 @@ outside that subset is rejected with the JSON pointer of the offending schema.
 ## Usage
 
 ```shell  
-go -C tools/schema-generator run . --schema "$PWD/ontology-graph-spec.schema.json" --out "$PWD/go/model/model.go" --package model```  
+go -C tools/schema-generator run . --schema "$PWD/ontology-graph-spec.schema.json" --out "$PWD/go/model/model.go" --package model
 ```
 
 | Flag        | Description                                                           |  
 |-------------|-----------------------------------------------------------------------|  
 | `--schema`  | Path of the JSON Schema to read. Required.                            |  
-| `--out`     | Path of the Go file to write. Required.                               |  
+| `--out`     | Path of the generated file to write. Required.                               |
 | `--package` | Name of the Go package. Defaults to the name of the output directory. |  
-  
+| `--language` | `go` (default) or `csharp`. |
+| `--namespace` | Required C# namespace when generating C#. |
+
+For C#:
+
+```shell
+go -C tools/schema-generator run . --language csharp --schema ../../ontology-graph-spec.schema.json --out ../../dotnet/src/Neo4j.OntologyGraphSpec/Model/Generated/GraphModel.g.cs --namespace Neo4j.OntologyGraphSpec.Model
+```
+
+From the repository root, `pwsh ./dotnet/scripts/generate-models.ps1` first regenerates the schema from Kotlin and then
+runs this command. Pass `-SkipSchema` only when working from an already current schema.
+
+## C# output
+
+The C# emitter generates sealed classes, typed string enums and discriminated union interfaces with JSON converters.
+An interface allows one variant to participate in multiple unions without duplicating its properties. Optional values
+are nullable and omitted when absent; required nullable values preserve null. Required fields use C# `required`.
+Integers become `long`, numbers `double`, arrays `List<T>`, maps `Dictionary<string,T>` and unstructured values
+`JsonElement`. JSON names and discriminator tokens remain unchanged; public identifiers use PascalCase. Name collisions
+and invalid namespaces fail during generation. Properties and discriminator names that hide inherited `System.Object`
+members are rejected with their schema path. Framework references use `global::System` so custom namespaces such as
+`Review.Enum` cannot shadow them. The root `$id` is emitted as `GraphSpecSchema.Url`.
+
+Enum converters match complete wire tokens exactly, including dictionary keys. They reject numeric values,
+case changes, extra whitespace and comma-separated combinations unless that exact string is a declared token.
+Generated string literals preserve Unicode line separators; documentation and source headers normalize them safely.
+XML-invalid characters in descriptions are shown as Unicode escape text so XML documentation still compiles.
+Enum member references are globally qualified to avoid collisions with converter methods such as `Read` or `Token`.
+Namespace components and generated identifiers support BMP letters, digits after the first character, and underscores.
+Reserved C# tokens and supplementary-plane identifier characters are rejected before source is emitted.
+
+Properties and definitions are deterministic. Existing Go output remains unchanged by the language option. Both emitters
+share parser/model validation, and generator fixtures are compared against snapshots; the C# snapshots are also compiled
+and exercised by the .NET tests. Runtime format validation remains in Kotlin, not in generated C# rules.
+
 ## Support and Functionality  
   
 ### Supported Keywords

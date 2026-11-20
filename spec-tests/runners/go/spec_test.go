@@ -10,12 +10,69 @@ import (
 	"sort"
 	"testing"
 
+	"github.com/neo4j/ontology-graph-spec/go/migration"
 	"github.com/neo4j/ontology-graph-spec/go/model"
 	"github.com/neo4j/ontology-graph-spec/go/validation"
 	"github.com/stretchr/testify/require"
 )
 
 const cases = "../../cases"
+
+func TestMigrate(t *testing.T) {
+	for _, dir := range caseDirs(t, "migrate") {
+		t.Run(filepath.Base(dir), func(t *testing.T) {
+			var options struct {
+				SourceType    string `json:"source_type"`
+				TargetType    string `json:"target_type"`
+				TargetVersion string `json:"target_version"`
+				Fails         bool   `json:"fails"`
+			}
+			require.NoError(t, json.Unmarshal([]byte(read(t, filepath.Join(dir, "case.json"))), &options))
+			graph, err := migration.ToGraphSpec(read(t, filepath.Join(dir, "input.json")), migration.ModelType(options.SourceType))
+			var actual string
+			if err == nil {
+				actual, err = migration.FromGraphSpec(graph, migration.ModelType(options.TargetType), migration.ModelVersion(options.TargetVersion))
+			}
+			if options.Fails {
+				require.Error(t, err)
+				require.NotEmpty(t, err.Error())
+			} else {
+				require.NoError(t, err)
+				require.Equal(t,
+					migrationJSON(t, read(t, filepath.Join(dir, "expected.json")), options.TargetType),
+					migrationJSON(t, actual, options.TargetType))
+			}
+		})
+	}
+}
+
+func migrationJSON(t *testing.T, content, targetType string) map[string]any {
+	t.Helper()
+	var document map[string]any
+	require.NoError(t, json.Unmarshal([]byte(content), &document))
+	if targetType != "data_model" && targetType != "data_model_wrapped" {
+		return document
+	}
+
+	path := []string{"graphMappingRepresentation", "dataSourceSchema"}
+	if targetType == "data_model_wrapped" {
+		path = append([]string{"dataModel"}, path...)
+	}
+	current := document
+	for _, key := range path {
+		require.IsType(t, map[string]any{}, current[key])
+		current = current[key].(map[string]any)
+	}
+	require.IsType(t, []any{}, current["tableSchemas"])
+	tables := current["tableSchemas"].([]any)
+	// Table schemas originate in a graph-spec object keyed by table name. Go's JSON
+	// encoder sorts those keys; their insertion order is not part of that contract.
+	// Preserve every table, field and all other array ordering in the comparison.
+	sort.SliceStable(tables, func(i, j int) bool {
+		return tables[i].(map[string]any)["name"].(string) < tables[j].(map[string]any)["name"].(string)
+	})
+	return document
+}
 
 func TestDocuments(t *testing.T) {
 	for _, dir := range caseDirs(t, "documents") {
