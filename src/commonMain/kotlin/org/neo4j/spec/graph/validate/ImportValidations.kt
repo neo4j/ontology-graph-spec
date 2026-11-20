@@ -67,7 +67,7 @@ import kotlin.jvm.JvmStatic
 // Don't use these anywhere else, including the other language libraries, and don't add new sets here. New sets belong
 // in Validations, named after what they check rather than who calls them.
 @JsExport
-class UpxMigrationValidations {
+class ImportValidations {
     companion object {
         // UPX kg-builder `validateStructuredSchema` (schemas-validators/) - gates accepting
         // an AI-generated schema before it's applied to the model.
