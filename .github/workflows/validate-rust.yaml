@@ -1,0 +1,131 @@
+name: Validate Rust Crate
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'The specific git commit SHA to checkout and test'
+        required: true
+        type: string
+      check-all:
+        description: 'Run the checks even when the pull request only changes docs'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  # Anything but docs can affect the Rust crate or the spec test cases, so only docs are skipped.
+  # The release workflow passes check-all to always run the checks.
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.non-docs.outputs.changed }}
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+
+      - name: Detect changes other than docs
+        id: non-docs
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          CHECK_ALL: ${{ inputs.check-all }}
+        run: |
+          if [ "$CHECK_ALL" = "true" ] || [ -z "$BASE_REF" ]; then # requested, or not a pull request
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch origin "$BASE_REF"
+          CHANGED=$(git diff --name-only "origin/$BASE_REF"...HEAD -- . ':(exclude)docs/' ':(exclude)*.md' | wc -l | tr -d ' ')
+          echo "changed=$([ "$CHANGED" -gt 0 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+  # The platforms the crate is used on: Linux x86_64, macOS arm64, Windows x86_64, matching
+  # Relate's PR lanes. The spec tests byte-compare YAML, which the repo-wide .gitattributes
+  # keeps at LF on every checkout.
+  test-rust:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.changed == 'true'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Set up Rust Environment
+        uses: dtolnay/rust-toolchain@39008827e6b4319a349e9a42dfc90579dd25f1ca # stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Run Crate Tests
+        run: cargo test
+        working-directory: rust
+
+      - name: Run Crate Tests With the Schema-Validation Feature
+        run: cargo test --features schema-validation
+        working-directory: rust
+
+      - name: Run Spec Tests
+        run: cargo test
+        working-directory: spec-tests/runners/rust
+
+  # Platform-independent checks, once, on Linux: formatting, linting, packaging, and a build for
+  # the wasm32-unknown-unknown target the WASM surface uses. The schema-validation feature is
+  # native-only (jsonschema's getrandom needs the js backend on WASM).
+  check-rust:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Set up Rust Environment
+        uses: dtolnay/rust-toolchain@39008827e6b4319a349e9a42dfc90579dd25f1ca # stable
+        with:
+          components: rustfmt, clippy
+          targets: wasm32-unknown-unknown
+
+      - name: Check Formatting
+        run: cargo fmt --check
+        working-directory: rust
+
+      - name: Lint
+        run: cargo clippy --all-targets -- -D warnings
+        working-directory: rust
+
+      - name: Lint With the Schema-Validation Feature
+        run: cargo clippy --all-targets --features schema-validation -- -D warnings
+        working-directory: rust
+
+      - name: Build for WebAssembly
+        run: cargo check --target wasm32-unknown-unknown
+        working-directory: rust
+
+      - name: Build for WebAssembly With the Schema-Validation Feature
+        run: cargo check --target wasm32-unknown-unknown --features schema-validation
+        working-directory: rust
+
+      - name: Check the Minimum Supported Toolchain
+        # The library's rust-version; dependency releases must not raise it unnoticed.
+        run: |
+          rustup toolchain install 1.85.0 --profile minimal
+          cargo +1.85.0 check
+        working-directory: rust
+
+      - name: Package Check
+        # Checks the crate packages for publishing without uploading, with the feature that
+        # embeds the JSON Schema; the release workflow stamps the real version and publishes.
+        run: cargo package --allow-dirty --no-verify --features schema-validation
+        working-directory: rust

@@ -1,0 +1,3 @@
+# LF line endings everywhere: the spec tests byte-compare documents, and the YAML the libraries
+# write is LF. Without this, a Windows checkout with the default core.autocrlf rewrites them.
+* text=auto eol=lf

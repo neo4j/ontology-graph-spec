@@ -11,7 +11,7 @@ spec-tests/
     validate/<set>/<name>/         input.json, input.yaml and expected issues.json
   runners/
     kotlin/                        the reference, built against this project, regenerates expected files
-    go/ java/ js/                  each consuming a local build or a published version
+    go/ java/ js/ rust/            each consuming a local build or a published version
 ```
 
 ## Cases
@@ -55,6 +55,9 @@ cd spec-tests/runners/go && go test ./...
 # JS, local build by default; npm install @neo4j/ontology-graph-spec@<version> --no-save uses a published one
 ./gradlew jsNodeProductionLibraryDistribution
 cd spec-tests/runners/js && npm install && npm test
+
+# Rust, local checkout via a path dependency
+cd spec-tests/runners/rust && cargo test
 ```
 
 To add a case, create its directory and input, regenerate the expected files with the Kotlin runner, review them, and

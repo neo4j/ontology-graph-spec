@@ -1,7 +1,7 @@
 # Neo4j Ontology Graph Specification
 
 A format and library for defining, validating and migrating ontologies for Neo4j, expressed as YAML or JSON, with
-support for Java, Kotlin, JavaScript, TypeScript & Go.
+support for Java, Kotlin, JavaScript, TypeScript, Go & Rust.
 
 ## What is an ontology?
 
@@ -26,10 +26,12 @@ the right shape, validating consistency, and exchanging models between tools.
 ## What's in this repository?
 
 - **A format**: ontologies as YAML or JSON, described by a published [JSON Schema](ontology-graph-spec.schema.json).
-- **Libraries**: one Kotlin codebase published for JVM, JS/TS and Go, providing:
+- **Libraries**: one Kotlin codebase published for JVM, JS/TS and Go, and a native Rust implementation of the same
+  format and validation, providing:
   - **Encoding and decoding** between YAML/JSON and a typed `GraphModel`
   - **Validation**, reporting issues in a model
-  - **Migration** from older or related model formats to the latest version, and back
+  - **Migration** from older or related model formats to the latest version, and back (Kotlin, JS/TS and Go; the Rust
+    library reads the latest version, including older released documents)
 
 ### Example
 
@@ -118,13 +120,19 @@ npm install -D @neo4j/ontology-graph-spec
 go get github.com/neo4j/ontology-graph-spec/go@vX.Y.Z
 ```
 
+### Rust
+
+```bash
+cargo add ontology-graph-spec
+```
+
 The Go library bundles the Kotlin/Native library, which is embedded and loaded automatically. The runtime needs
 `glibc` and `libstdc++`. See the [Go README](go/README.md) for details, including running without embedding.
 
 ## Usage
 
-Every library can **decode** a document into a `GraphModel` and **validate** it. The JVM and JS/TS libraries can also
-**encode** a model back to a document, using `GraphSpec.Json` or `GraphSpec.Yaml`. Go works with JSON.
+Every library can **decode** a document into a `GraphModel` and **validate** it. The JVM, JS/TS and Rust libraries can
+also **encode** a model back to a document, using `GraphSpec.Json` or `GraphSpec.Yaml`. Go works with JSON.
 
 ### Kotlin
 
@@ -206,6 +214,25 @@ for _, issue := range issues {
 }
 ```
 
+### Rust
+
+```rust
+use ontology_graph_spec::GraphSpec;
+use ontology_graph_spec::validate::ValidationSet;
+
+// Decode (use GraphSpec::Yaml for YAML)
+let model = GraphSpec::decode(json)?;
+
+// Validate
+let issues = model.validate(&ValidationSet::core());
+for issue in &issues {
+	println!("{}: {} ({})", issue.code, issue.message, issue.path.as_deref().unwrap_or(""));
+}
+
+// Encode
+let encoded = GraphSpec::Yaml.encode(&model)?;
+```
+
 ## Documentation
 
 The docs live in `docs/` as an Antora site. To build and preview them locally:
@@ -246,6 +273,7 @@ Construct counts by verdict:
 | `src/jvmMain`, `src/jsMain` | Platform-specific code for JVM and JS/TS |
 | `src/bridge` | Kotlin/Native bridge used by the Go library |
 | `go/` | Go library and generated Go types |
+| `rust/` | Native Rust library |
 | `ontology-graph-spec.schema.json` | JSON Schema for the format |
 | `spec-tests` | Language-neutral cases every library runs, with a runner per language |
 | `docs/` | Documentation |

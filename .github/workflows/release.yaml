@@ -205,8 +205,16 @@ jobs:
       # The merged commit is already on main, so the pull request diff would find nothing to check
       check-all: true
 
+  validate-rust:
+    needs: determine-version
+    uses: ./.github/workflows/validate-rust.yaml
+    with:
+      ref: ${{ needs.determine-version.outputs.sha }}
+      # The merged commit is already on main, so the pull request diff would find nothing to check
+      check-all: true
+
   publish-tags:
-    needs: [determine-version, validate-kotlin, validate-go]
+    needs: [determine-version, validate-kotlin, validate-go, validate-rust]
     runs-on: ubuntu-latest
     steps:
       # Authenticates with a write deploy key, which is on the bypass list of the tag ruleset. The default
@@ -325,3 +333,45 @@ jobs:
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+
+  publish-crates:
+    needs: [determine-version, publish-tags]
+    runs-on: ubuntu-latest
+    # Trusted publishing: crates.io mints a short-lived token for this job from GitHub's OIDC
+    # identity, so no long-lived CARGO_REGISTRY_TOKEN secret is stored. Enabled once the
+    # one-time setup in docs/RELEASING.md is done: the crate's first release published by hand,
+    # the trusted publisher registered on crates.io for this repository and workflow, and the
+    # CRATES_TRUSTED_PUBLISHING repository variable set to true.
+    if: vars.CRATES_TRUSTED_PUBLISHING == 'true'
+    # The publish job only: no stored credential, and just the access this job needs.
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.determine-version.outputs.sha }}
+
+      - name: Authenticate to crates.io (trusted publishing)
+        id: auth
+        uses: rust-lang/crates-io-auth-action@3268eb413133e2960fa4ae0e963ca76380c54cd9 # v1
+
+      # Pinning the SHA freezes the action's code; it still installs the latest stable toolchain.
+      - name: Set up Rust Environment
+        uses: dtolnay/rust-toolchain@39008827e6b4319a349e9a42dfc90579dd25f1ca # stable
+
+      - name: Publish to crates.io
+        env:
+          VERSION: ${{ needs.determine-version.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          # The version in Cargo.toml is a placeholder: stamp the release version, as the npm
+          # publish does, so the repo never carries a released version. The packaged crate
+          # carries every file, so the schema-validation feature works for consumers too.
+          sed -i.bak "s/^version = \".*\"/version = \"${VERSION}\"/" Cargo.toml
+          rm Cargo.toml.bak
+
+          cargo publish --allow-dirty --token "${{ steps.auth.outputs.token }}"
+        working-directory: rust

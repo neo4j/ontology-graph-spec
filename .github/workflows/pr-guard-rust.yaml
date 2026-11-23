@@ -1,0 +1,14 @@
+name: Rust PR Quality Guard
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate-rust.yaml
+    with:
+      ref: ${{ github.event.pull_request.head.sha }}

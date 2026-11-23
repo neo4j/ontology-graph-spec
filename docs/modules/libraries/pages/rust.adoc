@@ -1,0 +1,93 @@
+= Rust
+:description: Use the Neo4j Ontology Graph Specification library from Rust.
+
+Requires:
+
+* Rust 1.85 or later
+* Tested on Linux (x86_64), macOS (arm64) and Windows (x86_64); builds for `wasm32-unknown-unknown`, including with the `schema-validation` feature.
+
+== Install
+
+[source,shell,subs="attributes+"]
+----
+cargo add ontology-graph-spec
+----
+
+The optional `schema-validation` feature adds checking documents against the published JSON
+Schema, for consumers that gate on the schema rather than the model:
+
+[source,shell,subs="attributes+"]
+----
+cargo add ontology-graph-spec --features schema-validation
+----
+
+== Read and write models
+
+Decode a JSON or YAML document into a typed model. Encoding always writes the longhand form, and
+shorthands in the document are expanded on decode, so every form of the same model decodes to the
+same model.
+
+[source,rust]
+----
+use ontology_graph_spec::GraphSpec;
+
+let model = GraphSpec::decode(json)?;
+let model = GraphSpec::decode(yaml)?;
+
+let json = GraphSpec::Json.encode(&model)?;
+let yaml = GraphSpec::Yaml.encode(&model)?;
+----
+
+`encode_json_compact` writes the same JSON compactly, and `model_to_json_value` gives the document
+as a JSON value.
+
+A strict JSON parse decides which syntax a document is written in: a document that parses as JSON
+is JSON, anything else is YAML. `GraphSpec::decode` detects the syntax itself, so files
+of either syntax work:
+
+[source,rust]
+----
+let model = GraphSpec::decode(content)?;
+----
+
+`detect_document_format` returns the codec, for when you need to know which syntax it was, for
+example to encode back in the same one:
+
+[source,rust]
+----
+let model = GraphSpec::decode(content)?;
+let encoded = detect_document_format(content).encode(&model)?;
+----
+
+== Validate models
+
+[source,rust]
+----
+use ontology_graph_spec::validate::ValidationSet;
+
+let issues = model.validate(&ValidationSet::core());
+----
+
+Each issue carries a stable code, a JSON-pointer path into the model, a message and details about
+the value at fault, and implements `Display` and `std::error::Error`. Combine sets with
+`ValidationSet::union`, check against every validator with `ValidationSet::all()`, or add your
+own with `ValidationSet::with_validator`.
+
+See xref:validation.adoc[] for the validator sets and issues.
+
+With the `schema-validation` feature, `validate_document_schema` checks a document against the
+published JSON Schema, the structural gate of closed objects, enums and required fields, before
+decoding it into the model. The validator sets are the semantic checks beyond it.
+`yaml_to_json_value` gives the JSON value a YAML document holds, for schema validation or
+converting between the two syntaxes.
+
+== Relationship to the other libraries
+
+The Rust library is a native implementation of the same format and the same validators as the
+Kotlin reference, not a binding to it, so it needs no native library at runtime. It runs the same
+spec tests as the other libraries.
+
+It reads documents at the latest schema version, including documents from older released
+versions, which the format defines to read the same at the latest one. It doesn't migrate to and
+from the Aura Data Importer data model formats; for that, use the xref:jvm.adoc[],
+xref:javascript.adoc[] or xref:go.adoc[] libraries.

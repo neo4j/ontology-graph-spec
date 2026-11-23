@@ -33,9 +33,27 @@ Invalid combinations (the workflow fails):
 - `release:promote` + any bump label
 - More than one bump label (`release:major` / `release:minor` / `release:patch`)
 
-No manual `npm publish` or Gradle task is needed - just merge a labelled PR.
+No manual `npm publish`, `cargo publish` or Gradle task is needed - just merge a labelled PR.
 
-The workflow pushes the `release/vX.Y.Z` and `go/vX.Y.Z` tags before publishing to npm and Maven Central (the Kotlin multiplatform and JVM artifacts `ontology-graph-spec`, plus the native Java port `ontology-graph-spec-java`), which makes failures easier to recover from.
+The libraries are published to npm, Maven Central and crates.io. npm and crates.io use trusted
+publishing: no stored token, the registry mints a short-lived token for the publish job from
+GitHub's OIDC identity. Maven Central uses Sonatype credentials from secrets.
+
+### crates.io trusted publishing
+
+The `publish-crates` job authenticates with [crates.io trusted
+publishing](https://crates.io/docs/trusted-publishing): the
+[`rust-lang/crates-io-auth-action`](https://github.com/rust-lang/crates-io-auth-action) step
+exchanges GitHub's OIDC identity for a short-lived crates.io token, which is revoked when the job
+ends. No `CARGO_REGISTRY_TOKEN` secret exists to leak.
+
+The name `ontology-graph-spec` is claimed on crates.io, and the trusted publisher for this
+repository and the `release.yaml` workflow is registered: every release publishes the crate
+through the workflow. The job is gated on the repository variable `CRATES_TRUSTED_PUBLISHING`
+(Settings → Secrets and variables → Actions → Variables), currently `true`.
+
+The workflow pushes the `release/vX.Y.Z` and `go/vX.Y.Z` tags before publishing to npm, Maven Central (the Kotlin multiplatform and JVM artifacts `ontology-graph-spec`, plus the native Java port `ontology-graph-spec-java`) and crates.io,
+which makes failures easier to recover from.
 The next version is computed from the `release/v*` tags, so pushing them first claims the version.
 If tagging fails, nothing is published and the next run computes the same version.
 If publishing fails, the version is already claimed and is never computed again.
