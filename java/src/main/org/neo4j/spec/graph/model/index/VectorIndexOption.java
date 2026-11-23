@@ -165,7 +165,7 @@ public final class VectorIndexOption implements IndexOption {
     @JsonPropertyDescription("Whether vector quantization is enabled.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean jsonQuantizationEnabled() {
-        return this.quantizationEnabled == true ? null : this.quantizationEnabled;
+        return this.quantizationEnabled ? null : this.quantizationEnabled;
     }
 
     @JsonProperty("vector.quantization.type")

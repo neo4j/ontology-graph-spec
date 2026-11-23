@@ -192,7 +192,7 @@ public final class TableColumn implements CustomExtensions {
     @JsonPropertyDescription("Whether the column can hold null values.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean jsonNullable() {
-        return this.nullable == true ? null : this.nullable;
+        return this.nullable ? null : this.nullable;
     }
 
     @JsonProperty("dimension")
