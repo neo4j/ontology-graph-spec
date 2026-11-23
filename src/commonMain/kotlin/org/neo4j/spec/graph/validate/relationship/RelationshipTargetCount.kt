@@ -75,6 +75,15 @@ object RelationshipTargetCount : RelationshipValidation {
                 )
             )
         }
+        if (maxCount != null && maxCount < 0) {
+            issues.add(
+                Issue(
+                    code = "relationship_max_count_negative",
+                    message = "Relationship '$relationshipId' $side max count must not be negative",
+                    path = "$path${jsonPointerOf("max_count")}"
+                )
+            )
+        }
         if (minCount != null && maxCount != null && minCount > maxCount) {
             issues.add(
                 Issue(

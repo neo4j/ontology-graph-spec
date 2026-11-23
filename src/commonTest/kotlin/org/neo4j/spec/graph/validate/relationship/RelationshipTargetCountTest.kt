@@ -80,6 +80,22 @@ class RelationshipTargetCountTest {
     }
 
     @Test
+    fun `negative max count without min is invalid`() {
+        val issues = validate(RelationshipTarget(maxCount = -1))
+        assertEquals(listOf("relationship_max_count_negative"), issues.map { it.code })
+        assertEquals("/relationships/rel/from/max_count", issues.single().path)
+    }
+
+    @Test
+    fun `negative max count below min is invalid`() {
+        val issues = validate(RelationshipTarget(minCount = 0, maxCount = -1))
+        assertEquals(
+            listOf("relationship_max_count_negative", "relationship_min_count_exceeds_max"),
+            issues.map { it.code }
+        )
+    }
+
+    @Test
     fun `min without max is valid`() {
         assertTrue(validate(RelationshipTarget(minCount = 2)).isEmpty())
     }
