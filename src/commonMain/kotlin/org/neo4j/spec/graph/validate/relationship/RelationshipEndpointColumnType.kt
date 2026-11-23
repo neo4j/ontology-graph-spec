@@ -37,7 +37,6 @@ object RelationshipEndpointColumnType : RelationshipValidation {
             val base = jsonPointerOf("extensions", "data_source_mappings", mappingId, index)
             validateEndpoint(
                 model,
-                relationshipId,
                 relationship.from.node,
                 mapping.table,
                 table,
@@ -47,7 +46,6 @@ object RelationshipEndpointColumnType : RelationshipValidation {
             )
             validateEndpoint(
                 model,
-                relationshipId,
                 relationship.to.node,
                 mapping.table,
                 table,
@@ -62,7 +60,6 @@ object RelationshipEndpointColumnType : RelationshipValidation {
     // columns are skipped.
     private fun validateEndpoint(
         model: GraphModel,
-        relationshipId: String,
         nodeId: String,
         tableId: String,
         table: Table,
