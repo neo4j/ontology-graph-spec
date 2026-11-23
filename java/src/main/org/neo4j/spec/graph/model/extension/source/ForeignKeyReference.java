@@ -43,18 +43,14 @@ public final class ForeignKeyReference implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public ForeignKeyReference(String table, List<String> columns, Map<String, Object> custom) {
+    private ForeignKeyReference(String table, List<String> columns, Map<String, Object> custom) {
         this.table = table;
         this.columns = columns;
         this.custom = custom;
     }
 
-    public ForeignKeyReference(String table, List<String> columns) {
-        this(table, columns, new LinkedHashMap<String, Object>());
-    }
-
-    public ForeignKeyReference(String table) {
-        this(table, new ArrayList<String>(), new LinkedHashMap<String, Object>());
+    public static Builder builder(String table) {
+        return new Builder(table);
     }
 
     public String getTable() {
@@ -127,5 +123,34 @@ public final class ForeignKeyReference implements CustomExtensions {
                 Objects.requireNonNull(table, "Field 'table' is required"),
                 columns != null ? columns : new ArrayList<String>(),
                 custom != null ? custom : new LinkedHashMap<String, Object>());
+    }
+
+    public static final class Builder {
+        private String table;
+        private List<String> columns = new ArrayList<String>();
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+
+        private Builder(String table) {
+            this.table = table;
+        }
+
+        public Builder table(String table) {
+            this.table = table;
+            return this;
+        }
+
+        public Builder columns(List<String> columns) {
+            this.columns = columns;
+            return this;
+        }
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public ForeignKeyReference build() {
+            return new ForeignKeyReference(table, columns, custom);
+        }
     }
 }

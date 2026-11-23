@@ -42,7 +42,7 @@ public final class RelationshipTarget {
 
     private Integer maxCount;
 
-    public RelationshipTarget(String node, String label, Integer count, Integer minCount, Integer maxCount) {
+    private RelationshipTarget(String node, String label, Integer count, Integer minCount, Integer maxCount) {
         this.node = node;
         this.label = label;
         this.count = count;
@@ -50,24 +50,8 @@ public final class RelationshipTarget {
         this.maxCount = maxCount;
     }
 
-    public RelationshipTarget(String node, String label, Integer count, Integer minCount) {
-        this(node, label, count, minCount, null);
-    }
-
-    public RelationshipTarget(String node, String label, Integer count) {
-        this(node, label, count, null, null);
-    }
-
-    public RelationshipTarget(String node, String label) {
-        this(node, label, null, null, null);
-    }
-
-    public RelationshipTarget(String node) {
-        this(node, "", null, null, null);
-    }
-
-    public RelationshipTarget() {
-        this("", "", null, null, null);
+    public static Builder builder() {
+        return new Builder();
     }
 
     public String getNode() {
@@ -186,5 +170,44 @@ public final class RelationshipTarget {
                 count != null ? count : null,
                 minCount != null ? minCount : null,
                 maxCount != null ? maxCount : null);
+    }
+
+    public static final class Builder {
+        private String node = "";
+        private String label = "";
+        private Integer count = null;
+        private Integer minCount = null;
+        private Integer maxCount = null;
+
+        private Builder() {}
+
+        public Builder node(String node) {
+            this.node = node;
+            return this;
+        }
+
+        public Builder label(String label) {
+            this.label = label;
+            return this;
+        }
+
+        public Builder count(Integer count) {
+            this.count = count;
+            return this;
+        }
+
+        public Builder minCount(Integer minCount) {
+            this.minCount = minCount;
+            return this;
+        }
+
+        public Builder maxCount(Integer maxCount) {
+            this.maxCount = maxCount;
+            return this;
+        }
+
+        public RelationshipTarget build() {
+            return new RelationshipTarget(node, label, count, minCount, maxCount);
+        }
     }
 }

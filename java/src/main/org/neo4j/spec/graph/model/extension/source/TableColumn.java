@@ -54,7 +54,7 @@ public final class TableColumn implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public TableColumn(
+    private TableColumn(
             String name,
             String type,
             int size,
@@ -73,84 +73,8 @@ public final class TableColumn implements CustomExtensions {
         this.custom = custom;
     }
 
-    public TableColumn(
-            String name,
-            String type,
-            int size,
-            Neo4jType suggested,
-            List<Neo4jType> supported,
-            boolean nullable,
-            Integer dimension) {
-        this(name, type, size, suggested, supported, nullable, dimension, new LinkedHashMap<String, Object>());
-    }
-
-    public TableColumn(
-            String name, String type, int size, Neo4jType suggested, List<Neo4jType> supported, boolean nullable) {
-        this(name, type, size, suggested, supported, nullable, null, new LinkedHashMap<String, Object>());
-    }
-
-    public TableColumn(String name, String type, int size, Neo4jType suggested, List<Neo4jType> supported) {
-        this(name, type, size, suggested, supported, true, null, new LinkedHashMap<String, Object>());
-    }
-
-    public TableColumn(String name, String type, int size, Neo4jType suggested) {
-        this(
-                name,
-                type,
-                size,
-                suggested,
-                Collections.<Neo4jType>emptyList(),
-                true,
-                null,
-                new LinkedHashMap<String, Object>());
-    }
-
-    public TableColumn(String name, String type, int size) {
-        this(
-                name,
-                type,
-                size,
-                Neo4jType.ANY,
-                Collections.<Neo4jType>emptyList(),
-                true,
-                null,
-                new LinkedHashMap<String, Object>());
-    }
-
-    public TableColumn(String name, String type) {
-        this(
-                name,
-                type,
-                -1,
-                Neo4jType.ANY,
-                Collections.<Neo4jType>emptyList(),
-                true,
-                null,
-                new LinkedHashMap<String, Object>());
-    }
-
-    public TableColumn(String name) {
-        this(
-                name,
-                "",
-                -1,
-                Neo4jType.ANY,
-                Collections.<Neo4jType>emptyList(),
-                true,
-                null,
-                new LinkedHashMap<String, Object>());
-    }
-
-    public TableColumn() {
-        this(
-                "",
-                "",
-                -1,
-                Neo4jType.ANY,
-                Collections.<Neo4jType>emptyList(),
-                true,
-                null,
-                new LinkedHashMap<String, Object>());
+    public static Builder builder() {
+        return new Builder();
     }
 
     public String getName() {
@@ -304,5 +228,62 @@ public final class TableColumn implements CustomExtensions {
                 nullable != null ? nullable : true,
                 dimension != null ? dimension : null,
                 custom != null ? custom : new LinkedHashMap<String, Object>());
+    }
+
+    public static final class Builder {
+        private String name = "";
+        private String type = "";
+        private int size = -1;
+        private Neo4jType suggested = Neo4jType.ANY;
+        private List<Neo4jType> supported = Collections.<Neo4jType>emptyList();
+        private boolean nullable = true;
+        private Integer dimension = null;
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+
+        private Builder() {}
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder size(int size) {
+            this.size = size;
+            return this;
+        }
+
+        public Builder suggested(Neo4jType suggested) {
+            this.suggested = suggested;
+            return this;
+        }
+
+        public Builder supported(List<Neo4jType> supported) {
+            this.supported = supported;
+            return this;
+        }
+
+        public Builder nullable(boolean nullable) {
+            this.nullable = nullable;
+            return this;
+        }
+
+        public Builder dimension(Integer dimension) {
+            this.dimension = dimension;
+            return this;
+        }
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public TableColumn build() {
+            return new TableColumn(name, type, size, suggested, supported, nullable, dimension, custom);
+        }
     }
 }

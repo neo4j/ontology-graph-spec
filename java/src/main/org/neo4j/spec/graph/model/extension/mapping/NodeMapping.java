@@ -53,7 +53,7 @@ public final class NodeMapping implements Mapping {
 
     private String id;
 
-    public NodeMapping(
+    private NodeMapping(
             String node,
             String table,
             Map<String, PropertyMapping> properties,
@@ -72,38 +72,8 @@ public final class NodeMapping implements Mapping {
         this.id = id;
     }
 
-    public NodeMapping(
-            String node,
-            String table,
-            Map<String, PropertyMapping> properties,
-            MappingMode mode,
-            String matchLabel,
-            List<String> key,
-            String dependsOn) {
-        this(node, table, properties, mode, matchLabel, key, dependsOn, "");
-    }
-
-    public NodeMapping(
-            String node,
-            String table,
-            Map<String, PropertyMapping> properties,
-            MappingMode mode,
-            String matchLabel,
-            List<String> key) {
-        this(node, table, properties, mode, matchLabel, key, "", "");
-    }
-
-    public NodeMapping(
-            String node, String table, Map<String, PropertyMapping> properties, MappingMode mode, String matchLabel) {
-        this(node, table, properties, mode, matchLabel, new ArrayList<String>(), "", "");
-    }
-
-    public NodeMapping(String node, String table, Map<String, PropertyMapping> properties, MappingMode mode) {
-        this(node, table, properties, mode, null, new ArrayList<String>(), "", "");
-    }
-
-    public NodeMapping(String node, String table, Map<String, PropertyMapping> properties) {
-        this(node, table, properties, MappingMode.MERGE, null, new ArrayList<String>(), "", "");
+    public static Builder builder(String node, String table, Map<String, PropertyMapping> properties) {
+        return new Builder(node, table, properties);
     }
 
     public String getNode() {
@@ -273,5 +243,66 @@ public final class NodeMapping implements Mapping {
                 key != null ? key : new ArrayList<String>(),
                 dependsOn != null ? dependsOn : "",
                 id != null ? id : "");
+    }
+
+    public static final class Builder {
+        private String node;
+        private String table;
+        private Map<String, PropertyMapping> properties;
+        private MappingMode mode = MappingMode.MERGE;
+        private String matchLabel = null;
+        private List<String> key = new ArrayList<String>();
+        private String dependsOn = "";
+        private String id = "";
+
+        private Builder(String node, String table, Map<String, PropertyMapping> properties) {
+            this.node = node;
+            this.table = table;
+            this.properties = properties;
+        }
+
+        public Builder node(String node) {
+            this.node = node;
+            return this;
+        }
+
+        public Builder table(String table) {
+            this.table = table;
+            return this;
+        }
+
+        public Builder properties(Map<String, PropertyMapping> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public Builder mode(MappingMode mode) {
+            this.mode = mode;
+            return this;
+        }
+
+        public Builder matchLabel(String matchLabel) {
+            this.matchLabel = matchLabel;
+            return this;
+        }
+
+        public Builder key(List<String> key) {
+            this.key = key;
+            return this;
+        }
+
+        public Builder dependsOn(String dependsOn) {
+            this.dependsOn = dependsOn;
+            return this;
+        }
+
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public NodeMapping build() {
+            return new NodeMapping(node, table, properties, mode, matchLabel, key, dependsOn, id);
+        }
     }
 }

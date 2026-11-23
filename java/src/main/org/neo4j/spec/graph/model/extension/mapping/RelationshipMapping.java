@@ -58,7 +58,7 @@ public final class RelationshipMapping implements Mapping {
 
     private String id;
 
-    public RelationshipMapping(
+    private RelationshipMapping(
             String relationship,
             String table,
             TargetMapping fromNode,
@@ -81,89 +81,8 @@ public final class RelationshipMapping implements Mapping {
         this.id = id;
     }
 
-    public RelationshipMapping(
-            String relationship,
-            String table,
-            TargetMapping fromNode,
-            TargetMapping toNode,
-            String matchLabel,
-            Map<String, PropertyMapping> properties,
-            MappingMode mode,
-            List<String> key,
-            String dependsOn) {
-        this(relationship, table, fromNode, toNode, matchLabel, properties, mode, key, dependsOn, "");
-    }
-
-    public RelationshipMapping(
-            String relationship,
-            String table,
-            TargetMapping fromNode,
-            TargetMapping toNode,
-            String matchLabel,
-            Map<String, PropertyMapping> properties,
-            MappingMode mode,
-            List<String> key) {
-        this(relationship, table, fromNode, toNode, matchLabel, properties, mode, key, "", "");
-    }
-
-    public RelationshipMapping(
-            String relationship,
-            String table,
-            TargetMapping fromNode,
-            TargetMapping toNode,
-            String matchLabel,
-            Map<String, PropertyMapping> properties,
-            MappingMode mode) {
-        this(relationship, table, fromNode, toNode, matchLabel, properties, mode, new ArrayList<String>(), "", "");
-    }
-
-    public RelationshipMapping(
-            String relationship,
-            String table,
-            TargetMapping fromNode,
-            TargetMapping toNode,
-            String matchLabel,
-            Map<String, PropertyMapping> properties) {
-        this(
-                relationship,
-                table,
-                fromNode,
-                toNode,
-                matchLabel,
-                properties,
-                MappingMode.MERGE,
-                new ArrayList<String>(),
-                "",
-                "");
-    }
-
-    public RelationshipMapping(
-            String relationship, String table, TargetMapping fromNode, TargetMapping toNode, String matchLabel) {
-        this(
-                relationship,
-                table,
-                fromNode,
-                toNode,
-                matchLabel,
-                new LinkedHashMap<String, PropertyMapping>(),
-                MappingMode.MERGE,
-                new ArrayList<String>(),
-                "",
-                "");
-    }
-
-    public RelationshipMapping(String relationship, String table, TargetMapping fromNode, TargetMapping toNode) {
-        this(
-                relationship,
-                table,
-                fromNode,
-                toNode,
-                null,
-                new LinkedHashMap<String, PropertyMapping>(),
-                MappingMode.MERGE,
-                new ArrayList<String>(),
-                "",
-                "");
+    public static Builder builder(String relationship, String table, TargetMapping fromNode, TargetMapping toNode) {
+        return new Builder(relationship, table, fromNode, toNode);
     }
 
     public String getRelationship() {
@@ -364,5 +283,80 @@ public final class RelationshipMapping implements Mapping {
                 key != null ? key : new ArrayList<String>(),
                 dependsOn != null ? dependsOn : "",
                 id != null ? id : "");
+    }
+
+    public static final class Builder {
+        private String relationship;
+        private String table;
+        private TargetMapping fromNode;
+        private TargetMapping toNode;
+        private String matchLabel = null;
+        private Map<String, PropertyMapping> properties = new LinkedHashMap<String, PropertyMapping>();
+        private MappingMode mode = MappingMode.MERGE;
+        private List<String> key = new ArrayList<String>();
+        private String dependsOn = "";
+        private String id = "";
+
+        private Builder(String relationship, String table, TargetMapping fromNode, TargetMapping toNode) {
+            this.relationship = relationship;
+            this.table = table;
+            this.fromNode = fromNode;
+            this.toNode = toNode;
+        }
+
+        public Builder relationship(String relationship) {
+            this.relationship = relationship;
+            return this;
+        }
+
+        public Builder table(String table) {
+            this.table = table;
+            return this;
+        }
+
+        public Builder fromNode(TargetMapping fromNode) {
+            this.fromNode = fromNode;
+            return this;
+        }
+
+        public Builder toNode(TargetMapping toNode) {
+            this.toNode = toNode;
+            return this;
+        }
+
+        public Builder matchLabel(String matchLabel) {
+            this.matchLabel = matchLabel;
+            return this;
+        }
+
+        public Builder properties(Map<String, PropertyMapping> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public Builder mode(MappingMode mode) {
+            this.mode = mode;
+            return this;
+        }
+
+        public Builder key(List<String> key) {
+            this.key = key;
+            return this;
+        }
+
+        public Builder dependsOn(String dependsOn) {
+            this.dependsOn = dependsOn;
+            return this;
+        }
+
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public RelationshipMapping build() {
+            return new RelationshipMapping(
+                    relationship, table, fromNode, toNode, matchLabel, properties, mode, key, dependsOn, id);
+        }
     }
 }

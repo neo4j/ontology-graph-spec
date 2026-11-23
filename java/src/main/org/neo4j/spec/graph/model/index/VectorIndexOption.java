@@ -52,7 +52,7 @@ public final class VectorIndexOption implements IndexOption {
 
     private final int hnswEfConstruction;
 
-    public VectorIndexOption(
+    private VectorIndexOption(
             Integer dimensions,
             String similarityFunction,
             Float defaultSearchExpansionFactor,
@@ -69,61 +69,8 @@ public final class VectorIndexOption implements IndexOption {
         this.hnswEfConstruction = hnswEfConstruction;
     }
 
-    public VectorIndexOption(
-            Integer dimensions,
-            String similarityFunction,
-            Float defaultSearchExpansionFactor,
-            boolean quantizationEnabled,
-            String quantizationType,
-            int hnswM) {
-        this(
-                dimensions,
-                similarityFunction,
-                defaultSearchExpansionFactor,
-                quantizationEnabled,
-                quantizationType,
-                hnswM,
-                100);
-    }
-
-    public VectorIndexOption(
-            Integer dimensions,
-            String similarityFunction,
-            Float defaultSearchExpansionFactor,
-            boolean quantizationEnabled,
-            String quantizationType) {
-        this(
-                dimensions,
-                similarityFunction,
-                defaultSearchExpansionFactor,
-                quantizationEnabled,
-                quantizationType,
-                16,
-                100);
-    }
-
-    public VectorIndexOption(
-            Integer dimensions,
-            String similarityFunction,
-            Float defaultSearchExpansionFactor,
-            boolean quantizationEnabled) {
-        this(dimensions, similarityFunction, defaultSearchExpansionFactor, quantizationEnabled, "scalar", 16, 100);
-    }
-
-    public VectorIndexOption(Integer dimensions, String similarityFunction, Float defaultSearchExpansionFactor) {
-        this(dimensions, similarityFunction, defaultSearchExpansionFactor, true, "scalar", 16, 100);
-    }
-
-    public VectorIndexOption(Integer dimensions, String similarityFunction) {
-        this(dimensions, similarityFunction, null, true, "scalar", 16, 100);
-    }
-
-    public VectorIndexOption(Integer dimensions) {
-        this(dimensions, "cosine", null, true, "scalar", 16, 100);
-    }
-
-    public VectorIndexOption() {
-        this(null, "cosine", null, true, "scalar", 16, 100);
+    public static Builder builder() {
+        return new Builder();
     }
 
     public Integer getDimensions() {
@@ -259,5 +206,63 @@ public final class VectorIndexOption implements IndexOption {
                 quantizationType != null ? quantizationType : "scalar",
                 hnswM != null ? hnswM : 16,
                 hnswEfConstruction != null ? hnswEfConstruction : 100);
+    }
+
+    public static final class Builder {
+        private Integer dimensions = null;
+        private String similarityFunction = "cosine";
+        private Float defaultSearchExpansionFactor = null;
+        private boolean quantizationEnabled = true;
+        private String quantizationType = "scalar";
+        private int hnswM = 16;
+        private int hnswEfConstruction = 100;
+
+        private Builder() {}
+
+        public Builder dimensions(Integer dimensions) {
+            this.dimensions = dimensions;
+            return this;
+        }
+
+        public Builder similarityFunction(String similarityFunction) {
+            this.similarityFunction = similarityFunction;
+            return this;
+        }
+
+        public Builder defaultSearchExpansionFactor(Float defaultSearchExpansionFactor) {
+            this.defaultSearchExpansionFactor = defaultSearchExpansionFactor;
+            return this;
+        }
+
+        public Builder quantizationEnabled(boolean quantizationEnabled) {
+            this.quantizationEnabled = quantizationEnabled;
+            return this;
+        }
+
+        public Builder quantizationType(String quantizationType) {
+            this.quantizationType = quantizationType;
+            return this;
+        }
+
+        public Builder hnswM(int hnswM) {
+            this.hnswM = hnswM;
+            return this;
+        }
+
+        public Builder hnswEfConstruction(int hnswEfConstruction) {
+            this.hnswEfConstruction = hnswEfConstruction;
+            return this;
+        }
+
+        public VectorIndexOption build() {
+            return new VectorIndexOption(
+                    dimensions,
+                    similarityFunction,
+                    defaultSearchExpansionFactor,
+                    quantizationEnabled,
+                    quantizationType,
+                    hnswM,
+                    hnswEfConstruction);
+        }
     }
 }

@@ -41,22 +41,14 @@ public final class NodeExtensions implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public NodeExtensions(Map<String, NodeIndex> indexes, NodeDisplay display, Map<String, Object> custom) {
+    private NodeExtensions(Map<String, NodeIndex> indexes, NodeDisplay display, Map<String, Object> custom) {
         this.indexes = indexes;
         this.display = display;
         this.custom = custom;
     }
 
-    public NodeExtensions(Map<String, NodeIndex> indexes, NodeDisplay display) {
-        this(indexes, display, new LinkedHashMap<String, Object>());
-    }
-
-    public NodeExtensions(Map<String, NodeIndex> indexes) {
-        this(indexes, null, new LinkedHashMap<String, Object>());
-    }
-
-    public NodeExtensions() {
-        this(new LinkedHashMap<String, NodeIndex>(), null, new LinkedHashMap<String, Object>());
+    public static Builder builder() {
+        return new Builder();
     }
 
     public Map<String, NodeIndex> getIndexes() {
@@ -125,5 +117,32 @@ public final class NodeExtensions implements CustomExtensions {
                 indexes != null ? indexes : new LinkedHashMap<String, NodeIndex>(),
                 display != null ? display : null,
                 custom != null ? custom : new LinkedHashMap<String, Object>());
+    }
+
+    public static final class Builder {
+        private Map<String, NodeIndex> indexes = new LinkedHashMap<String, NodeIndex>();
+        private NodeDisplay display = null;
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+
+        private Builder() {}
+
+        public Builder indexes(Map<String, NodeIndex> indexes) {
+            this.indexes = indexes;
+            return this;
+        }
+
+        public Builder display(NodeDisplay display) {
+            this.display = display;
+            return this;
+        }
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public NodeExtensions build() {
+            return new NodeExtensions(indexes, display, custom);
+        }
     }
 }

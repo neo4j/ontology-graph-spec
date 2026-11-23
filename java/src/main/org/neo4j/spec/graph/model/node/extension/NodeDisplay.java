@@ -43,19 +43,15 @@ public final class NodeDisplay implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public NodeDisplay(double x, double y, String colour, Map<String, Object> custom) {
+    private NodeDisplay(double x, double y, String colour, Map<String, Object> custom) {
         this.x = x;
         this.y = y;
         this.colour = colour;
         this.custom = custom;
     }
 
-    public NodeDisplay(double x, double y, String colour) {
-        this(x, y, colour, new LinkedHashMap<String, Object>());
-    }
-
-    public NodeDisplay(double x, double y) {
-        this(x, y, null, new LinkedHashMap<String, Object>());
+    public static Builder builder(double x, double y) {
+        return new Builder(x, y);
     }
 
     public double getX() {
@@ -151,5 +147,41 @@ public final class NodeDisplay implements CustomExtensions {
                 Objects.requireNonNull(y, "Field 'y' is required"),
                 colour != null ? colour : null,
                 custom != null ? custom : new LinkedHashMap<String, Object>());
+    }
+
+    public static final class Builder {
+        private double x;
+        private double y;
+        private String colour = null;
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+
+        private Builder(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public Builder x(double x) {
+            this.x = x;
+            return this;
+        }
+
+        public Builder y(double y) {
+            this.y = y;
+            return this;
+        }
+
+        public Builder colour(String colour) {
+            this.colour = colour;
+            return this;
+        }
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public NodeDisplay build() {
+            return new NodeDisplay(x, y, colour, custom);
+        }
     }
 }

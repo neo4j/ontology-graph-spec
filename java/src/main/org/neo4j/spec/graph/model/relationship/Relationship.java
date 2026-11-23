@@ -56,7 +56,7 @@ public final class Relationship {
 
     private final String reference;
 
-    public Relationship(
+    private Relationship(
             String type,
             RelationshipTarget from,
             RelationshipTarget to,
@@ -77,72 +77,8 @@ public final class Relationship {
         this.reference = reference;
     }
 
-    public Relationship(
-            String type,
-            RelationshipTarget from,
-            RelationshipTarget to,
-            Map<String, Property> properties,
-            Map<String, RelationshipConstraint> constraints,
-            RelationshipExtensions extensions,
-            String description,
-            List<String> aliases) {
-        this(type, from, to, properties, constraints, extensions, description, aliases, "");
-    }
-
-    public Relationship(
-            String type,
-            RelationshipTarget from,
-            RelationshipTarget to,
-            Map<String, Property> properties,
-            Map<String, RelationshipConstraint> constraints,
-            RelationshipExtensions extensions,
-            String description) {
-        this(type, from, to, properties, constraints, extensions, description, new ArrayList<String>(), "");
-    }
-
-    public Relationship(
-            String type,
-            RelationshipTarget from,
-            RelationshipTarget to,
-            Map<String, Property> properties,
-            Map<String, RelationshipConstraint> constraints,
-            RelationshipExtensions extensions) {
-        this(type, from, to, properties, constraints, extensions, "", new ArrayList<String>(), "");
-    }
-
-    public Relationship(
-            String type,
-            RelationshipTarget from,
-            RelationshipTarget to,
-            Map<String, Property> properties,
-            Map<String, RelationshipConstraint> constraints) {
-        this(type, from, to, properties, constraints, new RelationshipExtensions(), "", new ArrayList<String>(), "");
-    }
-
-    public Relationship(String type, RelationshipTarget from, RelationshipTarget to, Map<String, Property> properties) {
-        this(
-                type,
-                from,
-                to,
-                properties,
-                new LinkedHashMap<String, RelationshipConstraint>(),
-                new RelationshipExtensions(),
-                "",
-                new ArrayList<String>(),
-                "");
-    }
-
-    public Relationship(String type, RelationshipTarget from, RelationshipTarget to) {
-        this(
-                type,
-                from,
-                to,
-                new LinkedHashMap<String, Property>(),
-                new LinkedHashMap<String, RelationshipConstraint>(),
-                new RelationshipExtensions(),
-                "",
-                new ArrayList<String>(),
-                "");
+    public static Builder builder(String type, RelationshipTarget from, RelationshipTarget to) {
+        return new Builder(type, from, to);
     }
 
     public String getType() {
@@ -263,7 +199,7 @@ public final class Relationship {
     @JsonPropertyDescription("Extensions for the relationship.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private RelationshipExtensions jsonExtensions() {
-        return Objects.equals(this.extensions, new RelationshipExtensions()) ? null : this.extensions;
+        return Objects.equals(this.extensions, RelationshipExtensions.builder().build()) ? null : this.extensions;
     }
 
     @JsonProperty("description")
@@ -304,9 +240,80 @@ public final class Relationship {
                 Objects.requireNonNull(to, "Field 'to' is required"),
                 properties != null ? properties : new LinkedHashMap<String, Property>(),
                 constraints != null ? constraints : new LinkedHashMap<String, RelationshipConstraint>(),
-                extensions != null ? extensions : new RelationshipExtensions(),
+                extensions != null
+                        ? extensions
+                        : RelationshipExtensions.builder().build(),
                 description != null ? description : "",
                 aliases != null ? aliases : new ArrayList<String>(),
                 reference != null ? reference : "");
+    }
+
+    public static final class Builder {
+        private String type;
+        private RelationshipTarget from;
+        private RelationshipTarget to;
+        private Map<String, Property> properties = new LinkedHashMap<String, Property>();
+        private Map<String, RelationshipConstraint> constraints = new LinkedHashMap<String, RelationshipConstraint>();
+        private RelationshipExtensions extensions =
+                RelationshipExtensions.builder().build();
+        private String description = "";
+        private List<String> aliases = new ArrayList<String>();
+        private String reference = "";
+
+        private Builder(String type, RelationshipTarget from, RelationshipTarget to) {
+            this.type = type;
+            this.from = from;
+            this.to = to;
+        }
+
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder from(RelationshipTarget from) {
+            this.from = from;
+            return this;
+        }
+
+        public Builder to(RelationshipTarget to) {
+            this.to = to;
+            return this;
+        }
+
+        public Builder properties(Map<String, Property> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public Builder constraints(Map<String, RelationshipConstraint> constraints) {
+            this.constraints = constraints;
+            return this;
+        }
+
+        public Builder extensions(RelationshipExtensions extensions) {
+            this.extensions = extensions;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder aliases(List<String> aliases) {
+            this.aliases = aliases;
+            return this;
+        }
+
+        public Builder reference(String reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public Relationship build() {
+            return new Relationship(
+                    type, from, to, properties, constraints, extensions, description, aliases, reference);
+        }
     }
 }

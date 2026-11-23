@@ -37,12 +37,12 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions;
 public final class PropertyExtensions implements CustomExtensions {
     private final Map<String, Object> custom;
 
-    public PropertyExtensions(Map<String, Object> custom) {
+    private PropertyExtensions(Map<String, Object> custom) {
         this.custom = custom;
     }
 
-    public PropertyExtensions() {
-        this(new LinkedHashMap<String, Object>());
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -79,5 +79,20 @@ public final class PropertyExtensions implements CustomExtensions {
     @JsonCreator
     private static PropertyExtensions fromJson(@JsonProperty("custom") Map<String, Object> custom) {
         return new PropertyExtensions(custom != null ? custom : new LinkedHashMap<String, Object>());
+    }
+
+    public static final class Builder {
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+
+        private Builder() {}
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public PropertyExtensions build() {
+            return new PropertyExtensions(custom);
+        }
     }
 }

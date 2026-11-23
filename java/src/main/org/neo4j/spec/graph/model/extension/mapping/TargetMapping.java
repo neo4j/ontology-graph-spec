@@ -38,17 +38,13 @@ public final class TargetMapping {
 
     private final Map<String, PropertyMapping> properties;
 
-    public TargetMapping(String label, Map<String, PropertyMapping> properties) {
+    private TargetMapping(String label, Map<String, PropertyMapping> properties) {
         this.label = label;
         this.properties = properties;
     }
 
-    public TargetMapping(String label) {
-        this(label, new LinkedHashMap<String, PropertyMapping>());
-    }
-
-    public TargetMapping() {
-        this("", new LinkedHashMap<String, PropertyMapping>());
+    public static Builder builder() {
+        return new Builder();
     }
 
     public String getLabel() {
@@ -103,5 +99,26 @@ public final class TargetMapping {
         return new TargetMapping(
                 label != null ? label : "",
                 properties != null ? properties : new LinkedHashMap<String, PropertyMapping>());
+    }
+
+    public static final class Builder {
+        private String label = "";
+        private Map<String, PropertyMapping> properties = new LinkedHashMap<String, PropertyMapping>();
+
+        private Builder() {}
+
+        public Builder label(String label) {
+            this.label = label;
+            return this;
+        }
+
+        public Builder properties(Map<String, PropertyMapping> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public TargetMapping build() {
+            return new TargetMapping(label, properties);
+        }
     }
 }

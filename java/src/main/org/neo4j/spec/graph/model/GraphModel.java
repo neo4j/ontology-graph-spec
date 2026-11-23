@@ -55,7 +55,7 @@ public final class GraphModel {
 
     private final GraphModelExtensions extensions;
 
-    public GraphModel(
+    private GraphModel(
             String schema,
             String version,
             String id,
@@ -74,76 +74,8 @@ public final class GraphModel {
         this.extensions = extensions;
     }
 
-    public GraphModel(
-            String schema,
-            String version,
-            String id,
-            String name,
-            String description,
-            Map<String, Node> nodes,
-            Map<String, Relationship> relationships) {
-        this(schema, version, id, name, description, nodes, relationships, new GraphModelExtensions());
-    }
-
-    public GraphModel(
-            String schema, String version, String id, String name, String description, Map<String, Node> nodes) {
-        this(
-                schema,
-                version,
-                id,
-                name,
-                description,
-                nodes,
-                new LinkedHashMap<String, Relationship>(),
-                new GraphModelExtensions());
-    }
-
-    public GraphModel(String schema, String version, String id, String name, String description) {
-        this(
-                schema,
-                version,
-                id,
-                name,
-                description,
-                new LinkedHashMap<String, Node>(),
-                new LinkedHashMap<String, Relationship>(),
-                new GraphModelExtensions());
-    }
-
-    public GraphModel(String schema, String version, String id, String name) {
-        this(
-                schema,
-                version,
-                id,
-                name,
-                "",
-                new LinkedHashMap<String, Node>(),
-                new LinkedHashMap<String, Relationship>(),
-                new GraphModelExtensions());
-    }
-
-    public GraphModel(String schema, String version, String id) {
-        this(
-                schema,
-                version,
-                id,
-                "",
-                "",
-                new LinkedHashMap<String, Node>(),
-                new LinkedHashMap<String, Relationship>(),
-                new GraphModelExtensions());
-    }
-
-    public GraphModel(String version, String id) {
-        this(
-                Version.schemaUrl(Version.LATEST),
-                version,
-                id,
-                "",
-                "",
-                new LinkedHashMap<String, Node>(),
-                new LinkedHashMap<String, Relationship>(),
-                new GraphModelExtensions());
+    public static Builder builder(String version, String id) {
+        return new Builder(version, id);
     }
 
     public String getSchema() {
@@ -301,7 +233,7 @@ public final class GraphModel {
     @JsonPropertyDescription("Extensions to the model: data source tables, mappings and external custom data.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private GraphModelExtensions jsonExtensions() {
-        return Objects.equals(this.extensions, new GraphModelExtensions()) ? null : this.extensions;
+        return Objects.equals(this.extensions, GraphModelExtensions.builder().build()) ? null : this.extensions;
     }
 
     @JsonCreator
@@ -322,6 +254,66 @@ public final class GraphModel {
                 description != null ? description : "",
                 nodes != null ? nodes : new LinkedHashMap<String, Node>(),
                 relationships != null ? relationships : new LinkedHashMap<String, Relationship>(),
-                extensions != null ? extensions : new GraphModelExtensions());
+                extensions != null ? extensions : GraphModelExtensions.builder().build());
+    }
+
+    public static final class Builder {
+        private String schema = Version.schemaUrl(Version.LATEST);
+        private String version;
+        private String id;
+        private String name = "";
+        private String description = "";
+        private Map<String, Node> nodes = new LinkedHashMap<String, Node>();
+        private Map<String, Relationship> relationships = new LinkedHashMap<String, Relationship>();
+        private GraphModelExtensions extensions = GraphModelExtensions.builder().build();
+
+        private Builder(String version, String id) {
+            this.version = version;
+            this.id = id;
+        }
+
+        public Builder schema(String schema) {
+            this.schema = schema;
+            return this;
+        }
+
+        public Builder version(String version) {
+            this.version = version;
+            return this;
+        }
+
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder nodes(Map<String, Node> nodes) {
+            this.nodes = nodes;
+            return this;
+        }
+
+        public Builder relationships(Map<String, Relationship> relationships) {
+            this.relationships = relationships;
+            return this;
+        }
+
+        public Builder extensions(GraphModelExtensions extensions) {
+            this.extensions = extensions;
+            return this;
+        }
+
+        public GraphModel build() {
+            return new GraphModel(schema, version, id, name, description, nodes, relationships, extensions);
+        }
     }
 }

@@ -46,7 +46,7 @@ public final class GraphModelExtensions implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public GraphModelExtensions(
+    private GraphModelExtensions(
             Map<String, Table> dataSourceTables,
             Map<String, List<Mapping>> dataSourceMappings,
             Map<String, Object> custom) {
@@ -55,19 +55,8 @@ public final class GraphModelExtensions implements CustomExtensions {
         this.custom = custom;
     }
 
-    public GraphModelExtensions(Map<String, Table> dataSourceTables, Map<String, List<Mapping>> dataSourceMappings) {
-        this(dataSourceTables, dataSourceMappings, new LinkedHashMap<String, Object>());
-    }
-
-    public GraphModelExtensions(Map<String, Table> dataSourceTables) {
-        this(dataSourceTables, new LinkedHashMap<String, List<Mapping>>(), new LinkedHashMap<String, Object>());
-    }
-
-    public GraphModelExtensions() {
-        this(
-                new LinkedHashMap<String, Table>(),
-                new LinkedHashMap<String, List<Mapping>>(),
-                new LinkedHashMap<String, Object>());
+    public static Builder builder() {
+        return new Builder();
     }
 
     public Map<String, Table> getDataSourceTables() {
@@ -140,5 +129,32 @@ public final class GraphModelExtensions implements CustomExtensions {
                 dataSourceTables != null ? dataSourceTables : new LinkedHashMap<String, Table>(),
                 dataSourceMappings != null ? dataSourceMappings : new LinkedHashMap<String, List<Mapping>>(),
                 custom != null ? custom : new LinkedHashMap<String, Object>());
+    }
+
+    public static final class Builder {
+        private Map<String, Table> dataSourceTables = new LinkedHashMap<String, Table>();
+        private Map<String, List<Mapping>> dataSourceMappings = new LinkedHashMap<String, List<Mapping>>();
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+
+        private Builder() {}
+
+        public Builder dataSourceTables(Map<String, Table> dataSourceTables) {
+            this.dataSourceTables = dataSourceTables;
+            return this;
+        }
+
+        public Builder dataSourceMappings(Map<String, List<Mapping>> dataSourceMappings) {
+            this.dataSourceMappings = dataSourceMappings;
+            return this;
+        }
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public GraphModelExtensions build() {
+            return new GraphModelExtensions(dataSourceTables, dataSourceMappings, custom);
+        }
     }
 }

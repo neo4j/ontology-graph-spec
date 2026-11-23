@@ -68,7 +68,7 @@ public final class Notation {
                     node.getProperties(),
                     key,
                     value != null ? value : "",
-                    (type, props) -> new NodeConstraint(type, props));
+                    (type, props) -> NodeConstraint.builder(type, props).build());
         }
         for (var entry : model.getRelationships().entrySet()) {
             var key = entry.getKey();
@@ -78,7 +78,7 @@ public final class Notation {
                     relationship.getProperties(),
                     key,
                     relationship.getType(),
-                    (type, props) -> new RelationshipConstraint(type, props));
+                    (type, props) -> RelationshipConstraint.builder(type, props).build());
         }
     }
 

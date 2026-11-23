@@ -54,7 +54,7 @@ public final class FullTextIndexOption implements IndexOption {
 
     private final int eventuallyConsistentUpdateQueueMaxLength;
 
-    public FullTextIndexOption(
+    private FullTextIndexOption(
             String defaultAnalyzer,
             String analyzer,
             boolean eventuallyConsistent,
@@ -71,61 +71,8 @@ public final class FullTextIndexOption implements IndexOption {
         this.eventuallyConsistentUpdateQueueMaxLength = eventuallyConsistentUpdateQueueMaxLength;
     }
 
-    public FullTextIndexOption(
-            String defaultAnalyzer,
-            String analyzer,
-            boolean eventuallyConsistent,
-            int eventuallyConsistentApplyParallelism,
-            String eventuallyConsistentRefreshInterval,
-            int eventuallyConsistentRefreshParallelism) {
-        this(
-                defaultAnalyzer,
-                analyzer,
-                eventuallyConsistent,
-                eventuallyConsistentApplyParallelism,
-                eventuallyConsistentRefreshInterval,
-                eventuallyConsistentRefreshParallelism,
-                10000);
-    }
-
-    public FullTextIndexOption(
-            String defaultAnalyzer,
-            String analyzer,
-            boolean eventuallyConsistent,
-            int eventuallyConsistentApplyParallelism,
-            String eventuallyConsistentRefreshInterval) {
-        this(
-                defaultAnalyzer,
-                analyzer,
-                eventuallyConsistent,
-                eventuallyConsistentApplyParallelism,
-                eventuallyConsistentRefreshInterval,
-                1,
-                10000);
-    }
-
-    public FullTextIndexOption(
-            String defaultAnalyzer,
-            String analyzer,
-            boolean eventuallyConsistent,
-            int eventuallyConsistentApplyParallelism) {
-        this(defaultAnalyzer, analyzer, eventuallyConsistent, eventuallyConsistentApplyParallelism, "0s", 1, 10000);
-    }
-
-    public FullTextIndexOption(String defaultAnalyzer, String analyzer, boolean eventuallyConsistent) {
-        this(defaultAnalyzer, analyzer, eventuallyConsistent, 1, "0s", 1, 10000);
-    }
-
-    public FullTextIndexOption(String defaultAnalyzer, String analyzer) {
-        this(defaultAnalyzer, analyzer, false, 1, "0s", 1, 10000);
-    }
-
-    public FullTextIndexOption(String defaultAnalyzer) {
-        this(defaultAnalyzer, null, false, 1, "0s", 1, 10000);
-    }
-
-    public FullTextIndexOption() {
-        this("standard-no-stop-words", null, false, 1, "0s", 1, 10000);
+    public static Builder builder() {
+        return new Builder();
     }
 
     public String getDefaultAnalyzer() {
@@ -271,5 +218,63 @@ public final class FullTextIndexOption implements IndexOption {
                 eventuallyConsistentRefreshInterval != null ? eventuallyConsistentRefreshInterval : "0s",
                 eventuallyConsistentRefreshParallelism != null ? eventuallyConsistentRefreshParallelism : 1,
                 eventuallyConsistentUpdateQueueMaxLength != null ? eventuallyConsistentUpdateQueueMaxLength : 10000);
+    }
+
+    public static final class Builder {
+        private String defaultAnalyzer = "standard-no-stop-words";
+        private String analyzer = null;
+        private boolean eventuallyConsistent = false;
+        private int eventuallyConsistentApplyParallelism = 1;
+        private String eventuallyConsistentRefreshInterval = "0s";
+        private int eventuallyConsistentRefreshParallelism = 1;
+        private int eventuallyConsistentUpdateQueueMaxLength = 10000;
+
+        private Builder() {}
+
+        public Builder defaultAnalyzer(String defaultAnalyzer) {
+            this.defaultAnalyzer = defaultAnalyzer;
+            return this;
+        }
+
+        public Builder analyzer(String analyzer) {
+            this.analyzer = analyzer;
+            return this;
+        }
+
+        public Builder eventuallyConsistent(boolean eventuallyConsistent) {
+            this.eventuallyConsistent = eventuallyConsistent;
+            return this;
+        }
+
+        public Builder eventuallyConsistentApplyParallelism(int eventuallyConsistentApplyParallelism) {
+            this.eventuallyConsistentApplyParallelism = eventuallyConsistentApplyParallelism;
+            return this;
+        }
+
+        public Builder eventuallyConsistentRefreshInterval(String eventuallyConsistentRefreshInterval) {
+            this.eventuallyConsistentRefreshInterval = eventuallyConsistentRefreshInterval;
+            return this;
+        }
+
+        public Builder eventuallyConsistentRefreshParallelism(int eventuallyConsistentRefreshParallelism) {
+            this.eventuallyConsistentRefreshParallelism = eventuallyConsistentRefreshParallelism;
+            return this;
+        }
+
+        public Builder eventuallyConsistentUpdateQueueMaxLength(int eventuallyConsistentUpdateQueueMaxLength) {
+            this.eventuallyConsistentUpdateQueueMaxLength = eventuallyConsistentUpdateQueueMaxLength;
+            return this;
+        }
+
+        public FullTextIndexOption build() {
+            return new FullTextIndexOption(
+                    defaultAnalyzer,
+                    analyzer,
+                    eventuallyConsistent,
+                    eventuallyConsistentApplyParallelism,
+                    eventuallyConsistentRefreshInterval,
+                    eventuallyConsistentRefreshParallelism,
+                    eventuallyConsistentUpdateQueueMaxLength);
+        }
     }
 }

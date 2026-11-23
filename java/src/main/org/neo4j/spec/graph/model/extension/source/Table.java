@@ -47,7 +47,7 @@ public final class Table implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public Table(
+    private Table(
             String source,
             List<TableColumn> columns,
             List<String> primaryKeys,
@@ -60,36 +60,8 @@ public final class Table implements CustomExtensions {
         this.custom = custom;
     }
 
-    public Table(
-            String source, List<TableColumn> columns, List<String> primaryKeys, Map<String, ForeignKey> foreignKeys) {
-        this(source, columns, primaryKeys, foreignKeys, new LinkedHashMap<String, Object>());
-    }
-
-    public Table(String source, List<TableColumn> columns, List<String> primaryKeys) {
-        this(
-                source,
-                columns,
-                primaryKeys,
-                new LinkedHashMap<String, ForeignKey>(),
-                new LinkedHashMap<String, Object>());
-    }
-
-    public Table(String source, List<TableColumn> columns) {
-        this(
-                source,
-                columns,
-                new ArrayList<String>(),
-                new LinkedHashMap<String, ForeignKey>(),
-                new LinkedHashMap<String, Object>());
-    }
-
-    public Table(String source) {
-        this(
-                source,
-                new ArrayList<TableColumn>(),
-                new ArrayList<String>(),
-                new LinkedHashMap<String, ForeignKey>(),
-                new LinkedHashMap<String, Object>());
+    public static Builder builder(String source) {
+        return new Builder(source);
     }
 
     public String getSource() {
@@ -193,5 +165,46 @@ public final class Table implements CustomExtensions {
                 primaryKeys != null ? primaryKeys : new ArrayList<String>(),
                 foreignKeys != null ? foreignKeys : new LinkedHashMap<String, ForeignKey>(),
                 custom != null ? custom : new LinkedHashMap<String, Object>());
+    }
+
+    public static final class Builder {
+        private String source;
+        private List<TableColumn> columns = new ArrayList<TableColumn>();
+        private List<String> primaryKeys = new ArrayList<String>();
+        private Map<String, ForeignKey> foreignKeys = new LinkedHashMap<String, ForeignKey>();
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+
+        private Builder(String source) {
+            this.source = source;
+        }
+
+        public Builder source(String source) {
+            this.source = source;
+            return this;
+        }
+
+        public Builder columns(List<TableColumn> columns) {
+            this.columns = columns;
+            return this;
+        }
+
+        public Builder primaryKeys(List<String> primaryKeys) {
+            this.primaryKeys = primaryKeys;
+            return this;
+        }
+
+        public Builder foreignKeys(Map<String, ForeignKey> foreignKeys) {
+            this.foreignKeys = foreignKeys;
+            return this;
+        }
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public Table build() {
+            return new Table(source, columns, primaryKeys, foreignKeys, custom);
+        }
     }
 }

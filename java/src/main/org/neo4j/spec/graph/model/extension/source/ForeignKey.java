@@ -42,14 +42,14 @@ public final class ForeignKey implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public ForeignKey(List<String> columns, ForeignKeyReference references, Map<String, Object> custom) {
+    private ForeignKey(List<String> columns, ForeignKeyReference references, Map<String, Object> custom) {
         this.columns = columns;
         this.references = references;
         this.custom = custom;
     }
 
-    public ForeignKey(List<String> columns, ForeignKeyReference references) {
-        this(columns, references, new LinkedHashMap<String, Object>());
+    public static Builder builder(List<String> columns, ForeignKeyReference references) {
+        return new Builder(columns, references);
     }
 
     public List<String> getColumns() {
@@ -118,5 +118,35 @@ public final class ForeignKey implements CustomExtensions {
                 Objects.requireNonNull(columns, "Field 'columns' is required"),
                 Objects.requireNonNull(references, "Field 'references' is required"),
                 custom != null ? custom : new LinkedHashMap<String, Object>());
+    }
+
+    public static final class Builder {
+        private List<String> columns;
+        private ForeignKeyReference references;
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+
+        private Builder(List<String> columns, ForeignKeyReference references) {
+            this.columns = columns;
+            this.references = references;
+        }
+
+        public Builder columns(List<String> columns) {
+            this.columns = columns;
+            return this;
+        }
+
+        public Builder references(ForeignKeyReference references) {
+            this.references = references;
+            return this;
+        }
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public ForeignKey build() {
+            return new ForeignKey(columns, references, custom);
+        }
     }
 }

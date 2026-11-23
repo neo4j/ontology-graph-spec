@@ -42,19 +42,15 @@ public final class QueryMapping implements Mapping {
 
     private String id;
 
-    public QueryMapping(String table, String query, String dependsOn, String id) {
+    private QueryMapping(String table, String query, String dependsOn, String id) {
         this.table = table;
         this.query = query;
         this.dependsOn = dependsOn;
         this.id = id;
     }
 
-    public QueryMapping(String table, String query, String dependsOn) {
-        this(table, query, dependsOn, "");
-    }
-
-    public QueryMapping(String table, String query) {
-        this(table, query, "", "");
+    public static Builder builder(String table, String query) {
+        return new Builder(table, query);
     }
 
     public String getTable() {
@@ -155,5 +151,41 @@ public final class QueryMapping implements Mapping {
                 Objects.requireNonNull(query, "Field 'query' is required"),
                 dependsOn != null ? dependsOn : "",
                 id != null ? id : "");
+    }
+
+    public static final class Builder {
+        private String table;
+        private String query;
+        private String dependsOn = "";
+        private String id = "";
+
+        private Builder(String table, String query) {
+            this.table = table;
+            this.query = query;
+        }
+
+        public Builder table(String table) {
+            this.table = table;
+            return this;
+        }
+
+        public Builder query(String query) {
+            this.query = query;
+            return this;
+        }
+
+        public Builder dependsOn(String dependsOn) {
+            this.dependsOn = dependsOn;
+            return this;
+        }
+
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public QueryMapping build() {
+            return new QueryMapping(table, query, dependsOn, id);
+        }
     }
 }

@@ -39,17 +39,13 @@ public final class RelationshipExtensions implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    public RelationshipExtensions(Map<String, RelationshipIndex> indexes, Map<String, Object> custom) {
+    private RelationshipExtensions(Map<String, RelationshipIndex> indexes, Map<String, Object> custom) {
         this.indexes = indexes;
         this.custom = custom;
     }
 
-    public RelationshipExtensions(Map<String, RelationshipIndex> indexes) {
-        this(indexes, new LinkedHashMap<String, Object>());
-    }
-
-    public RelationshipExtensions() {
-        this(new LinkedHashMap<String, RelationshipIndex>(), new LinkedHashMap<String, Object>());
+    public static Builder builder() {
+        return new Builder();
     }
 
     public Map<String, RelationshipIndex> getIndexes() {
@@ -102,5 +98,26 @@ public final class RelationshipExtensions implements CustomExtensions {
         return new RelationshipExtensions(
                 indexes != null ? indexes : new LinkedHashMap<String, RelationshipIndex>(),
                 custom != null ? custom : new LinkedHashMap<String, Object>());
+    }
+
+    public static final class Builder {
+        private Map<String, RelationshipIndex> indexes = new LinkedHashMap<String, RelationshipIndex>();
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+
+        private Builder() {}
+
+        public Builder indexes(Map<String, RelationshipIndex> indexes) {
+            this.indexes = indexes;
+            return this;
+        }
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public RelationshipExtensions build() {
+            return new RelationshipExtensions(indexes, custom);
+        }
     }
 }

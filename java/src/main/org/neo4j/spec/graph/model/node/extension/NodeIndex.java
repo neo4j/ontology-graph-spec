@@ -51,7 +51,7 @@ public final class NodeIndex implements CustomExtensions, Named {
 
     private String name;
 
-    public NodeIndex(
+    private NodeIndex(
             IndexType type,
             List<String> labels,
             List<String> properties,
@@ -66,21 +66,8 @@ public final class NodeIndex implements CustomExtensions, Named {
         this.name = name;
     }
 
-    public NodeIndex(
-            IndexType type,
-            List<String> labels,
-            List<String> properties,
-            IndexOption options,
-            Map<String, Object> custom) {
-        this(type, labels, properties, options, custom, null);
-    }
-
-    public NodeIndex(IndexType type, List<String> labels, List<String> properties, IndexOption options) {
-        this(type, labels, properties, options, new LinkedHashMap<String, Object>(), null);
-    }
-
-    public NodeIndex(IndexType type, List<String> labels, List<String> properties) {
-        this(type, labels, properties, null, new LinkedHashMap<String, Object>(), null);
+    public static Builder builder(IndexType type, List<String> labels, List<String> properties) {
+        return new Builder(type, labels, properties);
     }
 
     public IndexType getType() {
@@ -204,5 +191,54 @@ public final class NodeIndex implements CustomExtensions, Named {
                 options != null ? options : null,
                 custom != null ? custom : new LinkedHashMap<String, Object>(),
                 name != null ? name : null);
+    }
+
+    public static final class Builder {
+        private IndexType type;
+        private List<String> labels;
+        private List<String> properties;
+        private IndexOption options = null;
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private String name = null;
+
+        private Builder(IndexType type, List<String> labels, List<String> properties) {
+            this.type = type;
+            this.labels = labels;
+            this.properties = properties;
+        }
+
+        public Builder type(IndexType type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder labels(List<String> labels) {
+            this.labels = labels;
+            return this;
+        }
+
+        public Builder properties(List<String> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public Builder options(IndexOption options) {
+            this.options = options;
+            return this;
+        }
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public NodeIndex build() {
+            return new NodeIndex(type, labels, properties, options, custom, name);
+        }
     }
 }

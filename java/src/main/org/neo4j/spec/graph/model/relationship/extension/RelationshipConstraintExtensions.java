@@ -37,12 +37,12 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions;
 public final class RelationshipConstraintExtensions implements CustomExtensions {
     private final Map<String, Object> custom;
 
-    public RelationshipConstraintExtensions(Map<String, Object> custom) {
+    private RelationshipConstraintExtensions(Map<String, Object> custom) {
         this.custom = custom;
     }
 
-    public RelationshipConstraintExtensions() {
-        this(new LinkedHashMap<String, Object>());
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -79,5 +79,20 @@ public final class RelationshipConstraintExtensions implements CustomExtensions 
     @JsonCreator
     private static RelationshipConstraintExtensions fromJson(@JsonProperty("custom") Map<String, Object> custom) {
         return new RelationshipConstraintExtensions(custom != null ? custom : new LinkedHashMap<String, Object>());
+    }
+
+    public static final class Builder {
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+
+        private Builder() {}
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public RelationshipConstraintExtensions build() {
+            return new RelationshipConstraintExtensions(custom);
+        }
     }
 }

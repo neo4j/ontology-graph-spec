@@ -44,7 +44,7 @@ public final class NodeConstraint implements Constraint, Named {
 
     private String name;
 
-    public NodeConstraint(
+    private NodeConstraint(
             ConstraintType type, List<String> properties, NodeConstraintExtensions extensions, String name) {
         this.type = type;
         this.properties = properties;
@@ -52,12 +52,8 @@ public final class NodeConstraint implements Constraint, Named {
         this.name = name;
     }
 
-    public NodeConstraint(ConstraintType type, List<String> properties, NodeConstraintExtensions extensions) {
-        this(type, properties, extensions, null);
-    }
-
-    public NodeConstraint(ConstraintType type, List<String> properties) {
-        this(type, properties, new NodeConstraintExtensions(), null);
+    public static Builder builder(ConstraintType type, List<String> properties) {
+        return new Builder(type, properties);
     }
 
     @Override
@@ -131,7 +127,10 @@ public final class NodeConstraint implements Constraint, Named {
     @JsonPropertyDescription("Extensions for the constraint.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private NodeConstraintExtensions jsonExtensions() {
-        return Objects.equals(this.extensions, new NodeConstraintExtensions()) ? null : this.extensions;
+        return Objects.equals(
+                        this.extensions, NodeConstraintExtensions.builder().build())
+                ? null
+                : this.extensions;
     }
 
     @JsonProperty("name")
@@ -150,7 +149,46 @@ public final class NodeConstraint implements Constraint, Named {
         return new NodeConstraint(
                 Objects.requireNonNull(type, "Field 'type' is required"),
                 Objects.requireNonNull(properties, "Field 'properties' is required"),
-                extensions != null ? extensions : new NodeConstraintExtensions(),
+                extensions != null
+                        ? extensions
+                        : NodeConstraintExtensions.builder().build(),
                 name != null ? name : null);
+    }
+
+    public static final class Builder {
+        private ConstraintType type;
+        private List<String> properties;
+        private NodeConstraintExtensions extensions =
+                NodeConstraintExtensions.builder().build();
+        private String name = null;
+
+        private Builder(ConstraintType type, List<String> properties) {
+            this.type = type;
+            this.properties = properties;
+        }
+
+        public Builder type(ConstraintType type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder properties(List<String> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public Builder extensions(NodeConstraintExtensions extensions) {
+            this.extensions = extensions;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public NodeConstraint build() {
+            return new NodeConstraint(type, properties, extensions, name);
+        }
     }
 }

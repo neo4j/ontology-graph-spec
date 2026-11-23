@@ -54,7 +54,7 @@ public final class Node {
 
     private final String reference;
 
-    public Node(
+    private Node(
             String label,
             Labels labels,
             Map<String, Property> properties,
@@ -73,87 +73,8 @@ public final class Node {
         this.reference = reference;
     }
 
-    public Node(
-            String label,
-            Labels labels,
-            Map<String, Property> properties,
-            Map<String, NodeConstraint> constraints,
-            NodeExtensions extensions,
-            String description,
-            List<String> aliases) {
-        this(label, labels, properties, constraints, extensions, description, aliases, "");
-    }
-
-    public Node(
-            String label,
-            Labels labels,
-            Map<String, Property> properties,
-            Map<String, NodeConstraint> constraints,
-            NodeExtensions extensions,
-            String description) {
-        this(label, labels, properties, constraints, extensions, description, new ArrayList<String>(), "");
-    }
-
-    public Node(
-            String label,
-            Labels labels,
-            Map<String, Property> properties,
-            Map<String, NodeConstraint> constraints,
-            NodeExtensions extensions) {
-        this(label, labels, properties, constraints, extensions, "", new ArrayList<String>(), "");
-    }
-
-    public Node(
-            String label, Labels labels, Map<String, Property> properties, Map<String, NodeConstraint> constraints) {
-        this(label, labels, properties, constraints, new NodeExtensions(), "", new ArrayList<String>(), "");
-    }
-
-    public Node(String label, Labels labels, Map<String, Property> properties) {
-        this(
-                label,
-                labels,
-                properties,
-                new LinkedHashMap<String, NodeConstraint>(),
-                new NodeExtensions(),
-                "",
-                new ArrayList<String>(),
-                "");
-    }
-
-    public Node(String label, Labels labels) {
-        this(
-                label,
-                labels,
-                new LinkedHashMap<String, Property>(),
-                new LinkedHashMap<String, NodeConstraint>(),
-                new NodeExtensions(),
-                "",
-                new ArrayList<String>(),
-                "");
-    }
-
-    public Node(String label) {
-        this(
-                label,
-                new Labels(),
-                new LinkedHashMap<String, Property>(),
-                new LinkedHashMap<String, NodeConstraint>(),
-                new NodeExtensions(),
-                "",
-                new ArrayList<String>(),
-                "");
-    }
-
-    public Node() {
-        this(
-                null,
-                new Labels(),
-                new LinkedHashMap<String, Property>(),
-                new LinkedHashMap<String, NodeConstraint>(),
-                new NodeExtensions(),
-                "",
-                new ArrayList<String>(),
-                "");
+    public static Builder builder() {
+        return new Builder();
     }
 
     public String getLabel() {
@@ -238,7 +159,7 @@ public final class Node {
     @JsonPropertyDescription("Labels of the node.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Labels jsonLabels() {
-        return Objects.equals(this.labels, new Labels()) ? null : this.labels;
+        return Objects.equals(this.labels, Labels.builder().build()) ? null : this.labels;
     }
 
     @JsonProperty("properties")
@@ -259,7 +180,7 @@ public final class Node {
     @JsonPropertyDescription("Extensions for the node.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private NodeExtensions jsonExtensions() {
-        return Objects.equals(this.extensions, new NodeExtensions()) ? null : this.extensions;
+        return Objects.equals(this.extensions, NodeExtensions.builder().build()) ? null : this.extensions;
     }
 
     @JsonProperty("description")
@@ -295,12 +216,69 @@ public final class Node {
             @JsonProperty("reference") String reference) {
         return new Node(
                 label != null ? label : null,
-                labels != null ? labels : new Labels(),
+                labels != null ? labels : Labels.builder().build(),
                 properties != null ? properties : new LinkedHashMap<String, Property>(),
                 constraints != null ? constraints : new LinkedHashMap<String, NodeConstraint>(),
-                extensions != null ? extensions : new NodeExtensions(),
+                extensions != null ? extensions : NodeExtensions.builder().build(),
                 description != null ? description : "",
                 aliases != null ? aliases : new ArrayList<String>(),
                 reference != null ? reference : "");
+    }
+
+    public static final class Builder {
+        private String label = null;
+        private Labels labels = Labels.builder().build();
+        private Map<String, Property> properties = new LinkedHashMap<String, Property>();
+        private Map<String, NodeConstraint> constraints = new LinkedHashMap<String, NodeConstraint>();
+        private NodeExtensions extensions = NodeExtensions.builder().build();
+        private String description = "";
+        private List<String> aliases = new ArrayList<String>();
+        private String reference = "";
+
+        private Builder() {}
+
+        public Builder label(String label) {
+            this.label = label;
+            return this;
+        }
+
+        public Builder labels(Labels labels) {
+            this.labels = labels;
+            return this;
+        }
+
+        public Builder properties(Map<String, Property> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public Builder constraints(Map<String, NodeConstraint> constraints) {
+            this.constraints = constraints;
+            return this;
+        }
+
+        public Builder extensions(NodeExtensions extensions) {
+            this.extensions = extensions;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder aliases(List<String> aliases) {
+            this.aliases = aliases;
+            return this;
+        }
+
+        public Builder reference(String reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public Node build() {
+            return new Node(label, labels, properties, constraints, extensions, description, aliases, reference);
+        }
     }
 }

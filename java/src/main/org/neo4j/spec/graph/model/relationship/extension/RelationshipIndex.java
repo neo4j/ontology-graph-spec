@@ -49,7 +49,7 @@ public final class RelationshipIndex implements CustomExtensions, Named {
 
     private String name;
 
-    public RelationshipIndex(
+    private RelationshipIndex(
             IndexType type, List<String> properties, IndexOption options, Map<String, Object> custom, String name) {
         this.type = type;
         this.properties = properties;
@@ -58,16 +58,8 @@ public final class RelationshipIndex implements CustomExtensions, Named {
         this.name = name;
     }
 
-    public RelationshipIndex(IndexType type, List<String> properties, IndexOption options, Map<String, Object> custom) {
-        this(type, properties, options, custom, null);
-    }
-
-    public RelationshipIndex(IndexType type, List<String> properties, IndexOption options) {
-        this(type, properties, options, new LinkedHashMap<String, Object>(), null);
-    }
-
-    public RelationshipIndex(IndexType type, List<String> properties) {
-        this(type, properties, null, new LinkedHashMap<String, Object>(), null);
+    public static Builder builder(IndexType type, List<String> properties) {
+        return new Builder(type, properties);
     }
 
     public IndexType getType() {
@@ -176,5 +168,47 @@ public final class RelationshipIndex implements CustomExtensions, Named {
                 options != null ? options : null,
                 custom != null ? custom : new LinkedHashMap<String, Object>(),
                 name != null ? name : null);
+    }
+
+    public static final class Builder {
+        private IndexType type;
+        private List<String> properties;
+        private IndexOption options = null;
+        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private String name = null;
+
+        private Builder(IndexType type, List<String> properties) {
+            this.type = type;
+            this.properties = properties;
+        }
+
+        public Builder type(IndexType type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder properties(List<String> properties) {
+            this.properties = properties;
+            return this;
+        }
+
+        public Builder options(IndexOption options) {
+            this.options = options;
+            return this;
+        }
+
+        public Builder custom(Map<String, Object> custom) {
+            this.custom = custom;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public RelationshipIndex build() {
+            return new RelationshipIndex(type, properties, options, custom, name);
+        }
     }
 }

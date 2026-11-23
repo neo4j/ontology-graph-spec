@@ -55,7 +55,7 @@ public final class PointIndexOption implements IndexOption {
 
     private final List<Double> wgs843DMax;
 
-    public PointIndexOption(
+    private PointIndexOption(
             List<Double> cartesianMin,
             List<Double> cartesianMax,
             List<Double> cartesian3DMin,
@@ -74,122 +74,8 @@ public final class PointIndexOption implements IndexOption {
         this.wgs843DMax = wgs843DMax;
     }
 
-    public PointIndexOption(
-            List<Double> cartesianMin,
-            List<Double> cartesianMax,
-            List<Double> cartesian3DMin,
-            List<Double> cartesian3DMax,
-            List<Double> wgs84Min,
-            List<Double> wgs84Max,
-            List<Double> wgs843DMin) {
-        this(
-                cartesianMin,
-                cartesianMax,
-                cartesian3DMin,
-                cartesian3DMax,
-                wgs84Min,
-                wgs84Max,
-                wgs843DMin,
-                List.of(180.0, 90.0, 1000000.0));
-    }
-
-    public PointIndexOption(
-            List<Double> cartesianMin,
-            List<Double> cartesianMax,
-            List<Double> cartesian3DMin,
-            List<Double> cartesian3DMax,
-            List<Double> wgs84Min,
-            List<Double> wgs84Max) {
-        this(
-                cartesianMin,
-                cartesianMax,
-                cartesian3DMin,
-                cartesian3DMax,
-                wgs84Min,
-                wgs84Max,
-                List.of(-180.0, -90.0, -1000000.0),
-                List.of(180.0, 90.0, 1000000.0));
-    }
-
-    public PointIndexOption(
-            List<Double> cartesianMin,
-            List<Double> cartesianMax,
-            List<Double> cartesian3DMin,
-            List<Double> cartesian3DMax,
-            List<Double> wgs84Min) {
-        this(
-                cartesianMin,
-                cartesianMax,
-                cartesian3DMin,
-                cartesian3DMax,
-                wgs84Min,
-                List.of(180.0, 90.0),
-                List.of(-180.0, -90.0, -1000000.0),
-                List.of(180.0, 90.0, 1000000.0));
-    }
-
-    public PointIndexOption(
-            List<Double> cartesianMin,
-            List<Double> cartesianMax,
-            List<Double> cartesian3DMin,
-            List<Double> cartesian3DMax) {
-        this(
-                cartesianMin,
-                cartesianMax,
-                cartesian3DMin,
-                cartesian3DMax,
-                List.of(-180.0, -90.0),
-                List.of(180.0, 90.0),
-                List.of(-180.0, -90.0, -1000000.0),
-                List.of(180.0, 90.0, 1000000.0));
-    }
-
-    public PointIndexOption(List<Double> cartesianMin, List<Double> cartesianMax, List<Double> cartesian3DMin) {
-        this(
-                cartesianMin,
-                cartesianMax,
-                cartesian3DMin,
-                List.of(1000000.0, 1000000.0, 1000000.0),
-                List.of(-180.0, -90.0),
-                List.of(180.0, 90.0),
-                List.of(-180.0, -90.0, -1000000.0),
-                List.of(180.0, 90.0, 1000000.0));
-    }
-
-    public PointIndexOption(List<Double> cartesianMin, List<Double> cartesianMax) {
-        this(
-                cartesianMin,
-                cartesianMax,
-                List.of(-1000000.0, -1000000.0, -1000000.0),
-                List.of(1000000.0, 1000000.0, 1000000.0),
-                List.of(-180.0, -90.0),
-                List.of(180.0, 90.0),
-                List.of(-180.0, -90.0, -1000000.0),
-                List.of(180.0, 90.0, 1000000.0));
-    }
-
-    public PointIndexOption(List<Double> cartesianMin) {
-        this(
-                cartesianMin,
-                List.of(1000000.0, 1000000.0),
-                List.of(-1000000.0, -1000000.0, -1000000.0),
-                List.of(1000000.0, 1000000.0, 1000000.0),
-                List.of(-180.0, -90.0),
-                List.of(180.0, 90.0),
-                List.of(-180.0, -90.0, -1000000.0),
-                List.of(180.0, 90.0, 1000000.0));
-    }
-
-    public PointIndexOption() {
-        this(
-                List.of(-1000000.0, -1000000.0),
-                List.of(1000000.0, 1000000.0),
-                List.of(-1000000.0, -1000000.0, -1000000.0),
-                List.of(1000000.0, 1000000.0, 1000000.0),
-                List.of(-180.0, -90.0),
-                List.of(180.0, 90.0),
-                List.of(-180.0, -90.0, -1000000.0),
-                List.of(180.0, 90.0, 1000000.0));
+    public static Builder builder() {
+        return new Builder();
     }
 
     public List<Double> getCartesianMin() {
@@ -343,5 +229,70 @@ public final class PointIndexOption implements IndexOption {
                 wgs84Max != null ? wgs84Max : List.of(180.0, 90.0),
                 wgs843DMin != null ? wgs843DMin : List.of(-180.0, -90.0, -1000000.0),
                 wgs843DMax != null ? wgs843DMax : List.of(180.0, 90.0, 1000000.0));
+    }
+
+    public static final class Builder {
+        private List<Double> cartesianMin = List.of(-1000000.0, -1000000.0);
+        private List<Double> cartesianMax = List.of(1000000.0, 1000000.0);
+        private List<Double> cartesian3DMin = List.of(-1000000.0, -1000000.0, -1000000.0);
+        private List<Double> cartesian3DMax = List.of(1000000.0, 1000000.0, 1000000.0);
+        private List<Double> wgs84Min = List.of(-180.0, -90.0);
+        private List<Double> wgs84Max = List.of(180.0, 90.0);
+        private List<Double> wgs843DMin = List.of(-180.0, -90.0, -1000000.0);
+        private List<Double> wgs843DMax = List.of(180.0, 90.0, 1000000.0);
+
+        private Builder() {}
+
+        public Builder cartesianMin(List<Double> cartesianMin) {
+            this.cartesianMin = cartesianMin;
+            return this;
+        }
+
+        public Builder cartesianMax(List<Double> cartesianMax) {
+            this.cartesianMax = cartesianMax;
+            return this;
+        }
+
+        public Builder cartesian3DMin(List<Double> cartesian3DMin) {
+            this.cartesian3DMin = cartesian3DMin;
+            return this;
+        }
+
+        public Builder cartesian3DMax(List<Double> cartesian3DMax) {
+            this.cartesian3DMax = cartesian3DMax;
+            return this;
+        }
+
+        public Builder wgs84Min(List<Double> wgs84Min) {
+            this.wgs84Min = wgs84Min;
+            return this;
+        }
+
+        public Builder wgs84Max(List<Double> wgs84Max) {
+            this.wgs84Max = wgs84Max;
+            return this;
+        }
+
+        public Builder wgs843DMin(List<Double> wgs843DMin) {
+            this.wgs843DMin = wgs843DMin;
+            return this;
+        }
+
+        public Builder wgs843DMax(List<Double> wgs843DMax) {
+            this.wgs843DMax = wgs843DMax;
+            return this;
+        }
+
+        public PointIndexOption build() {
+            return new PointIndexOption(
+                    cartesianMin,
+                    cartesianMax,
+                    cartesian3DMin,
+                    cartesian3DMax,
+                    wgs84Min,
+                    wgs84Max,
+                    wgs843DMin,
+                    wgs843DMax);
+        }
     }
 }

@@ -43,27 +43,15 @@ public final class Labels {
 
     private final LabelsExtensions extensions;
 
-    public Labels(String identifier, List<String> implied, List<String> optional, LabelsExtensions extensions) {
+    private Labels(String identifier, List<String> implied, List<String> optional, LabelsExtensions extensions) {
         this.identifier = identifier;
         this.implied = implied;
         this.optional = optional;
         this.extensions = extensions;
     }
 
-    public Labels(String identifier, List<String> implied, List<String> optional) {
-        this(identifier, implied, optional, new LabelsExtensions());
-    }
-
-    public Labels(String identifier, List<String> implied) {
-        this(identifier, implied, new ArrayList<String>(), new LabelsExtensions());
-    }
-
-    public Labels(String identifier) {
-        this(identifier, new ArrayList<String>(), new ArrayList<String>(), new LabelsExtensions());
-    }
-
-    public Labels() {
-        this(null, new ArrayList<String>(), new ArrayList<String>(), new LabelsExtensions());
+    public static Builder builder() {
+        return new Builder();
     }
 
     public String getIdentifier() {
@@ -137,7 +125,7 @@ public final class Labels {
     @JsonPropertyDescription("Extensions for the labels.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private LabelsExtensions jsonExtensions() {
-        return Objects.equals(this.extensions, new LabelsExtensions()) ? null : this.extensions;
+        return Objects.equals(this.extensions, LabelsExtensions.builder().build()) ? null : this.extensions;
     }
 
     @JsonCreator
@@ -150,6 +138,39 @@ public final class Labels {
                 identifier != null ? identifier : null,
                 implied != null ? implied : new ArrayList<String>(),
                 optional != null ? optional : new ArrayList<String>(),
-                extensions != null ? extensions : new LabelsExtensions());
+                extensions != null ? extensions : LabelsExtensions.builder().build());
+    }
+
+    public static final class Builder {
+        private String identifier = null;
+        private List<String> implied = new ArrayList<String>();
+        private List<String> optional = new ArrayList<String>();
+        private LabelsExtensions extensions = LabelsExtensions.builder().build();
+
+        private Builder() {}
+
+        public Builder identifier(String identifier) {
+            this.identifier = identifier;
+            return this;
+        }
+
+        public Builder implied(List<String> implied) {
+            this.implied = implied;
+            return this;
+        }
+
+        public Builder optional(List<String> optional) {
+            this.optional = optional;
+            return this;
+        }
+
+        public Builder extensions(LabelsExtensions extensions) {
+            this.extensions = extensions;
+            return this;
+        }
+
+        public Labels build() {
+            return new Labels(identifier, implied, optional, extensions);
+        }
     }
 }
