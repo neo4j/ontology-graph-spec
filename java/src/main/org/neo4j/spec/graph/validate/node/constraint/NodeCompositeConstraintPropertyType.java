@@ -55,7 +55,7 @@ public final class NodeCompositeConstraintPropertyType implements NodeValidation
                     "invalid_node_composite_constraint_property_type",
                     "Composite constraint '" + constraintId + "' on node '" + nodeId + "' "
                             + "properties must be STRING or INTEGER for bulk import",
-                    "nodes." + nodeId + ".constraints." + constraintId));
+                    Issue.jsonPointerOf("nodes", nodeId, "constraints", constraintId)));
         }
     }
 }

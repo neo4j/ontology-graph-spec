@@ -52,7 +52,7 @@ public final class NodeKeyOverlap implements NodeValidation {
                         "redundant_node_constraint_key_overlap",
                         "Constraint '" + constraintId + "' (" + constraint.getType() + ") is redundant - "
                                 + ("a KEY constraint already covers the same properties on node '" + nodeId + "'"),
-                        "nodes." + nodeId + ".constraints." + constraintId));
+                        Issue.jsonPointerOf("nodes", nodeId, "constraints", constraintId)));
             }
         }
     }

@@ -39,6 +39,6 @@ public final class NodeIndexPropertyDuplicate implements NodeValidation {
                 "property",
                 "index '" + indexId + "' on node '" + nodeId + "'",
                 index.getProperties(),
-                "nodes." + nodeId + ".extensions.indexes." + indexId + ".properties"));
+                Issue.jsonPointerOf("nodes", nodeId, "extensions", "indexes", indexId, "properties")));
     }
 }

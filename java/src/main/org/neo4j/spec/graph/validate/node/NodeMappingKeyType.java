@@ -34,7 +34,8 @@ public final class NodeMappingKeyType implements NodeValidation {
             var mappingId = item.getMappingId();
             var index = item.getIndex();
             var nodeMapping = item.getMapping();
-            for (var propertyId : nodeMapping.getKey()) {
+            for (int keyIndex = 0; keyIndex < nodeMapping.getKey().size(); keyIndex++) {
+                var propertyId = nodeMapping.getKey().get(keyIndex);
                 Property property = node.getProperties().get(propertyId);
                 if (property == null) {
                     continue;
@@ -43,7 +44,8 @@ public final class NodeMappingKeyType implements NodeValidation {
                     issues.add(new Issue(
                             "invalid_node_mapping_key_type",
                             "Mapping key '" + propertyId + "' on node '" + nodeId + "' must be STRING or INTEGER",
-                            "extensions.data_source_mappings." + mappingId + "[" + index + "].key." + propertyId));
+                            Issue.jsonPointerOf(
+                                    "extensions", "data_source_mappings", mappingId, index, "key", keyIndex)));
                 }
             }
         }

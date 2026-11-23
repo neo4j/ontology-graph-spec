@@ -49,7 +49,7 @@ public final class NodeExistenceConstraint implements NodeValidation {
             issues.add(new Issue(
                     "invalid_node_exist_constraint_property_count",
                     "Node existence constraint '" + constraintId + "' must have exactly one property.",
-                    "nodes." + nodeId + ".constraints." + constraintId + ".properties"));
+                    Issue.jsonPointerOf("nodes", nodeId, "constraints", constraintId, "properties")));
         }
     }
 }

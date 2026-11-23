@@ -49,7 +49,7 @@ public final class RelationshipConstraintDuplicatePropertySet implements Relatio
                                     + duplicates.stream()
                                             .map(it -> "'" + it + "'")
                                             .collect(Collectors.joining(", "))),
-                    "relationships." + relationshipId + ".constraints." + constraintId + ".properties"));
+                    Issue.jsonPointerOf("relationships", relationshipId, "constraints", constraintId, "properties")));
         }
     }
 }

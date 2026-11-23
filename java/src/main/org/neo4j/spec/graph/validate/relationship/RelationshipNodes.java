@@ -35,8 +35,7 @@ public final class RelationshipNodes implements RelationshipValidation {
                     "missing_relationship_from_node",
                     "Missing node with id '" + relationship.getFrom().getNode() + "' for relationship '"
                             + relationshipId + "'",
-                    "relationships." + relationshipId + ".from."
-                            + relationship.getFrom().getNode()));
+                    Issue.jsonPointerOf("relationships", relationshipId, "from", "node")));
         }
         if (!relationship.getTo().getNode().isBlank()
                 && !model.getNodes().containsKey(relationship.getTo().getNode())) {
@@ -44,8 +43,7 @@ public final class RelationshipNodes implements RelationshipValidation {
                     "missing_relationship_to_node",
                     "Missing node with id '" + relationship.getTo().getNode() + "' for relationship '" + relationshipId
                             + "'",
-                    "relationships." + relationshipId + ".to."
-                            + relationship.getTo().getNode()));
+                    Issue.jsonPointerOf("relationships", relationshipId, "to", "node")));
         }
     }
 }

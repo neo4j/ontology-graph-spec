@@ -31,8 +31,8 @@ public final class NodeConstraintCoverage implements NodeValidation {
         if (node.getConstraints().isEmpty()) {
             issues.add(new Issue(
                     "missing_node_constraint_coverage",
-                    "Node '" + nodeId + "' has no constraints — add a KEY, UNIQUENESS, or EXISTENCE constraint.",
-                    "nodes." + nodeId + ".constraints"));
+                    "Node '" + nodeId + "' has no constraints",
+                    Issue.jsonPointerOf("nodes", nodeId, "constraints")));
         }
     }
 }

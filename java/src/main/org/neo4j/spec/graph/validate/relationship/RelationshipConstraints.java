@@ -35,14 +35,20 @@ public final class RelationshipConstraints implements RelationshipValidation {
             String constraintId,
             RelationshipConstraint constraint,
             List<Issue> issues) {
-        for (var property : constraint.getProperties()) {
+        for (int propertyIndex = 0; propertyIndex < constraint.getProperties().size(); propertyIndex++) {
+            var property = constraint.getProperties().get(propertyIndex);
             if (!relationship.getProperties().containsKey(property)) {
                 issues.add(new Issue(
                         "missing_relationship_constraint_property",
                         "Missing property with id '" + property + "' for relationship constraint '" + constraintId
                                 + "'",
-                        "relationships." + relationshipId + ".constraints." + constraintId + ".properties."
-                                + property));
+                        Issue.jsonPointerOf(
+                                "relationships",
+                                relationshipId,
+                                "constraints",
+                                constraintId,
+                                "properties",
+                                propertyIndex)));
             }
         }
     }

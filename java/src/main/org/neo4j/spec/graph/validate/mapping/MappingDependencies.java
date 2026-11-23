@@ -69,7 +69,7 @@ public final class MappingDependencies implements Validation {
                 issues.add(new Issue(
                         "mapping_id_duplicate",
                         "Mapping id '" + id + "' is used by more than one mapping in '" + listId + "'",
-                        "extensions.data_source_mappings." + listId + "[" + index + "].id"));
+                        Issue.jsonPointerOf("extensions", "data_source_mappings", listId, index, "id")));
             } else {
                 indexById.put(id, index);
             }
@@ -82,7 +82,7 @@ public final class MappingDependencies implements Validation {
                 continue;
             }
             Integer target = indexById.get(dependsOn);
-            String path = "extensions.data_source_mappings." + listId + "[" + index + "].depends_on";
+            String path = Issue.jsonPointerOf("extensions", "data_source_mappings", listId, index, "depends_on");
             if (Objects.equals(target, index)) {
                 issues.add(new Issue(
                         "mapping_depends_on_self", "Mapping '" + dependsOn + "' can't depend on itself", path));
@@ -141,7 +141,7 @@ public final class MappingDependencies implements Validation {
                         "Mappings "
                                 + sortedCycle.stream().map(it -> "[" + it + "]").collect(Collectors.joining(", "))
                                 + " in '" + listId + "' depend on each other in a cycle",
-                        "extensions.data_source_mappings." + listId + "[" + first + "].depends_on"));
+                        Issue.jsonPointerOf("extensions", "data_source_mappings", listId, first, "depends_on")));
             }
             done.addAll(path);
         }

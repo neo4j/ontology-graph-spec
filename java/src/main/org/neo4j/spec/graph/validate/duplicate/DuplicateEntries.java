@@ -47,7 +47,7 @@ public final class DuplicateEntries {
                 issues.add(new Issue(
                         code,
                         "Duplicate " + kind + " '" + value + "' on " + owner,
-                        path + "[" + index + "]",
+                        path + Issue.jsonPointerOf(index),
                         issueDetails));
             }
         }

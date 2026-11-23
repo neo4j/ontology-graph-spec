@@ -31,7 +31,7 @@ public final class NodePropertyEmptyName implements NodeValidation {
     @Override
     public void validateProperty(
             GraphModel model, String nodeId, Node node, String propertyId, Property property, List<Issue> issues) {
-        Issue receiver = PropertyNames.emptyPropertyName(propertyId, property, "nodes." + nodeId);
+        Issue receiver = PropertyNames.emptyPropertyName(propertyId, property, Issue.jsonPointerOf("nodes", nodeId));
         if (receiver != null) {
             issues.add(receiver);
         }

@@ -54,7 +54,7 @@ public final class RelationshipKeyOverlap implements RelationshipValidation {
                         "Constraint '" + constraintId + "' (" + constraint.getType() + ") is redundant - "
                                 + ("a KEY constraint already covers the same properties on relationship '"
                                         + relationshipId + "'"),
-                        "relationships." + relationshipId + ".constraints." + constraintId));
+                        Issue.jsonPointerOf("relationships", relationshipId, "constraints", constraintId)));
             }
         }
     }

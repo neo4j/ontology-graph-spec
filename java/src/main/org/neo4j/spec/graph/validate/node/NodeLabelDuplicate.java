@@ -37,12 +37,12 @@ public final class NodeLabelDuplicate implements NodeValidation {
                 "implied label",
                 "node '" + nodeId + "'",
                 node.getLabels().getImplied(),
-                "nodes." + nodeId + ".labels.implied"));
+                Issue.jsonPointerOf("nodes", nodeId, "labels", "implied")));
         issues.addAll(DuplicateEntries.duplicateEntryIssues(
                 "duplicate_node_optional_label",
                 "optional label",
                 "node '" + nodeId + "'",
                 node.getLabels().getOptional(),
-                "nodes." + nodeId + ".labels.optional"));
+                Issue.jsonPointerOf("nodes", nodeId, "labels", "optional")));
     }
 }

@@ -39,6 +39,6 @@ public final class NodePropertyAliasDuplicate implements NodeValidation {
                 "alias",
                 "property '" + propertyId + "' of node '" + nodeId + "'",
                 property.getAliases(),
-                "nodes." + nodeId + ".properties." + propertyId + ".aliases"));
+                Issue.jsonPointerOf("nodes", nodeId, "properties", propertyId, "aliases")));
     }
 }

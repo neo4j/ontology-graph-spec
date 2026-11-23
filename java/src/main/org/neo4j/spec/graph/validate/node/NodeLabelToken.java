@@ -33,7 +33,7 @@ public final class NodeLabelToken implements NodeValidation {
             issues.add(new Issue(
                     "invalid_node_label_token",
                     "Node label '" + token + "' contains invalid characters (: or =) for bulk import",
-                    "nodes." + nodeId + ".labels.identifier"));
+                    Issue.jsonPointerOf("nodes", nodeId, "labels", "identifier")));
         }
     }
 }

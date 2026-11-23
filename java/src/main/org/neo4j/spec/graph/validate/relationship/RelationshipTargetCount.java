@@ -38,7 +38,7 @@ public final class RelationshipTargetCount implements RelationshipValidation {
     }
 
     private void validateTarget(String relationshipId, String side, RelationshipTarget target, List<Issue> issues) {
-        String path = "relationships." + relationshipId + "." + side;
+        String path = Issue.jsonPointerOf("relationships", relationshipId, side);
         Integer count = target.getCount();
         Integer minCount = target.getMinCount();
         Integer maxCount = target.getMaxCount();
@@ -54,13 +54,19 @@ public final class RelationshipTargetCount implements RelationshipValidation {
             issues.add(new Issue(
                     "relationship_count_negative",
                     "Relationship '" + relationshipId + "' " + side + " count must not be negative",
-                    path + ".count"));
+                    path + Issue.jsonPointerOf("count")));
         }
         if (minCount != null && minCount < 0) {
             issues.add(new Issue(
                     "relationship_min_count_negative",
                     "Relationship '" + relationshipId + "' " + side + " min count must not be negative",
-                    path + ".min_count"));
+                    path + Issue.jsonPointerOf("min_count")));
+        }
+        if (maxCount != null && maxCount < 0) {
+            issues.add(new Issue(
+                    "relationship_max_count_negative",
+                    "Relationship '" + relationshipId + "' " + side + " max count must not be negative",
+                    path + Issue.jsonPointerOf("max_count")));
         }
         if (minCount != null && maxCount != null && minCount > maxCount) {
             issues.add(new Issue(

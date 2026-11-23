@@ -31,8 +31,8 @@ public final class NodePropertyDuplicateName implements NodeValidation {
     @Override
     public void validateProperty(
             GraphModel model, String nodeId, Node node, String propertyId, Property property, List<Issue> issues) {
-        Issue receiver =
-                PropertyNames.duplicatePropertyName(node.getProperties(), propertyId, property, "nodes." + nodeId);
+        Issue receiver = PropertyNames.duplicatePropertyName(
+                node.getProperties(), propertyId, property, Issue.jsonPointerOf("nodes", nodeId));
         if (receiver != null) {
             issues.add(receiver);
         }

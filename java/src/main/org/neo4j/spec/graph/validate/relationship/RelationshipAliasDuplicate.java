@@ -38,6 +38,6 @@ public final class RelationshipAliasDuplicate implements RelationshipValidation 
                 "alias",
                 "relationship '" + relationshipId + "'",
                 relationship.getAliases(),
-                "relationships." + relationshipId + ".aliases"));
+                Issue.jsonPointerOf("relationships", relationshipId, "aliases")));
     }
 }

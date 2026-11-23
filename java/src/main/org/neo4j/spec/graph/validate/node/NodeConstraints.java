@@ -35,12 +35,14 @@ public final class NodeConstraints implements NodeValidation {
             String constraintId,
             NodeConstraint constraint,
             List<Issue> issues) {
-        for (var property : constraint.getProperties()) {
+        for (int propertyIndex = 0; propertyIndex < constraint.getProperties().size(); propertyIndex++) {
+            var property = constraint.getProperties().get(propertyIndex);
             if (!node.getProperties().containsKey(property)) {
                 issues.add(new Issue(
                         "missing_node_constraint_property",
                         "Missing property with id '" + property + "' for node constraint '" + constraintId + "'",
-                        "nodes." + nodeId + ".constraints." + constraintId + ".properties." + property));
+                        Issue.jsonPointerOf(
+                                "nodes", nodeId, "constraints", constraintId, "properties", propertyIndex)));
             }
         }
     }

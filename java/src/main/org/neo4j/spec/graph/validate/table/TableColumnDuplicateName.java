@@ -47,7 +47,7 @@ public final class TableColumnDuplicateName implements TableValidation {
             issues.add(new Issue(
                     "duplicate_table_column_name",
                     "Duplicate column name '" + name + "' in table '" + tableId + "'",
-                    "extensions.data_source_tables." + tableId + ".columns[" + columnIndex + "].name"));
+                    Issue.jsonPointerOf("extensions", "data_source_tables", tableId, "columns", columnIndex, "name")));
         }
     }
 }

@@ -34,7 +34,7 @@ public final class TableColumnEmptyName implements TableValidation {
             issues.add(new Issue(
                     "missing_table_column_name",
                     "Missing name for table column at index " + columnIndex + " in table '" + tableId + "'",
-                    "extensions.data_source_tables." + tableId + ".columns[" + columnIndex + "].name"));
+                    Issue.jsonPointerOf("extensions", "data_source_tables", tableId, "columns", columnIndex, "name")));
         }
     }
 }

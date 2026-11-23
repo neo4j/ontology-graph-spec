@@ -31,7 +31,7 @@ public final class NodePropertyPatternOneOf implements NodeValidation {
     @Override
     public void validateProperty(
             GraphModel model, String nodeId, Node node, String propertyId, Property property, List<Issue> issues) {
-        Issue receiver = PropertyNames.patternOneOfConflict(propertyId, property, "nodes." + nodeId);
+        Issue receiver = PropertyNames.patternOneOfConflict(propertyId, property, Issue.jsonPointerOf("nodes", nodeId));
         if (receiver != null) {
             issues.add(receiver);
         }

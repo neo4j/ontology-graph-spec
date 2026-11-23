@@ -39,6 +39,6 @@ public final class NodeIndexLabelDuplicate implements NodeValidation {
                 "label",
                 "index '" + indexId + "' on node '" + nodeId + "'",
                 index.getLabels(),
-                "nodes." + nodeId + ".extensions.indexes." + indexId + ".labels"));
+                Issue.jsonPointerOf("nodes", nodeId, "extensions", "indexes", indexId, "labels")));
     }
 }

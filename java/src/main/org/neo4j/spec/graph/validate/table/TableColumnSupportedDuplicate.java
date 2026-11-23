@@ -39,6 +39,6 @@ public final class TableColumnSupportedDuplicate implements TableValidation {
                 "supported type",
                 "table column '" + column.getName() + "'",
                 column.getSupported(),
-                "extensions.data_source_tables." + tableId + ".columns[" + columnIndex + "].supported"));
+                Issue.jsonPointerOf("extensions", "data_source_tables", tableId, "columns", columnIndex, "supported")));
     }
 }

@@ -49,7 +49,7 @@ public final class NodeConstraintDuplicatePropertySet implements NodeValidation 
                                     + duplicates.stream()
                                             .map(it -> "'" + it + "'")
                                             .collect(Collectors.joining(", "))),
-                    "nodes." + nodeId + ".constraints." + constraintId + ".properties"));
+                    Issue.jsonPointerOf("nodes", nodeId, "constraints", constraintId, "properties")));
         }
     }
 }

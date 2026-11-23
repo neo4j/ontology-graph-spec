@@ -33,7 +33,7 @@ public final class RelationshipType implements RelationshipValidation {
             issues.add(new Issue(
                     "missing_relationship_type",
                     "Missing type for relationship '" + relationshipId + "'",
-                    "relationships." + relationshipId + ".type"));
+                    Issue.jsonPointerOf("relationships", relationshipId, "type")));
         }
     }
 }

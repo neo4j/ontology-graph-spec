@@ -41,7 +41,7 @@ public final class NodeMappingKeyDuplicate implements NodeValidation {
                     "mapping key",
                     "node '" + nodeId + "'",
                     nodeMapping.getKey(),
-                    "extensions.data_source_mappings." + mappingId + "[" + index + "].key"));
+                    Issue.jsonPointerOf("extensions", "data_source_mappings", mappingId, index, "key")));
         }
     }
 }

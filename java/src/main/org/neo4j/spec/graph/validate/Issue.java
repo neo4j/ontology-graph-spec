@@ -54,6 +54,15 @@ public final class Issue {
         this(code, message, null, Collections.emptyMap());
     }
 
+    /** Builds an RFC 6901 JSON pointer from path segments, escaping '~' and '/' within each segment. */
+    public static String jsonPointerOf(Object... segments) {
+        StringBuilder pointer = new StringBuilder();
+        for (Object segment : segments) {
+            pointer.append('/').append(segment.toString().replace("~", "~0").replace("/", "~1"));
+        }
+        return pointer.toString();
+    }
+
     public String getCode() {
         return this.code;
     }

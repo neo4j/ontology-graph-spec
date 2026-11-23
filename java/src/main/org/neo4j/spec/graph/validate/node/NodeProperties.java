@@ -32,7 +32,7 @@ public final class NodeProperties implements NodeValidation {
             issues.add(new Issue(
                     "missing_node_properties",
                     "Node '" + nodeId + "' has no properties",
-                    "nodes." + nodeId + ".properties"));
+                    Issue.jsonPointerOf("nodes", nodeId, "properties")));
         }
     }
 }

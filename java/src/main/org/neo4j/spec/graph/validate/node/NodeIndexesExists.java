@@ -30,12 +30,14 @@ public final class NodeIndexesExists implements NodeValidation {
     @Override
     public void validateIndex(
             GraphModel model, String nodeId, Node node, String indexId, NodeIndex index, List<Issue> issues) {
-        for (var property : index.getProperties()) {
+        for (int propertyIndex = 0; propertyIndex < index.getProperties().size(); propertyIndex++) {
+            var property = index.getProperties().get(propertyIndex);
             if (!node.getProperties().containsKey(property)) {
                 issues.add(new Issue(
                         "missing_node_index_property",
                         "Missing property with id '" + property + "' for node index '" + indexId + "'",
-                        "nodes." + nodeId + ".extensions.indexes." + indexId + ".properties." + property));
+                        Issue.jsonPointerOf(
+                                "nodes", nodeId, "extensions", "indexes", indexId, "properties", propertyIndex)));
             }
         }
     }

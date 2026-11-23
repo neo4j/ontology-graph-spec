@@ -33,7 +33,7 @@ public final class NodeLabel implements NodeValidation {
             issues.add(new Issue(
                     "missing_node_identifier_label",
                     "Missing identifier label for node '" + nodeId + "'",
-                    "nodes." + nodeId + ".labels.identifier"));
+                    Issue.jsonPointerOf("nodes", nodeId, "labels", "identifier")));
         }
     }
 }

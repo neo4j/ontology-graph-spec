@@ -40,7 +40,7 @@ public final class RelationshipIndexOptions implements RelationshipValidation {
                     "relationship_index_type_options_mismatch",
                     "Cannot use options type '" + index.getOptions().getType() + "' with relationship index '" + indexId
                             + "' " + ("type '" + index.getType() + "'"),
-                    "relationships." + relationshipId + ".extensions.indexes." + indexId + ".options"));
+                    Issue.jsonPointerOf("relationships", relationshipId, "extensions", "indexes", indexId, "options")));
         }
     }
 }

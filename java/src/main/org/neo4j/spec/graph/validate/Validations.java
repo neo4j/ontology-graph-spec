@@ -64,6 +64,7 @@ import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyDuplicateN
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyEmptyName;
 import org.neo4j.spec.graph.validate.relationship.RelationshipPropertyPatternOneOf;
 import org.neo4j.spec.graph.validate.relationship.RelationshipTargetCount;
+import org.neo4j.spec.graph.validate.relationship.RelationshipTargetNodes;
 import org.neo4j.spec.graph.validate.relationship.RelationshipType;
 import org.neo4j.spec.graph.validate.relationship.RelationshipTypeToken;
 import org.neo4j.spec.graph.validate.relationship.constraint.RelationshipConstraintDuplicatePropertySet;
@@ -78,6 +79,7 @@ import org.neo4j.spec.graph.validate.table.TableColumnType;
 
 public final class Validations {
     private static final List<Validation> CORE = List.of(
+            SchemaUrl.INSTANCE,
             NodeTypeConstraint.INSTANCE,
             RelationshipTypeConstraint.INSTANCE,
             NodeConstraints.INSTANCE,
@@ -108,7 +110,8 @@ public final class Validations {
             RelationshipMappingKeyDuplicate.INSTANCE,
             TableColumnSupportedDuplicate.INSTANCE);
 
-    private static final List<Validation> LABELLED = List.of(NodeLabel.INSTANCE, RelationshipType.INSTANCE);
+    private static final List<Validation> LABELLED =
+            List.of(NodeLabel.INSTANCE, RelationshipType.INSTANCE, RelationshipTargetNodes.INSTANCE);
 
     private static final List<Validation> CONSISTENT_SCHEMA = List.of(
             NodePropertyEmptyName.INSTANCE,

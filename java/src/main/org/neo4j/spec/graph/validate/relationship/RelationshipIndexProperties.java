@@ -39,7 +39,8 @@ public final class RelationshipIndexProperties implements RelationshipValidation
             issues.add(new Issue(
                     "missing_relationship_index_properties",
                     "Index '" + indexId + "' on relationship '" + relationshipId + "' must have at least one property",
-                    "relationships." + relationshipId + ".extensions.indexes." + indexId + ".properties"));
+                    Issue.jsonPointerOf(
+                            "relationships", relationshipId, "extensions", "indexes", indexId, "properties")));
         }
     }
 }

@@ -36,9 +36,10 @@ public final class TableColumnType implements TableValidation {
         }
         if (column.getSupported().isEmpty()) {
             issues.add(new Issue(
-                    "missing_table_column_type",
-                    "Missing suggested type for table column '" + column.getName() + "'",
-                    "extensions.data_source_tables." + tableId + ".columns[" + columnIndex + "].type"));
+                    "missing_table_column_supported_type",
+                    "Missing supported types for table column '" + column.getName() + "'",
+                    Issue.jsonPointerOf(
+                            "extensions", "data_source_tables", tableId, "columns", columnIndex, "supported")));
         }
     }
 }

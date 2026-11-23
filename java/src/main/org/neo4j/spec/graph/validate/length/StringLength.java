@@ -48,13 +48,18 @@ public final class StringLength implements Validation {
 
     @Override
     public void validate(GraphModel model, List<Issue> issues) {
-        check("name", model.getName(), this.MAX_NAME_LENGTH, "name", issues);
-        check("description", model.getDescription(), this.MAX_MODEL_DESCRIPTION_LENGTH, "description", issues);
+        check("name", model.getName(), this.MAX_NAME_LENGTH, Issue.jsonPointerOf("name"), issues);
+        check(
+                "description",
+                model.getDescription(),
+                this.MAX_MODEL_DESCRIPTION_LENGTH,
+                Issue.jsonPointerOf("description"),
+                issues);
         for (var entry : model.getNodes().entrySet()) {
             var nodeId = entry.getKey();
             var node = entry.getValue();
             checkEntity(
-                    "nodes." + nodeId,
+                    Issue.jsonPointerOf("nodes", nodeId),
                     node.getDescription(),
                     node.getProperties(),
                     node.getConstraints(),
@@ -65,7 +70,7 @@ public final class StringLength implements Validation {
             var relationshipId = entry.getKey();
             var relationship = entry.getValue();
             checkEntity(
-                    "relationships." + relationshipId,
+                    Issue.jsonPointerOf("relationships", relationshipId),
                     relationship.getDescription(),
                     relationship.getProperties(),
                     relationship.getConstraints(),
@@ -81,29 +86,34 @@ public final class StringLength implements Validation {
             Map<String, ? extends Named> constraints,
             Map<String, ? extends Named> indexes,
             List<Issue> issues) {
-        check("description", description, this.MAX_DESCRIPTION_LENGTH, path + ".description", issues);
+        check(
+                "description",
+                description,
+                this.MAX_DESCRIPTION_LENGTH,
+                path + Issue.jsonPointerOf("description"),
+                issues);
         for (var entry : properties.entrySet()) {
             var propertyId = entry.getKey();
             var property = entry.getValue();
-            String propertyPath = path + ".properties." + propertyId;
-            check("name", property.getName(), this.MAX_NAME_LENGTH, propertyPath + ".name", issues);
+            String propertyPath = path + Issue.jsonPointerOf("properties", propertyId);
+            check("name", property.getName(), this.MAX_NAME_LENGTH, propertyPath + Issue.jsonPointerOf("name"), issues);
             check(
                     "description",
                     property.getDescription(),
                     this.MAX_DESCRIPTION_LENGTH,
-                    propertyPath + ".description",
+                    propertyPath + Issue.jsonPointerOf("description"),
                     issues);
         }
         for (var entry : constraints.entrySet()) {
             var constraintId = entry.getKey();
             var constraint = entry.getValue();
-            String constraintPath = path + ".constraints." + constraintId + ".name";
+            String constraintPath = path + Issue.jsonPointerOf("constraints", constraintId, "name");
             check("name", constraint.getName(), this.MAX_CONSTRAINT_INDEX_NAME_LENGTH, constraintPath, issues);
         }
         for (var entry : indexes.entrySet()) {
             var indexId = entry.getKey();
             var index = entry.getValue();
-            String indexPath = path + ".extensions.indexes." + indexId + ".name";
+            String indexPath = path + Issue.jsonPointerOf("extensions", "indexes", indexId, "name");
             check("name", index.getName(), this.MAX_CONSTRAINT_INDEX_NAME_LENGTH, indexPath, issues);
         }
     }

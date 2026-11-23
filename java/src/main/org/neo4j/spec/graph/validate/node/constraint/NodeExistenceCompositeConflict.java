@@ -62,7 +62,7 @@ public final class NodeExistenceCompositeConflict implements NodeValidation {
                         "Existence constraint '" + constraintId + "' on property "
                                 + ("'" + propertyId + "' conflicts with a composite constraint on node '" + nodeId
                                         + "'"),
-                        "nodes." + nodeId + ".constraints." + constraintId));
+                        Issue.jsonPointerOf("nodes", nodeId, "constraints", constraintId)));
             }
         }
     }

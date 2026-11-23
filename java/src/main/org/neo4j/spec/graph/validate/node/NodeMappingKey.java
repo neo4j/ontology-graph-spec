@@ -36,7 +36,7 @@ public final class NodeMappingKey implements NodeValidation {
                 issues.add(new Issue(
                         "missing_node_mapping_key",
                         "Node '" + nodeId + "' has no mapping key defined",
-                        "extensions.data_source_mappings." + mappingId + "[" + index + "].key"));
+                        Issue.jsonPointerOf("extensions", "data_source_mappings", mappingId, index, "key")));
             }
         }
     }

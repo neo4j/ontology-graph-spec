@@ -46,7 +46,9 @@ public final class RelationshipMappingKey implements RelationshipValidation {
                         || !Objects.equals(((RelationshipMapping) mapping).getRelationship(), relationshipId)) {
                     continue;
                 }
-                for (var propertyId : ((RelationshipMapping) mapping).getKey()) {
+                var key = ((RelationshipMapping) mapping).getKey();
+                for (int keyIndex = 0; keyIndex < key.size(); keyIndex++) {
+                    var propertyId = key.get(keyIndex);
                     if (relationship.getProperties().containsKey(propertyId)) {
                         continue;
                     }
@@ -57,7 +59,8 @@ public final class RelationshipMappingKey implements RelationshipValidation {
                             "invalid_relationship_mapping_key",
                             "Mapping key '" + propertyId + "' is not a property of relationship '" + relationshipId
                                     + "'",
-                            "extensions.data_source_mappings." + mappingId + "[" + index + "].key",
+                            Issue.jsonPointerOf(
+                                    "extensions", "data_source_mappings", mappingId, index, "key", keyIndex),
                             details));
                 }
             }

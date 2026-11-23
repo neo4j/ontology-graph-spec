@@ -36,7 +36,8 @@ public final class RelationshipPropertyPatternOneOf implements RelationshipValid
             String propertyId,
             Property property,
             List<Issue> issues) {
-        Issue receiver = PropertyNames.patternOneOfConflict(propertyId, property, "relationships." + relationshipId);
+        Issue receiver = PropertyNames.patternOneOfConflict(
+                propertyId, property, Issue.jsonPointerOf("relationships", relationshipId));
         if (receiver != null) {
             issues.add(receiver);
         }

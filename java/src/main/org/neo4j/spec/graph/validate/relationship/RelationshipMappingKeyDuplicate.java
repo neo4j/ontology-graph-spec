@@ -49,7 +49,7 @@ public final class RelationshipMappingKeyDuplicate implements RelationshipValida
                         "mapping key",
                         "relationship '" + relationshipId + "'",
                         ((RelationshipMapping) mapping).getKey(),
-                        "extensions.data_source_mappings." + mappingId + "[" + index + "].key"));
+                        Issue.jsonPointerOf("extensions", "data_source_mappings", mappingId, index, "key")));
             }
         }
     }

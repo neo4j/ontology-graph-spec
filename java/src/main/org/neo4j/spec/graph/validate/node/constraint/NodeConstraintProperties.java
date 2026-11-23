@@ -40,7 +40,7 @@ public final class NodeConstraintProperties implements NodeValidation {
             issues.add(new Issue(
                     "missing_node_constraint_properties",
                     "Constraint '" + constraintId + "' on node '" + nodeId + "' has no properties",
-                    "nodes." + nodeId + ".constraints." + constraintId + ".properties"));
+                    Issue.jsonPointerOf("nodes", nodeId, "constraints", constraintId, "properties")));
         }
     }
 }

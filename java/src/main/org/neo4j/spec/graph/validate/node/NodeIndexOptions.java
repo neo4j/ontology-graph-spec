@@ -35,7 +35,7 @@ public final class NodeIndexOptions implements NodeValidation {
                     "node_index_type_options_mismatch",
                     "Cannot use options type '" + index.getOptions().getType() + "' with node index '" + indexId + "' "
                             + ("type '" + index.getType() + "'"),
-                    "nodes." + nodeId + ".extensions.indexes." + indexId + ".options"));
+                    Issue.jsonPointerOf("nodes", nodeId, "extensions", "indexes", indexId, "options")));
         }
     }
 }

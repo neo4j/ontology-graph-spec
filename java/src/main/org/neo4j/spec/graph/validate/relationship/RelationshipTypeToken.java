@@ -34,7 +34,7 @@ public final class RelationshipTypeToken implements RelationshipValidation {
             issues.add(new Issue(
                     "invalid_relationship_type_token",
                     "Relationship type '" + type + "' contains invalid characters (: or =) for bulk import",
-                    "relationships." + relationshipId + ".type"));
+                    Issue.jsonPointerOf("relationships", relationshipId, "type")));
         }
     }
 }

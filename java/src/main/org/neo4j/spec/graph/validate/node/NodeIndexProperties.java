@@ -34,7 +34,7 @@ public final class NodeIndexProperties implements NodeValidation {
             issues.add(new Issue(
                     "missing_node_index_properties",
                     "Index '" + indexId + "' on node '" + nodeId + "' must have at least one property",
-                    "nodes." + nodeId + ".extensions.indexes." + indexId + ".properties"));
+                    Issue.jsonPointerOf("nodes", nodeId, "extensions", "indexes", indexId, "properties")));
         }
     }
 }

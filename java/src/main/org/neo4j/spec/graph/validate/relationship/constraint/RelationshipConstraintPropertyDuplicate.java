@@ -46,6 +46,6 @@ public final class RelationshipConstraintPropertyDuplicate implements Relationsh
                 "property",
                 "constraint '" + constraintId + "' on relationship '" + relationshipId + "'",
                 constraint.getProperties(),
-                "relationships." + relationshipId + ".constraints." + constraintId + ".properties"));
+                Issue.jsonPointerOf("relationships", relationshipId, "constraints", constraintId, "properties")));
     }
 }

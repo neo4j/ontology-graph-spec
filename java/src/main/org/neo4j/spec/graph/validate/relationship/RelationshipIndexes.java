@@ -35,13 +35,20 @@ public final class RelationshipIndexes implements RelationshipValidation {
             String indexId,
             RelationshipIndex index,
             List<Issue> issues) {
-        for (var property : index.getProperties()) {
+        for (int propertyIndex = 0; propertyIndex < index.getProperties().size(); propertyIndex++) {
+            var property = index.getProperties().get(propertyIndex);
             if (!relationship.getProperties().containsKey(property)) {
                 issues.add(new Issue(
                         "missing_relationship_index_property",
                         "Missing property with id '" + property + "' for relationship index '" + indexId + "'",
-                        "relationships." + relationshipId + ".extensions.indexes." + indexId + ".properties."
-                                + property));
+                        Issue.jsonPointerOf(
+                                "relationships",
+                                relationshipId,
+                                "extensions",
+                                "indexes",
+                                indexId,
+                                "properties",
+                                propertyIndex)));
             }
         }
     }

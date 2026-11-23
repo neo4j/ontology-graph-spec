@@ -50,7 +50,7 @@ public final class NodeTypeConstraint implements NodeValidation {
             issues.add(new Issue(
                     "invalid_node_type_constraint_property_count",
                     "Node type constraint '" + constraintId + "' must have exactly one property.",
-                    "nodes." + nodeId + ".constraints." + constraintId + ".properties"));
+                    Issue.jsonPointerOf("nodes", nodeId, "constraints", constraintId, "properties")));
         }
     }
 }

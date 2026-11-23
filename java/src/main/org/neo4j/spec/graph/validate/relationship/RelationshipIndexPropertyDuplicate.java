@@ -44,6 +44,6 @@ public final class RelationshipIndexPropertyDuplicate implements RelationshipVal
                 "property",
                 "index '" + indexId + "' on relationship '" + relationshipId + "'",
                 index.getProperties(),
-                "relationships." + relationshipId + ".extensions.indexes." + indexId + ".properties"));
+                Issue.jsonPointerOf("relationships", relationshipId, "extensions", "indexes", indexId, "properties")));
     }
 }

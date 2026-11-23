@@ -44,6 +44,6 @@ public final class RelationshipPropertyAliasDuplicate implements RelationshipVal
                 "alias",
                 "property '" + propertyId + "' of relationship '" + relationshipId + "'",
                 property.getAliases(),
-                "relationships." + relationshipId + ".properties." + propertyId + ".aliases"));
+                Issue.jsonPointerOf("relationships", relationshipId, "properties", propertyId, "aliases")));
     }
 }

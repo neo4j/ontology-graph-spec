@@ -46,24 +46,24 @@ public final class NodeIndexConstraintNameConflict implements NodeValidation {
             var indexId = entry.getKey();
             var index = entry.getValue();
             String name = index.getName();
-            if (name != null && !name.isEmpty() && duplicateNames.contains(name)) {
+            if (name != null && !name.isBlank() && duplicateNames.contains(name)) {
                 issues.add(new Issue(
                         "duplicate_node_index_constraint_name",
                         "Index '" + indexId + "' on node '" + nodeId + "' reuses name '" + name + "' "
                                 + "already used by another index or constraint",
-                        "nodes." + nodeId + ".extensions.indexes." + indexId + ".name"));
+                        Issue.jsonPointerOf("nodes", nodeId, "extensions", "indexes", indexId, "name")));
             }
         }
         for (var entry : node.getConstraints().entrySet()) {
             var constraintId = entry.getKey();
             var constraint = entry.getValue();
             String name = constraint.getName();
-            if (name != null && !name.isEmpty() && duplicateNames.contains(name)) {
+            if (name != null && !name.isBlank() && duplicateNames.contains(name)) {
                 issues.add(new Issue(
                         "duplicate_node_index_constraint_name",
                         "Constraint '" + constraintId + "' on node '" + nodeId + "' reuses name '" + name + "' "
                                 + "already used by another index or constraint",
-                        "nodes." + nodeId + ".constraints." + constraintId + ".name"));
+                        Issue.jsonPointerOf("nodes", nodeId, "constraints", constraintId, "name")));
             }
         }
     }
@@ -73,14 +73,14 @@ public final class NodeIndexConstraintNameConflict implements NodeValidation {
         for (var node : model.getNodes().values()) {
             for (var index : node.getExtensions().getIndexes().values()) {
                 String name = index.getName();
-                if (name != null && !name.isEmpty()) {
+                if (name != null && !name.isBlank()) {
                     Integer value = seen.get(name);
                     seen.put(name, (value != null ? value : 0) + 1);
                 }
             }
             for (var constraint : node.getConstraints().values()) {
                 String name = constraint.getName();
-                if (name != null && !name.isEmpty()) {
+                if (name != null && !name.isBlank()) {
                     Integer value = seen.get(name);
                     seen.put(name, (value != null ? value : 0) + 1);
                 }

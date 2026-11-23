@@ -24,7 +24,7 @@ import org.neo4j.spec.graph.model.relationship.RelationshipConstraint;
 import org.neo4j.spec.graph.model.type.ConstraintType;
 import org.neo4j.spec.graph.validate.Issue;
 import org.neo4j.spec.graph.validate.Validation;
-import org.neo4j.spec.graph.validate.node.NodeConstraints;
+import org.neo4j.spec.graph.validate.relationship.RelationshipConstraints;
 import org.neo4j.spec.graph.validate.relationship.RelationshipValidation;
 
 public final class RelationshipExistenceConstraint implements RelationshipValidation {
@@ -34,7 +34,7 @@ public final class RelationshipExistenceConstraint implements RelationshipValida
 
     @Override
     public List<Validation> dependsOn() {
-        return List.of(NodeConstraints.INSTANCE);
+        return List.of(RelationshipConstraints.INSTANCE);
     }
 
     @Override
@@ -49,7 +49,7 @@ public final class RelationshipExistenceConstraint implements RelationshipValida
             issues.add(new Issue(
                     "invalid_relationship_exist_constraint_property_count",
                     "Relationship existence constraint '" + constraintId + "' must have exactly one property.",
-                    "relationships." + relationshipId + ".constraints." + constraintId + ".properties"));
+                    Issue.jsonPointerOf("relationships", relationshipId, "constraints", constraintId, "properties")));
         }
     }
 }

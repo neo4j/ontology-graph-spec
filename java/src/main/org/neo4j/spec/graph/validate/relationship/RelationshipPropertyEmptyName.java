@@ -36,7 +36,8 @@ public final class RelationshipPropertyEmptyName implements RelationshipValidati
             String propertyId,
             Property property,
             List<Issue> issues) {
-        Issue receiver = PropertyNames.emptyPropertyName(propertyId, property, "relationships." + relationshipId);
+        Issue receiver = PropertyNames.emptyPropertyName(
+                propertyId, property, Issue.jsonPointerOf("relationships", relationshipId));
         if (receiver != null) {
             issues.add(receiver);
         }

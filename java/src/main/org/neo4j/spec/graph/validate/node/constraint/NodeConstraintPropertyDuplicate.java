@@ -45,6 +45,6 @@ public final class NodeConstraintPropertyDuplicate implements NodeValidation {
                 "property",
                 "constraint '" + constraintId + "' on node '" + nodeId + "'",
                 constraint.getProperties(),
-                "nodes." + nodeId + ".constraints." + constraintId + ".properties"));
+                Issue.jsonPointerOf("nodes", nodeId, "constraints", constraintId, "properties")));
     }
 }

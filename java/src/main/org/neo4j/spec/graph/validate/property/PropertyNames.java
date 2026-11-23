@@ -36,7 +36,7 @@ public final class PropertyNames {
             return new Issue(
                     "missing_property_name",
                     "Missing name for property '" + propertyId + "'",
-                    entityPath + ".properties." + propertyId + ".name");
+                    entityPath + Issue.jsonPointerOf("properties", propertyId, "name"));
         }
         return null;
     }
@@ -62,7 +62,7 @@ public final class PropertyNames {
             return new Issue(
                     "duplicate_property_name",
                     "Duplicate property name '" + name + "'",
-                    entityPath + ".properties." + propertyId + ".name");
+                    entityPath + Issue.jsonPointerOf("properties", propertyId, "name"));
         }
         return null;
     }
@@ -75,7 +75,7 @@ public final class PropertyNames {
             return new Issue(
                     "property_pattern_one_of_conflict",
                     "Property '" + propertyId + "' can't set both pattern and one_of",
-                    entityPath + ".properties." + propertyId);
+                    entityPath + Issue.jsonPointerOf("properties", propertyId));
         }
         return null;
     }

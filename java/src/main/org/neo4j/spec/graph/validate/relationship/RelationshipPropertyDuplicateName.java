@@ -37,7 +37,10 @@ public final class RelationshipPropertyDuplicateName implements RelationshipVali
             Property property,
             List<Issue> issues) {
         Issue receiver = PropertyNames.duplicatePropertyName(
-                relationship.getProperties(), propertyId, property, "relationships." + relationshipId);
+                relationship.getProperties(),
+                propertyId,
+                property,
+                Issue.jsonPointerOf("relationships", relationshipId));
         if (receiver != null) {
             issues.add(receiver);
         }
