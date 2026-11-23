@@ -21,9 +21,17 @@ import org.neo4j.spec.graph.model.extension.mapping.NodeMapping
 import org.neo4j.spec.graph.model.extension.mapping.QueryMapping
 import org.neo4j.spec.graph.model.extension.mapping.RelationshipMapping
 
-internal fun GraphModel.hasStructuredDataSource(): Boolean {
-    val mappings = extensions.dataSourceMappings.values.flatten()
-    if (mappings.any { it is NodeMapping || it is RelationshipMapping }) return true
-    if (mappings.any { it is QueryMapping }) return false
-    return extensions.dataSourceTables.isNotEmpty()
+internal fun GraphModel.hasMappings(): Boolean =
+    extensions.dataSourceMappings.values.flatten().any { it is NodeMapping || it is RelationshipMapping }
+
+internal fun GraphModel.hasQueryMappings(): Boolean =
+    extensions.dataSourceMappings.values.flatten().any { it is QueryMapping }
+
+internal fun GraphModel.hasDataSourceTables(): Boolean = extensions.dataSourceTables.isNotEmpty()
+
+internal fun GraphModel.hasStructuredDataSource(): Boolean = when {
+    hasMappings() -> true
+    hasQueryMappings() -> false
+    hasDataSourceTables() -> true
+    else -> false
 }
