@@ -98,12 +98,12 @@ public final class TargetMapping {
             @JsonProperty("label") String label, @JsonProperty("properties") Map<String, PropertyMapping> properties) {
         return new TargetMapping(
                 label != null ? label : "",
-                properties != null ? properties : new LinkedHashMap<String, PropertyMapping>());
+                properties != null ? properties : new LinkedHashMap<>());
     }
 
     public static final class Builder {
         private String label = "";
-        private Map<String, PropertyMapping> properties = new LinkedHashMap<String, PropertyMapping>();
+        private Map<String, PropertyMapping> properties = new LinkedHashMap<>();
 
         private Builder() {}
 

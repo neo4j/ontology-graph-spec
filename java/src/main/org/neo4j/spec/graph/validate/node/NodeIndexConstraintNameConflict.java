@@ -69,7 +69,7 @@ public final class NodeIndexConstraintNameConflict implements NodeValidation {
     }
 
     private Set<String> duplicateNames(GraphModel model) {
-        Map<String, Integer> seen = new LinkedHashMap<String, Integer>();
+        Map<String, Integer> seen = new LinkedHashMap<>();
         for (var node : model.getNodes().values()) {
             for (var index : node.getExtensions().getIndexes().values()) {
                 String name = index.getName();
@@ -86,7 +86,7 @@ public final class NodeIndexConstraintNameConflict implements NodeValidation {
                 }
             }
         }
-        Set<String> duplicates = new LinkedHashSet<String>();
+        Set<String> duplicates = new LinkedHashSet<>();
         for (var entry : seen.entrySet()) {
             if (entry.getValue() > 1) {
                 duplicates.add(entry.getKey());

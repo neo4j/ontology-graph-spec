@@ -28,8 +28,8 @@ public final class ValidationTree {
     private final List<Validation> roots;
 
     public ValidationTree() {
-        this.tree = new LinkedHashMap<Validation, List<Validation>>();
-        this.roots = new ArrayList<Validation>();
+        this.tree = new LinkedHashMap<>();
+        this.roots = new ArrayList<>();
     }
 
     /**
@@ -57,7 +57,7 @@ public final class ValidationTree {
             throw new IllegalArgumentException(
                     String.valueOf("Validation tree must be built before validating a GraphModel"));
         }
-        List<Issue> issues = new ArrayList<Issue>();
+        List<Issue> issues = new ArrayList<>();
         for (var validation : this.roots) {
             validate(validation, model, issues);
         }

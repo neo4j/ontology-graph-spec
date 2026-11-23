@@ -115,7 +115,7 @@ public final class Notation {
             Map<String, Property> properties,
             String label,
             Function<C, CustomExtensions> extensions) {
-        Set<String> collapsed = new LinkedHashSet<String>();
+        Set<String> collapsed = new LinkedHashSet<>();
         for (var entry : constraints.entrySet()) {
             var key = entry.getKey();
             var constraint = entry.getValue();

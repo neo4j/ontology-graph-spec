@@ -114,15 +114,15 @@ public final class NodeExtensions implements CustomExtensions {
             @JsonProperty("display") NodeDisplay display,
             @JsonProperty("custom") Map<String, Object> custom) {
         return new NodeExtensions(
-                indexes != null ? indexes : new LinkedHashMap<String, NodeIndex>(),
+                indexes != null ? indexes : new LinkedHashMap<>(),
                 display,
-                custom != null ? custom : new LinkedHashMap<String, Object>());
+                custom != null ? custom : new LinkedHashMap<>());
     }
 
     public static final class Builder {
-        private Map<String, NodeIndex> indexes = new LinkedHashMap<String, NodeIndex>();
+        private Map<String, NodeIndex> indexes = new LinkedHashMap<>();
         private NodeDisplay display = null;
-        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private Map<String, Object> custom = new LinkedHashMap<>();
 
         private Builder() {}
 

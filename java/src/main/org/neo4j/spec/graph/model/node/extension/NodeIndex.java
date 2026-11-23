@@ -189,7 +189,7 @@ public final class NodeIndex implements CustomExtensions, Named {
                 Objects.requireNonNull(labels, "Field 'labels' is required"),
                 Objects.requireNonNull(properties, "Field 'properties' is required"),
                 options,
-                custom != null ? custom : new LinkedHashMap<String, Object>(),
+                custom != null ? custom : new LinkedHashMap<>(),
                 name);
     }
 
@@ -198,7 +198,7 @@ public final class NodeIndex implements CustomExtensions, Named {
         private List<String> labels;
         private List<String> properties;
         private IndexOption options = null;
-        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private Map<String, Object> custom = new LinkedHashMap<>();
         private String name = null;
 
         private Builder(IndexType type, List<String> labels, List<String> properties) {

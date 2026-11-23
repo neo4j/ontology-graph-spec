@@ -78,11 +78,11 @@ public final class PropertyExtensions implements CustomExtensions {
 
     @JsonCreator
     private static PropertyExtensions fromJson(@JsonProperty("custom") Map<String, Object> custom) {
-        return new PropertyExtensions(custom != null ? custom : new LinkedHashMap<String, Object>());
+        return new PropertyExtensions(custom != null ? custom : new LinkedHashMap<>());
     }
 
     public static final class Builder {
-        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private Map<String, Object> custom = new LinkedHashMap<>();
 
         private Builder() {}
 

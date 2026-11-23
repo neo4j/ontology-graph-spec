@@ -58,7 +58,7 @@ public final class MappingDependencies implements Validation {
             List<? extends Mapping> mappings,
             Map<String, ? extends List<? extends Mapping>> lists,
             List<Issue> issues) {
-        Map<String, Integer> indexById = new LinkedHashMap<String, Integer>();
+        Map<String, Integer> indexById = new LinkedHashMap<>();
         for (int index = 0; index < mappings.size(); index++) {
             var mapping = mappings.get(index);
             String id = mappingId(mapping);
@@ -74,7 +74,7 @@ public final class MappingDependencies implements Validation {
                 indexById.put(id, index);
             }
         }
-        Map<Integer, Integer> next = new LinkedHashMap<Integer, Integer>();
+        Map<Integer, Integer> next = new LinkedHashMap<>();
         for (int index = 0; index < mappings.size(); index++) {
             var mapping = mappings.get(index);
             String dependsOn = mappingDependsOn(mapping);
@@ -120,12 +120,12 @@ public final class MappingDependencies implements Validation {
     }
 
     private void reportCycles(String listId, Map<Integer, Integer> next, List<Issue> issues) {
-        Set<Integer> done = new LinkedHashSet<Integer>();
+        Set<Integer> done = new LinkedHashSet<>();
         for (var start : new TreeSet<>(next.keySet())) {
             if (done.contains(start)) {
                 continue;
             }
-            List<Integer> path = new ArrayList<Integer>();
+            List<Integer> path = new ArrayList<>();
             Integer current = start;
             while (current != null && !done.contains(current) && !path.contains(current)) {
                 path.add(current);

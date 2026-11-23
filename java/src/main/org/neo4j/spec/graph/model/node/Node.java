@@ -217,22 +217,22 @@ public final class Node {
         return new Node(
                 label,
                 labels != null ? labels : Labels.builder().build(),
-                properties != null ? properties : new LinkedHashMap<String, Property>(),
-                constraints != null ? constraints : new LinkedHashMap<String, NodeConstraint>(),
+                properties != null ? properties : new LinkedHashMap<>(),
+                constraints != null ? constraints : new LinkedHashMap<>(),
                 extensions != null ? extensions : NodeExtensions.builder().build(),
                 description != null ? description : "",
-                aliases != null ? aliases : new ArrayList<String>(),
+                aliases != null ? aliases : new ArrayList<>(),
                 reference != null ? reference : "");
     }
 
     public static final class Builder {
         private String label = null;
         private Labels labels = Labels.builder().build();
-        private Map<String, Property> properties = new LinkedHashMap<String, Property>();
-        private Map<String, NodeConstraint> constraints = new LinkedHashMap<String, NodeConstraint>();
+        private Map<String, Property> properties = new LinkedHashMap<>();
+        private Map<String, NodeConstraint> constraints = new LinkedHashMap<>();
         private NodeExtensions extensions = NodeExtensions.builder().build();
         private String description = "";
-        private List<String> aliases = new ArrayList<String>();
+        private List<String> aliases = new ArrayList<>();
         private String reference = "";
 
         private Builder() {}

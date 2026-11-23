@@ -96,13 +96,13 @@ public final class RelationshipExtensions implements CustomExtensions {
             @JsonProperty("indexes") Map<String, RelationshipIndex> indexes,
             @JsonProperty("custom") Map<String, Object> custom) {
         return new RelationshipExtensions(
-                indexes != null ? indexes : new LinkedHashMap<String, RelationshipIndex>(),
-                custom != null ? custom : new LinkedHashMap<String, Object>());
+                indexes != null ? indexes : new LinkedHashMap<>(),
+                custom != null ? custom : new LinkedHashMap<>());
     }
 
     public static final class Builder {
-        private Map<String, RelationshipIndex> indexes = new LinkedHashMap<String, RelationshipIndex>();
-        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private Map<String, RelationshipIndex> indexes = new LinkedHashMap<>();
+        private Map<String, Object> custom = new LinkedHashMap<>();
 
         private Builder() {}
 

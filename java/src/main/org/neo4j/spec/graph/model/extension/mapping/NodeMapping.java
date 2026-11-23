@@ -240,7 +240,7 @@ public final class NodeMapping implements Mapping {
                 Objects.requireNonNull(properties, "Field 'properties' is required"),
                 mode != null ? mode : MappingMode.MERGE,
                 matchLabel,
-                key != null ? key : new ArrayList<String>(),
+                key != null ? key : new ArrayList<>(),
                 dependsOn != null ? dependsOn : "",
                 id != null ? id : "");
     }
@@ -251,7 +251,7 @@ public final class NodeMapping implements Mapping {
         private Map<String, PropertyMapping> properties;
         private MappingMode mode = MappingMode.MERGE;
         private String matchLabel = null;
-        private List<String> key = new ArrayList<String>();
+        private List<String> key = new ArrayList<>();
         private String dependsOn = "";
         private String id = "";
 

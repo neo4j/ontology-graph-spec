@@ -37,8 +37,8 @@ public final class DuplicateEntries {
      */
     public static List<Issue> duplicateEntryIssues(
             String code, String kind, String owner, List<?> values, String path, Map<String, String> details) {
-        Set<Object> seen = new LinkedHashSet<Object>();
-        List<Issue> issues = new ArrayList<Issue>();
+        Set<Object> seen = new LinkedHashSet<>();
+        List<Issue> issues = new ArrayList<>();
         for (int index = 0; index < values.size(); index++) {
             var value = values.get(index);
             if (!seen.add(value)) {

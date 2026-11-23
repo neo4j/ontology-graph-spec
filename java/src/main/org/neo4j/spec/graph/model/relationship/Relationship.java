@@ -238,13 +238,13 @@ public final class Relationship {
                 Objects.requireNonNull(type, "Field 'type' is required"),
                 Objects.requireNonNull(from, "Field 'from' is required"),
                 Objects.requireNonNull(to, "Field 'to' is required"),
-                properties != null ? properties : new LinkedHashMap<String, Property>(),
-                constraints != null ? constraints : new LinkedHashMap<String, RelationshipConstraint>(),
+                properties != null ? properties : new LinkedHashMap<>(),
+                constraints != null ? constraints : new LinkedHashMap<>(),
                 extensions != null
                         ? extensions
                         : RelationshipExtensions.builder().build(),
                 description != null ? description : "",
-                aliases != null ? aliases : new ArrayList<String>(),
+                aliases != null ? aliases : new ArrayList<>(),
                 reference != null ? reference : "");
     }
 
@@ -252,12 +252,12 @@ public final class Relationship {
         private String type;
         private RelationshipTarget from;
         private RelationshipTarget to;
-        private Map<String, Property> properties = new LinkedHashMap<String, Property>();
-        private Map<String, RelationshipConstraint> constraints = new LinkedHashMap<String, RelationshipConstraint>();
+        private Map<String, Property> properties = new LinkedHashMap<>();
+        private Map<String, RelationshipConstraint> constraints = new LinkedHashMap<>();
         private RelationshipExtensions extensions =
                 RelationshipExtensions.builder().build();
         private String description = "";
-        private List<String> aliases = new ArrayList<String>();
+        private List<String> aliases = new ArrayList<>();
         private String reference = "";
 
         private Builder(String type, RelationshipTarget from, RelationshipTarget to) {

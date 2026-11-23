@@ -121,14 +121,14 @@ public final class ForeignKeyReference implements CustomExtensions {
             @JsonProperty("custom") Map<String, Object> custom) {
         return new ForeignKeyReference(
                 Objects.requireNonNull(table, "Field 'table' is required"),
-                columns != null ? columns : new ArrayList<String>(),
-                custom != null ? custom : new LinkedHashMap<String, Object>());
+                columns != null ? columns : new ArrayList<>(),
+                custom != null ? custom : new LinkedHashMap<>());
     }
 
     public static final class Builder {
         private String table;
-        private List<String> columns = new ArrayList<String>();
-        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private List<String> columns = new ArrayList<>();
+        private Map<String, Object> custom = new LinkedHashMap<>();
 
         private Builder(String table) {
             this.table = table;

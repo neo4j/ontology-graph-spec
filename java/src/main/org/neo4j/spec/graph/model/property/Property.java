@@ -317,10 +317,10 @@ public final class Property implements Named {
                 extensions != null ? extensions : PropertyExtensions.builder().build(),
                 name,
                 description != null ? description : "",
-                aliases != null ? aliases : new ArrayList<String>(),
+                aliases != null ? aliases : new ArrayList<>(),
                 reference != null ? reference : "",
                 pattern != null ? pattern : "",
-                oneOf != null ? oneOf : new ArrayList<String>());
+                oneOf != null ? oneOf : new ArrayList<>());
     }
 
     public static final class Builder {
@@ -332,10 +332,10 @@ public final class Property implements Named {
         private PropertyExtensions extensions = PropertyExtensions.builder().build();
         private String name = null;
         private String description = "";
-        private List<String> aliases = new ArrayList<String>();
+        private List<String> aliases = new ArrayList<>();
         private String reference = "";
         private String pattern = "";
-        private List<String> oneOf = new ArrayList<String>();
+        private List<String> oneOf = new ArrayList<>();
 
         private Builder() {}
 

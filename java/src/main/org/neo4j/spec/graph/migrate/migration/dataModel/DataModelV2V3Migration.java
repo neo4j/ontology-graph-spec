@@ -38,7 +38,7 @@ public final class DataModelV2V3Migration extends Migration {
     public SchemaMap migrate(SchemaMap schema) {
         List<SchemaMap> nodeKeyProperties =
                 schema.map("graphSchemaExtensionsRepresentation").listOfMaps("nodeKeyProperties");
-        Map<String, String> references = new LinkedHashMap<String, String>();
+        Map<String, String> references = new LinkedHashMap<>();
         for (var property : nodeKeyProperties) {
             SchemaMap key = property.removeMap("keyProperty");
             List<SchemaMap> keyProperties = new ArrayList<>();

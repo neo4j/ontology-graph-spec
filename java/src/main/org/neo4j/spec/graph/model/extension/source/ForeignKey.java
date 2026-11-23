@@ -117,13 +117,13 @@ public final class ForeignKey implements CustomExtensions {
         return new ForeignKey(
                 Objects.requireNonNull(columns, "Field 'columns' is required"),
                 Objects.requireNonNull(references, "Field 'references' is required"),
-                custom != null ? custom : new LinkedHashMap<String, Object>());
+                custom != null ? custom : new LinkedHashMap<>());
     }
 
     public static final class Builder {
         private List<String> columns;
         private ForeignKeyReference references;
-        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private Map<String, Object> custom = new LinkedHashMap<>();
 
         private Builder(List<String> columns, ForeignKeyReference references) {
             this.columns = columns;

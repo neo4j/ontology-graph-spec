@@ -161,18 +161,18 @@ public final class Table implements CustomExtensions {
             @JsonProperty("custom") Map<String, Object> custom) {
         return new Table(
                 Objects.requireNonNull(source, "Field 'source' is required"),
-                columns != null ? columns : new ArrayList<TableColumn>(),
-                primaryKeys != null ? primaryKeys : new ArrayList<String>(),
-                foreignKeys != null ? foreignKeys : new LinkedHashMap<String, ForeignKey>(),
-                custom != null ? custom : new LinkedHashMap<String, Object>());
+                columns != null ? columns : new ArrayList<>(),
+                primaryKeys != null ? primaryKeys : new ArrayList<>(),
+                foreignKeys != null ? foreignKeys : new LinkedHashMap<>(),
+                custom != null ? custom : new LinkedHashMap<>());
     }
 
     public static final class Builder {
         private String source;
-        private List<TableColumn> columns = new ArrayList<TableColumn>();
-        private List<String> primaryKeys = new ArrayList<String>();
-        private Map<String, ForeignKey> foreignKeys = new LinkedHashMap<String, ForeignKey>();
-        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private List<TableColumn> columns = new ArrayList<>();
+        private List<String> primaryKeys = new ArrayList<>();
+        private Map<String, ForeignKey> foreignKeys = new LinkedHashMap<>();
+        private Map<String, Object> custom = new LinkedHashMap<>();
 
         private Builder(String source) {
             this.source = source;

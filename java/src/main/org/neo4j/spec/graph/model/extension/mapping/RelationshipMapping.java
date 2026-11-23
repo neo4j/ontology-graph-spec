@@ -278,9 +278,9 @@ public final class RelationshipMapping implements Mapping {
                 Objects.requireNonNull(fromNode, "Field 'from_node' is required"),
                 Objects.requireNonNull(toNode, "Field 'to_node' is required"),
                 matchLabel,
-                properties != null ? properties : new LinkedHashMap<String, PropertyMapping>(),
+                properties != null ? properties : new LinkedHashMap<>(),
                 mode != null ? mode : MappingMode.MERGE,
-                key != null ? key : new ArrayList<String>(),
+                key != null ? key : new ArrayList<>(),
                 dependsOn != null ? dependsOn : "",
                 id != null ? id : "");
     }
@@ -291,9 +291,9 @@ public final class RelationshipMapping implements Mapping {
         private TargetMapping fromNode;
         private TargetMapping toNode;
         private String matchLabel = null;
-        private Map<String, PropertyMapping> properties = new LinkedHashMap<String, PropertyMapping>();
+        private Map<String, PropertyMapping> properties = new LinkedHashMap<>();
         private MappingMode mode = MappingMode.MERGE;
-        private List<String> key = new ArrayList<String>();
+        private List<String> key = new ArrayList<>();
         private String dependsOn = "";
         private String id = "";
 

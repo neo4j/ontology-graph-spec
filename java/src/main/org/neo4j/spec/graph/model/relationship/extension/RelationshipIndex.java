@@ -166,7 +166,7 @@ public final class RelationshipIndex implements CustomExtensions, Named {
                 Objects.requireNonNull(type, "Field 'type' is required"),
                 Objects.requireNonNull(properties, "Field 'properties' is required"),
                 options,
-                custom != null ? custom : new LinkedHashMap<String, Object>(),
+                custom != null ? custom : new LinkedHashMap<>(),
                 name);
     }
 
@@ -174,7 +174,7 @@ public final class RelationshipIndex implements CustomExtensions, Named {
         private IndexType type;
         private List<String> properties;
         private IndexOption options = null;
-        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private Map<String, Object> custom = new LinkedHashMap<>();
         private String name = null;
 
         private Builder(IndexType type, List<String> properties) {

@@ -49,7 +49,7 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
     }
 
     public SchemaMap() {
-        this(new LinkedHashMap<String, SchemaElement>(), "");
+        this(new LinkedHashMap<>(), "");
     }
 
     @Override
@@ -293,7 +293,7 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
     }
 
     public Map<String, SchemaMap> mapOfMapsOrNull(String key) {
-        Map<String, SchemaMap> map = new LinkedHashMap<String, SchemaMap>();
+        Map<String, SchemaMap> map = new LinkedHashMap<>();
         SchemaMap receiver = mapOrNull(key);
         Map<String, SchemaElement> value = receiver == null ? null : receiver.getContent();
         if (value == null) {
@@ -312,7 +312,7 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
     }
 
     public Map<String, List<SchemaMap>> mapOfListsOfMapsOrNull(String key) {
-        Map<String, List<SchemaMap>> map = new LinkedHashMap<String, List<SchemaMap>>();
+        Map<String, List<SchemaMap>> map = new LinkedHashMap<>();
         SchemaMap receiver = mapOrNull(key);
         Map<String, SchemaElement> value = receiver == null ? null : receiver.getContent();
         if (value == null) {
@@ -321,7 +321,7 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
         for (var entry : value.entrySet()) {
             var childKey = entry.getKey();
             var element = entry.getValue();
-            List<SchemaMap> list = new ArrayList<SchemaMap>();
+            List<SchemaMap> list = new ArrayList<>();
             SchemaList value2 = element instanceof SchemaList ? (SchemaList) element : null;
             if (value2 == null) {
                 return null;
@@ -364,7 +364,7 @@ public final class SchemaMap extends AbstractMap<String, SchemaElement> implemen
     }
 
     public List<SchemaMap> listOfMapsOrNull(String key) {
-        List<SchemaMap> list = new ArrayList<SchemaMap>();
+        List<SchemaMap> list = new ArrayList<>();
         SchemaList receiver = listOrNull(key);
         List<SchemaElement> value = receiver == null ? null : receiver.getContent();
         if (value == null) {

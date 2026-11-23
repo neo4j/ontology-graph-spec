@@ -50,8 +50,8 @@ public final class GraphSpecDataModelV3Migration extends Migration {
 
     @Override
     public SchemaMap migrate(SchemaMap schema) {
-        List<SchemaMap> constraints = new ArrayList<SchemaMap>();
-        List<SchemaMap> indexes = new ArrayList<SchemaMap>();
+        List<SchemaMap> constraints = new ArrayList<>();
+        List<SchemaMap> indexes = new ArrayList<>();
         NodeData nodeData = convertNodes(schema, constraints, indexes);
         RelationshipData relData = convertRelationships(schema, constraints, indexes);
         List<SchemaMap> nodeLabels = nodeData == null ? Collections.<SchemaMap>emptyList() : nodeData.getLabelsMap();
@@ -81,8 +81,8 @@ public final class GraphSpecDataModelV3Migration extends Migration {
         if (relationships == null) {
             relationships = Collections.emptyMap();
         }
-        List<SchemaMap> nodeMappings = new ArrayList<SchemaMap>();
-        List<SchemaMap> relationshipMappings = new ArrayList<SchemaMap>();
+        List<SchemaMap> nodeMappings = new ArrayList<>();
+        List<SchemaMap> relationshipMappings = new ArrayList<>();
         for (SchemaMap mapping : mappings(schema.mapOrNull("extensions"))) {
             if (mapping.containsKey("node")) {
                 nodeMappings.add(schemaMapOf(
@@ -124,7 +124,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
     }
 
     public List<SchemaMap> convertMappingKeyProperties(SchemaMap schema, String singular) {
-        Map<String, Set<String>> keyProperties = new LinkedHashMap<String, Set<String>>();
+        Map<String, Set<String>> keyProperties = new LinkedHashMap<>();
         for (var mapping : mappings(schema.mapOrNull("extensions"))) {
             String entity = mapping.stringOrNull(singular);
             if (entity == null) {
@@ -135,13 +135,13 @@ public final class GraphSpecDataModelV3Migration extends Migration {
                 continue;
             }
             if (!keys.isEmpty()) {
-                Set<String> set = keyProperties.computeIfAbsent(entity, k -> new LinkedHashSet<String>());
+                Set<String> set = keyProperties.computeIfAbsent(entity, k -> new LinkedHashSet<>());
                 for (SchemaElement key : keys) {
                     set.add(((SchemaLiteral) key).getString());
                 }
             }
         }
-        List<SchemaMap> result = new ArrayList<SchemaMap>();
+        List<SchemaMap> result = new ArrayList<>();
         for (var entry : keyProperties.entrySet()) {
             result.add(schemaMapOf(
                     singular,
@@ -166,8 +166,8 @@ public final class GraphSpecDataModelV3Migration extends Migration {
         if (relationships == null) {
             return null;
         }
-        List<SchemaMap> relationTypes = new ArrayList<SchemaMap>();
-        List<SchemaMap> relationshipObjectTypes = new ArrayList<SchemaMap>();
+        List<SchemaMap> relationTypes = new ArrayList<>();
+        List<SchemaMap> relationshipObjectTypes = new ArrayList<>();
         for (var entry : relationships.entrySet()) {
             var relId = entry.getKey();
             var rel = entry.getValue();
@@ -208,9 +208,9 @@ public final class GraphSpecDataModelV3Migration extends Migration {
         if (nodes == null) {
             return null;
         }
-        Map<String, String> nodeLabelsMap = new LinkedHashMap<String, String>();
-        List<SchemaMap> nodeLabels = new ArrayList<SchemaMap>();
-        List<SchemaMap> nodeObjectTypes = new ArrayList<SchemaMap>();
+        Map<String, String> nodeLabelsMap = new LinkedHashMap<>();
+        List<SchemaMap> nodeLabels = new ArrayList<>();
+        List<SchemaMap> nodeObjectTypes = new ArrayList<>();
         for (var entry : nodes.entrySet()) {
             var nodeId = entry.getKey();
             var node = entry.getValue();
@@ -220,12 +220,12 @@ public final class GraphSpecDataModelV3Migration extends Migration {
                 throw new IllegalStateException(
                         "Node at " + node.getPath() + " has no label, set label or labels.identifier");
             }
-            List<String> allLabels = new ArrayList<String>();
+            List<String> allLabels = new ArrayList<>();
             allLabels.add(primaryLabel);
             allLabels.addAll(labelStrings(labelsInfo.listOrNull("implied")));
             allLabels.addAll(labelStrings(labelsInfo.listOrNull("optional")));
             String primaryLabelId = "nl:null";
-            List<SchemaMap> labelRefs = new ArrayList<SchemaMap>();
+            List<SchemaMap> labelRefs = new ArrayList<>();
             for (var label : allLabels) {
                 String labelId = nodeLabelsMap.get(label);
                 if (labelId == null) {
@@ -266,7 +266,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
     }
 
     private static List<String> labelStrings(SchemaList labels) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         if (labels != null) {
             for (SchemaElement label : labels) {
                 result.add(label.toString());
@@ -279,7 +279,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
      * Mappings are grouped by id, the data model has no such grouping so they're flattened into a single list.
      */
     private List<SchemaMap> mappings(SchemaMap extensions) {
-        List<SchemaMap> result = new ArrayList<SchemaMap>();
+        List<SchemaMap> result = new ArrayList<>();
         Map<String, List<SchemaMap>> grouped =
                 extensions == null ? null : extensions.mapOfListsOfMapsOrNull("data_source_mappings");
         if (grouped != null) {
@@ -294,7 +294,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
         if (tables == null) {
             return schemaMapOf("type", new SchemaNull(), "tableSchemas", Collections.<SchemaMap>emptyList());
         }
-        List<SchemaMap> tableSchemas = new ArrayList<SchemaMap>();
+        List<SchemaMap> tableSchemas = new ArrayList<>();
         Object sourceType = null;
         for (var entry : tables.entrySet()) {
             var tableName = entry.getKey();
@@ -314,7 +314,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
 
     public SchemaMap convertVisualisation(SchemaMap schema) {
         Map<String, SchemaMap> nodes = schema.mapOfMapsOrNull("nodes");
-        List<SchemaMap> positions = new ArrayList<SchemaMap>();
+        List<SchemaMap> positions = new ArrayList<>();
         if (nodes != null) {
             for (var entry : nodes.entrySet()) {
                 var id = entry.getKey();
@@ -332,7 +332,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
     }
 
     private Map<String, String> propertyTokens(Map<String, SchemaMap> properties) {
-        Map<String, String> tokens = new LinkedHashMap<String, String>();
+        Map<String, String> tokens = new LinkedHashMap<>();
         if (properties != null) {
             for (var entry : properties.entrySet()) {
                 String name = entry.getValue().stringOrNull("name");
@@ -343,7 +343,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
     }
 
     public List<SchemaMap> convertProperties(Map<String, SchemaMap> properties) {
-        List<SchemaMap> result = new ArrayList<SchemaMap>();
+        List<SchemaMap> result = new ArrayList<>();
         if (properties == null) {
             return result;
         }
@@ -373,14 +373,14 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             String typeKey,
             Function<String, String> typeTransform,
             BiFunction<SchemaMap, List<String>, String> generatedName) {
-        List<SchemaMap> result = new ArrayList<SchemaMap>();
+        List<SchemaMap> result = new ArrayList<>();
         if (elements == null) {
             return result;
         }
         for (var entry : elements.entrySet()) {
             var name = entry.getKey();
             var element = entry.getValue();
-            List<String> propertyIds = new ArrayList<String>();
+            List<String> propertyIds = new ArrayList<>();
             SchemaList properties = element.listOrNull("properties");
             if (properties != null) {
                 for (SchemaElement propId : properties) {
@@ -455,7 +455,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
     }
 
     private List<String> tokens(List<String> propertyIds, Map<String, String> propertyTokens) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (String id : propertyIds) {
             String token = propertyTokens.get(id);
             result.add(token != null ? token : id);
@@ -464,7 +464,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
     }
 
     public List<SchemaMap> convertFields(List<SchemaMap> fields) {
-        List<SchemaMap> result = new ArrayList<SchemaMap>();
+        List<SchemaMap> result = new ArrayList<>();
         if (fields == null) {
             return result;
         }
@@ -475,7 +475,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             Integer dimension = field.integerOrNull("dimension");
             List<SchemaElement> supportedTypes = null;
             if (supported != null) {
-                supportedTypes = new ArrayList<SchemaElement>();
+                supportedTypes = new ArrayList<>();
                 for (SchemaElement type : supported) {
                     supportedTypes.add(
                             GraphSpecDataModelV3Migration.propertyType(((SchemaLiteral) type).getString(), dimension));
@@ -501,7 +501,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
     }
 
     public List<SchemaMap> convertForeignKeys(Map<String, SchemaMap> foreignKeys) {
-        List<SchemaMap> result = new ArrayList<SchemaMap>();
+        List<SchemaMap> result = new ArrayList<>();
         if (foreignKeys == null) {
             return result;
         }
@@ -509,7 +509,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
             List<String> columns = labelStrings(fk.list("columns"));
             SchemaMap references = fk.map("references");
             List<String> referencedColumns = labelStrings(references.list("columns"));
-            List<SchemaMap> fieldMaps = new ArrayList<SchemaMap>();
+            List<SchemaMap> fieldMaps = new ArrayList<>();
             for (int i = 0; i < columns.size(); i++) {
                 String referenced = i < referencedColumns.size() ? referencedColumns.get(i) : null;
                 fieldMaps.add(schemaMapOf(
@@ -524,7 +524,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
     }
 
     public List<SchemaMap> convertPropertyMappings(Map<String, SchemaMap> properties) {
-        List<SchemaMap> result = new ArrayList<SchemaMap>();
+        List<SchemaMap> result = new ArrayList<>();
         if (properties == null) {
             return result;
         }
@@ -537,7 +537,7 @@ public final class GraphSpecDataModelV3Migration extends Migration {
     }
 
     public Map<String, Object> convertEntityMap(Map<String, SchemaMap> properties) {
-        Map<String, Object> result = new LinkedHashMap<String, Object>();
+        Map<String, Object> result = new LinkedHashMap<>();
         if (properties == null) {
             return result;
         }

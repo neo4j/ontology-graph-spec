@@ -126,15 +126,15 @@ public final class GraphModelExtensions implements CustomExtensions {
             @JsonProperty("data_source_mappings") Map<String, List<Mapping>> dataSourceMappings,
             @JsonProperty("custom") Map<String, Object> custom) {
         return new GraphModelExtensions(
-                dataSourceTables != null ? dataSourceTables : new LinkedHashMap<String, Table>(),
-                dataSourceMappings != null ? dataSourceMappings : new LinkedHashMap<String, List<Mapping>>(),
-                custom != null ? custom : new LinkedHashMap<String, Object>());
+                dataSourceTables != null ? dataSourceTables : new LinkedHashMap<>(),
+                dataSourceMappings != null ? dataSourceMappings : new LinkedHashMap<>(),
+                custom != null ? custom : new LinkedHashMap<>());
     }
 
     public static final class Builder {
-        private Map<String, Table> dataSourceTables = new LinkedHashMap<String, Table>();
-        private Map<String, List<Mapping>> dataSourceMappings = new LinkedHashMap<String, List<Mapping>>();
-        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private Map<String, Table> dataSourceTables = new LinkedHashMap<>();
+        private Map<String, List<Mapping>> dataSourceMappings = new LinkedHashMap<>();
+        private Map<String, Object> custom = new LinkedHashMap<>();
 
         private Builder() {}
 

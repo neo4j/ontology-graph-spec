@@ -146,14 +146,14 @@ public final class NodeDisplay implements CustomExtensions {
                 Objects.requireNonNull(x, "Field 'x' is required"),
                 Objects.requireNonNull(y, "Field 'y' is required"),
                 colour,
-                custom != null ? custom : new LinkedHashMap<String, Object>());
+                custom != null ? custom : new LinkedHashMap<>());
     }
 
     public static final class Builder {
         private double x;
         private double y;
         private String colour = null;
-        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private Map<String, Object> custom = new LinkedHashMap<>();
 
         private Builder(double x, double y) {
             this.x = x;

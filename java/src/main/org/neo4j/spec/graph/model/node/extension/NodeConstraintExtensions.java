@@ -78,11 +78,11 @@ public final class NodeConstraintExtensions implements CustomExtensions {
 
     @JsonCreator
     private static NodeConstraintExtensions fromJson(@JsonProperty("custom") Map<String, Object> custom) {
-        return new NodeConstraintExtensions(custom != null ? custom : new LinkedHashMap<String, Object>());
+        return new NodeConstraintExtensions(custom != null ? custom : new LinkedHashMap<>());
     }
 
     public static final class Builder {
-        private Map<String, Object> custom = new LinkedHashMap<String, Object>();
+        private Map<String, Object> custom = new LinkedHashMap<>();
 
         private Builder() {}
 

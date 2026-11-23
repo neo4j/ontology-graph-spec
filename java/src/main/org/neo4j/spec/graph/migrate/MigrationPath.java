@@ -122,7 +122,7 @@ public final class MigrationPath {
         if (Objects.equals(from, to)) {
             return Collections.emptyList();
         }
-        Map<String, Migration> frontier = new LinkedHashMap<String, Migration>();
+        Map<String, Migration> frontier = new LinkedHashMap<>();
         Set<String> visited = new LinkedHashSet<>();
         visited.add(from);
         List<String> stack = new ArrayList<>();
@@ -152,7 +152,7 @@ public final class MigrationPath {
      * Backtrace the path
      */
     private List<Migration> path(String start, String end, Map<String, Migration> frontier) {
-        List<Migration> reversed = new ArrayList<Migration>();
+        List<Migration> reversed = new ArrayList<>();
         String cur = end;
         while (!Objects.equals(cur, start)) {
             Migration m = frontier.get(cur);

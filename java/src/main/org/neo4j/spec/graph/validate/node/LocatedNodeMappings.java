@@ -29,7 +29,7 @@ public final class LocatedNodeMappings {
      * Finds every mapping of {@code nodeId} along with where each lives in the model's mappings.
      */
     public static List<LocatedNodeMapping> findNodeMappings(GraphModel model, String nodeId) {
-        List<LocatedNodeMapping> found = new ArrayList<LocatedNodeMapping>();
+        List<LocatedNodeMapping> found = new ArrayList<>();
         for (var entry : model.getExtensions().getDataSourceMappings().entrySet()) {
             var mappingId = entry.getKey();
             var mappings = entry.getValue();

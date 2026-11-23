@@ -71,7 +71,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
         ElementsByEntity indexes = gatherWithNames(graphSchema, "indexes");
         Map<String, SchemaMap> nodes = migrateNodes(graphSchema, constraints.nodes, indexes.nodes);
         convertVisualisations(schema, nodes);
-        List<SchemaMap> mappings = new ArrayList<SchemaMap>(nodeMappings(schema, nodeKeys));
+        List<SchemaMap> mappings = new ArrayList<>(nodeMappings(schema, nodeKeys));
         mappings.addAll(relationshipMappings(schema, relKeys));
         return schemaMapOf(
                 "schema", Version.schemaUrl(Version.V1_1),
@@ -87,7 +87,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
      * Graph model level extensions, omitting any which are empty.
      */
     private Map<String, Object> extensions(Map<String, SchemaMap> tables, List<SchemaMap> mappings) {
-        Map<String, Object> extensions = new LinkedHashMap<String, Object>();
+        Map<String, Object> extensions = new LinkedHashMap<>();
         if (!tables.isEmpty()) {
             extensions.put("data_source_tables", tables);
         }
@@ -100,14 +100,14 @@ public final class DataModelV3GraphSpecMigration extends Migration {
     }
 
     private Map<String, Set<String>> keyProperties(SchemaMap extensions, String entity) {
-        Map<String, Set<String>> result = new LinkedHashMap<String, Set<String>>();
+        Map<String, Set<String>> result = new LinkedHashMap<>();
         List<SchemaMap> keyProperties =
                 extensions == null ? null : extensions.listOfMapsOrNull(entity + "KeyProperties");
         if (keyProperties != null) {
             for (SchemaMap kp : keyProperties) {
                 result.put(
                         DataModelUtils.ref(kp, entity),
-                        new LinkedHashSet<String>(DataModelUtils.refs(kp.listOfMaps("keyProperties"))));
+                        new LinkedHashSet<>(DataModelUtils.refs(kp.listOfMaps("keyProperties"))));
             }
         }
         return result;
@@ -142,19 +142,19 @@ public final class DataModelV3GraphSpecMigration extends Migration {
         List<SchemaMap> elements = schema.listOfMapsOrNull(key);
         if (elements == null) {
             return new ElementsByEntity(
-                    new LinkedHashMap<String, List<SchemaMap>>(), new LinkedHashMap<String, List<SchemaMap>>());
+                    new LinkedHashMap<>(), new LinkedHashMap<>());
         }
-        Map<String, List<SchemaMap>> nodeElements = new LinkedHashMap<String, List<SchemaMap>>();
-        Map<String, List<SchemaMap>> relationshipElements = new LinkedHashMap<String, List<SchemaMap>>();
+        Map<String, List<SchemaMap>> nodeElements = new LinkedHashMap<>();
+        Map<String, List<SchemaMap>> relationshipElements = new LinkedHashMap<>();
         for (var element : elements) {
             if ("node".equals(element.string("entityType"))) {
                 nodeElements
-                        .computeIfAbsent(DataModelUtils.ref(element, "nodeLabel"), k -> new ArrayList<SchemaMap>())
+                        .computeIfAbsent(DataModelUtils.ref(element, "nodeLabel"), k -> new ArrayList<>())
                         .add(element);
             } else {
                 relationshipElements
                         .computeIfAbsent(
-                                DataModelUtils.ref(element, "relationshipType"), k -> new ArrayList<SchemaMap>())
+                                DataModelUtils.ref(element, "relationshipType"), k -> new ArrayList<>())
                         .add(element);
             }
         }
@@ -168,7 +168,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
             SchemaMap schema,
             Map<String, ? extends List<SchemaMap>> constraints,
             Map<String, ? extends List<SchemaMap>> indexes) {
-        Map<String, SchemaMap> nodes = new LinkedHashMap<String, SchemaMap>();
+        Map<String, SchemaMap> nodes = new LinkedHashMap<>();
         Map<String, SchemaMap> nodeLabels = byId(schema.listOfMapsOrNull("nodeLabels"));
         if (nodeLabels == null) {
             return nodes;
@@ -179,7 +179,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
         }
         for (var nodeObject : nodeObjTypes) {
             List<String> labelRefs = DataModelUtils.refs(nodeObject.listOfMaps("labels"));
-            List<SchemaMap> labels = new ArrayList<SchemaMap>();
+            List<SchemaMap> labels = new ArrayList<>();
             for (String ref : labelRefs) {
                 SchemaMap label = nodeLabels.get(ref);
                 if (label == null) {
@@ -187,8 +187,8 @@ public final class DataModelV3GraphSpecMigration extends Migration {
                 }
                 labels.add(label);
             }
-            List<String> tokens = new ArrayList<String>();
-            Map<String, String> propertyTokens = new LinkedHashMap<String, String>();
+            List<String> tokens = new ArrayList<>();
+            Map<String, String> propertyTokens = new LinkedHashMap<>();
             for (SchemaMap label : labels) {
                 tokens.add(label.string("token"));
                 List<SchemaMap> properties = label.listOfMapsOrNull("properties");
@@ -225,7 +225,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
         if (schemaMaps == null) {
             return null;
         }
-        Map<String, SchemaMap> result = new LinkedHashMap<String, SchemaMap>();
+        Map<String, SchemaMap> result = new LinkedHashMap<>();
         for (SchemaMap schemaMap : schemaMaps) {
             result.put(DataModelUtils.id(schemaMap), schemaMap);
         }
@@ -250,7 +250,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
         if (labelIndexes == null) {
             return null;
         }
-        Map<String, SchemaMap> result = new LinkedHashMap<String, SchemaMap>();
+        Map<String, SchemaMap> result = new LinkedHashMap<>();
         for (SchemaMap index : labelIndexes) {
             String id = DataModelUtils.id(index);
             IndexType resolvedType = indexType(index);
@@ -295,7 +295,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
         if (labelConstraints == null) {
             return null;
         }
-        Map<String, SchemaMap> result = new LinkedHashMap<String, SchemaMap>();
+        Map<String, SchemaMap> result = new LinkedHashMap<>();
         for (SchemaMap constraint : labelConstraints) {
             List<SchemaMap> properties = constraint.listOfMapsOrNull("properties");
             ConstraintType constraintType = constraintType(constraint);
@@ -326,7 +326,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
     }
 
     private List<String> tokensFrom(List<SchemaMap> properties, Map<String, String> propertyTokens) {
-        List<String> tokens = new ArrayList<String>();
+        List<String> tokens = new ArrayList<>();
         if (properties != null) {
             for (SchemaMap property : properties) {
                 String ref = DataModelUtils.ref(property);
@@ -351,7 +351,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
             SchemaMap schema,
             Map<String, ? extends List<SchemaMap>> constraints,
             Map<String, ? extends List<SchemaMap>> indexes) {
-        Map<String, SchemaMap> relationships = new LinkedHashMap<String, SchemaMap>();
+        Map<String, SchemaMap> relationships = new LinkedHashMap<>();
         Map<String, SchemaMap> relationshipTypes = byId(schema.listOfMapsOrNull("relationshipTypes"));
         if (relationshipTypes == null) {
             return relationships;
@@ -367,7 +367,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
                 throw new IllegalStateException("RelationshipType " + typeRef + " not found");
             }
             String token = relationshipType.string("token");
-            Map<String, String> propertyTokens = new LinkedHashMap<String, String>();
+            Map<String, String> propertyTokens = new LinkedHashMap<>();
             List<SchemaMap> typeProperties = relationshipType.listOfMapsOrNull("properties");
             if (typeProperties != null) {
                 for (SchemaMap property : typeProperties) {
@@ -390,7 +390,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
     }
 
     public Map<String, SchemaMap> convertProperties(List<SchemaMap> labels) {
-        Map<String, SchemaMap> result = new LinkedHashMap<String, SchemaMap>();
+        Map<String, SchemaMap> result = new LinkedHashMap<>();
         for (SchemaMap label : labels) {
             for (SchemaMap property : label.listOfMaps("properties")) {
                 SchemaMap typeObj = property.map("type");
@@ -417,7 +417,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
         if (relationshipMappings == null) {
             return Collections.emptyList();
         }
-        List<SchemaMap> mappings = new ArrayList<SchemaMap>();
+        List<SchemaMap> mappings = new ArrayList<>();
         for (var mapping : relationshipMappings) {
             String ref = DataModelUtils.ref(mapping, "relationship");
             if (!relInfo.containsKey(ref)) {
@@ -439,7 +439,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
     }
 
     public Map<String, SchemaMap> entityMap(SchemaMap schemaMap, String key) {
-        Map<String, SchemaMap> result = new LinkedHashMap<String, SchemaMap>();
+        Map<String, SchemaMap> result = new LinkedHashMap<>();
         SchemaMap entity = schemaMap.mapOrNull(key);
         if (entity != null) {
             for (var entry : entity.entrySet()) {
@@ -454,7 +454,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
         if (nodeMappings == null) {
             return Collections.emptyList();
         }
-        List<SchemaMap> mappings = new ArrayList<SchemaMap>();
+        List<SchemaMap> mappings = new ArrayList<>();
         for (var nodeMapping : nodeMappings) {
             String ref = DataModelUtils.ref(nodeMapping, "node");
             Set<String> keys = nodeKeys.get(ref);
@@ -471,7 +471,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
     }
 
     private Map<String, Map<String, SchemaPrimitive>> migratePropertyMappings(SchemaMap entity) {
-        Map<String, Map<String, SchemaPrimitive>> result = new LinkedHashMap<String, Map<String, SchemaPrimitive>>();
+        Map<String, Map<String, SchemaPrimitive>> result = new LinkedHashMap<>();
         for (SchemaMap mapping : entity.listOfMaps("propertyMappings")) {
             result.put(
                     DataModelUtils.ref(mapping, "property"),
@@ -481,7 +481,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
     }
 
     private List<String> migrateKeyProperties(SchemaMap entity, Set<String> keys) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (SchemaMap mapping : entity.listOfMaps("propertyMappings")) {
             String ref = DataModelUtils.ref(mapping, "property");
             if (keys.contains(ref)) {
@@ -492,7 +492,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
     }
 
     public Map<String, SchemaMap> migrateTables(SchemaMap schema) {
-        Map<String, SchemaMap> tables = new LinkedHashMap<String, SchemaMap>();
+        Map<String, SchemaMap> tables = new LinkedHashMap<>();
         SchemaMap sourceSchema = schema.map("graphMappingRepresentation").mapOrNull("dataSourceSchema");
         if (sourceSchema == null) {
             return tables;
@@ -515,10 +515,10 @@ public final class DataModelV3GraphSpecMigration extends Migration {
         if (foreign == null) {
             return null;
         }
-        Map<String, SchemaElement> foreignKeys = new LinkedHashMap<String, SchemaElement>();
+        Map<String, SchemaElement> foreignKeys = new LinkedHashMap<>();
         for (var foreignKey : foreign) {
-            List<String> columns = new ArrayList<String>();
-            List<String> referencedColumns = new ArrayList<String>();
+            List<String> columns = new ArrayList<>();
+            List<String> referencedColumns = new ArrayList<>();
             for (SchemaMap field : foreignKey.listOfMaps("fields")) {
                 columns.add(field.string("field"));
                 referencedColumns.add(field.string("referencedField"));
@@ -535,7 +535,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
     }
 
     private List<SchemaMap> migrateColumns(SchemaMap table) {
-        List<SchemaMap> columns = new ArrayList<SchemaMap>();
+        List<SchemaMap> columns = new ArrayList<>();
         for (var field : table.listOfMaps("fields")) {
             List<SchemaMap> supportedTypes = field.listOfMapsOrNull("supportedTypes");
             Integer dimension = dimension(field.mapOrNull("recommendedType"));
@@ -549,7 +549,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
             }
             List<String> supported = null;
             if (supportedTypes != null) {
-                supported = new ArrayList<String>();
+                supported = new ArrayList<>();
                 for (SchemaMap supportedType : supportedTypes) {
                     supported.add(neo4jType(supportedType));
                 }

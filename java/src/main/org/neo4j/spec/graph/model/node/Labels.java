@@ -136,15 +136,15 @@ public final class Labels {
             @JsonProperty("extensions") LabelsExtensions extensions) {
         return new Labels(
                 identifier,
-                implied != null ? implied : new ArrayList<String>(),
-                optional != null ? optional : new ArrayList<String>(),
+                implied != null ? implied : new ArrayList<>(),
+                optional != null ? optional : new ArrayList<>(),
                 extensions != null ? extensions : LabelsExtensions.builder().build());
     }
 
     public static final class Builder {
         private String identifier = null;
-        private List<String> implied = new ArrayList<String>();
-        private List<String> optional = new ArrayList<String>();
+        private List<String> implied = new ArrayList<>();
+        private List<String> optional = new ArrayList<>();
         private LabelsExtensions extensions = LabelsExtensions.builder().build();
 
         private Builder() {}

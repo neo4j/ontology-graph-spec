@@ -252,8 +252,8 @@ public final class GraphModel {
                 Objects.requireNonNull(id, "Field 'id' is required"),
                 name != null ? name : "",
                 description != null ? description : "",
-                nodes != null ? nodes : new LinkedHashMap<String, Node>(),
-                relationships != null ? relationships : new LinkedHashMap<String, Relationship>(),
+                nodes != null ? nodes : new LinkedHashMap<>(),
+                relationships != null ? relationships : new LinkedHashMap<>(),
                 extensions != null ? extensions : GraphModelExtensions.builder().build());
     }
 
@@ -263,8 +263,8 @@ public final class GraphModel {
         private String id;
         private String name = "";
         private String description = "";
-        private Map<String, Node> nodes = new LinkedHashMap<String, Node>();
-        private Map<String, Relationship> relationships = new LinkedHashMap<String, Relationship>();
+        private Map<String, Node> nodes = new LinkedHashMap<>();
+        private Map<String, Relationship> relationships = new LinkedHashMap<>();
         private GraphModelExtensions extensions = GraphModelExtensions.builder().build();
 
         private Builder(String version, String id) {
