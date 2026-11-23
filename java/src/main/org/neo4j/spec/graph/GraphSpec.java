@@ -26,7 +26,7 @@ import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.Type;
 import org.neo4j.spec.graph.model.Version;
 
-public abstract class GraphSpec {
+public class GraphSpec {
     private final GraphSpecConfig configuration;
 
     private final MigrationPath path;
@@ -90,27 +90,16 @@ public abstract class GraphSpec {
         return getConfiguration().getFormat().decodeFromSchema(map);
     }
 
-    public static GraphSpec getJson() {
-        return Json.INSTANCE;
+    private static final GraphSpec JSON = new GraphSpec(GraphSpecs.defaultConfig(JsonFormat.getDefault()));
+
+    public static GraphSpec json() {
+        return JSON;
     }
 
-    public static GraphSpec getYaml() {
-        return Yaml.INSTANCE;
+    private static final GraphSpec YAML = new GraphSpec(GraphSpecs.defaultConfig(YamlFormat.getDefault()));
+
+    public static GraphSpec yaml() {
+        return YAML;
     }
 
-    public static final class Json extends GraphSpec {
-        public static final Json INSTANCE = new Json();
-
-        private Json() {
-            super(GraphSpecs.defaultConfig(JsonFormat.getDefault()));
-        }
-    }
-
-    public static final class Yaml extends GraphSpec {
-        public static final Yaml INSTANCE = new Yaml();
-
-        private Yaml() {
-            super(GraphSpecs.defaultConfig(YamlFormat.getDefault()));
-        }
-    }
 }

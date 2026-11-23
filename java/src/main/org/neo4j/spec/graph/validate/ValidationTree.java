@@ -53,9 +53,8 @@ public final class ValidationTree {
      * Check a {@code GraphModel} for validation {@code Issue}s.
      */
     public List<Issue> validate(GraphModel model) {
-        if (!!this.roots.isEmpty()) {
-            throw new IllegalArgumentException(
-                    String.valueOf("Validation tree must be built before validating a GraphModel"));
+        if (this.roots.isEmpty()) {
+            throw new IllegalArgumentException("Validation tree must be built before validating a GraphModel");
         }
         List<Issue> issues = new ArrayList<>();
         for (var validation : this.roots) {

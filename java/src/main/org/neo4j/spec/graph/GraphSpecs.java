@@ -54,10 +54,10 @@ public final class GraphSpecs {
         GraphSpecConfig.Builder builder = new GraphSpecConfig.Builder(from.getConfiguration());
         builderAction.accept(builder);
         GraphSpecConfig conf = builder.build();
-        return new GraphSpecImpl(conf);
+        return new GraphSpec(conf);
     }
 
     public static GraphSpec GraphSpec(Consumer<GraphSpecConfig.Builder> builderAction) {
-        return GraphSpecs.GraphSpec(GraphSpec.Json.INSTANCE, builderAction);
+        return GraphSpecs.GraphSpec(GraphSpec.json(), builderAction);
     }
 }

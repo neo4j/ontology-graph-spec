@@ -56,12 +56,12 @@ public final class Version {
      * - `docs/modules/format/pages/reference/model.adoc`
      * - `docs/modules/libraries/pages/migration.adoc`
      */
-    public static List<String> getGRAPH_SPEC_VERSIONS() {
+    public static List<String> GRAPH_SPEC_VERSIONS() {
         return Version.GRAPH_SPEC_VERSIONS;
     }
 
     public static String schemaUrl(String version) {
-        return "" + Version.SCHEMA_BASE + version + "/" + Version.SCHEMA_FILE;
+        return Version.SCHEMA_BASE + version + "/" + Version.SCHEMA_FILE;
     }
 
     public static String parseSchemaVersion(String schema) {
@@ -72,8 +72,7 @@ public final class Version {
         String version = trimTrailingSlashes(path);
         version = version.substring(version.lastIndexOf('/') + 1);
         if (version.isBlank()) {
-            throw new IllegalArgumentException(
-                    String.valueOf("Unable to determine version from schema '" + schema + "'"));
+            throw new IllegalArgumentException("Unable to determine version from schema '" + schema + "'");
         }
         return version;
     }
