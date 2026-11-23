@@ -126,12 +126,12 @@ public final class GraphModel {
 
     public List<Issue> validate(List<? extends Validation> validators) {
         ValidationTree tree = new ValidationTree();
-        tree.build(((List<Validation>) validators));
+        tree.build(validators);
         return tree.validate(this);
     }
 
     public static List<Issue> validate(GraphModel model, List<? extends Validation> validators) {
-        return model.validate(((List<Validation>) validators));
+        return model.validate(validators);
     }
 
     public static void longhand(GraphModel model) {

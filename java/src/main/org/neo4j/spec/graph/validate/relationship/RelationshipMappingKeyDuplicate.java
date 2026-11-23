@@ -42,7 +42,7 @@ public final class RelationshipMappingKeyDuplicate implements RelationshipValida
                 var mapping = mappings.get(index);
                 if (!(mapping instanceof RelationshipMapping)
                         || !Objects.equals(
-                                ((RelationshipMapping) ((RelationshipMapping) mapping)).getRelationship(),
+                                ((RelationshipMapping) mapping).getRelationship(),
                                 relationshipId)) {
                     continue;
                 }
@@ -50,7 +50,7 @@ public final class RelationshipMappingKeyDuplicate implements RelationshipValida
                         "duplicate_relationship_mapping_key",
                         "mapping key",
                         "relationship '" + relationshipId + "'",
-                        ((RelationshipMapping) ((RelationshipMapping) mapping)).getKey(),
+                        ((RelationshipMapping) mapping).getKey(),
                         "extensions.data_source_mappings." + mappingId + "[" + index + "].key"));
             }
         }

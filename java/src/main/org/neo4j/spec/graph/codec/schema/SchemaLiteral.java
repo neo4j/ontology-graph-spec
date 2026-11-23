@@ -89,7 +89,7 @@ public final class SchemaLiteral extends SchemaPrimitive {
         if (other == null || !Objects.equals(this.getClass(), other.getClass())) {
             return false;
         }
-        return Objects.equals(getString(), ((SchemaLiteral) ((SchemaLiteral) other)).getString());
+        return Objects.equals(getString(), ((SchemaLiteral) other).getString());
     }
 
     @Override
