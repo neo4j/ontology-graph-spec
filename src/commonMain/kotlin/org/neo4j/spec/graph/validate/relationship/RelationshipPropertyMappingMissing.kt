@@ -30,7 +30,6 @@ object RelationshipPropertyMappingMissing : RelationshipValidation {
         relationship: Relationship,
         issues: MutableList<Issue>
     ) {
-        // structured only.
         if (!model.hasStructuredDataSource()) return
         val covered = findRelationshipMappings(model, relationshipId).flatMap { it.mapping.properties.keys }.toSet()
         for (propertyId in relationship.properties.keys) {
