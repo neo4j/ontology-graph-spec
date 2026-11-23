@@ -154,7 +154,7 @@ public final class RelationshipConstraint implements Constraint, Named {
                 extensions != null
                         ? extensions
                         : RelationshipConstraintExtensions.builder().build(),
-                name != null ? name : null);
+                name);
     }
 
     public static final class Builder {

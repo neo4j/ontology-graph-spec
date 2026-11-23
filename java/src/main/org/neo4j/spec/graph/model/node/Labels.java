@@ -135,7 +135,7 @@ public final class Labels {
             @JsonProperty("optional") List<String> optional,
             @JsonProperty("extensions") LabelsExtensions extensions) {
         return new Labels(
-                identifier != null ? identifier : null,
+                identifier,
                 implied != null ? implied : new ArrayList<String>(),
                 optional != null ? optional : new ArrayList<String>(),
                 extensions != null ? extensions : LabelsExtensions.builder().build());

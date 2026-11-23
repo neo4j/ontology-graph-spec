@@ -167,9 +167,9 @@ public final class RelationshipTarget {
         return new RelationshipTarget(
                 node != null ? node : "",
                 label != null ? label : "",
-                count != null ? count : null,
-                minCount != null ? minCount : null,
-                maxCount != null ? maxCount : null);
+                count,
+                minCount,
+                maxCount);
     }
 
     public static final class Builder {

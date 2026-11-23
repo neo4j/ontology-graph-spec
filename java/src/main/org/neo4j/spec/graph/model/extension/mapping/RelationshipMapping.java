@@ -277,7 +277,7 @@ public final class RelationshipMapping implements Mapping {
                 Objects.requireNonNull(table, "Field 'table' is required"),
                 Objects.requireNonNull(fromNode, "Field 'from_node' is required"),
                 Objects.requireNonNull(toNode, "Field 'to_node' is required"),
-                matchLabel != null ? matchLabel : null,
+                matchLabel,
                 properties != null ? properties : new LinkedHashMap<String, PropertyMapping>(),
                 mode != null ? mode : MappingMode.MERGE,
                 key != null ? key : new ArrayList<String>(),

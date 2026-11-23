@@ -188,9 +188,9 @@ public final class NodeIndex implements CustomExtensions, Named {
                 Objects.requireNonNull(type, "Field 'type' is required"),
                 Objects.requireNonNull(labels, "Field 'labels' is required"),
                 Objects.requireNonNull(properties, "Field 'properties' is required"),
-                options != null ? options : null,
+                options,
                 custom != null ? custom : new LinkedHashMap<String, Object>(),
-                name != null ? name : null);
+                name);
     }
 
     public static final class Builder {

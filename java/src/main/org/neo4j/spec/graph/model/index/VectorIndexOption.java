@@ -199,9 +199,9 @@ public final class VectorIndexOption implements IndexOption {
             @JsonProperty("vector.hnsw.m") Integer hnswM,
             @JsonProperty("vector.hnsw.ef_construction") Integer hnswEfConstruction) {
         return new VectorIndexOption(
-                dimensions != null ? dimensions : null,
+                dimensions,
                 similarityFunction != null ? similarityFunction : "cosine",
-                defaultSearchExpansionFactor != null ? defaultSearchExpansionFactor : null,
+                defaultSearchExpansionFactor,
                 quantizationEnabled != null ? quantizationEnabled : true,
                 quantizationType != null ? quantizationType : "scalar",
                 hnswM != null ? hnswM : 16,

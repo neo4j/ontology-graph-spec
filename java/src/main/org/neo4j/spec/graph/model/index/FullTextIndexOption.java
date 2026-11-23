@@ -212,7 +212,7 @@ public final class FullTextIndexOption implements IndexOption {
                     Integer eventuallyConsistentUpdateQueueMaxLength) {
         return new FullTextIndexOption(
                 defaultAnalyzer != null ? defaultAnalyzer : "standard-no-stop-words",
-                analyzer != null ? analyzer : null,
+                analyzer,
                 eventuallyConsistent != null ? eventuallyConsistent : false,
                 eventuallyConsistentApplyParallelism != null ? eventuallyConsistentApplyParallelism : 1,
                 eventuallyConsistentRefreshInterval != null ? eventuallyConsistentRefreshInterval : "0s",

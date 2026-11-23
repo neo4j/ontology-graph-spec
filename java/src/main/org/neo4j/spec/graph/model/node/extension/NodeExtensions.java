@@ -115,7 +115,7 @@ public final class NodeExtensions implements CustomExtensions {
             @JsonProperty("custom") Map<String, Object> custom) {
         return new NodeExtensions(
                 indexes != null ? indexes : new LinkedHashMap<String, NodeIndex>(),
-                display != null ? display : null,
+                display,
                 custom != null ? custom : new LinkedHashMap<String, Object>());
     }
 

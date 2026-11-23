@@ -128,7 +128,7 @@ public final class Issue {
         return new Issue(
                 Objects.requireNonNull(code, "Field 'code' is required"),
                 Objects.requireNonNull(message, "Field 'message' is required"),
-                path != null ? path : null,
+                path,
                 details != null ? details : Collections.emptyMap());
     }
 }

@@ -226,7 +226,7 @@ public final class TableColumn implements CustomExtensions {
                 suggested != null ? suggested : Neo4jType.ANY,
                 supported != null ? supported : Collections.<Neo4jType>emptyList(),
                 nullable != null ? nullable : true,
-                dimension != null ? dimension : null,
+                dimension,
                 custom != null ? custom : new LinkedHashMap<String, Object>());
     }
 

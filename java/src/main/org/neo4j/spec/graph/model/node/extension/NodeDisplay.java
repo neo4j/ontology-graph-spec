@@ -145,7 +145,7 @@ public final class NodeDisplay implements CustomExtensions {
         return new NodeDisplay(
                 Objects.requireNonNull(x, "Field 'x' is required"),
                 Objects.requireNonNull(y, "Field 'y' is required"),
-                colour != null ? colour : null,
+                colour,
                 custom != null ? custom : new LinkedHashMap<String, Object>());
     }
 

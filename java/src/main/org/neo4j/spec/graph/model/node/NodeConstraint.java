@@ -152,7 +152,7 @@ public final class NodeConstraint implements Constraint, Named {
                 extensions != null
                         ? extensions
                         : NodeConstraintExtensions.builder().build(),
-                name != null ? name : null);
+                name);
     }
 
     public static final class Builder {

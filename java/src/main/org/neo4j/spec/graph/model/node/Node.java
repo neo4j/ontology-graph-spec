@@ -215,7 +215,7 @@ public final class Node {
             @JsonProperty("aliases") List<String> aliases,
             @JsonProperty("reference") String reference) {
         return new Node(
-                label != null ? label : null,
+                label,
                 labels != null ? labels : Labels.builder().build(),
                 properties != null ? properties : new LinkedHashMap<String, Property>(),
                 constraints != null ? constraints : new LinkedHashMap<String, NodeConstraint>(),

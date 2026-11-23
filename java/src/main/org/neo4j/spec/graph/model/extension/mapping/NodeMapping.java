@@ -239,7 +239,7 @@ public final class NodeMapping implements Mapping {
                 Objects.requireNonNull(table, "Field 'table' is required"),
                 Objects.requireNonNull(properties, "Field 'properties' is required"),
                 mode != null ? mode : MappingMode.MERGE,
-                matchLabel != null ? matchLabel : null,
+                matchLabel,
                 key != null ? key : new ArrayList<String>(),
                 dependsOn != null ? dependsOn : "",
                 id != null ? id : "");

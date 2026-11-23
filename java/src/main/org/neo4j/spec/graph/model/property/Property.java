@@ -310,12 +310,12 @@ public final class Property implements Named {
             @JsonProperty("one_of") List<String> oneOf) {
         return new Property(
                 type != null ? type : Neo4jType.ANY,
-                dimension != null ? dimension : null,
-                mustExist != null ? mustExist : null,
-                unique != null ? unique : null,
-                key != null ? key : null,
+                dimension,
+                mustExist,
+                unique,
+                key,
                 extensions != null ? extensions : PropertyExtensions.builder().build(),
-                name != null ? name : null,
+                name,
                 description != null ? description : "",
                 aliases != null ? aliases : new ArrayList<String>(),
                 reference != null ? reference : "",
