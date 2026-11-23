@@ -1,0 +1,18 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "tables"
+description: "Missing and duplicate column names and missing column types."
+extensions:
+  data_source_tables:
+    people.csv:
+      source: "local"
+      columns:
+        - name: "id"
+        - name: "id"
+    people:
+      source: "sql/postgres"
+      columns:
+        - type: "varchar"
+          supported: ["STRING"]
+        - name: "id"
+          type: "varchar"

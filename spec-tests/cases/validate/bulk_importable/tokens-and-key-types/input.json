@@ -1,0 +1,27 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "tokens-and-key-types",
+  "description": "Labels, types and keys bulk import can't handle.",
+  "nodes": {
+    "person": {
+      "labels": { "identifier": "Person:Human" },
+      "properties": { "name": { "type": "STRING" }, "born": { "type": "DATE" } },
+      "constraints": { "name_born_key": { "type": "KEY", "properties": ["name", "born"] } }
+    }
+  },
+  "relationships": { "knows": { "type": "KNOWS=FRIEND", "from": {}, "to": {} } },
+  "extensions": {
+    "data_source_mappings": {
+      "load": [
+        {
+          "type": "NODE",
+          "node": "person",
+          "table": "people",
+          "properties": { "name": { "column": "name" }, "born": { "column": "born" } },
+          "key": ["name", "born"]
+        }
+      ]
+    }
+  }
+}

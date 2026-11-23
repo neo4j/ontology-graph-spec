@@ -1,0 +1,52 @@
+[
+    {
+        "code": "duplicate_node_constraint_property_set",
+        "path": "/nodes/person/constraints/email_unique/properties",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_constraint_property_set",
+        "path": "/nodes/person/constraints/email_unique_again/properties",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "path": "/nodes/person/constraints/id_name_key/name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "path": "/nodes/person/extensions/indexes/id_range/name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_relationship_constraint_property_set",
+        "path": "/relationships/knows/constraints/since_unique/properties",
+        "details": {}
+    },
+    {
+        "code": "duplicate_relationship_constraint_property_set",
+        "path": "/relationships/knows/constraints/since_unique_again/properties",
+        "details": {}
+    },
+    {
+        "code": "missing_node_constraint_properties",
+        "path": "/nodes/person/constraints/nothing_unique/properties",
+        "details": {}
+    },
+    {
+        "code": "missing_node_index_properties",
+        "path": "/nodes/person/extensions/indexes/nothing_range/properties",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_index_properties",
+        "path": "/relationships/knows/extensions/indexes/nothing_range/properties",
+        "details": {}
+    },
+    {
+        "code": "node_existence_composite_conflict",
+        "path": "/nodes/person/constraints/name_exists",
+        "details": {}
+    }
+]

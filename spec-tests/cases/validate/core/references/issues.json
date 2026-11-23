@@ -1,5 +1,10 @@
 [
     {
+        "code": "invalid_schema_url",
+        "path": "/schema",
+        "details": {}
+    },
+    {
         "code": "missing_node_constraint_property",
         "path": "/nodes/person/constraints/email_unique/properties/0",
         "details": {}

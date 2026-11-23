@@ -1,6 +1,7 @@
 // Package spectests runs the Go library against the spec tests under spec-tests/cases at the repository root.
 //
-// The Go library works with JSON only, so YAML inputs and expected files are skipped.
+// The Go library works with JSON only, so YAML inputs and expected files are skipped. It also has no
+// bulk_importable validation set, so those cases are skipped.
 package spectests
 
 import (
@@ -50,6 +51,9 @@ func TestValidate(t *testing.T) {
 		for _, dir := range caseDirs(t, filepath.Join("validate", filepath.Base(set))) {
 			name := filepath.Base(set) + "/" + filepath.Base(dir)
 			t.Run(name, func(t *testing.T) {
+				if filepath.Base(set) == "bulk_importable" {
+					t.Skip("the Go library deliberately has no bulk_importable set")
+				}
 				// The Go library has no YAML decoder, so only input.json is validated.
 				issues, err := validation.Validate(decode(t, filepath.Join(dir, "input.json")), validation.Set(filepath.Base(set)))
 				require.NoError(t, err)

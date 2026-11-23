@@ -1,0 +1,49 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "mappings"
+description: "Missing mapping keys, duplicate mapping ids and unresolvable dependencies."
+nodes:
+  person:
+    properties:
+      id: { type: "STRING" }
+extensions:
+  data_source_mappings:
+    load:
+      - type: "NODE"
+        node: "person"
+        table: "people"
+        properties:
+          id: { column: "id" }
+        id: "people"
+      - type: "QUERY"
+        table: "people"
+        query: "RETURN 1"
+        id: "people"
+      - type: "QUERY"
+        table: "people"
+        query: "RETURN 1"
+        depends_on: "b"
+        id: "a"
+      - type: "QUERY"
+        table: "people"
+        query: "RETURN 1"
+        depends_on: "a"
+        id: "b"
+      - type: "QUERY"
+        table: "people"
+        query: "RETURN 1"
+        depends_on: "c"
+        id: "c"
+      - type: "QUERY"
+        table: "people"
+        query: "RETURN 1"
+        depends_on: "unknown"
+      - type: "QUERY"
+        table: "people"
+        query: "RETURN 1"
+        depends_on: "other"
+    reload:
+      - type: "QUERY"
+        table: "people"
+        query: "RETURN 1"
+        id: "other"
