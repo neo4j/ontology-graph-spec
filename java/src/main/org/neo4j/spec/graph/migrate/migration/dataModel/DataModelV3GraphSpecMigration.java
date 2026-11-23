@@ -65,7 +65,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
                     "description", schema.literalOrNull("description"),
                     "nodes", Collections.emptyMap(),
                     "relationships", Collections.emptyMap(),
-                    "extensions", nullIfEmpty(extensions(migrateTables(schema), Collections.<SchemaMap>emptyList())));
+                    "extensions", nullIfEmpty(extensions(migrateTables(schema), Collections.emptyList())));
         }
         ElementsByEntity constraints = gatherWithNames(graphSchema, "constraints");
         ElementsByEntity indexes = gatherWithNames(graphSchema, "indexes");
@@ -238,7 +238,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
     private static Map<String, Object> indexExtensions(Map<String, SchemaMap> indexes) {
         return indexes == null || indexes.isEmpty()
                 ? null
-                : Collections.<String, Object>singletonMap("indexes", indexes);
+                : Collections.singletonMap("indexes", indexes);
     }
 
     public Map<String, SchemaMap> convertIndexes(
@@ -433,7 +433,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
                     "properties", nullIfEmpty(migratePropertyMappings(mapping)),
                     "key",
                             nullIfEmpty(migrateKeyProperties(
-                                    mapping, keys != null ? keys : Collections.<String>emptySet()))));
+                                    mapping, keys != null ? keys : Collections.emptySet()))));
         }
         return mappings;
     }
@@ -465,7 +465,7 @@ public final class DataModelV3GraphSpecMigration extends Migration {
                     "properties", nullIfEmpty(migratePropertyMappings(nodeMapping)),
                     "key",
                             nullIfEmpty(migrateKeyProperties(
-                                    nodeMapping, keys != null ? keys : Collections.<String>emptySet()))));
+                                    nodeMapping, keys != null ? keys : Collections.emptySet()))));
         }
         return mappings;
     }

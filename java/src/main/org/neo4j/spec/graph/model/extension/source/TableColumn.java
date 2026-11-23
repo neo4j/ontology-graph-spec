@@ -224,7 +224,7 @@ public final class TableColumn implements CustomExtensions {
                 type != null ? type : "",
                 size != null ? size : -1,
                 suggested != null ? suggested : Neo4jType.ANY,
-                supported != null ? supported : Collections.<Neo4jType>emptyList(),
+                supported != null ? supported : Collections.emptyList(),
                 nullable != null ? nullable : true,
                 dimension,
                 custom != null ? custom : new LinkedHashMap<>());
@@ -235,7 +235,7 @@ public final class TableColumn implements CustomExtensions {
         private String type = "";
         private int size = -1;
         private Neo4jType suggested = Neo4jType.ANY;
-        private List<Neo4jType> supported = Collections.<Neo4jType>emptyList();
+        private List<Neo4jType> supported = Collections.emptyList();
         private boolean nullable = true;
         private Integer dimension = null;
         private Map<String, Object> custom = new LinkedHashMap<>();

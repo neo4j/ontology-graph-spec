@@ -54,13 +54,13 @@ public final class GraphSpecDataModelV3Migration extends Migration {
         List<SchemaMap> indexes = new ArrayList<>();
         NodeData nodeData = convertNodes(schema, constraints, indexes);
         RelationshipData relData = convertRelationships(schema, constraints, indexes);
-        List<SchemaMap> nodeLabels = nodeData == null ? Collections.<SchemaMap>emptyList() : nodeData.getLabelsMap();
+        List<SchemaMap> nodeLabels = nodeData == null ? Collections.emptyList() : nodeData.getLabelsMap();
         List<SchemaMap> relationshipTypes =
-                relData == null ? Collections.<SchemaMap>emptyList() : relData.getTypesMap();
+                relData == null ? Collections.emptyList() : relData.getTypesMap();
         List<SchemaMap> nodeObjectTypes =
-                nodeData == null ? Collections.<SchemaMap>emptyList() : nodeData.getObjectTypes();
+                nodeData == null ? Collections.emptyList() : nodeData.getObjectTypes();
         List<SchemaMap> relationshipObjectTypes =
-                relData == null ? Collections.<SchemaMap>emptyList() : relData.getObjectTypes();
+                relData == null ? Collections.emptyList() : relData.getObjectTypes();
         SchemaMap graphSchema = schemaMapOf(
                 "nodeLabels", nodeLabels,
                 "relationshipTypes", relationshipTypes,
