@@ -16,10 +16,9 @@
  */
 package org.neo4j.spec.graph.model.property;
 
-import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@JsonClassDescription("A Neo4j property type.")
+/** A Neo4j property type. */
 public enum Neo4jType {
     ANY("ANY"),
     LIST_ANY("LIST<ANY>"),

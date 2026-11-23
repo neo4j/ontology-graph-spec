@@ -16,27 +16,35 @@
  */
 package org.neo4j.spec.graph.model.extension.mapping;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@JsonClassDescription("Maps rows of a table to relationships.")
+/** Maps rows of a table to relationships. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonPropertyOrder({
+    "relationship",
+    "table",
+    "from_node",
+    "to_node",
+    "match_label",
+    "properties",
+    "mode",
+    "key",
+    "depends_on",
+    "id"
+})
+@JsonDeserialize(builder = RelationshipMapping.Builder.class)
 @JsonTypeName("RELATIONSHIP")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class RelationshipMapping implements Mapping {
     private String relationship;
 
@@ -58,33 +66,29 @@ public final class RelationshipMapping implements Mapping {
 
     private String id;
 
-    private RelationshipMapping(
-            String relationship,
-            String table,
-            TargetMapping fromNode,
-            TargetMapping toNode,
-            String matchLabel,
-            Map<String, PropertyMapping> properties,
-            MappingMode mode,
-            List<String> key,
-            String dependsOn,
-            String id) {
-        this.relationship = relationship;
-        this.table = table;
-        this.fromNode = fromNode;
-        this.toNode = toNode;
-        this.matchLabel = matchLabel;
-        this.properties = properties;
-        this.mode = mode;
-        this.key = key;
-        this.dependsOn = dependsOn;
-        this.id = id;
+    /** Default instance Jackson compares against to omit default values. */
+    private RelationshipMapping() {
+        this(new Builder(null, null, null, null));
+    }
+
+    private RelationshipMapping(Builder builder) {
+        this.relationship = builder.relationship;
+        this.table = builder.table;
+        this.fromNode = builder.fromNode;
+        this.toNode = builder.toNode;
+        this.matchLabel = builder.matchLabel;
+        this.properties = builder.properties;
+        this.mode = builder.mode;
+        this.key = builder.key;
+        this.dependsOn = builder.dependsOn;
+        this.id = builder.id;
     }
 
     public static Builder builder(String relationship, String table, TargetMapping fromNode, TargetMapping toNode) {
         return new Builder(relationship, table, fromNode, toNode);
     }
 
+    /** Id of the relationship being mapped. */
     public String getRelationship() {
         return this.relationship;
     }
@@ -93,6 +97,7 @@ public final class RelationshipMapping implements Mapping {
         this.relationship = value;
     }
 
+    /** Id of the source table. */
     public String getTable() {
         return this.table;
     }
@@ -101,14 +106,20 @@ public final class RelationshipMapping implements Mapping {
         this.table = value;
     }
 
+    /** How the start node of the relationship is matched. */
+    @JsonProperty("from_node")
     public TargetMapping getFromNode() {
         return this.fromNode;
     }
 
+    /** How the end node of the relationship is matched. */
+    @JsonProperty("to_node")
     public TargetMapping getToNode() {
         return this.toNode;
     }
 
+    /** Label used to match existing relationships. */
+    @JsonProperty("match_label")
     public String getMatchLabel() {
         return this.matchLabel;
     }
@@ -117,10 +128,12 @@ public final class RelationshipMapping implements Mapping {
         this.matchLabel = value;
     }
 
+    /** Mappings from property ids to source columns. */
     public Map<String, PropertyMapping> getProperties() {
         return this.properties;
     }
 
+    /** Whether relationships are merged with existing relationships or always created. */
     public MappingMode getMode() {
         return this.mode;
     }
@@ -129,10 +142,13 @@ public final class RelationshipMapping implements Mapping {
         this.mode = value;
     }
 
+    /** Ids of the properties which identify a relationship. */
     public List<String> getKey() {
         return this.key;
     }
 
+    /** Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency. */
+    @JsonProperty("depends_on")
     public String getDependsOn() {
         return this.dependsOn;
     }
@@ -141,6 +157,7 @@ public final class RelationshipMapping implements Mapping {
         this.dependsOn = value;
     }
 
+    /** Optional id of this mapping, so other mappings in the same list can reference it in depends_on. */
     public String getId() {
         return this.id;
     }
@@ -178,103 +195,7 @@ public final class RelationshipMapping implements Mapping {
                 + ", key=" + key + ", dependsOn=" + dependsOn + ", id=" + id + ")";
     }
 
-    @JsonProperty("relationship")
-    @JsonPropertyDescription("Id of the relationship being mapped.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private String jsonRelationship() {
-        return this.relationship;
-    }
-
-    @JsonProperty("table")
-    @JsonPropertyDescription("Id of the source table.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private String jsonTable() {
-        return this.table;
-    }
-
-    @JsonProperty("from_node")
-    @JsonPropertyDescription("How the start node of the relationship is matched.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private TargetMapping jsonFromNode() {
-        return this.fromNode;
-    }
-
-    @JsonProperty("to_node")
-    @JsonPropertyDescription("How the end node of the relationship is matched.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private TargetMapping jsonToNode() {
-        return this.toNode;
-    }
-
-    @JsonProperty("match_label")
-    @JsonPropertyDescription("Label used to match existing relationships.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonMatchLabel() {
-        return Objects.equals(this.matchLabel, null) ? null : this.matchLabel;
-    }
-
-    @JsonProperty("properties")
-    @JsonPropertyDescription("Mappings from property ids to source columns.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, PropertyMapping> jsonProperties() {
-        return Objects.equals(this.properties, new LinkedHashMap<String, PropertyMapping>()) ? null : this.properties;
-    }
-
-    @JsonProperty("mode")
-    @JsonPropertyDescription("Whether relationships are merged with existing relationships or always created.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private MappingMode jsonMode() {
-        return Objects.equals(this.mode, MappingMode.MERGE) ? null : this.mode;
-    }
-
-    @JsonProperty("key")
-    @JsonPropertyDescription("Ids of the properties which identify a relationship.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> jsonKey() {
-        return Objects.equals(this.key, new ArrayList<String>()) ? null : this.key;
-    }
-
-    @JsonProperty("depends_on")
-    @JsonPropertyDescription(
-            "Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonDependsOn() {
-        return Objects.equals(this.dependsOn, "") ? null : this.dependsOn;
-    }
-
-    @JsonProperty("id")
-    @JsonPropertyDescription(
-            "Optional id of this mapping, so other mappings in the same list can reference it in depends_on.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonId() {
-        return Objects.equals(this.id, "") ? null : this.id;
-    }
-
-    @JsonCreator
-    private static RelationshipMapping fromJson(
-            @JsonProperty("relationship") String relationship,
-            @JsonProperty("table") String table,
-            @JsonProperty("from_node") TargetMapping fromNode,
-            @JsonProperty("to_node") TargetMapping toNode,
-            @JsonProperty("match_label") String matchLabel,
-            @JsonProperty("properties") Map<String, PropertyMapping> properties,
-            @JsonProperty("mode") MappingMode mode,
-            @JsonProperty("key") List<String> key,
-            @JsonProperty("depends_on") String dependsOn,
-            @JsonProperty("id") String id) {
-        return new RelationshipMapping(
-                Objects.requireNonNull(relationship, "Field 'relationship' is required"),
-                Objects.requireNonNull(table, "Field 'table' is required"),
-                Objects.requireNonNull(fromNode, "Field 'from_node' is required"),
-                Objects.requireNonNull(toNode, "Field 'to_node' is required"),
-                matchLabel,
-                properties != null ? properties : new LinkedHashMap<>(),
-                mode != null ? mode : MappingMode.MERGE,
-                key != null ? key : new ArrayList<>(),
-                dependsOn != null ? dependsOn : "",
-                id != null ? id : "");
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String relationship;
         private String table;
@@ -287,7 +208,12 @@ public final class RelationshipMapping implements Mapping {
         private String dependsOn = "";
         private String id = "";
 
-        private Builder(String relationship, String table, TargetMapping fromNode, TargetMapping toNode) {
+        @JsonCreator
+        private Builder(
+                @JsonProperty("relationship") String relationship,
+                @JsonProperty("table") String table,
+                @JsonProperty("from_node") TargetMapping fromNode,
+                @JsonProperty("to_node") TargetMapping toNode) {
             this.relationship = relationship;
             this.table = table;
             this.fromNode = fromNode;
@@ -304,16 +230,19 @@ public final class RelationshipMapping implements Mapping {
             return this;
         }
 
+        @JsonProperty("from_node")
         public Builder fromNode(TargetMapping fromNode) {
             this.fromNode = fromNode;
             return this;
         }
 
+        @JsonProperty("to_node")
         public Builder toNode(TargetMapping toNode) {
             this.toNode = toNode;
             return this;
         }
 
+        @JsonProperty("match_label")
         public Builder matchLabel(String matchLabel) {
             this.matchLabel = matchLabel;
             return this;
@@ -334,6 +263,7 @@ public final class RelationshipMapping implements Mapping {
             return this;
         }
 
+        @JsonProperty("depends_on")
         public Builder dependsOn(String dependsOn) {
             this.dependsOn = dependsOn;
             return this;
@@ -345,8 +275,11 @@ public final class RelationshipMapping implements Mapping {
         }
 
         public RelationshipMapping build() {
-            return new RelationshipMapping(
-                    relationship, table, fromNode, toNode, matchLabel, properties, mode, key, dependsOn, id);
+            Objects.requireNonNull(relationship, "Field 'relationship' is required");
+            Objects.requireNonNull(table, "Field 'table' is required");
+            Objects.requireNonNull(fromNode, "Field 'from_node' is required");
+            Objects.requireNonNull(toNode, "Field 'to_node' is required");
+            return new RelationshipMapping(this);
         }
     }
 }

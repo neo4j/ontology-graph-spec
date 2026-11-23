@@ -16,24 +16,17 @@
  */
 package org.neo4j.spec.graph.model.node.extension;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 
-@JsonClassDescription("Extensions for a node.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** Extensions for a node. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = NodeExtensions.Builder.class)
 public final class NodeExtensions implements CustomExtensions {
     private final Map<String, NodeIndex> indexes;
 
@@ -41,24 +34,32 @@ public final class NodeExtensions implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    private NodeExtensions(Map<String, NodeIndex> indexes, NodeDisplay display, Map<String, Object> custom) {
-        this.indexes = indexes;
-        this.display = display;
-        this.custom = custom;
+    /** Default instance Jackson compares against to omit default values. */
+    private NodeExtensions() {
+        this(new Builder());
+    }
+
+    private NodeExtensions(Builder builder) {
+        this.indexes = builder.indexes;
+        this.display = builder.display;
+        this.custom = builder.custom;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    /** Database indexes on this node keyed by id. */
     public Map<String, NodeIndex> getIndexes() {
         return this.indexes;
     }
 
+    /** Optional visual information of this node. */
     public NodeDisplay getDisplay() {
         return this.display;
     }
 
+    /** User-defined arbitrary data. */
     @Override
     public Map<String, Object> getCustom() {
         return this.custom;
@@ -84,38 +85,7 @@ public final class NodeExtensions implements CustomExtensions {
         return "NodeExtensions(indexes=" + indexes + ", display=" + display + ", custom=" + custom + ")";
     }
 
-    @JsonProperty("indexes")
-    @JsonPropertyDescription("Database indexes on this node keyed by id.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, NodeIndex> jsonIndexes() {
-        return Objects.equals(this.indexes, new LinkedHashMap<String, NodeIndex>()) ? null : this.indexes;
-    }
-
-    @JsonProperty("display")
-    @JsonPropertyDescription("Optional visual information of this node.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private NodeDisplay jsonDisplay() {
-        return Objects.equals(this.display, null) ? null : this.display;
-    }
-
-    @JsonProperty("custom")
-    @JsonPropertyDescription("User-defined arbitrary data.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Object> jsonCustom() {
-        return Objects.equals(this.custom, new LinkedHashMap<String, Object>()) ? null : this.custom;
-    }
-
-    @JsonCreator
-    private static NodeExtensions fromJson(
-            @JsonProperty("indexes") Map<String, NodeIndex> indexes,
-            @JsonProperty("display") NodeDisplay display,
-            @JsonProperty("custom") Map<String, Object> custom) {
-        return new NodeExtensions(
-                indexes != null ? indexes : new LinkedHashMap<>(),
-                display,
-                custom != null ? custom : new LinkedHashMap<>());
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private Map<String, NodeIndex> indexes = new LinkedHashMap<>();
         private NodeDisplay display = null;
@@ -139,7 +109,7 @@ public final class NodeExtensions implements CustomExtensions {
         }
 
         public NodeExtensions build() {
-            return new NodeExtensions(indexes, display, custom);
+            return new NodeExtensions(this);
         }
     }
 }

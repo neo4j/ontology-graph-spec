@@ -16,12 +16,9 @@
  */
 package org.neo4j.spec.graph.model.node;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,13 +27,13 @@ import java.util.Objects;
 import org.neo4j.spec.graph.model.node.extension.NodeExtensions;
 import org.neo4j.spec.graph.model.property.Property;
 
-@JsonClassDescription("A node of the graph.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/**
+ * A node of the graph.
+ *
+ * <p>Properties left at their default value are omitted when encoded.
+ */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = Node.Builder.class)
 public final class Node {
     private String label;
 
@@ -54,29 +51,27 @@ public final class Node {
 
     private final String reference;
 
-    private Node(
-            String label,
-            Labels labels,
-            Map<String, Property> properties,
-            Map<String, NodeConstraint> constraints,
-            NodeExtensions extensions,
-            String description,
-            List<String> aliases,
-            String reference) {
-        this.label = label;
-        this.labels = labels;
-        this.properties = properties;
-        this.constraints = constraints;
-        this.extensions = extensions;
-        this.description = description;
-        this.aliases = aliases;
-        this.reference = reference;
+    /** Default instance Jackson compares against to omit default values. */
+    private Node() {
+        this(new Builder());
+    }
+
+    private Node(Builder builder) {
+        this.label = builder.label;
+        this.labels = builder.labels;
+        this.properties = builder.properties;
+        this.constraints = builder.constraints;
+        this.extensions = builder.extensions;
+        this.description = builder.description;
+        this.aliases = builder.aliases;
+        this.reference = builder.reference;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    /** Shorthand for the identifying label. Expanded into labels when the model is decoded. */
     public String getLabel() {
         return this.label;
     }
@@ -85,30 +80,37 @@ public final class Node {
         this.label = value;
     }
 
+    /** Labels of the node. */
     public Labels getLabels() {
         return this.labels;
     }
 
+    /** Properties of the node keyed by id. */
     public Map<String, Property> getProperties() {
         return this.properties;
     }
 
+    /** Constraints on the node keyed by id. */
     public Map<String, NodeConstraint> getConstraints() {
         return this.constraints;
     }
 
+    /** Extensions for the node. */
     public NodeExtensions getExtensions() {
         return this.extensions;
     }
 
+    /** Description of the node. */
     public String getDescription() {
         return this.description;
     }
 
+    /** Alternative names for the node. */
     public List<String> getAliases() {
         return this.aliases;
     }
 
+    /** Reference or URI of an external resource describing the node. */
     public String getReference() {
         return this.reference;
     }
@@ -140,83 +142,7 @@ public final class Node {
                 + ", reference=" + reference + ")";
     }
 
-    @JsonProperty("label")
-    @JsonPropertyDescription("Shorthand for the identifying label. Expanded into labels when the model is decoded.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonLabel() {
-        return Objects.equals(this.label, null) ? null : this.label;
-    }
-
-    @JsonProperty("labels")
-    @JsonPropertyDescription("Labels of the node.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Labels jsonLabels() {
-        return Objects.equals(this.labels, Labels.builder().build()) ? null : this.labels;
-    }
-
-    @JsonProperty("properties")
-    @JsonPropertyDescription("Properties of the node keyed by id.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Property> jsonProperties() {
-        return Objects.equals(this.properties, new LinkedHashMap<String, Property>()) ? null : this.properties;
-    }
-
-    @JsonProperty("constraints")
-    @JsonPropertyDescription("Constraints on the node keyed by id.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, NodeConstraint> jsonConstraints() {
-        return Objects.equals(this.constraints, new LinkedHashMap<String, NodeConstraint>()) ? null : this.constraints;
-    }
-
-    @JsonProperty("extensions")
-    @JsonPropertyDescription("Extensions for the node.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private NodeExtensions jsonExtensions() {
-        return Objects.equals(this.extensions, NodeExtensions.builder().build()) ? null : this.extensions;
-    }
-
-    @JsonProperty("description")
-    @JsonPropertyDescription("Description of the node.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonDescription() {
-        return Objects.equals(this.description, "") ? null : this.description;
-    }
-
-    @JsonProperty("aliases")
-    @JsonPropertyDescription("Alternative names for the node.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> jsonAliases() {
-        return Objects.equals(this.aliases, new ArrayList<String>()) ? null : this.aliases;
-    }
-
-    @JsonProperty("reference")
-    @JsonPropertyDescription("Reference or URI of an external resource describing the node.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonReference() {
-        return Objects.equals(this.reference, "") ? null : this.reference;
-    }
-
-    @JsonCreator
-    private static Node fromJson(
-            @JsonProperty("label") String label,
-            @JsonProperty("labels") Labels labels,
-            @JsonProperty("properties") Map<String, Property> properties,
-            @JsonProperty("constraints") Map<String, NodeConstraint> constraints,
-            @JsonProperty("extensions") NodeExtensions extensions,
-            @JsonProperty("description") String description,
-            @JsonProperty("aliases") List<String> aliases,
-            @JsonProperty("reference") String reference) {
-        return new Node(
-                label,
-                labels != null ? labels : Labels.builder().build(),
-                properties != null ? properties : new LinkedHashMap<>(),
-                constraints != null ? constraints : new LinkedHashMap<>(),
-                extensions != null ? extensions : NodeExtensions.builder().build(),
-                description != null ? description : "",
-                aliases != null ? aliases : new ArrayList<>(),
-                reference != null ? reference : "");
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String label = null;
         private Labels labels = Labels.builder().build();
@@ -270,7 +196,7 @@ public final class Node {
         }
 
         public Node build() {
-            return new Node(label, labels, properties, constraints, extensions, description, aliases, reference);
+            return new Node(this);
         }
     }
 }

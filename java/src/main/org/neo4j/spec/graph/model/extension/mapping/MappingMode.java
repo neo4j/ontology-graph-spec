@@ -16,13 +16,8 @@
  */
 package org.neo4j.spec.graph.model.extension.mapping;
 
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-
-@JsonClassDescription("Write approach used when importing data (merged into existing data or always created).")
+/** Write approach used when importing data (merged into existing data or always created). */
 public enum MappingMode {
     MERGE,
-
     CREATE;
-
-    MappingMode() {}
 }

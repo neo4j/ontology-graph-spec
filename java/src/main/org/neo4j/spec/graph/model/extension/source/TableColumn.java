@@ -16,12 +16,9 @@
  */
 package org.neo4j.spec.graph.model.extension.source;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,13 +27,9 @@ import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 import org.neo4j.spec.graph.model.property.Neo4jType;
 
-@JsonClassDescription("A column of a data source table.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** A column of a data source table. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = TableColumn.Builder.class)
 public final class TableColumn implements CustomExtensions {
     private final String name;
 
@@ -54,33 +47,32 @@ public final class TableColumn implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    private TableColumn(
-            String name,
-            String type,
-            int size,
-            Neo4jType suggested,
-            List<Neo4jType> supported,
-            boolean nullable,
-            Integer dimension,
-            Map<String, Object> custom) {
-        this.name = name;
-        this.type = type;
-        this.size = size;
-        this.suggested = suggested;
-        this.supported = supported;
-        this.nullable = nullable;
-        this.dimension = dimension;
-        this.custom = custom;
+    /** Default instance Jackson compares against to omit default values. */
+    private TableColumn() {
+        this(new Builder());
+    }
+
+    private TableColumn(Builder builder) {
+        this.name = builder.name;
+        this.type = builder.type;
+        this.size = builder.size;
+        this.suggested = builder.suggested;
+        this.supported = builder.supported;
+        this.nullable = builder.nullable;
+        this.dimension = builder.dimension;
+        this.custom = builder.custom;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    /** Name of the column in the source. Unique within the table. */
     public String getName() {
         return this.name;
     }
 
+    /** Data type of the column in the source. */
     public String getType() {
         return this.type;
     }
@@ -89,6 +81,7 @@ public final class TableColumn implements CustomExtensions {
         this.type = value;
     }
 
+    /** Size of the column. */
     public int getSize() {
         return this.size;
     }
@@ -97,22 +90,27 @@ public final class TableColumn implements CustomExtensions {
         this.size = value;
     }
 
+    /** Neo4j type suggested for values of this column. */
     public Neo4jType getSuggested() {
         return this.suggested;
     }
 
+    /** Neo4j types values of this column can be converted to when using the import tool. */
     public List<Neo4jType> getSupported() {
         return this.supported;
     }
 
+    /** Whether the column can hold null values. */
     public boolean getNullable() {
         return this.nullable;
     }
 
+    /** Dimension of the column when it holds vectors. */
     public Integer getDimension() {
         return this.dimension;
     }
 
+    /** User-defined arbitrary data. */
     @Override
     public Map<String, Object> getCustom() {
         return this.custom;
@@ -145,83 +143,7 @@ public final class TableColumn implements CustomExtensions {
                 + custom + ")";
     }
 
-    @JsonProperty("name")
-    @JsonPropertyDescription("Name of the column in the source. Unique within the table.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonName() {
-        return Objects.equals(this.name, "") ? null : this.name;
-    }
-
-    @JsonProperty("type")
-    @JsonPropertyDescription("Data type of the column in the source.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonType() {
-        return Objects.equals(this.type, "") ? null : this.type;
-    }
-
-    @JsonProperty("size")
-    @JsonPropertyDescription("Size of the column.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Integer jsonSize() {
-        return this.size == -1 ? null : this.size;
-    }
-
-    @JsonProperty("suggested")
-    @JsonPropertyDescription("Neo4j type suggested for values of this column.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Neo4jType jsonSuggested() {
-        return Objects.equals(this.suggested, Neo4jType.ANY) ? null : this.suggested;
-    }
-
-    @JsonProperty("supported")
-    @JsonPropertyDescription("Neo4j types values of this column can be converted to when using the import tool.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<Neo4jType> jsonSupported() {
-        return Objects.equals(this.supported, Collections.<Neo4jType>emptyList()) ? null : this.supported;
-    }
-
-    @JsonProperty("nullable")
-    @JsonPropertyDescription("Whether the column can hold null values.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean jsonNullable() {
-        return this.nullable ? null : false;
-    }
-
-    @JsonProperty("dimension")
-    @JsonPropertyDescription("Dimension of the column when it holds vectors.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Integer jsonDimension() {
-        return Objects.equals(this.dimension, null) ? null : this.dimension;
-    }
-
-    @JsonProperty("custom")
-    @JsonPropertyDescription("User-defined arbitrary data.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Object> jsonCustom() {
-        return Objects.equals(this.custom, new LinkedHashMap<String, Object>()) ? null : this.custom;
-    }
-
-    @JsonCreator
-    private static TableColumn fromJson(
-            @JsonProperty("name") String name,
-            @JsonProperty("type") String type,
-            @JsonProperty("size") Integer size,
-            @JsonProperty("suggested") Neo4jType suggested,
-            @JsonProperty("supported") List<Neo4jType> supported,
-            @JsonProperty("nullable") Boolean nullable,
-            @JsonProperty("dimension") Integer dimension,
-            @JsonProperty("custom") Map<String, Object> custom) {
-        return new TableColumn(
-                name != null ? name : "",
-                type != null ? type : "",
-                size != null ? size : -1,
-                suggested != null ? suggested : Neo4jType.ANY,
-                supported != null ? supported : Collections.emptyList(),
-                nullable != null ? nullable : true,
-                dimension,
-                custom != null ? custom : new LinkedHashMap<>());
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String name = "";
         private String type = "";
@@ -275,7 +197,7 @@ public final class TableColumn implements CustomExtensions {
         }
 
         public TableColumn build() {
-            return new TableColumn(name, type, size, suggested, supported, nullable, dimension, custom);
+            return new TableColumn(this);
         }
     }
 }

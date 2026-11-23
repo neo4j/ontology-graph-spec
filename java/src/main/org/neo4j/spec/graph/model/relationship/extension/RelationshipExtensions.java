@@ -16,42 +16,42 @@
  */
 package org.neo4j.spec.graph.model.relationship.extension;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 
-@JsonClassDescription("Extensions for a relationship.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** Extensions for a relationship. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = RelationshipExtensions.Builder.class)
 public final class RelationshipExtensions implements CustomExtensions {
     private final Map<String, RelationshipIndex> indexes;
 
     private final Map<String, Object> custom;
 
-    private RelationshipExtensions(Map<String, RelationshipIndex> indexes, Map<String, Object> custom) {
-        this.indexes = indexes;
-        this.custom = custom;
+    /** Default instance Jackson compares against to omit default values. */
+    private RelationshipExtensions() {
+        this(new Builder());
+    }
+
+    private RelationshipExtensions(Builder builder) {
+        this.indexes = builder.indexes;
+        this.custom = builder.custom;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    /** Indexes on this relationship keyed by id. */
     public Map<String, RelationshipIndex> getIndexes() {
         return this.indexes;
     }
 
+    /** User-defined arbitrary data. */
     @Override
     public Map<String, Object> getCustom() {
         return this.custom;
@@ -75,28 +75,7 @@ public final class RelationshipExtensions implements CustomExtensions {
         return "RelationshipExtensions(indexes=" + indexes + ", custom=" + custom + ")";
     }
 
-    @JsonProperty("indexes")
-    @JsonPropertyDescription("Indexes on this relationship keyed by id.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, RelationshipIndex> jsonIndexes() {
-        return Objects.equals(this.indexes, new LinkedHashMap<String, RelationshipIndex>()) ? null : this.indexes;
-    }
-
-    @JsonProperty("custom")
-    @JsonPropertyDescription("User-defined arbitrary data.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Object> jsonCustom() {
-        return Objects.equals(this.custom, new LinkedHashMap<String, Object>()) ? null : this.custom;
-    }
-
-    @JsonCreator
-    private static RelationshipExtensions fromJson(
-            @JsonProperty("indexes") Map<String, RelationshipIndex> indexes,
-            @JsonProperty("custom") Map<String, Object> custom) {
-        return new RelationshipExtensions(
-                indexes != null ? indexes : new LinkedHashMap<>(), custom != null ? custom : new LinkedHashMap<>());
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private Map<String, RelationshipIndex> indexes = new LinkedHashMap<>();
         private Map<String, Object> custom = new LinkedHashMap<>();
@@ -114,7 +93,7 @@ public final class RelationshipExtensions implements CustomExtensions {
         }
 
         public RelationshipExtensions build() {
-            return new RelationshipExtensions(indexes, custom);
+            return new RelationshipExtensions(this);
         }
     }
 }

@@ -16,13 +16,12 @@
  */
 package org.neo4j.spec.graph.model.index;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.type.IndexType;
 
@@ -31,14 +30,19 @@ import org.neo4j.spec.graph.model.type.IndexType;
  * https://neo4j.com/docs/operations-manual/2026.07/performance/index-configuration/#index-configuration-fulltext
  * https://neo4j.com/docs/operations-manual/2026.07/configuration/configuration-settings/#index-settings
  */
-@JsonClassDescription("Configuration of a full-text index.")
+/** Configuration of a full-text index. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonPropertyOrder({
+    "fulltext.default_analyzer",
+    "fulltext.analyzer",
+    "fulltext.eventually_consistent",
+    "fulltext.eventually_consistent_apply_parallelism",
+    "fulltext.eventually_consistent_refresh_interval",
+    "fulltext.eventually_consistent_refresh_parallelism",
+    "fulltext.eventually_consistent_index_update_queue_max_length"
+})
+@JsonDeserialize(builder = FullTextIndexOption.Builder.class)
 @JsonTypeName("FULLTEXT")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class FullTextIndexOption implements IndexOption {
     private final String defaultAnalyzer;
 
@@ -54,51 +58,63 @@ public final class FullTextIndexOption implements IndexOption {
 
     private final int eventuallyConsistentUpdateQueueMaxLength;
 
-    private FullTextIndexOption(
-            String defaultAnalyzer,
-            String analyzer,
-            boolean eventuallyConsistent,
-            int eventuallyConsistentApplyParallelism,
-            String eventuallyConsistentRefreshInterval,
-            int eventuallyConsistentRefreshParallelism,
-            int eventuallyConsistentUpdateQueueMaxLength) {
-        this.defaultAnalyzer = defaultAnalyzer;
-        this.analyzer = analyzer;
-        this.eventuallyConsistent = eventuallyConsistent;
-        this.eventuallyConsistentApplyParallelism = eventuallyConsistentApplyParallelism;
-        this.eventuallyConsistentRefreshInterval = eventuallyConsistentRefreshInterval;
-        this.eventuallyConsistentRefreshParallelism = eventuallyConsistentRefreshParallelism;
-        this.eventuallyConsistentUpdateQueueMaxLength = eventuallyConsistentUpdateQueueMaxLength;
+    /** Default instance Jackson compares against to omit default values. */
+    private FullTextIndexOption() {
+        this(new Builder());
+    }
+
+    private FullTextIndexOption(Builder builder) {
+        this.defaultAnalyzer = builder.defaultAnalyzer;
+        this.analyzer = builder.analyzer;
+        this.eventuallyConsistent = builder.eventuallyConsistent;
+        this.eventuallyConsistentApplyParallelism = builder.eventuallyConsistentApplyParallelism;
+        this.eventuallyConsistentRefreshInterval = builder.eventuallyConsistentRefreshInterval;
+        this.eventuallyConsistentRefreshParallelism = builder.eventuallyConsistentRefreshParallelism;
+        this.eventuallyConsistentUpdateQueueMaxLength = builder.eventuallyConsistentUpdateQueueMaxLength;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    /** Analyzer used when the index doesn't specify one. */
+    @JsonProperty("fulltext.default_analyzer")
     public String getDefaultAnalyzer() {
         return this.defaultAnalyzer;
     }
 
+    /** Analyzer used by the index. */
+    @JsonProperty("fulltext.analyzer")
     public String getAnalyzer() {
         return this.analyzer;
     }
 
+    /** Whether the index is eventually consistent, updating asynchronously after transactions commit. */
+    @JsonProperty("fulltext.eventually_consistent")
     public boolean getEventuallyConsistent() {
         return this.eventuallyConsistent;
     }
 
+    /** Number of threads used to apply updates to an eventually consistent index. */
+    @JsonProperty("fulltext.eventually_consistent_apply_parallelism")
     public int getEventuallyConsistentApplyParallelism() {
         return this.eventuallyConsistentApplyParallelism;
     }
 
+    /** How often an eventually consistent index is refreshed. */
+    @JsonProperty("fulltext.eventually_consistent_refresh_interval")
     public String getEventuallyConsistentRefreshInterval() {
         return this.eventuallyConsistentRefreshInterval;
     }
 
+    /** Number of threads used to refresh an eventually consistent index. */
+    @JsonProperty("fulltext.eventually_consistent_refresh_parallelism")
     public int getEventuallyConsistentRefreshParallelism() {
         return this.eventuallyConsistentRefreshParallelism;
     }
 
+    /** Maximum number of pending updates queued for an eventually consistent index. */
+    @JsonProperty("fulltext.eventually_consistent_index_update_queue_max_length")
     public int getEventuallyConsistentUpdateQueueMaxLength() {
         return this.eventuallyConsistentUpdateQueueMaxLength;
     }
@@ -144,82 +160,7 @@ public final class FullTextIndexOption implements IndexOption {
                 + eventuallyConsistentUpdateQueueMaxLength + ")";
     }
 
-    @JsonProperty("fulltext.default_analyzer")
-    @JsonPropertyDescription("Analyzer used when the index doesn't specify one.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonDefaultAnalyzer() {
-        return Objects.equals(this.defaultAnalyzer, "standard-no-stop-words") ? null : this.defaultAnalyzer;
-    }
-
-    @JsonProperty("fulltext.analyzer")
-    @JsonPropertyDescription("Analyzer used by the index.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonAnalyzer() {
-        return Objects.equals(this.analyzer, null) ? null : this.analyzer;
-    }
-
-    @JsonProperty("fulltext.eventually_consistent")
-    @JsonPropertyDescription(
-            "Whether the index is eventually consistent, updating asynchronously after transactions commit.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean jsonEventuallyConsistent() {
-        return !this.eventuallyConsistent ? null : true;
-    }
-
-    @JsonProperty("fulltext.eventually_consistent_apply_parallelism")
-    @JsonPropertyDescription("Number of threads used to apply updates to an eventually consistent index.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Integer jsonEventuallyConsistentApplyParallelism() {
-        return this.eventuallyConsistentApplyParallelism == 1 ? null : this.eventuallyConsistentApplyParallelism;
-    }
-
-    @JsonProperty("fulltext.eventually_consistent_refresh_interval")
-    @JsonPropertyDescription("How often an eventually consistent index is refreshed.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonEventuallyConsistentRefreshInterval() {
-        return Objects.equals(this.eventuallyConsistentRefreshInterval, "0s")
-                ? null
-                : this.eventuallyConsistentRefreshInterval;
-    }
-
-    @JsonProperty("fulltext.eventually_consistent_refresh_parallelism")
-    @JsonPropertyDescription("Number of threads used to refresh an eventually consistent index.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Integer jsonEventuallyConsistentRefreshParallelism() {
-        return this.eventuallyConsistentRefreshParallelism == 1 ? null : this.eventuallyConsistentRefreshParallelism;
-    }
-
-    @JsonProperty("fulltext.eventually_consistent_index_update_queue_max_length")
-    @JsonPropertyDescription("Maximum number of pending updates queued for an eventually consistent index.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Integer jsonEventuallyConsistentUpdateQueueMaxLength() {
-        return this.eventuallyConsistentUpdateQueueMaxLength == 10000
-                ? null
-                : this.eventuallyConsistentUpdateQueueMaxLength;
-    }
-
-    @JsonCreator
-    private static FullTextIndexOption fromJson(
-            @JsonProperty("fulltext.default_analyzer") String defaultAnalyzer,
-            @JsonProperty("fulltext.analyzer") String analyzer,
-            @JsonProperty("fulltext.eventually_consistent") Boolean eventuallyConsistent,
-            @JsonProperty("fulltext.eventually_consistent_apply_parallelism")
-                    Integer eventuallyConsistentApplyParallelism,
-            @JsonProperty("fulltext.eventually_consistent_refresh_interval") String eventuallyConsistentRefreshInterval,
-            @JsonProperty("fulltext.eventually_consistent_refresh_parallelism")
-                    Integer eventuallyConsistentRefreshParallelism,
-            @JsonProperty("fulltext.eventually_consistent_index_update_queue_max_length")
-                    Integer eventuallyConsistentUpdateQueueMaxLength) {
-        return new FullTextIndexOption(
-                defaultAnalyzer != null ? defaultAnalyzer : "standard-no-stop-words",
-                analyzer,
-                eventuallyConsistent != null ? eventuallyConsistent : false,
-                eventuallyConsistentApplyParallelism != null ? eventuallyConsistentApplyParallelism : 1,
-                eventuallyConsistentRefreshInterval != null ? eventuallyConsistentRefreshInterval : "0s",
-                eventuallyConsistentRefreshParallelism != null ? eventuallyConsistentRefreshParallelism : 1,
-                eventuallyConsistentUpdateQueueMaxLength != null ? eventuallyConsistentUpdateQueueMaxLength : 10000);
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String defaultAnalyzer = "standard-no-stop-words";
         private String analyzer = null;
@@ -231,50 +172,50 @@ public final class FullTextIndexOption implements IndexOption {
 
         private Builder() {}
 
+        @JsonProperty("fulltext.default_analyzer")
         public Builder defaultAnalyzer(String defaultAnalyzer) {
             this.defaultAnalyzer = defaultAnalyzer;
             return this;
         }
 
+        @JsonProperty("fulltext.analyzer")
         public Builder analyzer(String analyzer) {
             this.analyzer = analyzer;
             return this;
         }
 
+        @JsonProperty("fulltext.eventually_consistent")
         public Builder eventuallyConsistent(boolean eventuallyConsistent) {
             this.eventuallyConsistent = eventuallyConsistent;
             return this;
         }
 
+        @JsonProperty("fulltext.eventually_consistent_apply_parallelism")
         public Builder eventuallyConsistentApplyParallelism(int eventuallyConsistentApplyParallelism) {
             this.eventuallyConsistentApplyParallelism = eventuallyConsistentApplyParallelism;
             return this;
         }
 
+        @JsonProperty("fulltext.eventually_consistent_refresh_interval")
         public Builder eventuallyConsistentRefreshInterval(String eventuallyConsistentRefreshInterval) {
             this.eventuallyConsistentRefreshInterval = eventuallyConsistentRefreshInterval;
             return this;
         }
 
+        @JsonProperty("fulltext.eventually_consistent_refresh_parallelism")
         public Builder eventuallyConsistentRefreshParallelism(int eventuallyConsistentRefreshParallelism) {
             this.eventuallyConsistentRefreshParallelism = eventuallyConsistentRefreshParallelism;
             return this;
         }
 
+        @JsonProperty("fulltext.eventually_consistent_index_update_queue_max_length")
         public Builder eventuallyConsistentUpdateQueueMaxLength(int eventuallyConsistentUpdateQueueMaxLength) {
             this.eventuallyConsistentUpdateQueueMaxLength = eventuallyConsistentUpdateQueueMaxLength;
             return this;
         }
 
         public FullTextIndexOption build() {
-            return new FullTextIndexOption(
-                    defaultAnalyzer,
-                    analyzer,
-                    eventuallyConsistent,
-                    eventuallyConsistentApplyParallelism,
-                    eventuallyConsistentRefreshInterval,
-                    eventuallyConsistentRefreshParallelism,
-                    eventuallyConsistentUpdateQueueMaxLength);
+            return new FullTextIndexOption(this);
         }
     }
 }

@@ -16,11 +16,11 @@
  */
 package org.neo4j.spec.graph.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,12 +32,8 @@ import org.neo4j.spec.graph.validate.Issue;
 import org.neo4j.spec.graph.validate.Validation;
 import org.neo4j.spec.graph.validate.ValidationTree;
 
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = GraphModel.Builder.class)
 public final class GraphModel {
     private final String schema;
 
@@ -55,57 +51,63 @@ public final class GraphModel {
 
     private final GraphModelExtensions extensions;
 
-    private GraphModel(
-            String schema,
-            String version,
-            String id,
-            String name,
-            String description,
-            Map<String, Node> nodes,
-            Map<String, Relationship> relationships,
-            GraphModelExtensions extensions) {
-        this.schema = schema;
-        this.version = version;
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.nodes = nodes;
-        this.relationships = relationships;
-        this.extensions = extensions;
+    /** Default instance Jackson compares against to omit default values. */
+    private GraphModel() {
+        this(new Builder(null, null));
+    }
+
+    private GraphModel(Builder builder) {
+        this.schema = builder.schema;
+        this.version = builder.version;
+        this.id = builder.id;
+        this.name = builder.name;
+        this.description = builder.description;
+        this.nodes = builder.nodes;
+        this.relationships = builder.relationships;
+        this.extensions = builder.extensions;
     }
 
     public static Builder builder(String version, String id) {
         return new Builder(version, id);
     }
 
+    /** Schema specification uri used. Always encoded, even when left at its default. */
+    @JsonInclude(JsonInclude.Include.ALWAYS)
     public String getSchema() {
         return this.schema;
     }
 
+    /** User-defined version of this model document, e.g. a revision number or label. */
     public String getVersion() {
         return this.version;
     }
 
+    /** Unique identifier of the model, typically a kebab-case version of the name, used for referencing. */
     public String getId() {
         return this.id;
     }
 
+    /** Human readable name for the model. */
     public String getName() {
         return this.name;
     }
 
+    /** Description of the model. */
     public String getDescription() {
         return this.description;
     }
 
+    /** Node definitions keyed by node id. */
     public Map<String, Node> getNodes() {
         return this.nodes;
     }
 
+    /** Relationship definitions keyed by relationship id. */
     public Map<String, Relationship> getRelationships() {
         return this.relationships;
     }
 
+    /** Extensions to the model: data source tables, mappings and external custom data. */
     public GraphModelExtensions getExtensions() {
         return this.extensions;
     }
@@ -169,86 +171,7 @@ public final class GraphModel {
                 + ", extensions=" + extensions + ")";
     }
 
-    @JsonProperty("schema")
-    @JsonPropertyDescription("Schema specification uri used.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private String jsonSchema() {
-        return this.schema;
-    }
-
-    @JsonProperty("version")
-    @JsonPropertyDescription("User-defined version of this model document, e.g. a revision number or label.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private String jsonVersion() {
-        return this.version;
-    }
-
-    @JsonProperty("id")
-    @JsonPropertyDescription(
-            "Unique identifier of the model, typically a kebab-case version of the name, used for referencing.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private String jsonId() {
-        return this.id;
-    }
-
-    @JsonProperty("name")
-    @JsonPropertyDescription("Human readable name for the model.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonName() {
-        return Objects.equals(this.name, "") ? null : this.name;
-    }
-
-    @JsonProperty("description")
-    @JsonPropertyDescription("Description of the model.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonDescription() {
-        return Objects.equals(this.description, "") ? null : this.description;
-    }
-
-    @JsonProperty("nodes")
-    @JsonPropertyDescription("Node definitions keyed by node id.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Node> jsonNodes() {
-        return Objects.equals(this.nodes, new LinkedHashMap<String, Node>()) ? null : this.nodes;
-    }
-
-    @JsonProperty("relationships")
-    @JsonPropertyDescription("Relationship definitions keyed by relationship id.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Relationship> jsonRelationships() {
-        return Objects.equals(this.relationships, new LinkedHashMap<String, Relationship>())
-                ? null
-                : this.relationships;
-    }
-
-    @JsonProperty("extensions")
-    @JsonPropertyDescription("Extensions to the model: data source tables, mappings and external custom data.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private GraphModelExtensions jsonExtensions() {
-        return Objects.equals(this.extensions, GraphModelExtensions.builder().build()) ? null : this.extensions;
-    }
-
-    @JsonCreator
-    private static GraphModel fromJson(
-            @JsonProperty("schema") String schema,
-            @JsonProperty("version") String version,
-            @JsonProperty("id") String id,
-            @JsonProperty("name") String name,
-            @JsonProperty("description") String description,
-            @JsonProperty("nodes") Map<String, Node> nodes,
-            @JsonProperty("relationships") Map<String, Relationship> relationships,
-            @JsonProperty("extensions") GraphModelExtensions extensions) {
-        return new GraphModel(
-                schema != null ? schema : Version.schemaUrl(Version.LATEST),
-                Objects.requireNonNull(version, "Field 'version' is required"),
-                Objects.requireNonNull(id, "Field 'id' is required"),
-                name != null ? name : "",
-                description != null ? description : "",
-                nodes != null ? nodes : new LinkedHashMap<>(),
-                relationships != null ? relationships : new LinkedHashMap<>(),
-                extensions != null ? extensions : GraphModelExtensions.builder().build());
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String schema = Version.schemaUrl(Version.LATEST);
         private String version;
@@ -259,7 +182,8 @@ public final class GraphModel {
         private Map<String, Relationship> relationships = new LinkedHashMap<>();
         private GraphModelExtensions extensions = GraphModelExtensions.builder().build();
 
-        private Builder(String version, String id) {
+        @JsonCreator
+        private Builder(@JsonProperty("version") String version, @JsonProperty("id") String id) {
             this.version = version;
             this.id = id;
         }
@@ -305,7 +229,9 @@ public final class GraphModel {
         }
 
         public GraphModel build() {
-            return new GraphModel(schema, version, id, name, description, nodes, relationships, extensions);
+            Objects.requireNonNull(version, "Field 'version' is required");
+            Objects.requireNonNull(id, "Field 'id' is required");
+            return new GraphModel(this);
         }
     }
 }

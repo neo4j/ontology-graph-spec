@@ -16,7 +16,6 @@
  */
 package org.neo4j.spec.graph.validate;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,12 +23,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** A problem found while validating a graph model. Path and details are omitted when empty. */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public final class Issue {
     private final String code;
 
@@ -39,11 +34,16 @@ public final class Issue {
 
     private final Map<String, String> details;
 
-    public Issue(String code, String message, String path, Map<String, String> details) {
-        this.code = code;
-        this.message = message;
+    @JsonCreator
+    public Issue(
+            @JsonProperty("code") String code,
+            @JsonProperty("message") String message,
+            @JsonProperty("path") String path,
+            @JsonProperty("details") Map<String, String> details) {
+        this.code = Objects.requireNonNull(code, "Field 'code' is required");
+        this.message = Objects.requireNonNull(message, "Field 'message' is required");
         this.path = path;
-        this.details = details;
+        this.details = details != null ? details : Collections.emptyMap();
     }
 
     public Issue(String code, String message, String path) {
@@ -89,42 +89,5 @@ public final class Issue {
     @Override
     public String toString() {
         return "Issue(code=" + code + ", message=" + message + ", path=" + path + ", details=" + details + ")";
-    }
-
-    @JsonProperty("code")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private String jsonCode() {
-        return this.code;
-    }
-
-    @JsonProperty("message")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private String jsonMessage() {
-        return this.message;
-    }
-
-    @JsonProperty("path")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonPath() {
-        return Objects.equals(this.path, null) ? null : this.path;
-    }
-
-    @JsonProperty("details")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, String> jsonDetails() {
-        return Objects.equals(this.details, Collections.emptyMap()) ? null : this.details;
-    }
-
-    @JsonCreator
-    private static Issue fromJson(
-            @JsonProperty("code") String code,
-            @JsonProperty("message") String message,
-            @JsonProperty("path") String path,
-            @JsonProperty("details") Map<String, String> details) {
-        return new Issue(
-                Objects.requireNonNull(code, "Field 'code' is required"),
-                Objects.requireNonNull(message, "Field 'message' is required"),
-                path,
-                details != null ? details : Collections.emptyMap());
     }
 }

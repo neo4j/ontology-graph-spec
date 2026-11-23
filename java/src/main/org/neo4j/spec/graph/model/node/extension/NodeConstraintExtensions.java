@@ -16,35 +16,34 @@
  */
 package org.neo4j.spec.graph.model.node.extension;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 
-@JsonClassDescription("Extensions for a node constraint.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** Extensions for a node constraint. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = NodeConstraintExtensions.Builder.class)
 public final class NodeConstraintExtensions implements CustomExtensions {
     private final Map<String, Object> custom;
 
-    private NodeConstraintExtensions(Map<String, Object> custom) {
-        this.custom = custom;
+    /** Default instance Jackson compares against to omit default values. */
+    private NodeConstraintExtensions() {
+        this(new Builder());
+    }
+
+    private NodeConstraintExtensions(Builder builder) {
+        this.custom = builder.custom;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    /** User-defined arbitrary data. */
     @Override
     public Map<String, Object> getCustom() {
         return this.custom;
@@ -68,18 +67,7 @@ public final class NodeConstraintExtensions implements CustomExtensions {
         return "NodeConstraintExtensions(custom=" + custom + ")";
     }
 
-    @JsonProperty("custom")
-    @JsonPropertyDescription("User-defined arbitrary data.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Object> jsonCustom() {
-        return Objects.equals(this.custom, new LinkedHashMap<String, Object>()) ? null : this.custom;
-    }
-
-    @JsonCreator
-    private static NodeConstraintExtensions fromJson(@JsonProperty("custom") Map<String, Object> custom) {
-        return new NodeConstraintExtensions(custom != null ? custom : new LinkedHashMap<>());
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private Map<String, Object> custom = new LinkedHashMap<>();
 
@@ -91,7 +79,7 @@ public final class NodeConstraintExtensions implements CustomExtensions {
         }
 
         public NodeConstraintExtensions build() {
-            return new NodeConstraintExtensions(custom);
+            return new NodeConstraintExtensions(this);
         }
     }
 }

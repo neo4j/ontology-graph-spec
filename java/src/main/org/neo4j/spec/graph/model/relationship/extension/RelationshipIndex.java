@@ -16,12 +16,11 @@
  */
 package org.neo4j.spec.graph.model.relationship.extension;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,13 +30,9 @@ import org.neo4j.spec.graph.model.index.IndexOption;
 import org.neo4j.spec.graph.model.type.IndexType;
 import org.neo4j.spec.graph.model.type.Named;
 
-@JsonClassDescription("An index on a relationship.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** An index on a relationship. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = RelationshipIndex.Builder.class)
 public final class RelationshipIndex implements CustomExtensions, Named {
     private IndexType type;
 
@@ -49,19 +44,24 @@ public final class RelationshipIndex implements CustomExtensions, Named {
 
     private String name;
 
-    private RelationshipIndex(
-            IndexType type, List<String> properties, IndexOption options, Map<String, Object> custom, String name) {
-        this.type = type;
-        this.properties = properties;
-        this.options = options;
-        this.custom = custom;
-        this.name = name;
+    /** Default instance Jackson compares against to omit default values. */
+    private RelationshipIndex() {
+        this(new Builder(null, null));
+    }
+
+    private RelationshipIndex(Builder builder) {
+        this.type = builder.type;
+        this.properties = builder.properties;
+        this.options = builder.options;
+        this.custom = builder.custom;
+        this.name = builder.name;
     }
 
     public static Builder builder(IndexType type, List<String> properties) {
         return new Builder(type, properties);
     }
 
+    /** Type of the index. */
     public IndexType getType() {
         return this.type;
     }
@@ -70,19 +70,23 @@ public final class RelationshipIndex implements CustomExtensions, Named {
         this.type = value;
     }
 
+    /** Ids of the properties the index covers. */
     public List<String> getProperties() {
         return this.properties;
     }
 
+    /** Configuration specific to the type of index. */
     public IndexOption getOptions() {
         return this.options;
     }
 
+    /** User-defined arbitrary data. */
     @Override
     public Map<String, Object> getCustom() {
         return this.custom;
     }
 
+    /** Name of the index in the database. */
     @Override
     public String getName() {
         return this.name;
@@ -115,56 +119,7 @@ public final class RelationshipIndex implements CustomExtensions, Named {
                 + custom + ", name=" + name + ")";
     }
 
-    @JsonProperty("type")
-    @JsonPropertyDescription("Type of the index.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private IndexType jsonType() {
-        return this.type;
-    }
-
-    @JsonProperty("properties")
-    @JsonPropertyDescription("Ids of the properties the index covers.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private List<String> jsonProperties() {
-        return this.properties;
-    }
-
-    @JsonProperty("options")
-    @JsonPropertyDescription("Configuration specific to the type of index.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private IndexOption jsonOptions() {
-        return Objects.equals(this.options, null) ? null : this.options;
-    }
-
-    @JsonProperty("custom")
-    @JsonPropertyDescription("User-defined arbitrary data.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Object> jsonCustom() {
-        return Objects.equals(this.custom, new LinkedHashMap<String, Object>()) ? null : this.custom;
-    }
-
-    @JsonProperty("name")
-    @JsonPropertyDescription("Name of the index in the database.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonName() {
-        return Objects.equals(this.name, null) ? null : this.name;
-    }
-
-    @JsonCreator
-    private static RelationshipIndex fromJson(
-            @JsonProperty("type") IndexType type,
-            @JsonProperty("properties") List<String> properties,
-            @JsonProperty("options") IndexOption options,
-            @JsonProperty("custom") Map<String, Object> custom,
-            @JsonProperty("name") String name) {
-        return new RelationshipIndex(
-                Objects.requireNonNull(type, "Field 'type' is required"),
-                Objects.requireNonNull(properties, "Field 'properties' is required"),
-                options,
-                custom != null ? custom : new LinkedHashMap<>(),
-                name);
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private IndexType type;
         private List<String> properties;
@@ -172,7 +127,8 @@ public final class RelationshipIndex implements CustomExtensions, Named {
         private Map<String, Object> custom = new LinkedHashMap<>();
         private String name = null;
 
-        private Builder(IndexType type, List<String> properties) {
+        @JsonCreator
+        private Builder(@JsonProperty("type") IndexType type, @JsonProperty("properties") List<String> properties) {
             this.type = type;
             this.properties = properties;
         }
@@ -203,7 +159,9 @@ public final class RelationshipIndex implements CustomExtensions, Named {
         }
 
         public RelationshipIndex build() {
-            return new RelationshipIndex(type, properties, options, custom, name);
+            Objects.requireNonNull(type, "Field 'type' is required");
+            Objects.requireNonNull(properties, "Field 'properties' is required");
+            return new RelationshipIndex(this);
         }
     }
 }

@@ -16,25 +16,20 @@
  */
 package org.neo4j.spec.graph.model.extension.source;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 
-@JsonClassDescription("A foreign key of a table.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** A foreign key of a table. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = ForeignKey.Builder.class)
 public final class ForeignKey implements CustomExtensions {
     private final List<String> columns;
 
@@ -42,24 +37,32 @@ public final class ForeignKey implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    private ForeignKey(List<String> columns, ForeignKeyReference references, Map<String, Object> custom) {
-        this.columns = columns;
-        this.references = references;
-        this.custom = custom;
+    /** Default instance Jackson compares against to omit default values. */
+    private ForeignKey() {
+        this(new Builder(null, null));
+    }
+
+    private ForeignKey(Builder builder) {
+        this.columns = builder.columns;
+        this.references = builder.references;
+        this.custom = builder.custom;
     }
 
     public static Builder builder(List<String> columns, ForeignKeyReference references) {
         return new Builder(columns, references);
     }
 
+    /** Names of the columns in this table which make up the key. */
     public List<String> getColumns() {
         return this.columns;
     }
 
+    /** The table and columns the key refers to. */
     public ForeignKeyReference getReferences() {
         return this.references;
     }
 
+    /** User-defined arbitrary data. */
     @Override
     public Map<String, Object> getCustom() {
         return this.custom;
@@ -85,44 +88,16 @@ public final class ForeignKey implements CustomExtensions {
         return "ForeignKey(columns=" + columns + ", references=" + references + ", custom=" + custom + ")";
     }
 
-    @JsonProperty("columns")
-    @JsonPropertyDescription("Names of the columns in this table which make up the key.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private List<String> jsonColumns() {
-        return this.columns;
-    }
-
-    @JsonProperty("references")
-    @JsonPropertyDescription("The table and columns the key refers to.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private ForeignKeyReference jsonReferences() {
-        return this.references;
-    }
-
-    @JsonProperty("custom")
-    @JsonPropertyDescription("User-defined arbitrary data.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Object> jsonCustom() {
-        return Objects.equals(this.custom, new LinkedHashMap<String, Object>()) ? null : this.custom;
-    }
-
-    @JsonCreator
-    private static ForeignKey fromJson(
-            @JsonProperty("columns") List<String> columns,
-            @JsonProperty("references") ForeignKeyReference references,
-            @JsonProperty("custom") Map<String, Object> custom) {
-        return new ForeignKey(
-                Objects.requireNonNull(columns, "Field 'columns' is required"),
-                Objects.requireNonNull(references, "Field 'references' is required"),
-                custom != null ? custom : new LinkedHashMap<>());
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private List<String> columns;
         private ForeignKeyReference references;
         private Map<String, Object> custom = new LinkedHashMap<>();
 
-        private Builder(List<String> columns, ForeignKeyReference references) {
+        @JsonCreator
+        private Builder(
+                @JsonProperty("columns") List<String> columns,
+                @JsonProperty("references") ForeignKeyReference references) {
             this.columns = columns;
             this.references = references;
         }
@@ -143,7 +118,9 @@ public final class ForeignKey implements CustomExtensions {
         }
 
         public ForeignKey build() {
-            return new ForeignKey(columns, references, custom);
+            Objects.requireNonNull(columns, "Field 'columns' is required");
+            Objects.requireNonNull(references, "Field 'references' is required");
+            return new ForeignKey(this);
         }
     }
 }

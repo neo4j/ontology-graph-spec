@@ -16,12 +16,11 @@
  */
 package org.neo4j.spec.graph.model.relationship;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,13 +29,9 @@ import java.util.Objects;
 import org.neo4j.spec.graph.model.property.Property;
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipExtensions;
 
-@JsonClassDescription("A relationship of the graph.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** A relationship of the graph. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = Relationship.Builder.class)
 public final class Relationship {
     private String type;
 
@@ -56,31 +51,28 @@ public final class Relationship {
 
     private final String reference;
 
-    private Relationship(
-            String type,
-            RelationshipTarget from,
-            RelationshipTarget to,
-            Map<String, Property> properties,
-            Map<String, RelationshipConstraint> constraints,
-            RelationshipExtensions extensions,
-            String description,
-            List<String> aliases,
-            String reference) {
-        this.type = type;
-        this.from = from;
-        this.to = to;
-        this.properties = properties;
-        this.constraints = constraints;
-        this.extensions = extensions;
-        this.description = description;
-        this.aliases = aliases;
-        this.reference = reference;
+    /** Default instance Jackson compares against to omit default values. */
+    private Relationship() {
+        this(new Builder(null, null, null));
+    }
+
+    private Relationship(Builder builder) {
+        this.type = builder.type;
+        this.from = builder.from;
+        this.to = builder.to;
+        this.properties = builder.properties;
+        this.constraints = builder.constraints;
+        this.extensions = builder.extensions;
+        this.description = builder.description;
+        this.aliases = builder.aliases;
+        this.reference = builder.reference;
     }
 
     public static Builder builder(String type, RelationshipTarget from, RelationshipTarget to) {
         return new Builder(type, from, to);
     }
 
+    /** Type of the relationship. */
     public String getType() {
         return this.type;
     }
@@ -89,34 +81,42 @@ public final class Relationship {
         this.type = value;
     }
 
+    /** The node the relationship starts at. */
     public RelationshipTarget getFrom() {
         return this.from;
     }
 
+    /** The node the relationship ends at. */
     public RelationshipTarget getTo() {
         return this.to;
     }
 
+    /** Properties of the relationship keyed by id. */
     public Map<String, Property> getProperties() {
         return this.properties;
     }
 
+    /** Constraints on the relationship keyed by id. */
     public Map<String, RelationshipConstraint> getConstraints() {
         return this.constraints;
     }
 
+    /** Extensions for the relationship. */
     public RelationshipExtensions getExtensions() {
         return this.extensions;
     }
 
+    /** Description of the relationship. */
     public String getDescription() {
         return this.description;
     }
 
+    /** Alternative names for the relationship. */
     public List<String> getAliases() {
         return this.aliases;
     }
 
+    /** Reference or URI of an external resource describing the relationship. */
     public String getReference() {
         return this.reference;
     }
@@ -149,96 +149,7 @@ public final class Relationship {
                 + ", aliases=" + aliases + ", reference=" + reference + ")";
     }
 
-    @JsonProperty("type")
-    @JsonPropertyDescription("Type of the relationship.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private String jsonType() {
-        return this.type;
-    }
-
-    @JsonProperty("from")
-    @JsonPropertyDescription("The node the relationship starts at.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private RelationshipTarget jsonFrom() {
-        return this.from;
-    }
-
-    @JsonProperty("to")
-    @JsonPropertyDescription("The node the relationship ends at.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private RelationshipTarget jsonTo() {
-        return this.to;
-    }
-
-    @JsonProperty("properties")
-    @JsonPropertyDescription("Properties of the relationship keyed by id.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Property> jsonProperties() {
-        return Objects.equals(this.properties, new LinkedHashMap<String, Property>()) ? null : this.properties;
-    }
-
-    @JsonProperty("constraints")
-    @JsonPropertyDescription("Constraints on the relationship keyed by id.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, RelationshipConstraint> jsonConstraints() {
-        return Objects.equals(this.constraints, new LinkedHashMap<String, RelationshipConstraint>())
-                ? null
-                : this.constraints;
-    }
-
-    @JsonProperty("extensions")
-    @JsonPropertyDescription("Extensions for the relationship.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private RelationshipExtensions jsonExtensions() {
-        return Objects.equals(this.extensions, RelationshipExtensions.builder().build()) ? null : this.extensions;
-    }
-
-    @JsonProperty("description")
-    @JsonPropertyDescription("Description of the relationship.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonDescription() {
-        return Objects.equals(this.description, "") ? null : this.description;
-    }
-
-    @JsonProperty("aliases")
-    @JsonPropertyDescription("Alternative names for the relationship.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> jsonAliases() {
-        return Objects.equals(this.aliases, new ArrayList<String>()) ? null : this.aliases;
-    }
-
-    @JsonProperty("reference")
-    @JsonPropertyDescription("Reference or URI of an external resource describing the relationship.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonReference() {
-        return Objects.equals(this.reference, "") ? null : this.reference;
-    }
-
-    @JsonCreator
-    private static Relationship fromJson(
-            @JsonProperty("type") String type,
-            @JsonProperty("from") RelationshipTarget from,
-            @JsonProperty("to") RelationshipTarget to,
-            @JsonProperty("properties") Map<String, Property> properties,
-            @JsonProperty("constraints") Map<String, RelationshipConstraint> constraints,
-            @JsonProperty("extensions") RelationshipExtensions extensions,
-            @JsonProperty("description") String description,
-            @JsonProperty("aliases") List<String> aliases,
-            @JsonProperty("reference") String reference) {
-        return new Relationship(
-                Objects.requireNonNull(type, "Field 'type' is required"),
-                Objects.requireNonNull(from, "Field 'from' is required"),
-                Objects.requireNonNull(to, "Field 'to' is required"),
-                properties != null ? properties : new LinkedHashMap<>(),
-                constraints != null ? constraints : new LinkedHashMap<>(),
-                extensions != null
-                        ? extensions
-                        : RelationshipExtensions.builder().build(),
-                description != null ? description : "",
-                aliases != null ? aliases : new ArrayList<>(),
-                reference != null ? reference : "");
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String type;
         private RelationshipTarget from;
@@ -251,7 +162,11 @@ public final class Relationship {
         private List<String> aliases = new ArrayList<>();
         private String reference = "";
 
-        private Builder(String type, RelationshipTarget from, RelationshipTarget to) {
+        @JsonCreator
+        private Builder(
+                @JsonProperty("type") String type,
+                @JsonProperty("from") RelationshipTarget from,
+                @JsonProperty("to") RelationshipTarget to) {
             this.type = type;
             this.from = from;
             this.to = to;
@@ -303,8 +218,10 @@ public final class Relationship {
         }
 
         public Relationship build() {
-            return new Relationship(
-                    type, from, to, properties, constraints, extensions, description, aliases, reference);
+            Objects.requireNonNull(type, "Field 'type' is required");
+            Objects.requireNonNull(from, "Field 'from' is required");
+            Objects.requireNonNull(to, "Field 'to' is required");
+            return new Relationship(this);
         }
     }
 }

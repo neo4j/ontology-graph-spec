@@ -16,27 +16,31 @@
  */
 package org.neo4j.spec.graph.model.index;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.type.IndexType;
 
 /**
  * https://neo4j.com/docs/cypher-manual/current/indexes/semantic-indexes/vector-indexes/#configuration-settings
  */
-@JsonClassDescription("Configuration of a vector index.")
+/** Configuration of a vector index. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonPropertyOrder({
+    "vector.dimensions",
+    "vector.similarity_function",
+    "vector.default_search_expansion_factor",
+    "vector.quantization.enabled",
+    "vector.quantization.type",
+    "vector.hnsw.m",
+    "vector.hnsw.ef_construction"
+})
+@JsonDeserialize(builder = VectorIndexOption.Builder.class)
 @JsonTypeName("VECTOR")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class VectorIndexOption implements IndexOption {
     private final Integer dimensions;
 
@@ -52,51 +56,63 @@ public final class VectorIndexOption implements IndexOption {
 
     private final int hnswEfConstruction;
 
-    private VectorIndexOption(
-            Integer dimensions,
-            String similarityFunction,
-            Float defaultSearchExpansionFactor,
-            boolean quantizationEnabled,
-            String quantizationType,
-            int hnswM,
-            int hnswEfConstruction) {
-        this.dimensions = dimensions;
-        this.similarityFunction = similarityFunction;
-        this.defaultSearchExpansionFactor = defaultSearchExpansionFactor;
-        this.quantizationEnabled = quantizationEnabled;
-        this.quantizationType = quantizationType;
-        this.hnswM = hnswM;
-        this.hnswEfConstruction = hnswEfConstruction;
+    /** Default instance Jackson compares against to omit default values. */
+    private VectorIndexOption() {
+        this(new Builder());
+    }
+
+    private VectorIndexOption(Builder builder) {
+        this.dimensions = builder.dimensions;
+        this.similarityFunction = builder.similarityFunction;
+        this.defaultSearchExpansionFactor = builder.defaultSearchExpansionFactor;
+        this.quantizationEnabled = builder.quantizationEnabled;
+        this.quantizationType = builder.quantizationType;
+        this.hnswM = builder.hnswM;
+        this.hnswEfConstruction = builder.hnswEfConstruction;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    /** Number of dimensions of the indexed vectors. */
+    @JsonProperty("vector.dimensions")
     public Integer getDimensions() {
         return this.dimensions;
     }
 
+    /** Function used to compare vectors, e.g. cosine or euclidean. */
+    @JsonProperty("vector.similarity_function")
     public String getSimilarityFunction() {
         return this.similarityFunction;
     }
 
+    /** Default expansion factor applied to searches of the index. */
+    @JsonProperty("vector.default_search_expansion_factor")
     public Float getDefaultSearchExpansionFactor() {
         return this.defaultSearchExpansionFactor;
     }
 
+    /** Whether vector quantization is enabled. */
+    @JsonProperty("vector.quantization.enabled")
     public boolean getQuantizationEnabled() {
         return this.quantizationEnabled;
     }
 
+    /** Type of vector quantization used. */
+    @JsonProperty("vector.quantization.type")
     public String getQuantizationType() {
         return this.quantizationType;
     }
 
+    /** Maximum number of connections per node in the HNSW graph. */
+    @JsonProperty("vector.hnsw.m")
     public int getHnswM() {
         return this.hnswM;
     }
 
+    /** Number of nearest neighbours considered when building the HNSW graph. */
+    @JsonProperty("vector.hnsw.ef_construction")
     public int getHnswEfConstruction() {
         return this.hnswEfConstruction;
     }
@@ -140,74 +156,7 @@ public final class VectorIndexOption implements IndexOption {
                 + ", hnswEfConstruction=" + hnswEfConstruction + ")";
     }
 
-    @JsonProperty("vector.dimensions")
-    @JsonPropertyDescription("Number of dimensions of the indexed vectors.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Integer jsonDimensions() {
-        return Objects.equals(this.dimensions, null) ? null : this.dimensions;
-    }
-
-    @JsonProperty("vector.similarity_function")
-    @JsonPropertyDescription("Function used to compare vectors, e.g. cosine or euclidean.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonSimilarityFunction() {
-        return Objects.equals(this.similarityFunction, "cosine") ? null : this.similarityFunction;
-    }
-
-    @JsonProperty("vector.default_search_expansion_factor")
-    @JsonPropertyDescription("Default expansion factor applied to searches of the index.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Float jsonDefaultSearchExpansionFactor() {
-        return Objects.equals(this.defaultSearchExpansionFactor, null) ? null : this.defaultSearchExpansionFactor;
-    }
-
-    @JsonProperty("vector.quantization.enabled")
-    @JsonPropertyDescription("Whether vector quantization is enabled.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean jsonQuantizationEnabled() {
-        return this.quantizationEnabled ? null : false;
-    }
-
-    @JsonProperty("vector.quantization.type")
-    @JsonPropertyDescription("Type of vector quantization used.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonQuantizationType() {
-        return Objects.equals(this.quantizationType, "scalar") ? null : this.quantizationType;
-    }
-
-    @JsonProperty("vector.hnsw.m")
-    @JsonPropertyDescription("Maximum number of connections per node in the HNSW graph.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Integer jsonHnswM() {
-        return this.hnswM == 16 ? null : this.hnswM;
-    }
-
-    @JsonProperty("vector.hnsw.ef_construction")
-    @JsonPropertyDescription("Number of nearest neighbours considered when building the HNSW graph.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Integer jsonHnswEfConstruction() {
-        return this.hnswEfConstruction == 100 ? null : this.hnswEfConstruction;
-    }
-
-    @JsonCreator
-    private static VectorIndexOption fromJson(
-            @JsonProperty("vector.dimensions") Integer dimensions,
-            @JsonProperty("vector.similarity_function") String similarityFunction,
-            @JsonProperty("vector.default_search_expansion_factor") Float defaultSearchExpansionFactor,
-            @JsonProperty("vector.quantization.enabled") Boolean quantizationEnabled,
-            @JsonProperty("vector.quantization.type") String quantizationType,
-            @JsonProperty("vector.hnsw.m") Integer hnswM,
-            @JsonProperty("vector.hnsw.ef_construction") Integer hnswEfConstruction) {
-        return new VectorIndexOption(
-                dimensions,
-                similarityFunction != null ? similarityFunction : "cosine",
-                defaultSearchExpansionFactor,
-                quantizationEnabled != null ? quantizationEnabled : true,
-                quantizationType != null ? quantizationType : "scalar",
-                hnswM != null ? hnswM : 16,
-                hnswEfConstruction != null ? hnswEfConstruction : 100);
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private Integer dimensions = null;
         private String similarityFunction = "cosine";
@@ -219,50 +168,50 @@ public final class VectorIndexOption implements IndexOption {
 
         private Builder() {}
 
+        @JsonProperty("vector.dimensions")
         public Builder dimensions(Integer dimensions) {
             this.dimensions = dimensions;
             return this;
         }
 
+        @JsonProperty("vector.similarity_function")
         public Builder similarityFunction(String similarityFunction) {
             this.similarityFunction = similarityFunction;
             return this;
         }
 
+        @JsonProperty("vector.default_search_expansion_factor")
         public Builder defaultSearchExpansionFactor(Float defaultSearchExpansionFactor) {
             this.defaultSearchExpansionFactor = defaultSearchExpansionFactor;
             return this;
         }
 
+        @JsonProperty("vector.quantization.enabled")
         public Builder quantizationEnabled(boolean quantizationEnabled) {
             this.quantizationEnabled = quantizationEnabled;
             return this;
         }
 
+        @JsonProperty("vector.quantization.type")
         public Builder quantizationType(String quantizationType) {
             this.quantizationType = quantizationType;
             return this;
         }
 
+        @JsonProperty("vector.hnsw.m")
         public Builder hnswM(int hnswM) {
             this.hnswM = hnswM;
             return this;
         }
 
+        @JsonProperty("vector.hnsw.ef_construction")
         public Builder hnswEfConstruction(int hnswEfConstruction) {
             this.hnswEfConstruction = hnswEfConstruction;
             return this;
         }
 
         public VectorIndexOption build() {
-            return new VectorIndexOption(
-                    dimensions,
-                    similarityFunction,
-                    defaultSearchExpansionFactor,
-                    quantizationEnabled,
-                    quantizationType,
-                    hnswM,
-                    hnswEfConstruction);
+            return new VectorIndexOption(this);
         }
     }
 }

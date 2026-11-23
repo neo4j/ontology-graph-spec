@@ -16,24 +16,19 @@
  */
 package org.neo4j.spec.graph.model.node.extension;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 
-@JsonClassDescription("Visual information for a node.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** Visual information for a node. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = NodeDisplay.Builder.class)
 public final class NodeDisplay implements CustomExtensions {
     private double x;
 
@@ -43,17 +38,24 @@ public final class NodeDisplay implements CustomExtensions {
 
     private final Map<String, Object> custom;
 
-    private NodeDisplay(double x, double y, String colour, Map<String, Object> custom) {
-        this.x = x;
-        this.y = y;
-        this.colour = colour;
-        this.custom = custom;
+    /** Default instance Jackson compares against to omit default values. */
+    private NodeDisplay() {
+        this(new Builder(0.0, 0.0));
+    }
+
+    private NodeDisplay(Builder builder) {
+        this.x = builder.x;
+        this.y = builder.y;
+        this.colour = builder.colour;
+        this.custom = builder.custom;
     }
 
     public static Builder builder(double x, double y) {
         return new Builder(x, y);
     }
 
+    /** Horizontal position. */
+    @JsonInclude(JsonInclude.Include.ALWAYS)
     public double getX() {
         return this.x;
     }
@@ -62,6 +64,8 @@ public final class NodeDisplay implements CustomExtensions {
         this.x = value;
     }
 
+    /** Vertical position. */
+    @JsonInclude(JsonInclude.Include.ALWAYS)
     public double getY() {
         return this.y;
     }
@@ -70,6 +74,7 @@ public final class NodeDisplay implements CustomExtensions {
         this.y = value;
     }
 
+    /** Display colour of the node as a hex string, e.g. #FF8800. */
     public String getColour() {
         return this.colour;
     }
@@ -78,6 +83,7 @@ public final class NodeDisplay implements CustomExtensions {
         this.colour = value;
     }
 
+    /** User-defined arbitrary data. */
     @Override
     public Map<String, Object> getCustom() {
         return this.custom;
@@ -104,56 +110,17 @@ public final class NodeDisplay implements CustomExtensions {
         return "NodeDisplay(x=" + x + ", y=" + y + ", colour=" + colour + ", custom=" + custom + ")";
     }
 
-    @JsonProperty("x")
-    @JsonPropertyDescription("Horizontal position.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private Double jsonX() {
-        return this.x;
-    }
-
-    @JsonProperty("y")
-    @JsonPropertyDescription("Vertical position.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private Double jsonY() {
-        return this.y;
-    }
-
-    @JsonProperty("colour")
-    @JsonPropertyDescription("Display colour of the node as a hex string, e.g. #FF8800.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonColour() {
-        return Objects.equals(this.colour, null) ? null : this.colour;
-    }
-
-    @JsonProperty("custom")
-    @JsonPropertyDescription("User-defined arbitrary data.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Object> jsonCustom() {
-        return Objects.equals(this.custom, new LinkedHashMap<String, Object>()) ? null : this.custom;
-    }
-
-    @JsonCreator
-    private static NodeDisplay fromJson(
-            @JsonProperty("x") Double x,
-            @JsonProperty("y") Double y,
-            @JsonProperty("colour") String colour,
-            @JsonProperty("custom") Map<String, Object> custom) {
-        return new NodeDisplay(
-                Objects.requireNonNull(x, "Field 'x' is required"),
-                Objects.requireNonNull(y, "Field 'y' is required"),
-                colour,
-                custom != null ? custom : new LinkedHashMap<>());
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private double x;
         private double y;
         private String colour = null;
         private Map<String, Object> custom = new LinkedHashMap<>();
 
-        private Builder(double x, double y) {
-            this.x = x;
-            this.y = y;
+        @JsonCreator
+        private Builder(@JsonProperty("x") Double x, @JsonProperty("y") Double y) {
+            this.x = Objects.requireNonNull(x, "Field 'x' is required");
+            this.y = Objects.requireNonNull(y, "Field 'y' is required");
         }
 
         public Builder x(double x) {
@@ -177,7 +144,7 @@ public final class NodeDisplay implements CustomExtensions {
         }
 
         public NodeDisplay build() {
-            return new NodeDisplay(x, y, colour, custom);
+            return new NodeDisplay(this);
         }
     }
 }

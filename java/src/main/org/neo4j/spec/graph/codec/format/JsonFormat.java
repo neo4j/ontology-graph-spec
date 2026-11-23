@@ -16,6 +16,8 @@
  */
 package org.neo4j.spec.graph.codec.format;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.core.util.DefaultIndenter;
@@ -66,7 +68,7 @@ public final class JsonFormat implements Format {
 
     /**
      * A mapper builder with the settings the format relies on: unknown keys are ignored, integers in custom extension
-     * values decode as Long and decimals keep their written precision.
+     * values decode as Long, decimals keep their written precision and explicit nulls are treated as absent.
      */
     public static JsonMapper.Builder builder() {
         Separators separators = Separators.createDefaultInstance()
@@ -82,6 +84,7 @@ public final class JsonFormat implements Format {
                 .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
                 .enable(JsonReadFeature.ALLOW_UNQUOTED_FIELD_NAMES)
                 .enable(JsonReadFeature.ALLOW_SINGLE_QUOTES)
+                .defaultSetterInfo(JsonSetter.Value.forValueNulls(Nulls.SKIP))
                 .defaultPrettyPrinter(printer);
     }
 

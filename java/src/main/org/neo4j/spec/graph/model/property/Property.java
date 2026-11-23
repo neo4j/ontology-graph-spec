@@ -16,25 +16,34 @@
  */
 package org.neo4j.spec.graph.model.property;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.property.extension.PropertyExtensions;
 import org.neo4j.spec.graph.model.type.Named;
 
-@JsonClassDescription("A property of a node or relationship.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** A property of a node or relationship. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonPropertyOrder({
+    "type",
+    "dimension",
+    "must_exist",
+    "unique",
+    "key",
+    "extensions",
+    "name",
+    "description",
+    "aliases",
+    "reference",
+    "pattern",
+    "one_of"
+})
+@JsonDeserialize(builder = Property.Builder.class)
 public final class Property implements Named {
     private Neo4jType type;
 
@@ -60,37 +69,31 @@ public final class Property implements Named {
 
     private final List<String> oneOf;
 
-    private Property(
-            Neo4jType type,
-            Integer dimension,
-            Boolean mustExist,
-            Boolean unique,
-            Boolean key,
-            PropertyExtensions extensions,
-            String name,
-            String description,
-            List<String> aliases,
-            String reference,
-            String pattern,
-            List<String> oneOf) {
-        this.type = type;
-        this.dimension = dimension;
-        this.mustExist = mustExist;
-        this.unique = unique;
-        this.key = key;
-        this.extensions = extensions;
-        this.name = name;
-        this.description = description;
-        this.aliases = aliases;
-        this.reference = reference;
-        this.pattern = pattern;
-        this.oneOf = oneOf;
+    /** Default instance Jackson compares against to omit default values. */
+    private Property() {
+        this(new Builder());
+    }
+
+    private Property(Builder builder) {
+        this.type = builder.type;
+        this.dimension = builder.dimension;
+        this.mustExist = builder.mustExist;
+        this.unique = builder.unique;
+        this.key = builder.key;
+        this.extensions = builder.extensions;
+        this.name = builder.name;
+        this.description = builder.description;
+        this.aliases = builder.aliases;
+        this.reference = builder.reference;
+        this.pattern = builder.pattern;
+        this.oneOf = builder.oneOf;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    /** Neo4j type of the property. */
     public Neo4jType getType() {
         return this.type;
     }
@@ -99,6 +102,7 @@ public final class Property implements Named {
         this.type = value;
     }
 
+    /** Dimension of the property when it holds a vector. */
     public Integer getDimension() {
         return this.dimension;
     }
@@ -107,6 +111,8 @@ public final class Property implements Named {
         this.dimension = value;
     }
 
+    /** Shorthand for an existence constraint. Expanded into constraints when the model is decoded. */
+    @JsonProperty("must_exist")
     public Boolean getMustExist() {
         return this.mustExist;
     }
@@ -115,6 +121,7 @@ public final class Property implements Named {
         this.mustExist = value;
     }
 
+    /** Shorthand for a uniqueness constraint. Expanded into constraints when the model is decoded. */
     public Boolean getUnique() {
         return this.unique;
     }
@@ -123,6 +130,7 @@ public final class Property implements Named {
         this.unique = value;
     }
 
+    /** Shorthand for a key constraint. Expanded into constraints when the model is decoded. */
     public Boolean getKey() {
         return this.key;
     }
@@ -131,10 +139,12 @@ public final class Property implements Named {
         this.key = value;
     }
 
+    /** Extensions for the property. */
     public PropertyExtensions getExtensions() {
         return this.extensions;
     }
 
+    /** Name of the property in the database, when different from its id. */
     @Override
     public String getName() {
         return this.name;
@@ -144,22 +154,28 @@ public final class Property implements Named {
         this.name = value;
     }
 
+    /** Description of the property. */
     public String getDescription() {
         return this.description;
     }
 
+    /** Alternative names for the property. */
     public List<String> getAliases() {
         return this.aliases;
     }
 
+    /** Reference or URI of an external resource describing the property. */
     public String getReference() {
         return this.reference;
     }
 
+    /** Pattern values of the property are expected to match. */
     public String getPattern() {
         return this.pattern;
     }
 
+    /** Values the property is restricted to. */
+    @JsonProperty("one_of")
     public List<String> getOneOf() {
         return this.oneOf;
     }
@@ -208,121 +224,7 @@ public final class Property implements Named {
                 + ")";
     }
 
-    @JsonProperty("type")
-    @JsonPropertyDescription("Neo4j type of the property.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Neo4jType jsonType() {
-        return Objects.equals(this.type, Neo4jType.ANY) ? null : this.type;
-    }
-
-    @JsonProperty("dimension")
-    @JsonPropertyDescription("Dimension of the property when it holds a vector.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Integer jsonDimension() {
-        return Objects.equals(this.dimension, null) ? null : this.dimension;
-    }
-
-    @JsonProperty("must_exist")
-    @JsonPropertyDescription(
-            "Shorthand for an existence constraint. Expanded into constraints when the model is decoded.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean jsonMustExist() {
-        return Objects.equals(this.mustExist, null) ? null : this.mustExist;
-    }
-
-    @JsonProperty("unique")
-    @JsonPropertyDescription(
-            "Shorthand for a uniqueness constraint. Expanded into constraints when the model is decoded.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean jsonUnique() {
-        return Objects.equals(this.unique, null) ? null : this.unique;
-    }
-
-    @JsonProperty("key")
-    @JsonPropertyDescription("Shorthand for a key constraint. Expanded into constraints when the model is decoded.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean jsonKey() {
-        return Objects.equals(this.key, null) ? null : this.key;
-    }
-
-    @JsonProperty("extensions")
-    @JsonPropertyDescription("Extensions for the property.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private PropertyExtensions jsonExtensions() {
-        return Objects.equals(this.extensions, PropertyExtensions.builder().build()) ? null : this.extensions;
-    }
-
-    @JsonProperty("name")
-    @JsonPropertyDescription("Name of the property in the database, when different from its id.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonName() {
-        return Objects.equals(this.name, null) ? null : this.name;
-    }
-
-    @JsonProperty("description")
-    @JsonPropertyDescription("Description of the property.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonDescription() {
-        return Objects.equals(this.description, "") ? null : this.description;
-    }
-
-    @JsonProperty("aliases")
-    @JsonPropertyDescription("Alternative names for the property.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> jsonAliases() {
-        return Objects.equals(this.aliases, new ArrayList<String>()) ? null : this.aliases;
-    }
-
-    @JsonProperty("reference")
-    @JsonPropertyDescription("Reference or URI of an external resource describing the property.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonReference() {
-        return Objects.equals(this.reference, "") ? null : this.reference;
-    }
-
-    @JsonProperty("pattern")
-    @JsonPropertyDescription("Pattern values of the property are expected to match.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonPattern() {
-        return Objects.equals(this.pattern, "") ? null : this.pattern;
-    }
-
-    @JsonProperty("one_of")
-    @JsonPropertyDescription("Values the property is restricted to.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> jsonOneOf() {
-        return Objects.equals(this.oneOf, new ArrayList<String>()) ? null : this.oneOf;
-    }
-
-    @JsonCreator
-    private static Property fromJson(
-            @JsonProperty("type") Neo4jType type,
-            @JsonProperty("dimension") Integer dimension,
-            @JsonProperty("must_exist") Boolean mustExist,
-            @JsonProperty("unique") Boolean unique,
-            @JsonProperty("key") Boolean key,
-            @JsonProperty("extensions") PropertyExtensions extensions,
-            @JsonProperty("name") String name,
-            @JsonProperty("description") String description,
-            @JsonProperty("aliases") List<String> aliases,
-            @JsonProperty("reference") String reference,
-            @JsonProperty("pattern") String pattern,
-            @JsonProperty("one_of") List<String> oneOf) {
-        return new Property(
-                type != null ? type : Neo4jType.ANY,
-                dimension,
-                mustExist,
-                unique,
-                key,
-                extensions != null ? extensions : PropertyExtensions.builder().build(),
-                name,
-                description != null ? description : "",
-                aliases != null ? aliases : new ArrayList<>(),
-                reference != null ? reference : "",
-                pattern != null ? pattern : "",
-                oneOf != null ? oneOf : new ArrayList<>());
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private Neo4jType type = Neo4jType.ANY;
         private Integer dimension = null;
@@ -349,6 +251,7 @@ public final class Property implements Named {
             return this;
         }
 
+        @JsonProperty("must_exist")
         public Builder mustExist(Boolean mustExist) {
             this.mustExist = mustExist;
             return this;
@@ -394,25 +297,14 @@ public final class Property implements Named {
             return this;
         }
 
+        @JsonProperty("one_of")
         public Builder oneOf(List<String> oneOf) {
             this.oneOf = oneOf;
             return this;
         }
 
         public Property build() {
-            return new Property(
-                    type,
-                    dimension,
-                    mustExist,
-                    unique,
-                    key,
-                    extensions,
-                    name,
-                    description,
-                    aliases,
-                    reference,
-                    pattern,
-                    oneOf);
+            return new Property(this);
         }
     }
 }

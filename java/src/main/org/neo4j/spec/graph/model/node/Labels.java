@@ -16,24 +16,17 @@
  */
 package org.neo4j.spec.graph.model.node;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.node.extension.LabelsExtensions;
 
-@JsonClassDescription("The labels of a node.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** The labels of a node. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = Labels.Builder.class)
 public final class Labels {
     private String identifier;
 
@@ -43,17 +36,23 @@ public final class Labels {
 
     private final LabelsExtensions extensions;
 
-    private Labels(String identifier, List<String> implied, List<String> optional, LabelsExtensions extensions) {
-        this.identifier = identifier;
-        this.implied = implied;
-        this.optional = optional;
-        this.extensions = extensions;
+    /** Default instance Jackson compares against to omit default values. */
+    private Labels() {
+        this(new Builder());
+    }
+
+    private Labels(Builder builder) {
+        this.identifier = builder.identifier;
+        this.implied = builder.implied;
+        this.optional = builder.optional;
+        this.extensions = builder.extensions;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    /** The label which identifies the node. */
     public String getIdentifier() {
         return this.identifier;
     }
@@ -62,14 +61,17 @@ public final class Labels {
         this.identifier = value;
     }
 
+    /** Labels implied by the node in addition to the identifier. */
     public List<String> getImplied() {
         return this.implied;
     }
 
+    /** Labels which may be present on the node but aren't required. */
     public List<String> getOptional() {
         return this.optional;
     }
 
+    /** Extensions for the labels. */
     public LabelsExtensions getExtensions() {
         return this.extensions;
     }
@@ -96,47 +98,7 @@ public final class Labels {
                 + extensions + ")";
     }
 
-    @JsonProperty("identifier")
-    @JsonPropertyDescription("The label which identifies the node.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonIdentifier() {
-        return Objects.equals(this.identifier, null) ? null : this.identifier;
-    }
-
-    @JsonProperty("implied")
-    @JsonPropertyDescription("Labels implied by the node in addition to the identifier.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> jsonImplied() {
-        return Objects.equals(this.implied, new ArrayList<String>()) ? null : this.implied;
-    }
-
-    @JsonProperty("optional")
-    @JsonPropertyDescription("Labels which may be present on the node but aren't required.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> jsonOptional() {
-        return Objects.equals(this.optional, new ArrayList<String>()) ? null : this.optional;
-    }
-
-    @JsonProperty("extensions")
-    @JsonPropertyDescription("Extensions for the labels.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private LabelsExtensions jsonExtensions() {
-        return Objects.equals(this.extensions, LabelsExtensions.builder().build()) ? null : this.extensions;
-    }
-
-    @JsonCreator
-    private static Labels fromJson(
-            @JsonProperty("identifier") String identifier,
-            @JsonProperty("implied") List<String> implied,
-            @JsonProperty("optional") List<String> optional,
-            @JsonProperty("extensions") LabelsExtensions extensions) {
-        return new Labels(
-                identifier,
-                implied != null ? implied : new ArrayList<>(),
-                optional != null ? optional : new ArrayList<>(),
-                extensions != null ? extensions : LabelsExtensions.builder().build());
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String identifier = null;
         private List<String> implied = new ArrayList<>();
@@ -166,7 +128,7 @@ public final class Labels {
         }
 
         public Labels build() {
-            return new Labels(identifier, implied, optional, extensions);
+            return new Labels(this);
         }
     }
 }

@@ -16,37 +16,36 @@
  */
 package org.neo4j.spec.graph.model.extension.mapping;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-@JsonClassDescription("Identifies a node at one end of a mapped relationship.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** Identifies a node at one end of a mapped relationship. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = TargetMapping.Builder.class)
 public final class TargetMapping {
     private String label;
 
     private final Map<String, PropertyMapping> properties;
 
-    private TargetMapping(String label, Map<String, PropertyMapping> properties) {
-        this.label = label;
-        this.properties = properties;
+    /** Default instance Jackson compares against to omit default values. */
+    private TargetMapping() {
+        this(new Builder());
+    }
+
+    private TargetMapping(Builder builder) {
+        this.label = builder.label;
+        this.properties = builder.properties;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    /** Label of the node. */
     public String getLabel() {
         return this.label;
     }
@@ -55,6 +54,7 @@ public final class TargetMapping {
         this.label = value;
     }
 
+    /** Mappings from property ids to source columns used to match the node. */
     public Map<String, PropertyMapping> getProperties() {
         return this.properties;
     }
@@ -77,26 +77,7 @@ public final class TargetMapping {
         return "TargetMapping(label=" + label + ", properties=" + properties + ")";
     }
 
-    @JsonProperty("label")
-    @JsonPropertyDescription("Label of the node.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonLabel() {
-        return Objects.equals(this.label, "") ? null : this.label;
-    }
-
-    @JsonProperty("properties")
-    @JsonPropertyDescription("Mappings from property ids to source columns used to match the node.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, PropertyMapping> jsonProperties() {
-        return Objects.equals(this.properties, new LinkedHashMap<String, PropertyMapping>()) ? null : this.properties;
-    }
-
-    @JsonCreator
-    private static TargetMapping fromJson(
-            @JsonProperty("label") String label, @JsonProperty("properties") Map<String, PropertyMapping> properties) {
-        return new TargetMapping(label != null ? label : "", properties != null ? properties : new LinkedHashMap<>());
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String label = "";
         private Map<String, PropertyMapping> properties = new LinkedHashMap<>();
@@ -114,7 +95,7 @@ public final class TargetMapping {
         }
 
         public TargetMapping build() {
-            return new TargetMapping(label, properties);
+            return new TargetMapping(this);
         }
     }
 }

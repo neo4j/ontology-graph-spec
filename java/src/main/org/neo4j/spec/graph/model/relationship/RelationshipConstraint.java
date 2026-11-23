@@ -16,12 +16,11 @@
  */
 package org.neo4j.spec.graph.model.relationship;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.List;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.node.Constraint;
@@ -29,13 +28,9 @@ import org.neo4j.spec.graph.model.relationship.extension.RelationshipConstraintE
 import org.neo4j.spec.graph.model.type.ConstraintType;
 import org.neo4j.spec.graph.model.type.Named;
 
-@JsonClassDescription("A constraint on a relationship.")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
+/** A constraint on a relationship. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(builder = RelationshipConstraint.Builder.class)
 public final class RelationshipConstraint implements Constraint, Named {
     private ConstraintType type;
 
@@ -45,18 +40,23 @@ public final class RelationshipConstraint implements Constraint, Named {
 
     private String name;
 
-    private RelationshipConstraint(
-            ConstraintType type, List<String> properties, RelationshipConstraintExtensions extensions, String name) {
-        this.type = type;
-        this.properties = properties;
-        this.extensions = extensions;
-        this.name = name;
+    /** Default instance Jackson compares against to omit default values. */
+    private RelationshipConstraint() {
+        this(new Builder(null, null));
+    }
+
+    private RelationshipConstraint(Builder builder) {
+        this.type = builder.type;
+        this.properties = builder.properties;
+        this.extensions = builder.extensions;
+        this.name = builder.name;
     }
 
     public static Builder builder(ConstraintType type, List<String> properties) {
         return new Builder(type, properties);
     }
 
+    /** Type of the constraint. */
     @Override
     public ConstraintType getType() {
         return this.type;
@@ -66,15 +66,18 @@ public final class RelationshipConstraint implements Constraint, Named {
         this.type = value;
     }
 
+    /** Ids of the properties the constraint covers. */
     @Override
     public List<String> getProperties() {
         return this.properties;
     }
 
+    /** Extensions for the constraint. */
     public RelationshipConstraintExtensions getExtensions() {
         return this.extensions;
     }
 
+    /** Name of the constraint in the database. */
     @Override
     public String getName() {
         return this.name;
@@ -106,53 +109,7 @@ public final class RelationshipConstraint implements Constraint, Named {
                 + ", name=" + name + ")";
     }
 
-    @JsonProperty("type")
-    @JsonPropertyDescription("Type of the constraint.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private ConstraintType jsonType() {
-        return this.type;
-    }
-
-    @JsonProperty("properties")
-    @JsonPropertyDescription("Ids of the properties the constraint covers.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private List<String> jsonProperties() {
-        return this.properties;
-    }
-
-    @JsonProperty("extensions")
-    @JsonPropertyDescription("Extensions for the constraint.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private RelationshipConstraintExtensions jsonExtensions() {
-        return Objects.equals(
-                        this.extensions,
-                        RelationshipConstraintExtensions.builder().build())
-                ? null
-                : this.extensions;
-    }
-
-    @JsonProperty("name")
-    @JsonPropertyDescription("Name of the constraint in the database.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonName() {
-        return Objects.equals(this.name, null) ? null : this.name;
-    }
-
-    @JsonCreator
-    private static RelationshipConstraint fromJson(
-            @JsonProperty("type") ConstraintType type,
-            @JsonProperty("properties") List<String> properties,
-            @JsonProperty("extensions") RelationshipConstraintExtensions extensions,
-            @JsonProperty("name") String name) {
-        return new RelationshipConstraint(
-                Objects.requireNonNull(type, "Field 'type' is required"),
-                Objects.requireNonNull(properties, "Field 'properties' is required"),
-                extensions != null
-                        ? extensions
-                        : RelationshipConstraintExtensions.builder().build(),
-                name);
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private ConstraintType type;
         private List<String> properties;
@@ -160,7 +117,9 @@ public final class RelationshipConstraint implements Constraint, Named {
                 RelationshipConstraintExtensions.builder().build();
         private String name = null;
 
-        private Builder(ConstraintType type, List<String> properties) {
+        @JsonCreator
+        private Builder(
+                @JsonProperty("type") ConstraintType type, @JsonProperty("properties") List<String> properties) {
             this.type = type;
             this.properties = properties;
         }
@@ -186,7 +145,9 @@ public final class RelationshipConstraint implements Constraint, Named {
         }
 
         public RelationshipConstraint build() {
-            return new RelationshipConstraint(type, properties, extensions, name);
+            Objects.requireNonNull(type, "Field 'type' is required");
+            Objects.requireNonNull(properties, "Field 'properties' is required");
+            return new RelationshipConstraint(this);
         }
     }
 }

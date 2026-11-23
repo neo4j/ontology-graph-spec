@@ -16,23 +16,20 @@
  */
 package org.neo4j.spec.graph.model.extension.mapping;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.Objects;
 
-@JsonClassDescription("Maps the results of a query run against a table.")
+/** Maps the results of a query run against a table. */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonPropertyOrder({"table", "query", "depends_on", "id"})
+@JsonDeserialize(builder = QueryMapping.Builder.class)
 @JsonTypeName("QUERY")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.NONE,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public final class QueryMapping implements Mapping {
     private String table;
 
@@ -42,17 +39,23 @@ public final class QueryMapping implements Mapping {
 
     private String id;
 
-    private QueryMapping(String table, String query, String dependsOn, String id) {
-        this.table = table;
-        this.query = query;
-        this.dependsOn = dependsOn;
-        this.id = id;
+    /** Default instance Jackson compares against to omit default values. */
+    private QueryMapping() {
+        this(new Builder(null, null));
+    }
+
+    private QueryMapping(Builder builder) {
+        this.table = builder.table;
+        this.query = builder.query;
+        this.dependsOn = builder.dependsOn;
+        this.id = builder.id;
     }
 
     public static Builder builder(String table, String query) {
         return new Builder(table, query);
     }
 
+    /** Id of the source table. */
     public String getTable() {
         return this.table;
     }
@@ -61,6 +64,7 @@ public final class QueryMapping implements Mapping {
         this.table = value;
     }
 
+    /** The query to run. */
     public String getQuery() {
         return this.query;
     }
@@ -69,6 +73,8 @@ public final class QueryMapping implements Mapping {
         this.query = value;
     }
 
+    /** Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency. */
+    @JsonProperty("depends_on")
     public String getDependsOn() {
         return this.dependsOn;
     }
@@ -77,6 +83,7 @@ public final class QueryMapping implements Mapping {
         this.dependsOn = value;
     }
 
+    /** Optional id of this mapping, so other mappings in the same list can reference it in depends_on. */
     public String getId() {
         return this.id;
     }
@@ -106,56 +113,15 @@ public final class QueryMapping implements Mapping {
         return "QueryMapping(table=" + table + ", query=" + query + ", dependsOn=" + dependsOn + ", id=" + id + ")";
     }
 
-    @JsonProperty("table")
-    @JsonPropertyDescription("Id of the source table.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private String jsonTable() {
-        return this.table;
-    }
-
-    @JsonProperty("query")
-    @JsonPropertyDescription("The query to run.")
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private String jsonQuery() {
-        return this.query;
-    }
-
-    @JsonProperty("depends_on")
-    @JsonPropertyDescription(
-            "Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonDependsOn() {
-        return Objects.equals(this.dependsOn, "") ? null : this.dependsOn;
-    }
-
-    @JsonProperty("id")
-    @JsonPropertyDescription(
-            "Optional id of this mapping, so other mappings in the same list can reference it in depends_on.")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String jsonId() {
-        return Objects.equals(this.id, "") ? null : this.id;
-    }
-
-    @JsonCreator
-    private static QueryMapping fromJson(
-            @JsonProperty("table") String table,
-            @JsonProperty("query") String query,
-            @JsonProperty("depends_on") String dependsOn,
-            @JsonProperty("id") String id) {
-        return new QueryMapping(
-                Objects.requireNonNull(table, "Field 'table' is required"),
-                Objects.requireNonNull(query, "Field 'query' is required"),
-                dependsOn != null ? dependsOn : "",
-                id != null ? id : "");
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String table;
         private String query;
         private String dependsOn = "";
         private String id = "";
 
-        private Builder(String table, String query) {
+        @JsonCreator
+        private Builder(@JsonProperty("table") String table, @JsonProperty("query") String query) {
             this.table = table;
             this.query = query;
         }
@@ -170,6 +136,7 @@ public final class QueryMapping implements Mapping {
             return this;
         }
 
+        @JsonProperty("depends_on")
         public Builder dependsOn(String dependsOn) {
             this.dependsOn = dependsOn;
             return this;
@@ -181,7 +148,9 @@ public final class QueryMapping implements Mapping {
         }
 
         public QueryMapping build() {
-            return new QueryMapping(table, query, dependsOn, id);
+            Objects.requireNonNull(table, "Field 'table' is required");
+            Objects.requireNonNull(query, "Field 'query' is required");
+            return new QueryMapping(this);
         }
     }
 }
