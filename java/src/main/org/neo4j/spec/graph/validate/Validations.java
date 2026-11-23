@@ -147,33 +147,31 @@ public final class Validations {
                     .flatMap(List::stream)
                     .collect(Collectors.toCollection(LinkedHashSet::new)));
 
-    public Validations() {}
-
-    public static List<Validation> getCore() {
+    public static List<Validation> core() {
         return Validations.CORE;
     }
 
-    public static List<Validation> getLabelled() {
+    public static List<Validation> labelled() {
         return Validations.LABELLED;
     }
 
-    public static List<Validation> getConsistentSchema() {
+    public static List<Validation> consistentSchema() {
         return Validations.CONSISTENT_SCHEMA;
     }
 
-    public static List<Validation> getMappable() {
+    public static List<Validation> mappable() {
         return Validations.MAPPABLE;
     }
 
-    public static List<Validation> getBulkImportable() {
+    public static List<Validation> bulkImportable() {
         return Validations.BULK_IMPORTABLE;
     }
 
-    public static List<Validation> getWellConstrained() {
+    public static List<Validation> wellConstrained() {
         return Validations.WELL_CONSTRAINED;
     }
 
-    public static List<Validation> getAll() {
+    public static List<Validation> all() {
         return Validations.ALL;
     }
 }
