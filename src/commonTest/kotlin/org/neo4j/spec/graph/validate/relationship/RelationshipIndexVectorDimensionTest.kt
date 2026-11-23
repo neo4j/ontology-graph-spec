@@ -68,7 +68,7 @@ class RelationshipIndexVectorDimensionTest {
     }
 
     @Test
-    fun `pass when vector index covers several properties`() {
+    fun `skip indexes with more than one property`() {
         val index = RelationshipIndex(
             type = IndexType.VECTOR,
             properties = mutableListOf("embedding", "other")
@@ -78,7 +78,7 @@ class RelationshipIndexVectorDimensionTest {
     }
 
     @Test
-    fun `pass when the indexed property is not a vector`() {
+    fun `skip a non-vector property`() {
         val index = vectorIndex(null)
 
         assertTrue(validate(relationship(Property(type = Neo4jType.STRING)), index).isEmpty())

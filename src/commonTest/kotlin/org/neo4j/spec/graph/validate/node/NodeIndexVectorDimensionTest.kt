@@ -65,14 +65,14 @@ class NodeIndexVectorDimensionTest {
     }
 
     @Test
-    fun `pass when vector index covers several properties`() {
+    fun `skip indexes with more than one property`() {
         val index = vectorIndex(null, listOf("embedding", "other"))
 
         assertTrue(validate(node(Property(type = Neo4jType.VECTOR_FLOAT, dimension = 5)), index).isEmpty())
     }
 
     @Test
-    fun `pass when the indexed property is not a vector`() {
+    fun `skip a non-vector property`() {
         val index = vectorIndex(null)
 
         assertTrue(validate(node(Property(type = Neo4jType.STRING)), index).isEmpty())
