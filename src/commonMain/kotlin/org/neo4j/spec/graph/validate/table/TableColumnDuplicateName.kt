@@ -32,7 +32,6 @@ object TableColumnDuplicateName : TableValidation {
     ) {
         val name = column.name
         if (name.isBlank()) return
-        // UPX findArrayDuplicates + includes flags ALL fields with a duplicated name
         val isDuplicate = table.columns.withIndex().any { (otherIndex, other) ->
             otherIndex != columnIndex && other.name == name
         }

@@ -34,7 +34,6 @@ class RelationshipPropertyDuplicateNameTest {
 
     @Test
     fun `fail on duplicate property name - all occurrences flagged`() {
-        // UPX findArrayDuplicates + includes flags ALL properties with a duplicated name
         val rel = Relationship(
             type = "KNOWS",
             from = target,

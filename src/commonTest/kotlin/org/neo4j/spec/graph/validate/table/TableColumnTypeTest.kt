@@ -33,7 +33,6 @@ class TableColumnTypeTest {
 
     @Test
     fun `fail on cloud column with empty supported types`() {
-        // UPX: supportedTypes?.length === 0
         val table = Table(
             source = "sql/postgres",
             columns = mutableListOf(

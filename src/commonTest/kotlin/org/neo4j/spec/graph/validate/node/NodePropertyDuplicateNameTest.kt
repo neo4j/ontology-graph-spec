@@ -33,7 +33,6 @@ class NodePropertyDuplicateNameTest {
 
     @Test
     fun `fail on duplicate property name - all occurrences flagged`() {
-        // UPX findArrayDuplicates + includes flags ALL properties with a duplicated name
         val node = Node(
             labels = Labels(identifier = "Person"),
             properties = mutableMapOf(

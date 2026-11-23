@@ -82,7 +82,6 @@ class NodeExistenceCompositeConflictTest {
 
     @Test
     fun `pass when other constraint has only 1 property`() {
-        // UPX: other constraint must have properties.length >= 2 to conflict
         val node = Node(
             labels = Labels(identifier = "Person"),
             properties = mutableMapOf("email" to Property()),
@@ -106,7 +105,6 @@ class NodeExistenceCompositeConflictTest {
 
     @Test
     fun `pass when other constraint is also existence type`() {
-        // UPX: otherConstraint.constraintType !== 'propertyExistence' required
         val node = Node(
             labels = Labels(identifier = "Person"),
             properties = mutableMapOf("email" to Property(), "name" to Property()),

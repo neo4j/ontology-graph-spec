@@ -30,10 +30,8 @@ object TableColumnType : TableValidation {
         column: TableColumn,
         issues: MutableList<Issue>
     ) {
-        // UPX: only cloud fields (TableSchemaCloudField) are checked.
         // graph-spec uses table.source != "local" as the cloud discriminator.
         if (table.source == "local") return
-        // UPX: isNullish(recommendedType) || supportedTypes?.length === 0
         // suggested is non-nullable so the null check is not testable - only supported.isEmpty() is checked
         if (column.supported.isEmpty()) {
             issues.add(

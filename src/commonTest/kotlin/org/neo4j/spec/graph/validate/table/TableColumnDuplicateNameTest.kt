@@ -32,7 +32,6 @@ class TableColumnDuplicateNameTest {
 
     @Test
     fun `fail on duplicate column name - all occurrences flagged`() {
-        // UPX findArrayDuplicates + includes flags ALL fields with a duplicated name
         val table = Table(
             source = "local",
             columns = mutableListOf(
