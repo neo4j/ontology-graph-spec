@@ -47,7 +47,7 @@ import org.neo4j.spec.graph.validate.table.TableColumnEmptyName;
 import org.neo4j.spec.graph.validate.table.TableColumnType;
 
 public final class UpxMigrationValidations {
-    private static final List<Validation> kgbuilderComplete = List.of(
+    private static final List<Validation> KG_BUILDER_COMPLETE = List.of(
             NodeLabel.INSTANCE,
             NodeProperties.INSTANCE,
             NodeConstraintCoverage.INSTANCE,
@@ -58,7 +58,7 @@ public final class UpxMigrationValidations {
             RelationshipExistenceConstraint.INSTANCE,
             RelationshipNodes.INSTANCE);
 
-    private static final List<Validation> importComplete = List.of(
+    private static final List<Validation> IMPORT_COMPLETE = List.of(
             NodeLabel.INSTANCE,
             RelationshipType.INSTANCE,
             NodeMappingKey.INSTANCE,
@@ -77,9 +77,9 @@ public final class UpxMigrationValidations {
             RelationshipPropertyDuplicateName.INSTANCE,
             MappingDependencies.INSTANCE);
 
-    private static final List<Validation> draft = List.of(NodeLabel.INSTANCE, RelationshipType.INSTANCE);
+    private static final List<Validation> DRAFT = List.of(NodeLabel.INSTANCE, RelationshipType.INSTANCE);
 
-    private static final List<Validation> bulkImportComplete = List.of(
+    private static final List<Validation> BULK_IMPORT_COMPLETE = List.of(
             NodeLabelToken.INSTANCE,
             RelationshipTypeToken.INSTANCE,
             NodeMappingKeyType.INSTANCE,
@@ -87,19 +87,19 @@ public final class UpxMigrationValidations {
 
     public UpxMigrationValidations() {}
 
-    public static List<Validation> getKgbuilderComplete() {
-        return UpxMigrationValidations.kgbuilderComplete;
+    public static List<Validation> kgBuilderComplete() {
+        return UpxMigrationValidations.KG_BUILDER_COMPLETE;
     }
 
-    public static List<Validation> getImportComplete() {
-        return UpxMigrationValidations.importComplete;
+    public static List<Validation> importComplete() {
+        return UpxMigrationValidations.IMPORT_COMPLETE;
     }
 
-    public static List<Validation> getDraft() {
-        return UpxMigrationValidations.draft;
+    public static List<Validation> draft() {
+        return UpxMigrationValidations.DRAFT;
     }
 
-    public static List<Validation> getBulkImportComplete() {
-        return UpxMigrationValidations.bulkImportComplete;
+    public static List<Validation> bulkImportComplete() {
+        return UpxMigrationValidations.BULK_IMPORT_COMPLETE;
     }
 }
