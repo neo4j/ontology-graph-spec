@@ -1,0 +1,35 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "constraints-and-indexes",
+  "description": "Empty, duplicate and conflicting constraints and indexes.",
+  "nodes": {
+    "person": {
+      "constraints": {
+        "id_name_key": { "type": "KEY", "properties": ["id", "name"], "name": "person_key" },
+        "name_exists": { "type": "EXISTS", "properties": ["name"] },
+        "email_unique": { "type": "UNIQUE", "properties": ["email"] },
+        "email_unique_again": { "type": "UNIQUE", "properties": ["email"] },
+        "nothing_unique": { "type": "UNIQUE", "properties": [] }
+      },
+      "extensions": {
+        "indexes": {
+          "id_range": { "type": "RANGE", "labels": ["Person"], "properties": ["id"], "name": "person_key" },
+          "nothing_range": { "type": "RANGE", "labels": ["Person"], "properties": [] }
+        }
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {},
+      "to": {},
+      "constraints": {
+        "since_unique": { "type": "UNIQUE", "properties": ["since"] },
+        "since_unique_again": { "type": "UNIQUE", "properties": ["since"] }
+      },
+      "extensions": { "indexes": { "nothing_range": { "type": "RANGE", "properties": [] } } }
+    }
+  }
+}
