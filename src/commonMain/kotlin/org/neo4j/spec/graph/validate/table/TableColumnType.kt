@@ -37,7 +37,14 @@ object TableColumnType : TableValidation {
                 Issue(
                     code = "missing_table_column_supported_type",
                     message = "Missing supported types for table column '${column.name}'",
-                    path = jsonPointerOf("extensions", "data_source_tables", tableId, "columns", columnIndex, "supported")
+                    path = jsonPointerOf(
+                        "extensions",
+                        "data_source_tables",
+                        tableId,
+                        "columns",
+                        columnIndex,
+                        "supported"
+                    )
                 )
             )
         }
