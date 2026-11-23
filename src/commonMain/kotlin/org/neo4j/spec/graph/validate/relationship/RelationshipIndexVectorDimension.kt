@@ -33,7 +33,6 @@ object RelationshipIndexVectorDimension : RelationshipValidation {
         issues: MutableList<Issue>
     ) {
         vectorIndexDimensionIssue(
-            indexId,
             index.type,
             index.properties,
             index.options,

@@ -33,7 +33,6 @@ object NodeIndexVectorDimension : NodeValidation {
         issues: MutableList<Issue>
     ) {
         vectorIndexDimensionIssue(
-            indexId,
             index.type,
             index.properties,
             index.options,

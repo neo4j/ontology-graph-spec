@@ -30,7 +30,6 @@ private const val SYNC_DIMENSION = "Update the property dimension to sync the in
 private const val SET_INDEX_DIMENSION = "Set the index dimensions to match the property dimension."
 
 fun vectorIndexDimensionIssue(
-    indexId: String,
     indexType: IndexType,
     indexProperties: List<String>,
     options: IndexOption?,
