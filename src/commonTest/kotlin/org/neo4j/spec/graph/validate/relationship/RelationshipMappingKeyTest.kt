@@ -78,7 +78,7 @@ class RelationshipMappingKeyTest {
 
         assertEquals(1, issues.size)
         assertEquals("invalid_relationship_mapping_key", issues.first().code)
-        assertEquals("/extensions/data_source_mappings/m0/1/key", issues.first().path)
+        assertEquals("/extensions/data_source_mappings/m0/1/key/1", issues.first().path)
         assertEquals("age", issues.first().details["property"])
     }
 
@@ -87,6 +87,16 @@ class RelationshipMappingKeyTest {
         val issues = validate(model(listOf("missing")))
 
         assertEquals(listOf("missing"), issues.map { it.details["property"] })
+    }
+
+    @Test
+    fun `fail on each invalid key entry at its own index`() {
+        val issues = validate(model(listOf("age", "since", "missing")))
+
+        assertEquals(
+            listOf("/extensions/data_source_mappings/m0/1/key/0", "/extensions/data_source_mappings/m0/1/key/2"),
+            issues.map { it.path }
+        )
     }
 
     @Test

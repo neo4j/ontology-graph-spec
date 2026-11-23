@@ -74,7 +74,6 @@ class NodeIndexConstraintNameConflictTest {
 
     @Test
     fun `fail when indexes sharing a name have identical definitions`() {
-        // Graph-spec does not carry UPX's identical-definition exception; any duplicate name is flagged.
         // ARRANGE
         val node = node(
             indexes = mapOf(
@@ -114,7 +113,6 @@ class NodeIndexConstraintNameConflictTest {
 
     @Test
     fun `fail when indexes sharing a name have different index types`() {
-        // UPX probe case C
         // ARRANGE
         val node = node(
             indexes = mapOf(
@@ -197,7 +195,6 @@ class NodeIndexConstraintNameConflictTest {
 
     @Test
     fun `fail when constraints sharing a name have different constraint types`() {
-        // UPX probe case G
         // ARRANGE
         val node = node(
             constraints = mapOf(
@@ -219,7 +216,6 @@ class NodeIndexConstraintNameConflictTest {
 
     @Test
     fun `fail when an index and a constraint share a name`() {
-        // UPX probe case H: always an error, even with the same properties and label
         // ARRANGE
         val node = node(
             indexes = mapOf("i1" to index("dup", listOf("id"))),
@@ -239,7 +235,6 @@ class NodeIndexConstraintNameConflictTest {
 
     @Test
     fun `fail when an index shares a name with two identical constraints`() {
-        // UPX probe case I: all three are flagged
         // ARRANGE
         val node = node(
             indexes = mapOf("i1" to index("dup", listOf("id"))),
@@ -258,14 +253,21 @@ class NodeIndexConstraintNameConflictTest {
 
     @Test
     fun `pass when names are missing or blank`() {
-        // UPX probe case J: falsy names are skipped
         // ARRANGE
         val node = node(
             indexes = mapOf(
                 "i1" to index(null, listOf("id")),
                 "i2" to index(null, listOf("name")),
                 "i3" to index("", listOf("id")),
-                "i4" to index("", listOf("name"))
+                "i4" to index("", listOf("name")),
+                "i5" to index(" ", listOf("id")),
+                "i6" to index(" ", listOf("name"))
+            ),
+            constraints = mapOf(
+                "c1" to constraint(null, listOf("id")),
+                "c2" to constraint("", listOf("id")),
+                "c3" to constraint(" ", listOf("name")),
+                "c4" to constraint(" ", listOf("id"), type = ConstraintType.KEY)
             )
         )
 
@@ -273,12 +275,11 @@ class NodeIndexConstraintNameConflictTest {
         val issues = validate("personNode" to node)
 
         // ASSERT
-        assertTrue(issues.isEmpty(), "Unnamed indexes are not name conflicts")
+        assertTrue(issues.isEmpty(), "Unnamed indexes and constraints are not name conflicts")
     }
 
     @Test
     fun `pass when names are distinct`() {
-        // UPX probe case K
         // ARRANGE
         val node = node(
             indexes = mapOf(

@@ -22,11 +22,11 @@ import org.neo4j.spec.graph.model.relationship.RelationshipConstraint
 import org.neo4j.spec.graph.model.type.ConstraintType
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.jsonPointerOf
-import org.neo4j.spec.graph.validate.node.NodeConstraints
+import org.neo4j.spec.graph.validate.relationship.RelationshipConstraints
 import org.neo4j.spec.graph.validate.relationship.RelationshipValidation
 
 object RelationshipExistenceConstraint : RelationshipValidation {
-    override fun dependsOn() = listOf(NodeConstraints)
+    override fun dependsOn() = listOf(RelationshipConstraints)
 
     override fun validateConstraint(
         model: GraphModel,
