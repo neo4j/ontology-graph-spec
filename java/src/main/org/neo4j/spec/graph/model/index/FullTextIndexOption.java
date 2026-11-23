@@ -163,7 +163,7 @@ public final class FullTextIndexOption implements IndexOption {
             "Whether the index is eventually consistent, updating asynchronously after transactions commit.")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean jsonEventuallyConsistent() {
-        return !this.eventuallyConsistent ? null : this.eventuallyConsistent;
+        return !this.eventuallyConsistent ? null : true;
     }
 
     @JsonProperty("fulltext.eventually_consistent_apply_parallelism")
