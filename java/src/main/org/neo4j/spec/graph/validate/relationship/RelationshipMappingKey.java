@@ -43,9 +43,7 @@ public final class RelationshipMappingKey implements RelationshipValidation {
             for (int index = 0; index < mappings.size(); index++) {
                 var mapping = mappings.get(index);
                 if (!(mapping instanceof RelationshipMapping)
-                        || !Objects.equals(
-                                ((RelationshipMapping) mapping).getRelationship(),
-                                relationshipId)) {
+                        || !Objects.equals(((RelationshipMapping) mapping).getRelationship(), relationshipId)) {
                     continue;
                 }
                 for (var propertyId : ((RelationshipMapping) mapping).getKey()) {

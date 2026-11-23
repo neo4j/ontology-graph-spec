@@ -101,5 +101,4 @@ public class GraphSpec {
     public static GraphSpec yaml() {
         return YAML;
     }
-
 }

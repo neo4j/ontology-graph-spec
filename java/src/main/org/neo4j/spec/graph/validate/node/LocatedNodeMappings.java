@@ -35,8 +35,7 @@ public final class LocatedNodeMappings {
             var mappings = entry.getValue();
             for (int index = 0; index < mappings.size(); index++) {
                 var mapping = mappings.get(index);
-                if (mapping instanceof NodeMapping
-                        && Objects.equals(((NodeMapping) mapping).getNode(), nodeId)) {
+                if (mapping instanceof NodeMapping && Objects.equals(((NodeMapping) mapping).getNode(), nodeId)) {
                     found.add(new LocatedNodeMapping(mappingId, index, ((NodeMapping) mapping)));
                 }
             }

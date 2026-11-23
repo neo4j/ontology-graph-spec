@@ -164,12 +164,7 @@ public final class RelationshipTarget {
             @JsonProperty("count") Integer count,
             @JsonProperty("min_count") Integer minCount,
             @JsonProperty("max_count") Integer maxCount) {
-        return new RelationshipTarget(
-                node != null ? node : "",
-                label != null ? label : "",
-                count,
-                minCount,
-                maxCount);
+        return new RelationshipTarget(node != null ? node : "", label != null ? label : "", count, minCount, maxCount);
     }
 
     public static final class Builder {

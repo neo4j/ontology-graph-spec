@@ -96,9 +96,7 @@ public final class TargetMapping {
     @JsonCreator
     private static TargetMapping fromJson(
             @JsonProperty("label") String label, @JsonProperty("properties") Map<String, PropertyMapping> properties) {
-        return new TargetMapping(
-                label != null ? label : "",
-                properties != null ? properties : new LinkedHashMap<>());
+        return new TargetMapping(label != null ? label : "", properties != null ? properties : new LinkedHashMap<>());
     }
 
     public static final class Builder {

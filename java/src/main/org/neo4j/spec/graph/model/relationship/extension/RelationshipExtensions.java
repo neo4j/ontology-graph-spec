@@ -96,8 +96,7 @@ public final class RelationshipExtensions implements CustomExtensions {
             @JsonProperty("indexes") Map<String, RelationshipIndex> indexes,
             @JsonProperty("custom") Map<String, Object> custom) {
         return new RelationshipExtensions(
-                indexes != null ? indexes : new LinkedHashMap<>(),
-                custom != null ? custom : new LinkedHashMap<>());
+                indexes != null ? indexes : new LinkedHashMap<>(), custom != null ? custom : new LinkedHashMap<>());
     }
 
     public static final class Builder {
