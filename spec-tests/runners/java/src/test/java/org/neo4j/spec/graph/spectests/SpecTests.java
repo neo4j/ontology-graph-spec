@@ -23,7 +23,6 @@ import org.neo4j.spec.graph.GraphSpec;
 import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.validate.Issue;
 import org.neo4j.spec.graph.validate.Validation;
-import org.neo4j.spec.graph.validate.Validations;
 
 /**
  * Runs the Java API against the spec tests. The cases directory is passed as the {@code specTests.cases} system
@@ -34,14 +33,7 @@ class SpecTests {
     private static final Path CASES = Path.of(System.getProperty("specTests.cases"));
     private static final ObjectMapper JSON = new ObjectMapper();
 
-    private static final Map<String, List<Validation>> SETS = Map.of(
-        "core", Validations.getCore(),
-        "labelled", Validations.getLabelled(),
-        "consistent_schema", Validations.getConsistentSchema(),
-        "mappable", Validations.getMappable(),
-        "bulk_importable", Validations.getBulkImportable(),
-        "well_constrained", Validations.getWellConstrained(),
-        "all", Validations.getAll());
+    private static final Map<String, List<Validation>> SETS = Api.validationSets();
 
     @TestFactory
     Stream<DynamicTest> documents() {
@@ -52,11 +44,11 @@ class SpecTests {
                 GraphModel model = decode(file);
                 assertEquals(
                     JSON.readTree(read(json)),
-                    JSON.readTree(GraphSpec.getJson().encodeToString(model)),
+                    JSON.readTree(Api.json().encodeToString(model)),
                     file.getFileName() + " encoded as JSON");
-                assertEquals(read(yaml), GraphSpec.getYaml().encodeToString(model), file.getFileName() + " encoded as YAML");
+                assertEquals(read(yaml), Api.yaml().encodeToString(model), file.getFileName() + " encoded as YAML");
             }
-            assertEquals(List.of(), decode(json).validate(Validations.getCore()), "core issues");
+            assertEquals(List.of(), decode(json).validate(Api.validationSets().get("core")), "core issues");
         }));
     }
 
@@ -107,7 +99,7 @@ class SpecTests {
     }
 
     private static GraphModel decode(Path file) throws IOException {
-        GraphSpec spec = file.toString().endsWith(".yaml") ? GraphSpec.getYaml() : GraphSpec.getJson();
+        GraphSpec spec = file.toString().endsWith(".yaml") ? Api.yaml() : Api.json();
         return spec.decodeFromString(read(file));
     }
 

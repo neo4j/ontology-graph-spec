@@ -15,5 +15,9 @@ includeBuild("build-logic")
 include("spec-tests-kotlin")
 project(":spec-tests-kotlin").projectDir = file("spec-tests/runners/kotlin")
 
+// Java spec-tests runner, built against the Kotlin JVM target (or the Java port with -Pogs.artifact=java).
+include("spec-tests-java")
+project(":spec-tests-java").projectDir = file("spec-tests/runners/java")
+
 // Pure Java port of the library, published alongside the Kotlin artifacts.
 include("java")
