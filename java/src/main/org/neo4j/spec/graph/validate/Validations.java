@@ -77,7 +77,7 @@ import org.neo4j.spec.graph.validate.table.TableColumnSupportedDuplicate;
 import org.neo4j.spec.graph.validate.table.TableColumnType;
 
 public final class Validations {
-    private static final List<Validation> core = List.of(
+    private static final List<Validation> CORE = List.of(
             NodeTypeConstraint.INSTANCE,
             RelationshipTypeConstraint.INSTANCE,
             NodeConstraints.INSTANCE,
@@ -108,9 +108,9 @@ public final class Validations {
             RelationshipMappingKeyDuplicate.INSTANCE,
             TableColumnSupportedDuplicate.INSTANCE);
 
-    private static final List<Validation> labelled = List.of(NodeLabel.INSTANCE, RelationshipType.INSTANCE);
+    private static final List<Validation> LABELLED = List.of(NodeLabel.INSTANCE, RelationshipType.INSTANCE);
 
-    private static final List<Validation> consistentSchema = List.of(
+    private static final List<Validation> CONSISTENT_SCHEMA = List.of(
             NodePropertyEmptyName.INSTANCE,
             NodePropertyDuplicateName.INSTANCE,
             RelationshipPropertyEmptyName.INSTANCE,
@@ -123,57 +123,57 @@ public final class Validations {
             NodeExistenceCompositeConflict.INSTANCE,
             NodeIndexConstraintNameConflict.INSTANCE);
 
-    private static final List<Validation> mappable = List.of(
+    private static final List<Validation> MAPPABLE = List.of(
             NodeMappingKey.INSTANCE,
             MappingDependencies.INSTANCE,
             TableColumnEmptyName.INSTANCE,
             TableColumnDuplicateName.INSTANCE,
             TableColumnType.INSTANCE);
 
-    private static final List<Validation> bulkImportable = List.of(
+    private static final List<Validation> BULK_IMPORTABLE = List.of(
             NodeLabelToken.INSTANCE,
             RelationshipTypeToken.INSTANCE,
             NodeMappingKeyType.INSTANCE,
             NodeCompositeConstraintPropertyType.INSTANCE);
 
-    private static final List<Validation> wellConstrained = List.of(
+    private static final List<Validation> WELL_CONSTRAINED = List.of(
             NodeProperties.INSTANCE,
             NodeConstraintCoverage.INSTANCE,
             NodeKeyOverlap.INSTANCE,
             RelationshipKeyOverlap.INSTANCE);
 
-    private static final List<Validation> all =
-            List.copyOf(Stream.of(core, labelled, consistentSchema, mappable, bulkImportable, wellConstrained)
+    private static final List<Validation> ALL =
+            List.copyOf(Stream.of(CORE, LABELLED, CONSISTENT_SCHEMA, MAPPABLE, BULK_IMPORTABLE, WELL_CONSTRAINED)
                     .flatMap(List::stream)
                     .collect(Collectors.toCollection(LinkedHashSet::new)));
 
     public Validations() {}
 
     public static List<Validation> getCore() {
-        return Validations.core;
+        return Validations.CORE;
     }
 
     public static List<Validation> getLabelled() {
-        return Validations.labelled;
+        return Validations.LABELLED;
     }
 
     public static List<Validation> getConsistentSchema() {
-        return Validations.consistentSchema;
+        return Validations.CONSISTENT_SCHEMA;
     }
 
     public static List<Validation> getMappable() {
-        return Validations.mappable;
+        return Validations.MAPPABLE;
     }
 
     public static List<Validation> getBulkImportable() {
-        return Validations.bulkImportable;
+        return Validations.BULK_IMPORTABLE;
     }
 
     public static List<Validation> getWellConstrained() {
-        return Validations.wellConstrained;
+        return Validations.WELL_CONSTRAINED;
     }
 
     public static List<Validation> getAll() {
-        return Validations.all;
+        return Validations.ALL;
     }
 }
