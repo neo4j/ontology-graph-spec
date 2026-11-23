@@ -135,15 +135,7 @@ public final class TableColumn implements CustomExtensions {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(name);
-        result = 31 * result + Objects.hashCode(type);
-        result = 31 * result + Integer.hashCode(size);
-        result = 31 * result + Objects.hashCode(suggested);
-        result = 31 * result + Objects.hashCode(supported);
-        result = 31 * result + Boolean.hashCode(nullable);
-        result = 31 * result + Objects.hashCode(dimension);
-        result = 31 * result + Objects.hashCode(custom);
-        return result;
+        return Objects.hash(name, type, size, suggested, supported, nullable, dimension, custom);
     }
 
     @Override

@@ -124,14 +124,14 @@ public final class FullTextIndexOption implements IndexOption {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(defaultAnalyzer);
-        result = 31 * result + Objects.hashCode(analyzer);
-        result = 31 * result + Boolean.hashCode(eventuallyConsistent);
-        result = 31 * result + Integer.hashCode(eventuallyConsistentApplyParallelism);
-        result = 31 * result + Objects.hashCode(eventuallyConsistentRefreshInterval);
-        result = 31 * result + Integer.hashCode(eventuallyConsistentRefreshParallelism);
-        result = 31 * result + Integer.hashCode(eventuallyConsistentUpdateQueueMaxLength);
-        return result;
+        return Objects.hash(
+                defaultAnalyzer,
+                analyzer,
+                eventuallyConsistent,
+                eventuallyConsistentApplyParallelism,
+                eventuallyConsistentRefreshInterval,
+                eventuallyConsistentRefreshParallelism,
+                eventuallyConsistentUpdateQueueMaxLength);
     }
 
     @Override

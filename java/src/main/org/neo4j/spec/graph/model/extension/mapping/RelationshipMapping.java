@@ -168,17 +168,7 @@ public final class RelationshipMapping implements Mapping {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(relationship);
-        result = 31 * result + Objects.hashCode(table);
-        result = 31 * result + Objects.hashCode(fromNode);
-        result = 31 * result + Objects.hashCode(toNode);
-        result = 31 * result + Objects.hashCode(matchLabel);
-        result = 31 * result + Objects.hashCode(properties);
-        result = 31 * result + Objects.hashCode(mode);
-        result = 31 * result + Objects.hashCode(key);
-        result = 31 * result + Objects.hashCode(dependsOn);
-        result = 31 * result + Objects.hashCode(id);
-        return result;
+        return Objects.hash(relationship, table, fromNode, toNode, matchLabel, properties, mode, key, dependsOn, id);
     }
 
     @Override

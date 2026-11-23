@@ -69,9 +69,7 @@ public final class TargetMapping {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(label);
-        result = 31 * result + Objects.hashCode(properties);
-        return result;
+        return Objects.hash(label, properties);
     }
 
     @Override

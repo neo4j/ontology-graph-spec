@@ -159,15 +159,7 @@ public final class GraphModel {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(schema);
-        result = 31 * result + Objects.hashCode(version);
-        result = 31 * result + Objects.hashCode(id);
-        result = 31 * result + Objects.hashCode(name);
-        result = 31 * result + Objects.hashCode(description);
-        result = 31 * result + Objects.hashCode(nodes);
-        result = 31 * result + Objects.hashCode(relationships);
-        result = 31 * result + Objects.hashCode(extensions);
-        return result;
+        return Objects.hash(schema, version, id, name, description, nodes, relationships, extensions);
     }
 
     @Override

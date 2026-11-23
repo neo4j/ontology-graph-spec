@@ -60,8 +60,7 @@ public final class RelationshipConstraintExtensions implements CustomExtensions 
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(custom);
-        return result;
+        return Objects.hash(custom);
     }
 
     @Override

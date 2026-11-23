@@ -149,15 +149,7 @@ public final class NodeMapping implements Mapping {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(node);
-        result = 31 * result + Objects.hashCode(table);
-        result = 31 * result + Objects.hashCode(properties);
-        result = 31 * result + Objects.hashCode(mode);
-        result = 31 * result + Objects.hashCode(matchLabel);
-        result = 31 * result + Objects.hashCode(key);
-        result = 31 * result + Objects.hashCode(dependsOn);
-        result = 31 * result + Objects.hashCode(id);
-        return result;
+        return Objects.hash(node, table, properties, mode, matchLabel, key, dependsOn, id);
     }
 
     @Override

@@ -77,10 +77,7 @@ public final class ForeignKey implements CustomExtensions {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(columns);
-        result = 31 * result + Objects.hashCode(references);
-        result = 31 * result + Objects.hashCode(custom);
-        return result;
+        return Objects.hash(columns, references, custom);
     }
 
     @Override

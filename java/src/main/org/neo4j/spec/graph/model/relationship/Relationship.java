@@ -139,16 +139,7 @@ public final class Relationship {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(type);
-        result = 31 * result + Objects.hashCode(from);
-        result = 31 * result + Objects.hashCode(to);
-        result = 31 * result + Objects.hashCode(properties);
-        result = 31 * result + Objects.hashCode(constraints);
-        result = 31 * result + Objects.hashCode(extensions);
-        result = 31 * result + Objects.hashCode(description);
-        result = 31 * result + Objects.hashCode(aliases);
-        result = 31 * result + Objects.hashCode(reference);
-        return result;
+        return Objects.hash(type, from, to, properties, constraints, extensions, description, aliases, reference);
     }
 
     @Override

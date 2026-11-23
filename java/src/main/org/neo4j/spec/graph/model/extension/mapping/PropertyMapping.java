@@ -56,8 +56,7 @@ public final class PropertyMapping {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(column);
-        return result;
+        return Objects.hash(column);
     }
 
     @Override

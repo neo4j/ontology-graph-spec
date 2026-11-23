@@ -122,14 +122,14 @@ public final class VectorIndexOption implements IndexOption {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(dimensions);
-        result = 31 * result + Objects.hashCode(similarityFunction);
-        result = 31 * result + Objects.hashCode(defaultSearchExpansionFactor);
-        result = 31 * result + Boolean.hashCode(quantizationEnabled);
-        result = 31 * result + Objects.hashCode(quantizationType);
-        result = 31 * result + Integer.hashCode(hnswM);
-        result = 31 * result + Integer.hashCode(hnswEfConstruction);
-        return result;
+        return Objects.hash(
+                dimensions,
+                similarityFunction,
+                defaultSearchExpansionFactor,
+                quantizationEnabled,
+                quantizationType,
+                hnswM,
+                hnswEfConstruction);
     }
 
     @Override

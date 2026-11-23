@@ -106,12 +106,7 @@ public final class RelationshipIndex implements CustomExtensions, Named {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(type);
-        result = 31 * result + Objects.hashCode(properties);
-        result = 31 * result + Objects.hashCode(options);
-        result = 31 * result + Objects.hashCode(custom);
-        result = 31 * result + Objects.hashCode(name);
-        return result;
+        return Objects.hash(type, properties, options, custom, name);
     }
 
     @Override

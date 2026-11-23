@@ -130,15 +130,7 @@ public final class Node {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(label);
-        result = 31 * result + Objects.hashCode(labels);
-        result = 31 * result + Objects.hashCode(properties);
-        result = 31 * result + Objects.hashCode(constraints);
-        result = 31 * result + Objects.hashCode(extensions);
-        result = 31 * result + Objects.hashCode(description);
-        result = 31 * result + Objects.hashCode(aliases);
-        result = 31 * result + Objects.hashCode(reference);
-        return result;
+        return Objects.hash(label, labels, properties, constraints, extensions, description, aliases, reference);
     }
 
     @Override

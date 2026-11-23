@@ -96,11 +96,7 @@ public final class NodeConstraint implements Constraint, Named {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(type);
-        result = 31 * result + Objects.hashCode(properties);
-        result = 31 * result + Objects.hashCode(extensions);
-        result = 31 * result + Objects.hashCode(name);
-        return result;
+        return Objects.hash(type, properties, extensions, name);
     }
 
     @Override

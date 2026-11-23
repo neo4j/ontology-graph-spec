@@ -83,11 +83,7 @@ public final class Issue {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(code);
-        result = 31 * result + Objects.hashCode(message);
-        result = 31 * result + Objects.hashCode(path);
-        result = 31 * result + Objects.hashCode(details);
-        return result;
+        return Objects.hash(code, message, path, details);
     }
 
     @Override

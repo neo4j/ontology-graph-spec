@@ -56,10 +56,7 @@ public final class LocatedNodeMapping {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(mappingId);
-        result = 31 * result + Integer.hashCode(index);
-        result = 31 * result + Objects.hashCode(mapping);
-        return result;
+        return Objects.hash(mappingId, index, mapping);
     }
 
     @Override

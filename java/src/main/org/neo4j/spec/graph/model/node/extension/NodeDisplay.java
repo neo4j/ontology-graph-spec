@@ -96,11 +96,7 @@ public final class NodeDisplay implements CustomExtensions {
 
     @Override
     public int hashCode() {
-        int result = Double.hashCode(x);
-        result = 31 * result + Double.hashCode(y);
-        result = 31 * result + Objects.hashCode(colour);
-        result = 31 * result + Objects.hashCode(custom);
-        return result;
+        return Objects.hash(x, y, colour, custom);
     }
 
     @Override

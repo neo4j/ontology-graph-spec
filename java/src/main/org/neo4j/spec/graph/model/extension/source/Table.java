@@ -103,12 +103,7 @@ public final class Table implements CustomExtensions {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(source);
-        result = 31 * result + Objects.hashCode(columns);
-        result = 31 * result + Objects.hashCode(primaryKeys);
-        result = 31 * result + Objects.hashCode(foreignKeys);
-        result = 31 * result + Objects.hashCode(custom);
-        return result;
+        return Objects.hash(source, columns, primaryKeys, foreignKeys, custom);
     }
 
     @Override

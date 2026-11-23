@@ -84,10 +84,7 @@ public final class GraphModelExtensions implements CustomExtensions {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(dataSourceTables);
-        result = 31 * result + Objects.hashCode(dataSourceMappings);
-        result = 31 * result + Objects.hashCode(custom);
-        return result;
+        return Objects.hash(dataSourceTables, dataSourceMappings, custom);
     }
 
     @Override

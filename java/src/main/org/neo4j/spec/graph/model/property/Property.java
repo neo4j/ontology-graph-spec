@@ -185,19 +185,19 @@ public final class Property implements Named {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(type);
-        result = 31 * result + Objects.hashCode(dimension);
-        result = 31 * result + Objects.hashCode(mustExist);
-        result = 31 * result + Objects.hashCode(unique);
-        result = 31 * result + Objects.hashCode(key);
-        result = 31 * result + Objects.hashCode(extensions);
-        result = 31 * result + Objects.hashCode(name);
-        result = 31 * result + Objects.hashCode(description);
-        result = 31 * result + Objects.hashCode(aliases);
-        result = 31 * result + Objects.hashCode(reference);
-        result = 31 * result + Objects.hashCode(pattern);
-        result = 31 * result + Objects.hashCode(oneOf);
-        return result;
+        return Objects.hash(
+                type,
+                dimension,
+                mustExist,
+                unique,
+                key,
+                extensions,
+                name,
+                description,
+                aliases,
+                reference,
+                pattern,
+                oneOf);
     }
 
     @Override

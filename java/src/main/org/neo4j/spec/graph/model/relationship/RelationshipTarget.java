@@ -108,12 +108,7 @@ public final class RelationshipTarget {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(node);
-        result = 31 * result + Objects.hashCode(label);
-        result = 31 * result + Objects.hashCode(count);
-        result = 31 * result + Objects.hashCode(minCount);
-        result = 31 * result + Objects.hashCode(maxCount);
-        return result;
+        return Objects.hash(node, label, count, minCount, maxCount);
     }
 
     @Override

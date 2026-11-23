@@ -98,11 +98,7 @@ public final class QueryMapping implements Mapping {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(table);
-        result = 31 * result + Objects.hashCode(query);
-        result = 31 * result + Objects.hashCode(dependsOn);
-        result = 31 * result + Objects.hashCode(id);
-        return result;
+        return Objects.hash(table, query, dependsOn, id);
     }
 
     @Override

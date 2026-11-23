@@ -67,9 +67,7 @@ public final class RelationshipExtensions implements CustomExtensions {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(indexes);
-        result = 31 * result + Objects.hashCode(custom);
-        return result;
+        return Objects.hash(indexes, custom);
     }
 
     @Override

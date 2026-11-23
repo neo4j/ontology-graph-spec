@@ -132,15 +132,8 @@ public final class PointIndexOption implements IndexOption {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(cartesianMin);
-        result = 31 * result + Objects.hashCode(cartesianMax);
-        result = 31 * result + Objects.hashCode(cartesian3DMin);
-        result = 31 * result + Objects.hashCode(cartesian3DMax);
-        result = 31 * result + Objects.hashCode(wgs84Min);
-        result = 31 * result + Objects.hashCode(wgs84Max);
-        result = 31 * result + Objects.hashCode(wgs843DMin);
-        result = 31 * result + Objects.hashCode(wgs843DMax);
-        return result;
+        return Objects.hash(
+                cartesianMin, cartesianMax, cartesian3DMin, cartesian3DMax, wgs84Min, wgs84Max, wgs843DMin, wgs843DMax);
     }
 
     @Override

@@ -87,11 +87,7 @@ public final class Labels {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(identifier);
-        result = 31 * result + Objects.hashCode(implied);
-        result = 31 * result + Objects.hashCode(optional);
-        result = 31 * result + Objects.hashCode(extensions);
-        return result;
+        return Objects.hash(identifier, implied, optional, extensions);
     }
 
     @Override
