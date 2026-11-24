@@ -19,15 +19,6 @@ package org.neo4j.spec.graph.model;
 import java.util.List;
 
 public final class Version {
-    public static final String DATA_MODEL_V2_3 = "2.3.0";
-
-    public static final String DATA_MODEL_V2_4 = "2.4.0";
-
-    public static final String DATA_MODEL_V3_0 = "3.0.0";
-
-    public static final String DATA_MODEL_WRAPPED_V3_0 = "3.0.0";
-
-    public static final String IMPORT_SPEC_V1 = "1.0.0";
 
     public static final String V1 = "1.0.0";
 
