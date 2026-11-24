@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import org.neo4j.spec.graph.codec.schema.SchemaMap;
-import org.neo4j.spec.graph.migrate.migration.dataModel.DataModelWrapper;
 import org.neo4j.spec.graph.model.Type;
 import org.neo4j.spec.graph.model.Version;
 
@@ -76,11 +75,7 @@ public final class MigrationPath {
      * Wrapped data models are also accepted as plain data models.
      */
     private String sourceType(SchemaMap schema, String type) {
-        if (Objects.equals(type, Type.DATA_MODEL) && DataModelWrapper.isWrapped(schema)) {
-            return Type.DATA_MODEL_WRAPPED;
-        } else {
-            return type;
-        }
+        return Type.GRAPH_SPEC;
     }
 
     /**
@@ -95,9 +90,7 @@ public final class MigrationPath {
             }
             return version(Version.parseSchemaVersion(url), type);
         }
-        SchemaMap versioned =
-                Objects.equals(type, Type.DATA_MODEL_WRAPPED) ? schema.map(DataModelWrapper.DATA_MODEL) : schema;
-        String version = versioned.stringOrNull("version");
+        String version = schema.stringOrNull("version");
         if (version == null) {
             throw new IllegalStateException("Version must be specified");
         }
@@ -108,8 +101,6 @@ public final class MigrationPath {
         String subject = migration.getToType();
         if (Objects.equals(subject, Type.GRAPH_SPEC)) {
             map.set("schema", Version.schemaUrl(migration.getTo()));
-        } else if (Objects.equals(subject, Type.DATA_MODEL_WRAPPED)) {
-            map.map(DataModelWrapper.DATA_MODEL).set("version", migration.getTo());
         } else {
             map.set("version", migration.getTo());
         }
