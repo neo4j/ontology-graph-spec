@@ -16,11 +16,6 @@
  */
 package org.neo4j.spec.graph.model.relationship;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,8 +25,6 @@ import org.neo4j.spec.graph.model.property.Property;
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipExtensions;
 
 /** A relationship of the graph. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = Relationship.Builder.class)
 public final class Relationship {
     private String type;
 
@@ -50,11 +43,6 @@ public final class Relationship {
     private final List<String> aliases;
 
     private final String reference;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private Relationship() {
-        this(new Builder(null, null, null));
-    }
 
     private Relationship(Builder builder) {
         this.type = builder.type;
@@ -149,7 +137,6 @@ public final class Relationship {
                 + ", aliases=" + aliases + ", reference=" + reference + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String type;
         private RelationshipTarget from;
@@ -162,11 +149,7 @@ public final class Relationship {
         private List<String> aliases = new ArrayList<>();
         private String reference = "";
 
-        @JsonCreator
-        private Builder(
-                @JsonProperty("type") String type,
-                @JsonProperty("from") RelationshipTarget from,
-                @JsonProperty("to") RelationshipTarget to) {
+        private Builder(String type, RelationshipTarget from, RelationshipTarget to) {
             this.type = type;
             this.from = from;
             this.to = to;

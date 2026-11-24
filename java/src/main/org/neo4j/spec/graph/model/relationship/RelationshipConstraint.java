@@ -16,11 +16,6 @@
  */
 package org.neo4j.spec.graph.model.relationship;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.List;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.node.Constraint;
@@ -29,8 +24,6 @@ import org.neo4j.spec.graph.model.type.ConstraintType;
 import org.neo4j.spec.graph.model.type.Named;
 
 /** A constraint on a relationship. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = RelationshipConstraint.Builder.class)
 public final class RelationshipConstraint implements Constraint, Named {
     private ConstraintType type;
 
@@ -39,11 +32,6 @@ public final class RelationshipConstraint implements Constraint, Named {
     private final RelationshipConstraintExtensions extensions;
 
     private String name;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private RelationshipConstraint() {
-        this(new Builder(null, null));
-    }
 
     private RelationshipConstraint(Builder builder) {
         this.type = builder.type;
@@ -109,7 +97,6 @@ public final class RelationshipConstraint implements Constraint, Named {
                 + ", name=" + name + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private ConstraintType type;
         private List<String> properties;
@@ -117,9 +104,7 @@ public final class RelationshipConstraint implements Constraint, Named {
                 RelationshipConstraintExtensions.builder().build();
         private String name = null;
 
-        @JsonCreator
-        private Builder(
-                @JsonProperty("type") ConstraintType type, @JsonProperty("properties") List<String> properties) {
+        private Builder(ConstraintType type, List<String> properties) {
             this.type = type;
             this.properties = properties;
         }

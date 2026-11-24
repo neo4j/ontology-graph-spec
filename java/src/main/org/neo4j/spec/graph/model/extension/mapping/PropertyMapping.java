@@ -16,16 +16,13 @@
  */
 package org.neo4j.spec.graph.model.extension.mapping;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /** Maps a property to a source column. */
 public final class PropertyMapping {
     private String column;
 
-    @JsonCreator
-    public PropertyMapping(@JsonProperty("column") String column) {
+    public PropertyMapping(String column) {
         this.column = Objects.requireNonNull(column, "Field 'column' is required");
     }
 

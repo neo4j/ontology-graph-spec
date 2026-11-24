@@ -16,11 +16,6 @@
  */
 package org.neo4j.spec.graph.model.extension.source;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -29,19 +24,12 @@ import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 
 /** The target of a foreign key. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = ForeignKeyReference.Builder.class)
 public final class ForeignKeyReference implements CustomExtensions {
     private String table;
 
     private final List<String> columns;
 
     private final Map<String, Object> custom;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private ForeignKeyReference() {
-        this(new Builder(null));
-    }
 
     private ForeignKeyReference(Builder builder) {
         this.table = builder.table;
@@ -93,14 +81,12 @@ public final class ForeignKeyReference implements CustomExtensions {
         return "ForeignKeyReference(table=" + table + ", columns=" + columns + ", custom=" + custom + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String table;
         private List<String> columns = new ArrayList<>();
         private Map<String, Object> custom = new LinkedHashMap<>();
 
-        @JsonCreator
-        private Builder(@JsonProperty("table") String table) {
+        private Builder(String table) {
             this.table = table;
         }
 

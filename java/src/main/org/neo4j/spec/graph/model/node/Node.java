@@ -16,9 +16,6 @@
  */
 package org.neo4j.spec.graph.model.node;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,8 +29,6 @@ import org.neo4j.spec.graph.model.property.Property;
  *
  * <p>Properties left at their default value are omitted when encoded.
  */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = Node.Builder.class)
 public final class Node {
     private String label;
 
@@ -50,11 +45,6 @@ public final class Node {
     private final List<String> aliases;
 
     private final String reference;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private Node() {
-        this(new Builder());
-    }
 
     private Node(Builder builder) {
         this.label = builder.label;
@@ -142,7 +132,6 @@ public final class Node {
                 + ", reference=" + reference + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String label = null;
         private Labels labels = Labels.builder().build();

@@ -16,9 +16,6 @@
  */
 package org.neo4j.spec.graph.model.extension.source;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,8 +25,6 @@ import org.neo4j.spec.graph.model.extension.CustomExtensions;
 import org.neo4j.spec.graph.model.property.Neo4jType;
 
 /** A column of a data source table. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = TableColumn.Builder.class)
 public final class TableColumn implements CustomExtensions {
     private final String name;
 
@@ -46,11 +41,6 @@ public final class TableColumn implements CustomExtensions {
     private final Integer dimension;
 
     private final Map<String, Object> custom;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private TableColumn() {
-        this(new Builder());
-    }
 
     private TableColumn(Builder builder) {
         this.name = builder.name;
@@ -143,7 +133,6 @@ public final class TableColumn implements CustomExtensions {
                 + custom + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String name = "";
         private String type = "";

@@ -16,23 +16,12 @@
  */
 package org.neo4j.spec.graph.model.extension.mapping;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 /** Maps rows of a table to nodes. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonPropertyOrder({"node", "table", "properties", "mode", "match_label", "key", "depends_on", "id"})
-@JsonDeserialize(builder = NodeMapping.Builder.class)
-@JsonTypeName("NODE")
 public final class NodeMapping implements Mapping {
     private String node;
 
@@ -49,11 +38,6 @@ public final class NodeMapping implements Mapping {
     private String dependsOn;
 
     private String id;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private NodeMapping() {
-        this(new Builder(null, null, null));
-    }
 
     private NodeMapping(Builder builder) {
         this.node = builder.node;
@@ -103,7 +87,6 @@ public final class NodeMapping implements Mapping {
     }
 
     /** Label used to match existing nodes. */
-    @JsonProperty("match_label")
     public String getMatchLabel() {
         return this.matchLabel;
     }
@@ -118,7 +101,6 @@ public final class NodeMapping implements Mapping {
     }
 
     /** Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency. */
-    @JsonProperty("depends_on")
     public String getDependsOn() {
         return this.dependsOn;
     }
@@ -162,7 +144,6 @@ public final class NodeMapping implements Mapping {
                 + ", matchLabel=" + matchLabel + ", key=" + key + ", dependsOn=" + dependsOn + ", id=" + id + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String node;
         private String table;
@@ -173,11 +154,7 @@ public final class NodeMapping implements Mapping {
         private String dependsOn = "";
         private String id = "";
 
-        @JsonCreator
-        private Builder(
-                @JsonProperty("node") String node,
-                @JsonProperty("table") String table,
-                @JsonProperty("properties") Map<String, PropertyMapping> properties) {
+        private Builder(String node, String table, Map<String, PropertyMapping> properties) {
             this.node = node;
             this.table = table;
             this.properties = properties;
@@ -203,7 +180,6 @@ public final class NodeMapping implements Mapping {
             return this;
         }
 
-        @JsonProperty("match_label")
         public Builder matchLabel(String matchLabel) {
             this.matchLabel = matchLabel;
             return this;
@@ -214,7 +190,6 @@ public final class NodeMapping implements Mapping {
             return this;
         }
 
-        @JsonProperty("depends_on")
         public Builder dependsOn(String dependsOn) {
             this.dependsOn = dependsOn;
             return this;

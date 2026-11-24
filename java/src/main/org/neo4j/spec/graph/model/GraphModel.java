@@ -16,11 +16,6 @@
  */
 package org.neo4j.spec.graph.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +27,6 @@ import org.neo4j.spec.graph.validate.Issue;
 import org.neo4j.spec.graph.validate.Validation;
 import org.neo4j.spec.graph.validate.ValidationTree;
 
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = GraphModel.Builder.class)
 public final class GraphModel {
     private final String schema;
 
@@ -51,11 +44,6 @@ public final class GraphModel {
 
     private final GraphModelExtensions extensions;
 
-    /** Default instance Jackson compares against to omit default values. */
-    private GraphModel() {
-        this(new Builder(null, null));
-    }
-
     private GraphModel(Builder builder) {
         this.schema = builder.schema;
         this.version = builder.version;
@@ -72,7 +60,6 @@ public final class GraphModel {
     }
 
     /** Schema specification uri used. Always encoded, even when left at its default. */
-    @JsonInclude(JsonInclude.Include.ALWAYS)
     public String getSchema() {
         return this.schema;
     }
@@ -171,7 +158,6 @@ public final class GraphModel {
                 + ", extensions=" + extensions + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String schema = Version.schemaUrl(Version.LATEST);
         private String version;
@@ -182,8 +168,7 @@ public final class GraphModel {
         private Map<String, Relationship> relationships = new LinkedHashMap<>();
         private GraphModelExtensions extensions = GraphModelExtensions.builder().build();
 
-        @JsonCreator
-        private Builder(@JsonProperty("version") String version, @JsonProperty("id") String id) {
+        private Builder(String version, String id) {
             this.version = version;
             this.id = id;
         }

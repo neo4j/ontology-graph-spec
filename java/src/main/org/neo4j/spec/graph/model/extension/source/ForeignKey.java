@@ -16,11 +16,6 @@
  */
 package org.neo4j.spec.graph.model.extension.source;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,19 +23,12 @@ import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 
 /** A foreign key of a table. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = ForeignKey.Builder.class)
 public final class ForeignKey implements CustomExtensions {
     private final List<String> columns;
 
     private final ForeignKeyReference references;
 
     private final Map<String, Object> custom;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private ForeignKey() {
-        this(new Builder(null, null));
-    }
 
     private ForeignKey(Builder builder) {
         this.columns = builder.columns;
@@ -88,16 +76,12 @@ public final class ForeignKey implements CustomExtensions {
         return "ForeignKey(columns=" + columns + ", references=" + references + ", custom=" + custom + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private List<String> columns;
         private ForeignKeyReference references;
         private Map<String, Object> custom = new LinkedHashMap<>();
 
-        @JsonCreator
-        private Builder(
-                @JsonProperty("columns") List<String> columns,
-                @JsonProperty("references") ForeignKeyReference references) {
+        private Builder(List<String> columns, ForeignKeyReference references) {
             this.columns = columns;
             this.references = references;
         }

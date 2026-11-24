@@ -16,11 +16,6 @@
  */
 package org.neo4j.spec.graph.model.node;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.List;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.node.extension.NodeConstraintExtensions;
@@ -28,8 +23,6 @@ import org.neo4j.spec.graph.model.type.ConstraintType;
 import org.neo4j.spec.graph.model.type.Named;
 
 /** A constraint on a node. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = NodeConstraint.Builder.class)
 public final class NodeConstraint implements Constraint, Named {
     private ConstraintType type;
 
@@ -38,11 +31,6 @@ public final class NodeConstraint implements Constraint, Named {
     private final NodeConstraintExtensions extensions;
 
     private String name;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private NodeConstraint() {
-        this(new Builder(null, null));
-    }
 
     private NodeConstraint(Builder builder) {
         this.type = builder.type;
@@ -108,7 +96,6 @@ public final class NodeConstraint implements Constraint, Named {
                 + name + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private ConstraintType type;
         private List<String> properties;
@@ -116,9 +103,7 @@ public final class NodeConstraint implements Constraint, Named {
                 NodeConstraintExtensions.builder().build();
         private String name = null;
 
-        @JsonCreator
-        private Builder(
-                @JsonProperty("type") ConstraintType type, @JsonProperty("properties") List<String> properties) {
+        private Builder(ConstraintType type, List<String> properties) {
             this.type = type;
             this.properties = properties;
         }

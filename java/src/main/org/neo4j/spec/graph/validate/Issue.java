@@ -16,15 +16,11 @@
  */
 package org.neo4j.spec.graph.validate;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 
 /** A problem found while validating a graph model. Path and details are omitted when empty. */
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public final class Issue {
     private final String code;
 
@@ -34,12 +30,7 @@ public final class Issue {
 
     private final Map<String, String> details;
 
-    @JsonCreator
-    public Issue(
-            @JsonProperty("code") String code,
-            @JsonProperty("message") String message,
-            @JsonProperty("path") String path,
-            @JsonProperty("details") Map<String, String> details) {
+    public Issue(String code, String message, String path, Map<String, String> details) {
         this.code = Objects.requireNonNull(code, "Field 'code' is required");
         this.message = Objects.requireNonNull(message, "Field 'message' is required");
         this.path = path;

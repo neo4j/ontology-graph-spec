@@ -16,20 +16,9 @@
  */
 package org.neo4j.spec.graph.model.extension.mapping;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.Objects;
 
 /** Maps the results of a query run against a table. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonPropertyOrder({"table", "query", "depends_on", "id"})
-@JsonDeserialize(builder = QueryMapping.Builder.class)
-@JsonTypeName("QUERY")
 public final class QueryMapping implements Mapping {
     private String table;
 
@@ -38,11 +27,6 @@ public final class QueryMapping implements Mapping {
     private String dependsOn;
 
     private String id;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private QueryMapping() {
-        this(new Builder(null, null));
-    }
 
     private QueryMapping(Builder builder) {
         this.table = builder.table;
@@ -74,7 +58,6 @@ public final class QueryMapping implements Mapping {
     }
 
     /** Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency. */
-    @JsonProperty("depends_on")
     public String getDependsOn() {
         return this.dependsOn;
     }
@@ -113,15 +96,13 @@ public final class QueryMapping implements Mapping {
         return "QueryMapping(table=" + table + ", query=" + query + ", dependsOn=" + dependsOn + ", id=" + id + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String table;
         private String query;
         private String dependsOn = "";
         private String id = "";
 
-        @JsonCreator
-        private Builder(@JsonProperty("table") String table, @JsonProperty("query") String query) {
+        private Builder(String table, String query) {
             this.table = table;
             this.query = query;
         }
@@ -136,7 +117,6 @@ public final class QueryMapping implements Mapping {
             return this;
         }
 
-        @JsonProperty("depends_on")
         public Builder dependsOn(String dependsOn) {
             this.dependsOn = dependsOn;
             return this;

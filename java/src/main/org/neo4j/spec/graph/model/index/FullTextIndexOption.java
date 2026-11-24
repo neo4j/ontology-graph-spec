@@ -16,12 +16,6 @@
  */
 package org.neo4j.spec.graph.model.index;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.type.IndexType;
 
@@ -31,18 +25,6 @@ import org.neo4j.spec.graph.model.type.IndexType;
  * https://neo4j.com/docs/operations-manual/2026.07/configuration/configuration-settings/#index-settings
  */
 /** Configuration of a full-text index. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonPropertyOrder({
-    "fulltext.default_analyzer",
-    "fulltext.analyzer",
-    "fulltext.eventually_consistent",
-    "fulltext.eventually_consistent_apply_parallelism",
-    "fulltext.eventually_consistent_refresh_interval",
-    "fulltext.eventually_consistent_refresh_parallelism",
-    "fulltext.eventually_consistent_index_update_queue_max_length"
-})
-@JsonDeserialize(builder = FullTextIndexOption.Builder.class)
-@JsonTypeName("FULLTEXT")
 public final class FullTextIndexOption implements IndexOption {
     private final String defaultAnalyzer;
 
@@ -57,11 +39,6 @@ public final class FullTextIndexOption implements IndexOption {
     private final int eventuallyConsistentRefreshParallelism;
 
     private final int eventuallyConsistentUpdateQueueMaxLength;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private FullTextIndexOption() {
-        this(new Builder());
-    }
 
     private FullTextIndexOption(Builder builder) {
         this.defaultAnalyzer = builder.defaultAnalyzer;
@@ -78,43 +55,36 @@ public final class FullTextIndexOption implements IndexOption {
     }
 
     /** Analyzer used when the index doesn't specify one. */
-    @JsonProperty("fulltext.default_analyzer")
     public String getDefaultAnalyzer() {
         return this.defaultAnalyzer;
     }
 
     /** Analyzer used by the index. */
-    @JsonProperty("fulltext.analyzer")
     public String getAnalyzer() {
         return this.analyzer;
     }
 
     /** Whether the index is eventually consistent, updating asynchronously after transactions commit. */
-    @JsonProperty("fulltext.eventually_consistent")
     public boolean getEventuallyConsistent() {
         return this.eventuallyConsistent;
     }
 
     /** Number of threads used to apply updates to an eventually consistent index. */
-    @JsonProperty("fulltext.eventually_consistent_apply_parallelism")
     public int getEventuallyConsistentApplyParallelism() {
         return this.eventuallyConsistentApplyParallelism;
     }
 
     /** How often an eventually consistent index is refreshed. */
-    @JsonProperty("fulltext.eventually_consistent_refresh_interval")
     public String getEventuallyConsistentRefreshInterval() {
         return this.eventuallyConsistentRefreshInterval;
     }
 
     /** Number of threads used to refresh an eventually consistent index. */
-    @JsonProperty("fulltext.eventually_consistent_refresh_parallelism")
     public int getEventuallyConsistentRefreshParallelism() {
         return this.eventuallyConsistentRefreshParallelism;
     }
 
     /** Maximum number of pending updates queued for an eventually consistent index. */
-    @JsonProperty("fulltext.eventually_consistent_index_update_queue_max_length")
     public int getEventuallyConsistentUpdateQueueMaxLength() {
         return this.eventuallyConsistentUpdateQueueMaxLength;
     }
@@ -160,7 +130,6 @@ public final class FullTextIndexOption implements IndexOption {
                 + eventuallyConsistentUpdateQueueMaxLength + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String defaultAnalyzer = "standard-no-stop-words";
         private String analyzer = null;
@@ -172,43 +141,36 @@ public final class FullTextIndexOption implements IndexOption {
 
         private Builder() {}
 
-        @JsonProperty("fulltext.default_analyzer")
         public Builder defaultAnalyzer(String defaultAnalyzer) {
             this.defaultAnalyzer = defaultAnalyzer;
             return this;
         }
 
-        @JsonProperty("fulltext.analyzer")
         public Builder analyzer(String analyzer) {
             this.analyzer = analyzer;
             return this;
         }
 
-        @JsonProperty("fulltext.eventually_consistent")
         public Builder eventuallyConsistent(boolean eventuallyConsistent) {
             this.eventuallyConsistent = eventuallyConsistent;
             return this;
         }
 
-        @JsonProperty("fulltext.eventually_consistent_apply_parallelism")
         public Builder eventuallyConsistentApplyParallelism(int eventuallyConsistentApplyParallelism) {
             this.eventuallyConsistentApplyParallelism = eventuallyConsistentApplyParallelism;
             return this;
         }
 
-        @JsonProperty("fulltext.eventually_consistent_refresh_interval")
         public Builder eventuallyConsistentRefreshInterval(String eventuallyConsistentRefreshInterval) {
             this.eventuallyConsistentRefreshInterval = eventuallyConsistentRefreshInterval;
             return this;
         }
 
-        @JsonProperty("fulltext.eventually_consistent_refresh_parallelism")
         public Builder eventuallyConsistentRefreshParallelism(int eventuallyConsistentRefreshParallelism) {
             this.eventuallyConsistentRefreshParallelism = eventuallyConsistentRefreshParallelism;
             return this;
         }
 
-        @JsonProperty("fulltext.eventually_consistent_index_update_queue_max_length")
         public Builder eventuallyConsistentUpdateQueueMaxLength(int eventuallyConsistentUpdateQueueMaxLength) {
             this.eventuallyConsistentUpdateQueueMaxLength = eventuallyConsistentUpdateQueueMaxLength;
             return this;

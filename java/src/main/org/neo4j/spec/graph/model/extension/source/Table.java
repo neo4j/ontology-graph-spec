@@ -16,12 +16,6 @@
  */
 package org.neo4j.spec.graph.model.extension.source;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,9 +24,6 @@ import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 
 /** A data source table schema. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonPropertyOrder({"source", "columns", "primary_keys", "foreign_keys", "custom"})
-@JsonDeserialize(builder = Table.Builder.class)
 public final class Table implements CustomExtensions {
     private String source;
 
@@ -43,11 +34,6 @@ public final class Table implements CustomExtensions {
     private final Map<String, ForeignKey> foreignKeys;
 
     private final Map<String, Object> custom;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private Table() {
-        this(new Builder(null));
-    }
 
     private Table(Builder builder) {
         this.source = builder.source;
@@ -76,13 +62,11 @@ public final class Table implements CustomExtensions {
     }
 
     /** Names of the columns making up the primary key. */
-    @JsonProperty("primary_keys")
     public List<String> getPrimaryKeys() {
         return this.primaryKeys;
     }
 
     /** Foreign keys of the table keyed by id. */
-    @JsonProperty("foreign_keys")
     public Map<String, ForeignKey> getForeignKeys() {
         return this.foreignKeys;
     }
@@ -116,7 +100,6 @@ public final class Table implements CustomExtensions {
                 + foreignKeys + ", custom=" + custom + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String source;
         private List<TableColumn> columns = new ArrayList<>();
@@ -124,8 +107,7 @@ public final class Table implements CustomExtensions {
         private Map<String, ForeignKey> foreignKeys = new LinkedHashMap<>();
         private Map<String, Object> custom = new LinkedHashMap<>();
 
-        @JsonCreator
-        private Builder(@JsonProperty("source") String source) {
+        private Builder(String source) {
             this.source = source;
         }
 
@@ -139,13 +121,11 @@ public final class Table implements CustomExtensions {
             return this;
         }
 
-        @JsonProperty("primary_keys")
         public Builder primaryKeys(List<String> primaryKeys) {
             this.primaryKeys = primaryKeys;
             return this;
         }
 
-        @JsonProperty("foreign_keys")
         public Builder foreignKeys(Map<String, ForeignKey> foreignKeys) {
             this.foreignKeys = foreignKeys;
             return this;

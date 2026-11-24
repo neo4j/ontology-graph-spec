@@ -16,26 +16,16 @@
  */
 package org.neo4j.spec.graph.model.relationship.extension;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 
 /** Extensions for a relationship. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = RelationshipExtensions.Builder.class)
 public final class RelationshipExtensions implements CustomExtensions {
     private final Map<String, RelationshipIndex> indexes;
 
     private final Map<String, Object> custom;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private RelationshipExtensions() {
-        this(new Builder());
-    }
 
     private RelationshipExtensions(Builder builder) {
         this.indexes = builder.indexes;
@@ -75,7 +65,6 @@ public final class RelationshipExtensions implements CustomExtensions {
         return "RelationshipExtensions(indexes=" + indexes + ", custom=" + custom + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private Map<String, RelationshipIndex> indexes = new LinkedHashMap<>();
         private Map<String, Object> custom = new LinkedHashMap<>();

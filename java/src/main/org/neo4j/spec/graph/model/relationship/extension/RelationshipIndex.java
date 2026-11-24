@@ -16,11 +16,6 @@
  */
 package org.neo4j.spec.graph.model.relationship.extension;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +26,6 @@ import org.neo4j.spec.graph.model.type.IndexType;
 import org.neo4j.spec.graph.model.type.Named;
 
 /** An index on a relationship. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = RelationshipIndex.Builder.class)
 public final class RelationshipIndex implements CustomExtensions, Named {
     private IndexType type;
 
@@ -43,11 +36,6 @@ public final class RelationshipIndex implements CustomExtensions, Named {
     private final Map<String, Object> custom;
 
     private String name;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private RelationshipIndex() {
-        this(new Builder(null, null));
-    }
 
     private RelationshipIndex(Builder builder) {
         this.type = builder.type;
@@ -119,7 +107,6 @@ public final class RelationshipIndex implements CustomExtensions, Named {
                 + custom + ", name=" + name + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private IndexType type;
         private List<String> properties;
@@ -127,8 +114,7 @@ public final class RelationshipIndex implements CustomExtensions, Named {
         private Map<String, Object> custom = new LinkedHashMap<>();
         private String name = null;
 
-        @JsonCreator
-        private Builder(@JsonProperty("type") IndexType type, @JsonProperty("properties") List<String> properties) {
+        private Builder(IndexType type, List<String> properties) {
             this.type = type;
             this.properties = properties;
         }

@@ -16,11 +16,6 @@
  */
 package org.neo4j.spec.graph.model.property;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,22 +23,6 @@ import org.neo4j.spec.graph.model.property.extension.PropertyExtensions;
 import org.neo4j.spec.graph.model.type.Named;
 
 /** A property of a node or relationship. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonPropertyOrder({
-    "type",
-    "dimension",
-    "must_exist",
-    "unique",
-    "key",
-    "extensions",
-    "name",
-    "description",
-    "aliases",
-    "reference",
-    "pattern",
-    "one_of"
-})
-@JsonDeserialize(builder = Property.Builder.class)
 public final class Property implements Named {
     private Neo4jType type;
 
@@ -68,11 +47,6 @@ public final class Property implements Named {
     private final String pattern;
 
     private final List<String> oneOf;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private Property() {
-        this(new Builder());
-    }
 
     private Property(Builder builder) {
         this.type = builder.type;
@@ -112,7 +86,6 @@ public final class Property implements Named {
     }
 
     /** Shorthand for an existence constraint. Expanded into constraints when the model is decoded. */
-    @JsonProperty("must_exist")
     public Boolean getMustExist() {
         return this.mustExist;
     }
@@ -175,7 +148,6 @@ public final class Property implements Named {
     }
 
     /** Values the property is restricted to. */
-    @JsonProperty("one_of")
     public List<String> getOneOf() {
         return this.oneOf;
     }
@@ -224,7 +196,6 @@ public final class Property implements Named {
                 + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private Neo4jType type = Neo4jType.ANY;
         private Integer dimension = null;
@@ -251,7 +222,6 @@ public final class Property implements Named {
             return this;
         }
 
-        @JsonProperty("must_exist")
         public Builder mustExist(Boolean mustExist) {
             this.mustExist = mustExist;
             return this;
@@ -297,7 +267,6 @@ public final class Property implements Named {
             return this;
         }
 
-        @JsonProperty("one_of")
         public Builder oneOf(List<String> oneOf) {
             this.oneOf = oneOf;
             return this;

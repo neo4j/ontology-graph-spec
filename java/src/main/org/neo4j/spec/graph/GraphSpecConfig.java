@@ -16,7 +16,6 @@
  */
 package org.neo4j.spec.graph;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,7 +90,6 @@ public final class GraphSpecConfig {
         public void json(Consumer<JsonMapper.Builder> configure) {
             JsonMapper.Builder builder = JsonFormat.builder();
             configure.accept(builder);
-            builder.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             this.format = new JsonFormat(builder.build());
         }
 

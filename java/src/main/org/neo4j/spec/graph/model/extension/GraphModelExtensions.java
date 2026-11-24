@@ -16,11 +16,6 @@
  */
 package org.neo4j.spec.graph.model.extension;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,20 +27,12 @@ import org.neo4j.spec.graph.model.extension.source.Table;
  * Extensions for a {@code GraphModel}.
  */
 /** Extensions for a graph model. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonPropertyOrder({"data_source_tables", "data_source_mappings", "custom"})
-@JsonDeserialize(builder = GraphModelExtensions.Builder.class)
 public final class GraphModelExtensions implements CustomExtensions {
     private final Map<String, Table> dataSourceTables;
 
     private final Map<String, List<Mapping>> dataSourceMappings;
 
     private final Map<String, Object> custom;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private GraphModelExtensions() {
-        this(new Builder());
-    }
 
     private GraphModelExtensions(Builder builder) {
         this.dataSourceTables = builder.dataSourceTables;
@@ -58,13 +45,11 @@ public final class GraphModelExtensions implements CustomExtensions {
     }
 
     /** Data source table schemas keyed by table id. */
-    @JsonProperty("data_source_tables")
     public Map<String, Table> getDataSourceTables() {
         return this.dataSourceTables;
     }
 
     /** Sets of data source mappings from tables to nodes and relationships, often used for importing. */
-    @JsonProperty("data_source_mappings")
     public Map<String, List<Mapping>> getDataSourceMappings() {
         return this.dataSourceMappings;
     }
@@ -96,7 +81,6 @@ public final class GraphModelExtensions implements CustomExtensions {
                 + dataSourceMappings + ", custom=" + custom + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private Map<String, Table> dataSourceTables = new LinkedHashMap<>();
         private Map<String, List<Mapping>> dataSourceMappings = new LinkedHashMap<>();
@@ -104,13 +88,11 @@ public final class GraphModelExtensions implements CustomExtensions {
 
         private Builder() {}
 
-        @JsonProperty("data_source_tables")
         public Builder dataSourceTables(Map<String, Table> dataSourceTables) {
             this.dataSourceTables = dataSourceTables;
             return this;
         }
 
-        @JsonProperty("data_source_mappings")
         public Builder dataSourceMappings(Map<String, List<Mapping>> dataSourceMappings) {
             this.dataSourceMappings = dataSourceMappings;
             return this;

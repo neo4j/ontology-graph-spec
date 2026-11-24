@@ -16,25 +16,15 @@
  */
 package org.neo4j.spec.graph.model.extension.mapping;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
 /** Identifies a node at one end of a mapped relationship. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = TargetMapping.Builder.class)
 public final class TargetMapping {
     private String label;
 
     private final Map<String, PropertyMapping> properties;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private TargetMapping() {
-        this(new Builder());
-    }
 
     private TargetMapping(Builder builder) {
         this.label = builder.label;
@@ -77,7 +67,6 @@ public final class TargetMapping {
         return "TargetMapping(label=" + label + ", properties=" + properties + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String label = "";
         private Map<String, PropertyMapping> properties = new LinkedHashMap<>();

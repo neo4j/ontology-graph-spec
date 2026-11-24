@@ -16,8 +16,6 @@
  */
 package org.neo4j.spec.graph.model.property;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
 /** A Neo4j property type. */
 public enum Neo4jType {
     ANY("ANY"),
@@ -66,7 +64,6 @@ public enum Neo4jType {
         this.value = value;
     }
 
-    @JsonValue
     public String value() {
         return value;
     }

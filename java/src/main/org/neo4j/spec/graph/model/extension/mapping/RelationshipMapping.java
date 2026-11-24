@@ -16,13 +16,6 @@
  */
 package org.neo4j.spec.graph.model.extension.mapping;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,21 +23,6 @@ import java.util.Map;
 import java.util.Objects;
 
 /** Maps rows of a table to relationships. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonPropertyOrder({
-    "relationship",
-    "table",
-    "from_node",
-    "to_node",
-    "match_label",
-    "properties",
-    "mode",
-    "key",
-    "depends_on",
-    "id"
-})
-@JsonDeserialize(builder = RelationshipMapping.Builder.class)
-@JsonTypeName("RELATIONSHIP")
 public final class RelationshipMapping implements Mapping {
     private String relationship;
 
@@ -65,11 +43,6 @@ public final class RelationshipMapping implements Mapping {
     private String dependsOn;
 
     private String id;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private RelationshipMapping() {
-        this(new Builder(null, null, null, null));
-    }
 
     private RelationshipMapping(Builder builder) {
         this.relationship = builder.relationship;
@@ -107,19 +80,16 @@ public final class RelationshipMapping implements Mapping {
     }
 
     /** How the start node of the relationship is matched. */
-    @JsonProperty("from_node")
     public TargetMapping getFromNode() {
         return this.fromNode;
     }
 
     /** How the end node of the relationship is matched. */
-    @JsonProperty("to_node")
     public TargetMapping getToNode() {
         return this.toNode;
     }
 
     /** Label used to match existing relationships. */
-    @JsonProperty("match_label")
     public String getMatchLabel() {
         return this.matchLabel;
     }
@@ -148,7 +118,6 @@ public final class RelationshipMapping implements Mapping {
     }
 
     /** Id of another mapping in the same list which must be imported before this one. Empty when there is no dependency. */
-    @JsonProperty("depends_on")
     public String getDependsOn() {
         return this.dependsOn;
     }
@@ -195,7 +164,6 @@ public final class RelationshipMapping implements Mapping {
                 + ", key=" + key + ", dependsOn=" + dependsOn + ", id=" + id + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String relationship;
         private String table;
@@ -208,12 +176,7 @@ public final class RelationshipMapping implements Mapping {
         private String dependsOn = "";
         private String id = "";
 
-        @JsonCreator
-        private Builder(
-                @JsonProperty("relationship") String relationship,
-                @JsonProperty("table") String table,
-                @JsonProperty("from_node") TargetMapping fromNode,
-                @JsonProperty("to_node") TargetMapping toNode) {
+        private Builder(String relationship, String table, TargetMapping fromNode, TargetMapping toNode) {
             this.relationship = relationship;
             this.table = table;
             this.fromNode = fromNode;
@@ -230,19 +193,16 @@ public final class RelationshipMapping implements Mapping {
             return this;
         }
 
-        @JsonProperty("from_node")
         public Builder fromNode(TargetMapping fromNode) {
             this.fromNode = fromNode;
             return this;
         }
 
-        @JsonProperty("to_node")
         public Builder toNode(TargetMapping toNode) {
             this.toNode = toNode;
             return this;
         }
 
-        @JsonProperty("match_label")
         public Builder matchLabel(String matchLabel) {
             this.matchLabel = matchLabel;
             return this;
@@ -263,7 +223,6 @@ public final class RelationshipMapping implements Mapping {
             return this;
         }
 
-        @JsonProperty("depends_on")
         public Builder dependsOn(String dependsOn) {
             this.dependsOn = dependsOn;
             return this;

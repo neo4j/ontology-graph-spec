@@ -16,24 +16,14 @@
  */
 package org.neo4j.spec.graph.model.relationship.extension;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 
 /** Extensions for a relationship constraint. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = RelationshipConstraintExtensions.Builder.class)
 public final class RelationshipConstraintExtensions implements CustomExtensions {
     private final Map<String, Object> custom;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private RelationshipConstraintExtensions() {
-        this(new Builder());
-    }
 
     private RelationshipConstraintExtensions(Builder builder) {
         this.custom = builder.custom;
@@ -67,7 +57,6 @@ public final class RelationshipConstraintExtensions implements CustomExtensions 
         return "RelationshipConstraintExtensions(custom=" + custom + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private Map<String, Object> custom = new LinkedHashMap<>();
 

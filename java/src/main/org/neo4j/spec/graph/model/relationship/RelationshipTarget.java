@@ -16,17 +16,9 @@
  */
 package org.neo4j.spec.graph.model.relationship;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.Objects;
 
 /** One end of a relationship. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonPropertyOrder({"node", "label", "count", "min_count", "max_count"})
-@JsonDeserialize(builder = RelationshipTarget.Builder.class)
 public final class RelationshipTarget {
     private String node;
 
@@ -37,11 +29,6 @@ public final class RelationshipTarget {
     private Integer minCount;
 
     private Integer maxCount;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private RelationshipTarget() {
-        this(new Builder());
-    }
 
     private RelationshipTarget(Builder builder) {
         this.node = builder.node;
@@ -83,7 +70,6 @@ public final class RelationshipTarget {
     }
 
     /** Minimum number of relationships per node at this end. */
-    @JsonProperty("min_count")
     public Integer getMinCount() {
         return this.minCount;
     }
@@ -93,7 +79,6 @@ public final class RelationshipTarget {
     }
 
     /** Maximum number of relationships per node at this end. */
-    @JsonProperty("max_count")
     public Integer getMaxCount() {
         return this.maxCount;
     }
@@ -125,7 +110,6 @@ public final class RelationshipTarget {
                 + ", maxCount=" + maxCount + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String node = "";
         private String label = "";
@@ -150,13 +134,11 @@ public final class RelationshipTarget {
             return this;
         }
 
-        @JsonProperty("min_count")
         public Builder minCount(Integer minCount) {
             this.minCount = minCount;
             return this;
         }
 
-        @JsonProperty("max_count")
         public Builder maxCount(Integer maxCount) {
             this.maxCount = maxCount;
             return this;

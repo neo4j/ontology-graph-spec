@@ -16,17 +16,12 @@
  */
 package org.neo4j.spec.graph.model.node;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.node.extension.LabelsExtensions;
 
 /** The labels of a node. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = Labels.Builder.class)
 public final class Labels {
     private String identifier;
 
@@ -35,11 +30,6 @@ public final class Labels {
     private final List<String> optional;
 
     private final LabelsExtensions extensions;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private Labels() {
-        this(new Builder());
-    }
 
     private Labels(Builder builder) {
         this.identifier = builder.identifier;
@@ -98,7 +88,6 @@ public final class Labels {
                 + extensions + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String identifier = null;
         private List<String> implied = new ArrayList<>();

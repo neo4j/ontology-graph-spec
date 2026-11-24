@@ -16,12 +16,6 @@
  */
 package org.neo4j.spec.graph.model.index;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.List;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.type.IndexType;
@@ -30,19 +24,6 @@ import org.neo4j.spec.graph.model.type.IndexType;
  * https://neo4j.com/docs/cypher-manual/current/indexes/search-performance-indexes/create-indexes/#point-indexes-examples
  */
 /** Configuration of a point index. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonPropertyOrder({
-    "spatial.cartesian.min",
-    "spatial.cartesian.max",
-    "spatial.cartesian-3d.min",
-    "spatial.cartesian-3d.max",
-    "spatial.wgs-84.min",
-    "spatial.wgs-84.max",
-    "spatial.wgs-84-3d.min",
-    "spatial.wgs-84-3d.max"
-})
-@JsonDeserialize(builder = PointIndexOption.Builder.class)
-@JsonTypeName("POINT")
 public final class PointIndexOption implements IndexOption {
     private final List<Double> cartesianMin;
 
@@ -60,11 +41,6 @@ public final class PointIndexOption implements IndexOption {
 
     private final List<Double> wgs843DMax;
 
-    /** Default instance Jackson compares against to omit default values. */
-    private PointIndexOption() {
-        this(new Builder());
-    }
-
     private PointIndexOption(Builder builder) {
         this.cartesianMin = builder.cartesianMin;
         this.cartesianMax = builder.cartesianMax;
@@ -81,49 +57,41 @@ public final class PointIndexOption implements IndexOption {
     }
 
     /** Lower bounds of the 2D cartesian space. */
-    @JsonProperty("spatial.cartesian.min")
     public List<Double> getCartesianMin() {
         return this.cartesianMin;
     }
 
     /** Upper bounds of the 2D cartesian space. */
-    @JsonProperty("spatial.cartesian.max")
     public List<Double> getCartesianMax() {
         return this.cartesianMax;
     }
 
     /** Lower bounds of the 3D cartesian space. */
-    @JsonProperty("spatial.cartesian-3d.min")
     public List<Double> getCartesian3DMin() {
         return this.cartesian3DMin;
     }
 
     /** Upper bounds of the 3D cartesian space. */
-    @JsonProperty("spatial.cartesian-3d.max")
     public List<Double> getCartesian3DMax() {
         return this.cartesian3DMax;
     }
 
     /** Lower bounds of the 2D WGS-84 space. */
-    @JsonProperty("spatial.wgs-84.min")
     public List<Double> getWgs84Min() {
         return this.wgs84Min;
     }
 
     /** Upper bounds of the 2D WGS-84 space. */
-    @JsonProperty("spatial.wgs-84.max")
     public List<Double> getWgs84Max() {
         return this.wgs84Max;
     }
 
     /** Lower bounds of the 3D WGS-84 space. */
-    @JsonProperty("spatial.wgs-84-3d.min")
     public List<Double> getWgs843DMin() {
         return this.wgs843DMin;
     }
 
     /** Upper bounds of the 3D WGS-84 space. */
-    @JsonProperty("spatial.wgs-84-3d.max")
     public List<Double> getWgs843DMax() {
         return this.wgs843DMax;
     }
@@ -161,7 +129,6 @@ public final class PointIndexOption implements IndexOption {
                 + wgs84Max + ", wgs843DMin=" + wgs843DMin + ", wgs843DMax=" + wgs843DMax + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private List<Double> cartesianMin = List.of(-1000000.0, -1000000.0);
         private List<Double> cartesianMax = List.of(1000000.0, 1000000.0);
@@ -174,49 +141,41 @@ public final class PointIndexOption implements IndexOption {
 
         private Builder() {}
 
-        @JsonProperty("spatial.cartesian.min")
         public Builder cartesianMin(List<Double> cartesianMin) {
             this.cartesianMin = cartesianMin;
             return this;
         }
 
-        @JsonProperty("spatial.cartesian.max")
         public Builder cartesianMax(List<Double> cartesianMax) {
             this.cartesianMax = cartesianMax;
             return this;
         }
 
-        @JsonProperty("spatial.cartesian-3d.min")
         public Builder cartesian3DMin(List<Double> cartesian3DMin) {
             this.cartesian3DMin = cartesian3DMin;
             return this;
         }
 
-        @JsonProperty("spatial.cartesian-3d.max")
         public Builder cartesian3DMax(List<Double> cartesian3DMax) {
             this.cartesian3DMax = cartesian3DMax;
             return this;
         }
 
-        @JsonProperty("spatial.wgs-84.min")
         public Builder wgs84Min(List<Double> wgs84Min) {
             this.wgs84Min = wgs84Min;
             return this;
         }
 
-        @JsonProperty("spatial.wgs-84.max")
         public Builder wgs84Max(List<Double> wgs84Max) {
             this.wgs84Max = wgs84Max;
             return this;
         }
 
-        @JsonProperty("spatial.wgs-84-3d.min")
         public Builder wgs843DMin(List<Double> wgs843DMin) {
             this.wgs843DMin = wgs843DMin;
             return this;
         }
 
-        @JsonProperty("spatial.wgs-84-3d.max")
         public Builder wgs843DMax(List<Double> wgs843DMax) {
             this.wgs843DMax = wgs843DMax;
             return this;

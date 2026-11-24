@@ -16,28 +16,18 @@
  */
 package org.neo4j.spec.graph.model.node.extension;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import org.neo4j.spec.graph.model.extension.CustomExtensions;
 
 /** Extensions for a node. */
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@JsonDeserialize(builder = NodeExtensions.Builder.class)
 public final class NodeExtensions implements CustomExtensions {
     private final Map<String, NodeIndex> indexes;
 
     private final NodeDisplay display;
 
     private final Map<String, Object> custom;
-
-    /** Default instance Jackson compares against to omit default values. */
-    private NodeExtensions() {
-        this(new Builder());
-    }
 
     private NodeExtensions(Builder builder) {
         this.indexes = builder.indexes;
@@ -85,7 +75,6 @@ public final class NodeExtensions implements CustomExtensions {
         return "NodeExtensions(indexes=" + indexes + ", display=" + display + ", custom=" + custom + ")";
     }
 
-    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private Map<String, NodeIndex> indexes = new LinkedHashMap<>();
         private NodeDisplay display = null;
