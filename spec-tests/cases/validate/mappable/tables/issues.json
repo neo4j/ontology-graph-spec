@@ -15,8 +15,8 @@
         "details": {}
     },
     {
-        "code": "missing_table_column_type",
-        "path": "/extensions/data_source_tables/people/columns/1/type",
+        "code": "missing_table_column_supported_type",
+        "path": "/extensions/data_source_tables/people/columns/1/supported",
         "details": {}
     }
 ]
