@@ -16,7 +16,6 @@
  */
 package org.neo4j.spec.graph;
 
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -27,6 +26,7 @@ import org.neo4j.spec.graph.codec.format.Format;
 import org.neo4j.spec.graph.codec.format.JsonFormat;
 import org.neo4j.spec.graph.migrate.Migration;
 import org.neo4j.spec.graph.validate.Validation;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * Validators, migrations and format used by a {@link GraphSpec}.

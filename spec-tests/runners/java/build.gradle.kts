@@ -14,7 +14,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testImplementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
+    testImplementation("tools.jackson.core:jackson-databind:3.3.0")
 }
 
 // Api.java adapts the differing entry points (GraphSpec.getJson() vs json(), Validations.getCore() vs core()).

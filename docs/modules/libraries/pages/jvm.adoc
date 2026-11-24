@@ -25,8 +25,9 @@ implementation("org.neo4j.spec.graph:ontology-graph-spec:{library-version}")
 === Native Java
 
 A pure Java port, without the Kotlin runtime, is published alongside as `ontology-graph-spec-java` with the same version.
-It reads and writes JSON and YAML with Jackson's streaming parser and tree model only, converting models by hand, so it
-uses no reflection or data binding at runtime. Mapper settings that only affect data binding, such as naming strategies or inclusion rules, have no effect on how
+It reads and writes JSON and YAML with Jackson 3's streaming parser and tree model only, converting models by hand, so it
+uses no reflection or data binding at runtime. Custom mappers passed to `JsonFormat`, `YamlFormat` or `GraphSpecConfig.Builder.json` are
+Jackson 3 types from the `tools.jackson` packages. Mapper settings that only affect data binding, such as naming strategies or inclusion rules, have no effect on how
 models are written.
 
 [.tabs]

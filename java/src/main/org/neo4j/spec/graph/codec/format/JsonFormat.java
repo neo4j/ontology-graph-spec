@@ -16,41 +16,10 @@
  */
 package org.neo4j.spec.graph.codec.format;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.core.json.JsonReadFeature;
-import com.fasterxml.jackson.core.util.DefaultIndenter;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.core.util.Separators;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.BigIntegerNode;
-import com.fasterxml.jackson.databind.node.BooleanNode;
-import com.fasterxml.jackson.databind.node.DecimalNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
-import com.fasterxml.jackson.databind.node.FloatNode;
-import com.fasterxml.jackson.databind.node.IntNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.LongNode;
-import com.fasterxml.jackson.databind.node.MissingNode;
-import com.fasterxml.jackson.databind.node.NullNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.POJONode;
-import com.fasterxml.jackson.databind.util.RawValue;
-import java.io.IOException;
 import java.io.StringWriter;
-import java.io.UncheckedIOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +29,34 @@ import org.neo4j.spec.graph.codec.schema.SchemaLiteral;
 import org.neo4j.spec.graph.codec.schema.SchemaMap;
 import org.neo4j.spec.graph.codec.schema.SchemaNull;
 import org.neo4j.spec.graph.model.GraphModel;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.core.JsonParser;
+import tools.jackson.core.JsonToken;
+import tools.jackson.core.exc.StreamReadException;
+import tools.jackson.core.json.JsonReadFeature;
+import tools.jackson.core.util.DefaultIndenter;
+import tools.jackson.core.util.DefaultPrettyPrinter;
+import tools.jackson.core.util.Separators;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.BigIntegerNode;
+import tools.jackson.databind.node.BooleanNode;
+import tools.jackson.databind.node.DecimalNode;
+import tools.jackson.databind.node.DoubleNode;
+import tools.jackson.databind.node.FloatNode;
+import tools.jackson.databind.node.IntNode;
+import tools.jackson.databind.node.JsonNodeFactory;
+import tools.jackson.databind.node.LongNode;
+import tools.jackson.databind.node.MissingNode;
+import tools.jackson.databind.node.NullNode;
+import tools.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.node.POJONode;
+import tools.jackson.databind.util.RawValue;
 
 /**
  * JSON {@link Format} backed by Jackson, the equivalent of the Kotlin library's kotlinx-serialization JsonFormat.
@@ -90,7 +87,7 @@ public final class JsonFormat implements Format {
      */
     public static JsonMapper.Builder builder() {
         Separators separators = Separators.createDefaultInstance()
-                .withObjectFieldValueSpacing(Separators.Spacing.AFTER)
+                .withObjectNameValueSpacing(Separators.Spacing.AFTER)
                 .withObjectEmptySeparator("")
                 .withArrayEmptySeparator("");
         DefaultPrettyPrinter printer = new DefaultPrettyPrinter(separators)
@@ -99,7 +96,7 @@ public final class JsonFormat implements Format {
         return JsonMapper.builder()
                 .enable(DeserializationFeature.USE_LONG_FOR_INTS)
                 .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
-                .enable(JsonReadFeature.ALLOW_UNQUOTED_FIELD_NAMES)
+                .enable(JsonReadFeature.ALLOW_UNQUOTED_PROPERTY_NAMES)
                 .enable(JsonReadFeature.ALLOW_SINGLE_QUOTES)
                 .defaultPrettyPrinter(printer);
     }
@@ -117,7 +114,7 @@ public final class JsonFormat implements Format {
     public SchemaElement decodeFromString(String string) {
         try {
             return schemaElement(read(string, true), "");
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw invalid(e);
         }
     }
@@ -137,7 +134,7 @@ public final class JsonFormat implements Format {
         try {
             // Decimals keep their written precision in custom extension values
             return ModelCodec.decode(read(content, false), longInts());
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw invalid(e);
         }
     }
@@ -151,11 +148,8 @@ public final class JsonFormat implements Format {
         return mapper.isEnabled(DeserializationFeature.USE_LONG_FOR_INTS);
     }
 
-    private static IllegalArgumentException invalid(IOException e) {
-        String message = e instanceof JsonProcessingException
-                ? ((JsonProcessingException) e).getOriginalMessage()
-                : e.getMessage();
-        return new IllegalArgumentException(message, e);
+    private static IllegalArgumentException invalid(JacksonException e) {
+        return new IllegalArgumentException(e.getOriginalMessage(), e);
     }
 
     /**
@@ -163,7 +157,7 @@ public final class JsonFormat implements Format {
      *
      * @param stripZeros whether decimals drop trailing zeros, as {@link ObjectMapper#readTree(String)} does by default
      */
-    private JsonNode read(String content, boolean stripZeros) throws IOException {
+    private JsonNode read(String content, boolean stripZeros) {
         try (JsonParser parser = mapper.createParser(content)) {
             JsonToken token = parser.nextToken();
             if (token == null) return MissingNode.getInstance();
@@ -171,7 +165,7 @@ public final class JsonFormat implements Format {
         }
     }
 
-    private JsonNode read(JsonParser parser, JsonToken token, boolean stripZeros) throws IOException {
+    private JsonNode read(JsonParser parser, JsonToken token, boolean stripZeros) {
         JsonNodeFactory factory = JsonNodeFactory.instance;
         switch (token) {
             case START_OBJECT: {
@@ -188,7 +182,7 @@ public final class JsonFormat implements Format {
                 return array;
             }
             case VALUE_STRING:
-                return factory.textNode(parser.getText());
+                return factory.stringNode(parser.getString());
             case VALUE_TRUE:
                 return BooleanNode.TRUE;
             case VALUE_FALSE:
@@ -215,10 +209,10 @@ public final class JsonFormat implements Format {
                 Object embedded = parser.getEmbeddedObject();
                 if (embedded == null) return NullNode.getInstance();
                 if (embedded instanceof byte[]) return factory.binaryNode((byte[]) embedded);
-                return factory.textNode(embedded.toString());
+                return factory.stringNode(embedded.toString());
             }
             default:
-                throw new JsonParseException(parser, "Unexpected token " + token);
+                throw new StreamReadException(parser, "Unexpected token " + token);
         }
     }
 
@@ -227,19 +221,15 @@ public final class JsonFormat implements Format {
         StringWriter out = new StringWriter();
         try (JsonGenerator generator = mapper.createGenerator(out)) {
             write(generator, value);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
         }
         return out.toString();
     }
 
-    private static void write(JsonGenerator generator, JsonNode value) throws IOException {
+    private static void write(JsonGenerator generator, JsonNode value) {
         if (value.isObject()) {
             generator.writeStartObject();
-            Iterator<Map.Entry<String, JsonNode>> fields = value.fields();
-            while (fields.hasNext()) {
-                Map.Entry<String, JsonNode> field = fields.next();
-                generator.writeFieldName(field.getKey());
+            for (Map.Entry<String, JsonNode> field : value.properties()) {
+                generator.writeName(field.getKey());
                 write(generator, field.getValue());
             }
             generator.writeEndObject();
@@ -247,8 +237,8 @@ public final class JsonFormat implements Format {
             generator.writeStartArray();
             for (JsonNode item : value) write(generator, item);
             generator.writeEndArray();
-        } else if (value.isTextual()) {
-            generator.writeString(value.textValue());
+        } else if (value.isString()) {
+            generator.writeString(value.stringValue());
         } else if (value.isBoolean()) {
             generator.writeBoolean(value.booleanValue());
         } else if (value.isInt() || value.isShort()) {
@@ -270,7 +260,7 @@ public final class JsonFormat implements Format {
         } else if (value.isNull() || value.isMissingNode()) {
             generator.writeNull();
         } else {
-            generator.writeString(value.asText());
+            generator.writeString(value.asString());
         }
     }
 
@@ -286,9 +276,7 @@ public final class JsonFormat implements Format {
         }
         if (node.isObject()) {
             Map<String, SchemaElement> content = new LinkedHashMap<>();
-            Iterator<Map.Entry<String, JsonNode>> fields = node.fields();
-            while (fields.hasNext()) {
-                Map.Entry<String, JsonNode> field = fields.next();
+            for (Map.Entry<String, JsonNode> field : node.properties()) {
                 content.put(field.getKey(), normalised(field.getValue()));
             }
             return new SchemaMap(content, "");
@@ -310,16 +298,14 @@ public final class JsonFormat implements Format {
         }
         if (node.isObject()) {
             Map<String, SchemaElement> content = new LinkedHashMap<>();
-            Iterator<Map.Entry<String, JsonNode>> fields = node.fields();
-            while (fields.hasNext()) {
-                Map.Entry<String, JsonNode> field = fields.next();
+            for (Map.Entry<String, JsonNode> field : node.properties()) {
                 content.put(field.getKey(), schemaElement(field.getValue(), ""));
             }
             return new SchemaMap(content, path);
         }
-        if (node.isTextual()) return new SchemaLiteral(node.textValue(), path, true);
+        if (node.isString()) return new SchemaLiteral(node.stringValue(), path, true);
         if (node.isBigDecimal()) return new SchemaLiteral(node.decimalValue().toPlainString(), path, false);
-        return new SchemaLiteral(node.asText(), path, false);
+        return new SchemaLiteral(node.asString(), path, false);
     }
 
     private static JsonNode toJson(SchemaElement element) {
@@ -339,7 +325,7 @@ public final class JsonFormat implements Format {
         }
         if (element instanceof SchemaLiteral literal) {
             String text = literal.getString();
-            if (literal.isString()) return factory.textNode(text);
+            if (literal.isString()) return factory.stringNode(text);
             if (text.equals("true") || text.equals("false")) return factory.booleanNode(Boolean.parseBoolean(text));
             try {
                 if (text.indexOf('.') < 0 && text.indexOf('e') < 0 && text.indexOf('E') < 0) {

@@ -16,18 +16,10 @@
  */
 package org.neo4j.spec.graph.codec.format;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.DecimalNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.POJONode;
-import com.fasterxml.jackson.databind.util.RawValue;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -73,6 +65,13 @@ import org.neo4j.spec.graph.model.relationship.extension.RelationshipExtensions;
 import org.neo4j.spec.graph.model.relationship.extension.RelationshipIndex;
 import org.neo4j.spec.graph.model.type.ConstraintType;
 import org.neo4j.spec.graph.model.type.IndexType;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.DecimalNode;
+import tools.jackson.databind.node.JsonNodeFactory;
+import tools.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.node.POJONode;
+import tools.jackson.databind.util.RawValue;
 
 /**
  * Converts between {@link GraphModel} and a Jackson tree by hand, so encoding and decoding never rely on reflection.
@@ -509,7 +508,7 @@ final class ModelCodec {
     }
 
     private static JsonNode text(String value) {
-        return value == null ? FACTORY.nullNode() : FACTORY.textNode(value);
+        return value == null ? FACTORY.nullNode() : FACTORY.stringNode(value);
     }
 
     private static <T> Function<Map<String, T>, JsonNode> map(Function<? super T, ? extends JsonNode> encoder) {
@@ -538,8 +537,8 @@ final class ModelCodec {
     static JsonNode custom(Object value) {
         if (value == null) return FACTORY.nullNode();
         if (value instanceof JsonNode) return (JsonNode) value;
-        if (value instanceof String) return FACTORY.textNode((String) value);
-        if (value instanceof Character) return FACTORY.textNode(value.toString());
+        if (value instanceof String) return FACTORY.stringNode((String) value);
+        if (value instanceof Character) return FACTORY.stringNode(value.toString());
         if (value instanceof Boolean) return FACTORY.booleanNode((Boolean) value);
         if (value instanceof Integer || value instanceof Short || value instanceof Byte) {
             return FACTORY.numberNode(((Number) value).intValue());
@@ -550,8 +549,8 @@ final class ModelCodec {
         if (value instanceof Float) return FACTORY.numberNode((Float) value);
         // Bypasses the factory, which may strip trailing zeros
         if (value instanceof BigDecimal) return DecimalNode.valueOf((BigDecimal) value);
-        if (value instanceof Neo4jType) return FACTORY.textNode(((Neo4jType) value).value());
-        if (value instanceof Enum) return FACTORY.textNode(((Enum<?>) value).name());
+        if (value instanceof Neo4jType) return FACTORY.stringNode(((Neo4jType) value).value());
+        if (value instanceof Enum) return FACTORY.stringNode(((Enum<?>) value).name());
         if (value instanceof Map) {
             ObjectNode node = FACTORY.objectNode();
             for (Map.Entry<?, ?> entry : ((Map<?, ?>) value).entrySet()) {
@@ -931,9 +930,7 @@ final class ModelCodec {
             if (absent(json)) return null;
             if (json.isObject()) {
                 Map<String, Object> map = new LinkedHashMap<>();
-                Iterator<Map.Entry<String, JsonNode>> entries = json.fields();
-                while (entries.hasNext()) {
-                    Map.Entry<String, JsonNode> entry = entries.next();
+                for (Map.Entry<String, JsonNode> entry : json.properties()) {
                     map.put(entry.getKey(), customValue(entry.getValue()));
                 }
                 return map;
@@ -943,7 +940,7 @@ final class ModelCodec {
                 for (JsonNode item : json) list.add(customValue(item));
                 return list;
             }
-            if (json.isTextual()) return json.textValue();
+            if (json.isString()) return json.stringValue();
             if (json.isBoolean()) return json.booleanValue();
             if (json.isIntegralNumber()) {
                 if (!longInts && json.canConvertToInt()) return json.intValue();
@@ -951,8 +948,8 @@ final class ModelCodec {
                 return json.bigIntegerValue();
             }
             if (json.isBigDecimal()) return json.decimalValue();
-            if (json.isFloatingPointNumber()) return json.doubleValue();
-            if (json.isBinary()) return json.asText();
+            if (json.isFloatingPointNumber()) return json.numberValue().doubleValue();
+            if (json.isBinary()) return json.asString();
             return scalarText(json);
         }
 
@@ -1095,9 +1092,7 @@ final class ModelCodec {
                 Fields fields = fields(get(key), path(key));
                 if (fields == null) return;
                 Map<String, T> values = new LinkedHashMap<>();
-                Iterator<Map.Entry<String, JsonNode>> entries = fields.node.fields();
-                while (entries.hasNext()) {
-                    Map.Entry<String, JsonNode> entry = entries.next();
+                for (Map.Entry<String, JsonNode> entry : fields.node.properties()) {
                     JsonNode value = entry.getValue();
                     values.put(
                             entry.getKey(), absent(value) ? null : decoder.apply(value, fields.path(entry.getKey())));
@@ -1124,7 +1119,7 @@ final class ModelCodec {
         }
 
         private static String string(JsonNode json, String path) {
-            if (json.isTextual()) return json.textValue();
+            if (json.isString()) return json.stringValue();
             if (json.isValueNode() || json.isPojo()) return scalarText(json);
             throw error(path, "Expected a string but found " + describe(json));
         }
@@ -1132,31 +1127,35 @@ final class ModelCodec {
         private static Integer integer(JsonNode json, String path) {
             if (json.isNumber()) {
                 if (json.isIntegralNumber() && !json.canConvertToInt()) {
-                    throw error(path, "Integer " + json.asText() + " is out of range");
+                    throw error(path, "Integer " + json.asString() + " is out of range");
                 }
-                return json.intValue();
+                // Lenient like Jackson 2: fractional or out-of-range floating values truncate instead of throwing
+                return json.isIntegralNumber()
+                        ? json.intValue()
+                        : Integer.valueOf(json.numberValue().intValue());
             }
-            if (json.isTextual()) {
-                String text = json.textValue().trim();
+            if (json.isString()) {
+                String text = json.stringValue().trim();
                 if (text.isEmpty()) return null;
                 try {
                     return Integer.valueOf(text);
                 } catch (NumberFormatException e) {
-                    throw error(path, "Expected an integer but found '" + json.textValue() + "'");
+                    throw error(path, "Expected an integer but found '" + json.stringValue() + "'");
                 }
             }
             throw error(path, "Expected an integer but found " + describe(json));
         }
 
         private static Double doubleValue(JsonNode json, String path) {
-            if (json.isNumber()) return json.doubleValue();
-            if (json.isTextual()) {
-                String text = json.textValue().trim();
+            // numberValue() keeps Jackson 2 leniency: doubleValue() throws for non-finite BigDecimal/BigInteger
+            if (json.isNumber()) return json.numberValue().doubleValue();
+            if (json.isString()) {
+                String text = json.stringValue().trim();
                 if (text.isEmpty()) return null;
                 try {
                     return Double.valueOf(text);
                 } catch (NumberFormatException e) {
-                    throw error(path, "Expected a number but found '" + json.textValue() + "'");
+                    throw error(path, "Expected a number but found '" + json.stringValue() + "'");
                 }
             }
             throw error(path, "Expected a number but found " + describe(json));
@@ -1164,12 +1163,12 @@ final class ModelCodec {
 
         private static Boolean bool(JsonNode json, String path) {
             if (json.isBoolean()) return json.booleanValue();
-            if (json.isTextual()) {
-                String text = json.textValue().trim();
+            if (json.isString()) {
+                String text = json.stringValue().trim();
                 if (text.isEmpty()) return null;
                 if (text.equalsIgnoreCase("true")) return true;
                 if (text.equalsIgnoreCase("false")) return false;
-                throw error(path, "Expected a boolean but found '" + json.textValue() + "'");
+                throw error(path, "Expected a boolean but found '" + json.stringValue() + "'");
             }
             // Integers coerce like C: zero is false, anything else true
             if (json.isIntegralNumber()) return json.bigIntegerValue().signum() != 0;
@@ -1216,7 +1215,7 @@ final class ModelCodec {
             if (pojo instanceof RawValue) return String.valueOf(((RawValue) pojo).rawValue());
             return String.valueOf(pojo);
         }
-        return json.asText();
+        return json.asString();
     }
 
     private static String describe(JsonNode json) {

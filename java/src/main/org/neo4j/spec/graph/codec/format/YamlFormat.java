@@ -16,13 +16,6 @@
  */
 package org.neo4j.spec.graph.codec.format;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -35,6 +28,13 @@ import org.neo4j.spec.graph.codec.schema.SchemaLiteral;
 import org.neo4j.spec.graph.codec.schema.SchemaMap;
 import org.neo4j.spec.graph.codec.schema.SchemaNull;
 import org.neo4j.spec.graph.model.GraphModel;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.core.JsonToken;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.dataformat.yaml.YAMLFactory;
+import tools.jackson.dataformat.yaml.YAMLMapper;
+import tools.jackson.dataformat.yaml.YAMLSchema;
 
 /**
  * YAML {@link Format}. Parsing uses jackson-dataformat-yaml (quoted scalars are always strings, plain scalars are
@@ -43,9 +43,8 @@ import org.neo4j.spec.graph.model.GraphModel;
  */
 public final class YamlFormat implements Format {
     private static final YamlFormat DEFAULT = new YamlFormat(
-            YAMLMapper.builder()
-                    .enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
-                    .enable(DeserializationFeature.USE_LONG_FOR_INTS)
+            // The YAML 1.2 core schema, so a plain ~ is null as it was with SnakeYAML
+            YAMLMapper.builder(YAMLFactory.builder().yamlSchema(YAMLSchema.CORE).build())
                     .build(),
             JsonFormat.getDefault(),
             new YamlPrintOptions(
@@ -94,18 +93,15 @@ public final class YamlFormat implements Format {
 
     @Override
     public SchemaElement decodeFromString(String string) {
-        try (JsonParser parser = yaml.getFactory().createParser(string)) {
+        try (JsonParser parser = yaml.createParser(string)) {
             JsonToken token = parser.nextToken();
             return token == null ? new SchemaNull("") : element(parser, token);
-        } catch (IOException e) {
-            String message = e instanceof JsonProcessingException
-                    ? ((JsonProcessingException) e).getOriginalMessage()
-                    : e.getMessage();
-            throw new IllegalArgumentException(message, e);
+        } catch (JacksonException e) {
+            throw new IllegalArgumentException(e.getOriginalMessage(), e);
         }
     }
 
-    private static SchemaElement element(JsonParser parser, JsonToken token) throws IOException {
+    private static SchemaElement element(JsonParser parser, JsonToken token) {
         switch (token) {
             case START_ARRAY: {
                 List<SchemaElement> content = new ArrayList<>();
@@ -121,22 +117,22 @@ public final class YamlFormat implements Format {
                 return new SchemaMap(content, "");
             }
             case VALUE_NULL: {
-                String text = parser.getText();
+                String text = parser.getString();
                 return text.equals("null") || text.equals("~") ? new SchemaNull("") : new SchemaLiteral(text, "", true);
             }
             case VALUE_TRUE:
             case VALUE_FALSE: {
-                String text = parser.getText();
+                String text = parser.getString();
                 return new SchemaLiteral(text, "", !(text.equals("true") || text.equals("false")));
             }
             case VALUE_NUMBER_INT:
             case VALUE_NUMBER_FLOAT: {
-                String text = parser.getText();
+                String text = parser.getString();
                 return new SchemaLiteral(text, "", !NUMBER.matcher(text).matches());
             }
             default:
                 // Quoted scalars are always strings, as are plain scalars that aren't booleans, numbers or null
-                return new SchemaLiteral(parser.getText(), "", true);
+                return new SchemaLiteral(parser.getString(), "", true);
         }
     }
 
