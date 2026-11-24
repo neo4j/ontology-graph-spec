@@ -7,8 +7,8 @@ venniktech = "0.36.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version = "2.20.0" }
-jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml", version = "2.20.0" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version = "2.23.0" }
+jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml", version = "2.23.0" }
 json-schema-validator = { module = "com.networknt:json-schema-validator", version = "1.5.8" }
 kotlinx-serializer-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlin-js-plain-objects = { module = "org.jetbrains.kotlin:kotlin-js-plain-objects", version.ref = "kotlin" }
