@@ -22,6 +22,27 @@ implementation("org.neo4j.spec.graph:ontology-graph-spec:{library-version}")
 </dependency>
 ----
 
+=== Native Java
+
+A pure Java port, without the Kotlin runtime, is published alongside as `ontology-graph-spec-java` with the same version.
+
+[.tabs]
+.Gradle
+[source,kotlin,subs="attributes+"]
+----
+implementation("org.neo4j.spec.graph:ontology-graph-spec-java:{library-version}")
+----
+
+.Maven
+[source,xml,subs="attributes+"]
+----
+<dependency>
+    <groupId>org.neo4j.spec.graph</groupId>
+    <artifactId>ontology-graph-spec-java</artifactId>
+    <version>{library-version}</version>
+</dependency>
+----
+
 == Read and write models
 
 `GraphSpec.Json` and `GraphSpec.Yaml` read and write models. Reading expands any xref:format:shorthand.adoc[shorthand].

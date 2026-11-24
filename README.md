@@ -104,6 +104,8 @@ implementation("org.neo4j.spec.graph:ontology-graph-spec:x.y.z")
 </dependency>
 ```
 
+For a pure Java port without the Kotlin runtime, use the artifact `ontology-graph-spec-java` (same group and version).
+
 ### npm
 
 ```bash

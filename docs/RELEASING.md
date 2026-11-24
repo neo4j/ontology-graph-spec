@@ -35,7 +35,7 @@ Invalid combinations (the workflow fails):
 
 No manual `npm publish` or Gradle task is needed - just merge a labelled PR.
 
-The workflow pushes the `release/vX.Y.Z` and `go/vX.Y.Z` tags before publishing to npm and Maven Central, which makes failures easier to recover from.
+The workflow pushes the `release/vX.Y.Z` and `go/vX.Y.Z` tags before publishing to npm and Maven Central (the Kotlin multiplatform and JVM artifacts `ontology-graph-spec`, plus the native Java port `ontology-graph-spec-java`), which makes failures easier to recover from.
 The next version is computed from the `release/v*` tags, so pushing them first claims the version.
 If tagging fails, nothing is published and the next run computes the same version.
 If publishing fails, the version is already claimed and is never computed again.
