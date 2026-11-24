@@ -40,11 +40,18 @@ jobs:
           CHANGED=$(git diff --name-only "origin/$BASE_REF"...HEAD -- . ':(exclude)docs/' ':(exclude)*.md' | wc -l | tr -d ' ')
           echo "changed=$([ "$CHANGED" -gt 0 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
-      - name: Set up JDK 17
+      - name: Set up JDKs (17 for Kotlin, 21 for Java)
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
-          java-version: '17'
+          java-version: |
+            21
+            17
           distribution: 'temurin'
+
+      - name: Let Gradle find the JDK 21 toolchain
+        run: |
+          mkdir -p ~/.gradle
+          echo "org.gradle.java.installations.fromEnv=JAVA_HOME_21_X64" >> ~/.gradle/gradle.properties
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0

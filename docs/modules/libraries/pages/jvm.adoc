@@ -1,7 +1,7 @@
 = JVM
 :description: Use the Neo4j Ontology Graph Specification library from Kotlin, Java and other JVM languages.
 
-Requires Java 11 or later.
+Requires Java 21 or later.
 
 == Install
 
