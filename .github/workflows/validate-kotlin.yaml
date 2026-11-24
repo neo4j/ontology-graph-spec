@@ -8,16 +8,13 @@ on:
         required: true
         type: string
       check-all:
-        description: 'Run the checks even when no Kotlin or Gradle files changed in the pull request'
+        description: 'Run the checks even when the pull request only changes docs'
         required: false
         type: boolean
         default: false
 
 permissions:
   contents: read
-
-env:
-  WATCHED_PATHS: "src/ ontology-graph-spec.schema.json build.gradle.kts settings.gradle.kts gradle.properties gradle/ gradlew"
 
 jobs:
   test-kotlin:
@@ -29,7 +26,7 @@ jobs:
           ref: ${{ inputs.ref }}
           fetch-depth: 0
 
-      - name: Detect changed Kotlin or Gradle files
+      - name: Detect changes other than docs
         id: kotlin
         env:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
@@ -40,7 +37,7 @@ jobs:
             exit 0
           fi
           git fetch origin "$BASE_REF"
-          CHANGED=$(git diff --name-only "origin/$BASE_REF"...HEAD -- $WATCHED_PATHS | wc -l | tr -d ' ')
+          CHANGED=$(git diff --name-only "origin/$BASE_REF"...HEAD -- . ':(exclude)docs/' ':(exclude)*.md' | wc -l | tr -d ' ')
           echo "changed=$([ "$CHANGED" -gt 0 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
       - name: Set up JDK 17

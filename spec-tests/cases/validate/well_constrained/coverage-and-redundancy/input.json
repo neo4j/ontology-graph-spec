@@ -1,0 +1,28 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "coverage-and-redundancy",
+  "description": "Empty and unconstrained nodes and redundant constraints.",
+  "nodes": {
+    "tag": {},
+    "person": {
+      "properties": { "id": { "type": "STRING" } },
+      "constraints": {
+        "id_key": { "type": "KEY", "properties": ["id"] },
+        "id_unique": { "type": "UNIQUE", "properties": ["id"] }
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {},
+      "to": {},
+      "properties": { "since": { "type": "DATE" } },
+      "constraints": {
+        "since_key": { "type": "KEY", "properties": ["since"] },
+        "since_exists": { "type": "EXISTS", "properties": ["since"] }
+      }
+    }
+  }
+}

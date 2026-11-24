@@ -1,0 +1,44 @@
+[
+    {
+        "code": "duplicate_node_alias",
+        "path": "/nodes/person/aliases/1",
+        "details": {
+            "value": "Human"
+        }
+    },
+    {
+        "code": "invalid_node_label_token",
+        "path": "/nodes/person/labels/identifier",
+        "details": {}
+    },
+    {
+        "code": "missing_node_constraint_coverage",
+        "path": "/nodes/person/constraints",
+        "details": {}
+    },
+    {
+        "code": "missing_property_name",
+        "path": "/nodes/person/properties/id/name",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_from",
+        "path": "/relationships/knows/from/node",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_to",
+        "path": "/relationships/knows/to/node",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_type",
+        "path": "/relationships/knows/type",
+        "details": {}
+    },
+    {
+        "code": "missing_table_column_supported_type",
+        "path": "/extensions/data_source_tables/people/columns/0/supported",
+        "details": {}
+    }
+]

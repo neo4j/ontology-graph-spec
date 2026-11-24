@@ -1,0 +1,32 @@
+[
+    {
+        "code": "duplicate_property_name",
+        "path": "/nodes/person/properties/fullName/name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_property_name",
+        "path": "/nodes/person/properties/name/name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_property_name",
+        "path": "/relationships/knows/properties/from/name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_property_name",
+        "path": "/relationships/knows/properties/since/name",
+        "details": {}
+    },
+    {
+        "code": "missing_property_name",
+        "path": "/nodes/person/properties/id/name",
+        "details": {}
+    },
+    {
+        "code": "missing_property_name",
+        "path": "/relationships/knows/properties/note/name",
+        "details": {}
+    }
+]

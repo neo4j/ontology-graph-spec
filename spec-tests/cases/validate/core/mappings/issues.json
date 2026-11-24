@@ -22,7 +22,7 @@
     },
     {
         "code": "invalid_relationship_mapping_key",
-        "path": "/extensions/data_source_mappings/load/2/key",
+        "path": "/extensions/data_source_mappings/load/2/key/0",
         "details": {
             "relationship": "knows",
             "property": "weight"

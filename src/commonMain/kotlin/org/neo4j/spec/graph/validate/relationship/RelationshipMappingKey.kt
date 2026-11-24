@@ -38,12 +38,22 @@ object RelationshipMappingKey : RelationshipValidation {
                 if (mapping !is RelationshipMapping || mapping.relationship != relationshipId) {
                     continue
                 }
-                for (propertyId in mapping.key.filterNot { it in relationship.properties }) {
+                for ((keyIndex, propertyId) in mapping.key.withIndex()) {
+                    if (propertyId in relationship.properties) {
+                        continue
+                    }
                     issues.add(
                         Issue(
                             code = "invalid_relationship_mapping_key",
                             message = "Mapping key '$propertyId' is not a property of relationship '$relationshipId'",
-                            path = jsonPointerOf("extensions", "data_source_mappings", mappingId, index, "key"),
+                            path = jsonPointerOf(
+                                "extensions",
+                                "data_source_mappings",
+                                mappingId,
+                                index,
+                                "key",
+                                keyIndex
+                            ),
                             details = mapOf("relationship" to relationshipId, "property" to propertyId)
                         )
                     )

@@ -21,6 +21,7 @@ import org.neo4j.spec.graph.model.extension.source.Table
 import org.neo4j.spec.graph.model.extension.source.TableColumn
 import org.neo4j.spec.graph.validate.Issue
 import org.neo4j.spec.graph.validate.jsonPointerOf
+
 object TableColumnType : TableValidation {
     override fun validateTableColumn(
         model: GraphModel,
@@ -30,15 +31,20 @@ object TableColumnType : TableValidation {
         column: TableColumn,
         issues: MutableList<Issue>
     ) {
-        // graph-spec uses table.source != "local" as the cloud discriminator.
         if (table.source == "local") return
-        // suggested is non-nullable so the null check is not testable - only supported.isEmpty() is checked
         if (column.supported.isEmpty()) {
             issues.add(
                 Issue(
-                    code = "missing_table_column_type",
-                    message = "Missing suggested type for table column '${column.name}'",
-                    path = jsonPointerOf("extensions", "data_source_tables", tableId, "columns", columnIndex, "type")
+                    code = "missing_table_column_supported_type",
+                    message = "Missing supported types for table column '${column.name}'",
+                    path = jsonPointerOf(
+                        "extensions",
+                        "data_source_tables",
+                        tableId,
+                        "columns",
+                        columnIndex,
+                        "supported"
+                    )
                 )
             )
         }

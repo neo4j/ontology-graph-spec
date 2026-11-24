@@ -10,6 +10,11 @@
         "details": {}
     },
     {
+        "code": "relationship_max_count_negative",
+        "path": "/relationships/likes/from/max_count",
+        "details": {}
+    },
+    {
         "code": "relationship_min_count_exceeds_max",
         "path": "/relationships/follows/to",
         "details": {}

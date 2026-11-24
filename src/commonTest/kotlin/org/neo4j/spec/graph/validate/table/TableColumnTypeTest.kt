@@ -44,7 +44,7 @@ class TableColumnTypeTest {
         validator.validateTableColumn(model, "t:1", table, 0, table.columns[0], issues)
 
         assertEquals(1, issues.size)
-        assertEquals("missing_table_column_type", issues.first().code)
+        assertEquals("missing_table_column_supported_type", issues.first().code)
     }
 
     @Test
@@ -68,7 +68,6 @@ class TableColumnTypeTest {
 
     @Test
     fun `pass on local column with empty supported types`() {
-        // rule skipped for local tables - only cloud columns are checked
         val table = Table(
             source = "local",
             columns = mutableListOf(TableColumn(name = "email", supported = emptyList()))
@@ -82,7 +81,6 @@ class TableColumnTypeTest {
 
     @Test
     fun `fail on cloud column with blank name`() {
-        // type check is independent of name check - both can fire
         val table = Table(
             source = "sql/postgres",
             columns = mutableListOf(TableColumn(name = "", supported = emptyList()))
@@ -92,6 +90,6 @@ class TableColumnTypeTest {
         validator.validateTableColumn(model, "t:1", table, 0, table.columns[0], issues)
 
         assertEquals(1, issues.size)
-        assertEquals("missing_table_column_type", issues.first().code)
+        assertEquals("missing_table_column_supported_type", issues.first().code)
     }
 }

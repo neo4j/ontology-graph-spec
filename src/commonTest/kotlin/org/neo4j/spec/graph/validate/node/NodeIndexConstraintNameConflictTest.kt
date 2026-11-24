@@ -259,7 +259,15 @@ class NodeIndexConstraintNameConflictTest {
                 "i1" to index(null, listOf("id")),
                 "i2" to index(null, listOf("name")),
                 "i3" to index("", listOf("id")),
-                "i4" to index("", listOf("name"))
+                "i4" to index("", listOf("name")),
+                "i5" to index(" ", listOf("id")),
+                "i6" to index(" ", listOf("name"))
+            ),
+            constraints = mapOf(
+                "c1" to constraint(null, listOf("id")),
+                "c2" to constraint("", listOf("id")),
+                "c3" to constraint(" ", listOf("name")),
+                "c4" to constraint(" ", listOf("id"), type = ConstraintType.KEY)
             )
         )
 
@@ -267,7 +275,7 @@ class NodeIndexConstraintNameConflictTest {
         val issues = validate("personNode" to node)
 
         // ASSERT
-        assertTrue(issues.isEmpty(), "Unnamed indexes are not name conflicts")
+        assertTrue(issues.isEmpty(), "Unnamed indexes and constraints are not name conflicts")
     }
 
     @Test
