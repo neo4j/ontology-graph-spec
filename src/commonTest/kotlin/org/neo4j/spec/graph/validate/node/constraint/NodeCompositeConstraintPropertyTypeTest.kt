@@ -107,7 +107,6 @@ class NodeCompositeConstraintPropertyTypeTest {
 
     @Test
     fun `pass when 1 property no name constraint has invalid type - draft composites are not type checked`() {
-        // UPX: getBulkImportCompositeConstraintErrors filters properties.length >= 2 only
         val node = Node(
             labels = Labels(identifier = "Person"),
             properties = mutableMapOf("score" to Property(type = Neo4jType.FLOAT)),
@@ -130,7 +129,6 @@ class NodeCompositeConstraintPropertyTypeTest {
 
     @Test
     fun `fail when composite property is a list type`() {
-        // UPX: Array.isArray(property.type) is invalid even for LIST<STRING>
         val node = Node(
             labels = Labels(identifier = "Person"),
             properties = mutableMapOf(
@@ -154,7 +152,6 @@ class NodeCompositeConstraintPropertyTypeTest {
 
     @Test
     fun `pass when composite references a missing property - skipped like UPX`() {
-        // UPX logs an error and treats the missing ref as not invalid
         val node = Node(
             labels = Labels(identifier = "Person"),
             properties = mutableMapOf("email" to Property(type = Neo4jType.STRING)),
