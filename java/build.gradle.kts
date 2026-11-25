@@ -24,7 +24,13 @@ sourceSets.main { java.setSrcDirs(listOf("src/main")) }
 dependencies {
     api(libs.jackson.databind)
     api(libs.jackson.dataformat.yaml)
+
+    testImplementation(platform("org.junit:junit-bom:5.13.4"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
+
+tasks.test { useJUnitPlatform() }
 
 tasks.jar {
     manifest { attributes("Automatic-Module-Name" to "org.neo4j.spec.graph.java") }
