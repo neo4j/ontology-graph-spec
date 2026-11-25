@@ -26,12 +26,12 @@ import org.neo4j.spec.graph.model.GraphModel;
 import org.neo4j.spec.graph.model.Type;
 import org.neo4j.spec.graph.model.Version;
 
-public class GraphSpec {
+public final class GraphSpec {
     private final GraphSpecConfig configuration;
 
     private final MigrationPath path;
 
-    protected GraphSpec(GraphSpecConfig configuration) {
+    GraphSpec(GraphSpecConfig configuration) {
         this.configuration = configuration;
         this.path = new MigrationPath(getConfiguration().getMigrations());
     }

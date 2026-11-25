@@ -29,7 +29,7 @@ public final class SchemaElements {
     /**
      * Re-roots {@code this} at {@code newPath} in place. Descendants follow via their parent links.
      */
-    public static <T extends SchemaElement> T reroot(T receiver, String newPath) {
+    static <T extends SchemaElement> T reroot(T receiver, String newPath) {
         receiver.setParent(null);
         receiver.setIdentifier(newPath);
         return receiver;
@@ -38,7 +38,7 @@ public final class SchemaElements {
     /**
      * Adopts {@code child} so its {@code SchemaElement.path} resolves through this element.
      */
-    public static <T extends SchemaElement> T adopt(SchemaElement schemaElement, T child, String identifier) {
+    static <T extends SchemaElement> T adopt(SchemaElement schemaElement, T child, String identifier) {
         child.setParent(schemaElement);
         child.setIdentifier(identifier);
         return child;

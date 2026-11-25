@@ -26,7 +26,7 @@ public final class Version {
 
     public static final String LATEST = Version.V1_1;
 
-    private static final List<String> GRAPH_SPEC_VERSIONS = List.of(Version.V1, Version.LATEST);
+    private static final List<String> graphSpecVersions = List.of(Version.V1, Version.LATEST);
 
     public static final String SCHEMA_BASE = "https://neo4j.com/docs/ontology-graph-spec/";
 
@@ -48,7 +48,7 @@ public final class Version {
      * - `docs/modules/libraries/pages/migration.adoc`
      */
     public static List<String> GRAPH_SPEC_VERSIONS() {
-        return Version.GRAPH_SPEC_VERSIONS;
+        return Version.graphSpecVersions;
     }
 
     public static String schemaUrl(String version) {
