@@ -49,8 +49,8 @@ public final class Node {
     private Node(Builder builder) {
         this.label = builder.label;
         this.labels = builder.labels;
-        this.properties = builder.properties;
-        this.constraints = builder.constraints;
+        this.properties = new LinkedHashMap<>(builder.properties);
+        this.constraints = new LinkedHashMap<>(builder.constraints);
         this.extensions = builder.extensions;
         this.description = builder.description;
         this.aliases = builder.aliases;

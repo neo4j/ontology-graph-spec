@@ -50,8 +50,8 @@ public final class GraphModel {
         this.id = builder.id;
         this.name = builder.name;
         this.description = builder.description;
-        this.nodes = builder.nodes;
-        this.relationships = builder.relationships;
+        this.nodes = new LinkedHashMap<>(builder.nodes);
+        this.relationships = new LinkedHashMap<>(builder.relationships);
         this.extensions = builder.extensions;
     }
 

@@ -48,8 +48,8 @@ public final class Relationship {
         this.type = builder.type;
         this.from = builder.from;
         this.to = builder.to;
-        this.properties = builder.properties;
-        this.constraints = builder.constraints;
+        this.properties = new LinkedHashMap<>(builder.properties);
+        this.constraints = new LinkedHashMap<>(builder.constraints);
         this.extensions = builder.extensions;
         this.description = builder.description;
         this.aliases = builder.aliases;
