@@ -1,0 +1,123 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "blank-names-and-property-sets",
+  "description": "Whitespace-only property names, a name shared by three properties, composite constraints of different types on the same properties in a different order, and constraints of different types on one property.",
+  "nodes": {
+    "person": {
+      "properties": {
+        "blank_one": {
+          "type": "STRING",
+          "name": "  "
+        },
+        "blank_two": {
+          "type": "STRING",
+          "name": "  "
+        },
+        "first": {
+          "type": "STRING",
+          "name": "code"
+        },
+        "second": {
+          "type": "STRING",
+          "name": "code"
+        },
+        "third": {
+          "type": "STRING",
+          "name": "code"
+        },
+        "id": {
+          "type": "STRING",
+          "name": "id"
+        },
+        "email": {
+          "type": "STRING",
+          "name": "email"
+        }
+      },
+      "constraints": {
+        "id_email_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "id",
+            "email"
+          ]
+        },
+        "email_id_key": {
+          "type": "KEY",
+          "properties": [
+            "email",
+            "id"
+          ]
+        },
+        "first_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "first"
+          ]
+        },
+        "first_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "first"
+          ]
+        },
+        "second_unique_a": {
+          "type": "UNIQUE",
+          "properties": [
+            "second"
+          ]
+        },
+        "second_unique_b": {
+          "type": "UNIQUE",
+          "properties": [
+            "second"
+          ]
+        },
+        "second_unique_c": {
+          "type": "UNIQUE",
+          "properties": [
+            "second"
+          ]
+        }
+      }
+    },
+    "account": {
+      "properties": {
+        "number": {
+          "type": "STRING",
+          "name": "number"
+        },
+        "bank": {
+          "type": "STRING",
+          "name": "bank"
+        },
+        "opened": {
+          "type": "DATE",
+          "name": "opened"
+        }
+      },
+      "constraints": {
+        "number_bank_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "number",
+            "bank"
+          ]
+        },
+        "number_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "number"
+          ]
+        },
+        "opened_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "opened"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,114 @@
+[
+    {
+        "code": "duplicate_node_alias",
+        "path": "/nodes/person/aliases/1",
+        "details": {
+            "value": "Human"
+        }
+    },
+    {
+        "code": "duplicate_node_alias",
+        "path": "/nodes/person/aliases/2",
+        "details": {
+            "value": "Human"
+        }
+    },
+    {
+        "code": "duplicate_node_constraint_property",
+        "path": "/nodes/person/constraints/name_unique/properties/1",
+        "details": {
+            "value": "name"
+        }
+    },
+    {
+        "code": "duplicate_node_constraint_property",
+        "path": "/nodes/person/constraints/name_unique/properties/2",
+        "details": {
+            "value": "name"
+        }
+    },
+    {
+        "code": "duplicate_node_implied_label",
+        "path": "/nodes/person/labels/implied/1",
+        "details": {
+            "value": "Agent"
+        }
+    },
+    {
+        "code": "duplicate_node_implied_label",
+        "path": "/nodes/person/labels/implied/2",
+        "details": {
+            "value": "Agent"
+        }
+    },
+    {
+        "code": "duplicate_node_index_label",
+        "path": "/nodes/person/extensions/indexes/name_range/labels/1",
+        "details": {
+            "value": "Person"
+        }
+    },
+    {
+        "code": "duplicate_node_index_label",
+        "path": "/nodes/person/extensions/indexes/name_range/labels/2",
+        "details": {
+            "value": "Person"
+        }
+    },
+    {
+        "code": "duplicate_node_index_property",
+        "path": "/nodes/person/extensions/indexes/name_range/properties/1",
+        "details": {
+            "value": "name"
+        }
+    },
+    {
+        "code": "duplicate_node_index_property",
+        "path": "/nodes/person/extensions/indexes/name_range/properties/2",
+        "details": {
+            "value": "name"
+        }
+    },
+    {
+        "code": "duplicate_node_property_alias",
+        "path": "/nodes/person/properties/name/aliases/1",
+        "details": {
+            "value": "fullName"
+        }
+    },
+    {
+        "code": "duplicate_node_property_alias",
+        "path": "/nodes/person/properties/name/aliases/2",
+        "details": {
+            "value": "fullName"
+        }
+    },
+    {
+        "code": "duplicate_relationship_alias",
+        "path": "/relationships/knows/aliases/1",
+        "details": {
+            "value": "FRIEND_OF"
+        }
+    },
+    {
+        "code": "duplicate_relationship_alias",
+        "path": "/relationships/knows/aliases/2",
+        "details": {
+            "value": "FRIEND_OF"
+        }
+    },
+    {
+        "code": "duplicate_table_column_supported_type",
+        "path": "/extensions/data_source_tables/people/columns/0/supported/1",
+        "details": {
+            "value": "STRING"
+        }
+    },
+    {
+        "code": "duplicate_table_column_supported_type",
+        "path": "/extensions/data_source_tables/people/columns/0/supported/2",
+        "details": {
+            "value": "STRING"
+        }
+    }
+]

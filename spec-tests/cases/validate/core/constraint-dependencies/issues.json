@@ -1,0 +1,12 @@
+[
+    {
+        "code": "missing_node_constraint_property",
+        "path": "/nodes/person/constraints/email_unique/properties/0",
+        "details": {}
+    },
+    {
+        "code": "missing_relationship_constraint_property",
+        "path": "/relationships/knows/constraints/rank_unique/properties/0",
+        "details": {}
+    }
+]

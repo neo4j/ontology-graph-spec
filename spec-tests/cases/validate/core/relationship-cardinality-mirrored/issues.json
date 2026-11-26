@@ -1,0 +1,27 @@
+[
+    {
+        "code": "relationship_count_conflict",
+        "path": "/relationships/knows/to",
+        "details": {}
+    },
+    {
+        "code": "relationship_count_negative",
+        "path": "/relationships/knows/from/count",
+        "details": {}
+    },
+    {
+        "code": "relationship_max_count_negative",
+        "path": "/relationships/likes/to/max_count",
+        "details": {}
+    },
+    {
+        "code": "relationship_min_count_exceeds_max",
+        "path": "/relationships/follows/from",
+        "details": {}
+    },
+    {
+        "code": "relationship_min_count_negative",
+        "path": "/relationships/follows/to/min_count",
+        "details": {}
+    }
+]

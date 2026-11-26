@@ -1,0 +1,24 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "blank-values",
+  "description": "Whitespace-only labels, types and relationship ends count as missing.",
+  "nodes": {
+    "person": {
+      "labels": {
+        "identifier": "   "
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "  ",
+      "from": {
+        "node": "  "
+      },
+      "to": {
+        "node": "person"
+      }
+    }
+  }
+}

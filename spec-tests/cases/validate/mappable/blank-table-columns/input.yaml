@@ -1,0 +1,22 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "blank-table-columns"
+description: "Whitespace-only column names, which are missing but not duplicates of each other, and a 'LOCAL' source, which isn't the case-sensitive 'local' that skips supported types."
+extensions:
+  data_source_tables:
+    people:
+      source: "sql/postgres"
+      columns:
+        - name: "  "
+          type: "varchar"
+          supported: ["STRING"]
+        - name: "  "
+          type: "varchar"
+          supported: ["STRING"]
+        - name: "id"
+          type: "varchar"
+          supported: ["STRING"]
+    people.csv:
+      source: "LOCAL"
+      columns:
+        - name: "id"

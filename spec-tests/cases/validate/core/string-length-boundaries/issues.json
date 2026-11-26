@@ -1,0 +1,50 @@
+[
+    {
+        "code": "description_too_long",
+        "path": "/nodes/person/properties/description_over_limit/description",
+        "details": {
+            "length": "1025",
+            "max": "1024"
+        }
+    },
+    {
+        "code": "description_too_long",
+        "path": "/relationships/knows/description",
+        "details": {
+            "length": "1025",
+            "max": "1024"
+        }
+    },
+    {
+        "code": "name_too_long",
+        "path": "/nodes/person/properties/astral_over_limit/name",
+        "details": {
+            "length": "258",
+            "max": "256"
+        }
+    },
+    {
+        "code": "name_too_long",
+        "path": "/nodes/person/properties/name_over_limit/name",
+        "details": {
+            "length": "257",
+            "max": "256"
+        }
+    },
+    {
+        "code": "name_too_long",
+        "path": "/relationships/knows/constraints/since_unique/name",
+        "details": {
+            "length": "801",
+            "max": "800"
+        }
+    },
+    {
+        "code": "name_too_long",
+        "path": "/relationships/knows/extensions/indexes/since_range/name",
+        "details": {
+            "length": "801",
+            "max": "800"
+        }
+    }
+]

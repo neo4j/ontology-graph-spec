@@ -1,0 +1,27 @@
+[
+    {
+        "code": "mapping_dependency_cycle",
+        "path": "/extensions/data_source_mappings/load/0/depends_on",
+        "details": {}
+    },
+    {
+        "code": "mapping_dependency_cycle",
+        "path": "/extensions/data_source_mappings/load/4/depends_on",
+        "details": {}
+    },
+    {
+        "code": "mapping_depends_on_unknown",
+        "path": "/extensions/data_source_mappings/a~1b~0c/2/depends_on",
+        "details": {}
+    },
+    {
+        "code": "mapping_id_duplicate",
+        "path": "/extensions/data_source_mappings/a~1b~0c/2/id",
+        "details": {}
+    },
+    {
+        "code": "missing_node_mapping_key",
+        "path": "/extensions/data_source_mappings/a~1b~0c/1/key",
+        "details": {}
+    }
+]

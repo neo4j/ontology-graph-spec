@@ -1,0 +1,17 @@
+[
+    {
+        "code": "redundant_node_constraint_key_overlap",
+        "path": "/nodes/person/constraints/id_exists",
+        "details": {}
+    },
+    {
+        "code": "redundant_node_constraint_key_overlap",
+        "path": "/nodes/person/constraints/region_code_unique",
+        "details": {}
+    },
+    {
+        "code": "redundant_relationship_constraint_key_overlap",
+        "path": "/relationships/knows/constraints/since_unique",
+        "details": {}
+    }
+]

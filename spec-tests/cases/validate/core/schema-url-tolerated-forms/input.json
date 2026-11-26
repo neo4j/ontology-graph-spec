@@ -1,0 +1,6 @@
+{
+  "schema": "  https://neo4j.com/docs/ontology-graph-spec/1.1.0/  ",
+  "version": "1",
+  "id": "schema-url-tolerated-forms",
+  "description": "A released schema url with surrounding whitespace, a trailing slash and no schema.json, which is accepted."
+}

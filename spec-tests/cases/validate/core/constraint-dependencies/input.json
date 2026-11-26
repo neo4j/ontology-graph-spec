@@ -1,0 +1,71 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "constraint-dependencies",
+  "description": "A constraint on an unknown property stops the existence and type property-count checks from running.",
+  "nodes": {
+    "person": {
+      "properties": {
+        "name": {
+          "type": "STRING"
+        },
+        "age": {
+          "type": "INTEGER"
+        }
+      },
+      "constraints": {
+        "email_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "email"
+          ]
+        },
+        "name_age_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "name",
+            "age"
+          ]
+        },
+        "nothing_type": {
+          "type": "PROPERTY_TYPE",
+          "properties": []
+        }
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {},
+      "to": {},
+      "properties": {
+        "since": {
+          "type": "DATE"
+        },
+        "weight": {
+          "type": "FLOAT"
+        }
+      },
+      "constraints": {
+        "rank_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "rank"
+          ]
+        },
+        "since_weight_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "since",
+            "weight"
+          ]
+        },
+        "nothing_type": {
+          "type": "PROPERTY_TYPE",
+          "properties": []
+        }
+      }
+    }
+  }
+}
