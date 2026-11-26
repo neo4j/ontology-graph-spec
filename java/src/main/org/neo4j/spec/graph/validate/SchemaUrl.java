@@ -37,7 +37,7 @@ public final class SchemaUrl implements Validation {
             base = base.substring(0, base.length() - Version.SCHEMA_FILE.length());
         }
         base = stripTrailingSlashes(base);
-        for (String version : Version.GRAPH_SPEC_VERSIONS()) {
+        for (String version : Version.graphSpecVersions()) {
             if ((Version.SCHEMA_BASE + version).equals(base)) {
                 return;
             }

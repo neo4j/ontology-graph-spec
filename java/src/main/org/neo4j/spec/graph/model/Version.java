@@ -47,7 +47,7 @@ public final class Version {
      * - `docs/modules/format/pages/reference/model.adoc`
      * - `docs/modules/libraries/pages/migration.adoc`
      */
-    public static List<String> GRAPH_SPEC_VERSIONS() {
+    public static List<String> graphSpecVersions() {
         return Version.graphSpecVersions;
     }
 
