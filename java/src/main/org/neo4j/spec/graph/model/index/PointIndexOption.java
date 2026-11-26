@@ -1,0 +1,188 @@
+/*
+ * Copyright (c) "Neo4j"
+ * Neo4j Sweden AB [https://neo4j.com]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.neo4j.spec.graph.model.index;
+
+import java.util.List;
+import java.util.Objects;
+import org.neo4j.spec.graph.model.type.IndexType;
+
+/**
+ * https://neo4j.com/docs/cypher-manual/current/indexes/search-performance-indexes/create-indexes/#point-indexes-examples
+ */
+/** Configuration of a point index. */
+public final class PointIndexOption implements IndexOption {
+    private final List<Double> cartesianMin;
+
+    private final List<Double> cartesianMax;
+
+    private final List<Double> cartesian3DMin;
+
+    private final List<Double> cartesian3DMax;
+
+    private final List<Double> wgs84Min;
+
+    private final List<Double> wgs84Max;
+
+    private final List<Double> wgs843DMin;
+
+    private final List<Double> wgs843DMax;
+
+    private PointIndexOption(Builder builder) {
+        this.cartesianMin = builder.cartesianMin;
+        this.cartesianMax = builder.cartesianMax;
+        this.cartesian3DMin = builder.cartesian3DMin;
+        this.cartesian3DMax = builder.cartesian3DMax;
+        this.wgs84Min = builder.wgs84Min;
+        this.wgs84Max = builder.wgs84Max;
+        this.wgs843DMin = builder.wgs843DMin;
+        this.wgs843DMax = builder.wgs843DMax;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    /** Lower bounds of the 2D cartesian space. */
+    public List<Double> getCartesianMin() {
+        return this.cartesianMin;
+    }
+
+    /** Upper bounds of the 2D cartesian space. */
+    public List<Double> getCartesianMax() {
+        return this.cartesianMax;
+    }
+
+    /** Lower bounds of the 3D cartesian space. */
+    public List<Double> getCartesian3DMin() {
+        return this.cartesian3DMin;
+    }
+
+    /** Upper bounds of the 3D cartesian space. */
+    public List<Double> getCartesian3DMax() {
+        return this.cartesian3DMax;
+    }
+
+    /** Lower bounds of the 2D WGS-84 space. */
+    public List<Double> getWgs84Min() {
+        return this.wgs84Min;
+    }
+
+    /** Upper bounds of the 2D WGS-84 space. */
+    public List<Double> getWgs84Max() {
+        return this.wgs84Max;
+    }
+
+    /** Lower bounds of the 3D WGS-84 space. */
+    public List<Double> getWgs843DMin() {
+        return this.wgs843DMin;
+    }
+
+    /** Upper bounds of the 3D WGS-84 space. */
+    public List<Double> getWgs843DMax() {
+        return this.wgs843DMax;
+    }
+
+    @Override
+    public IndexType getType() {
+        return IndexType.POINT;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof PointIndexOption)) return false;
+        PointIndexOption that = (PointIndexOption) other;
+        return Objects.equals(cartesianMin, that.cartesianMin)
+                && Objects.equals(cartesianMax, that.cartesianMax)
+                && Objects.equals(cartesian3DMin, that.cartesian3DMin)
+                && Objects.equals(cartesian3DMax, that.cartesian3DMax)
+                && Objects.equals(wgs84Min, that.wgs84Min)
+                && Objects.equals(wgs84Max, that.wgs84Max)
+                && Objects.equals(wgs843DMin, that.wgs843DMin)
+                && Objects.equals(wgs843DMax, that.wgs843DMax);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                cartesianMin, cartesianMax, cartesian3DMin, cartesian3DMax, wgs84Min, wgs84Max, wgs843DMin, wgs843DMax);
+    }
+
+    @Override
+    public String toString() {
+        return "PointIndexOption(cartesianMin=" + cartesianMin + ", cartesianMax=" + cartesianMax + ", cartesian3DMin="
+                + cartesian3DMin + ", cartesian3DMax=" + cartesian3DMax + ", wgs84Min=" + wgs84Min + ", wgs84Max="
+                + wgs84Max + ", wgs843DMin=" + wgs843DMin + ", wgs843DMax=" + wgs843DMax + ")";
+    }
+
+    public static final class Builder {
+        private List<Double> cartesianMin = List.of(-1000000.0, -1000000.0);
+        private List<Double> cartesianMax = List.of(1000000.0, 1000000.0);
+        private List<Double> cartesian3DMin = List.of(-1000000.0, -1000000.0, -1000000.0);
+        private List<Double> cartesian3DMax = List.of(1000000.0, 1000000.0, 1000000.0);
+        private List<Double> wgs84Min = List.of(-180.0, -90.0);
+        private List<Double> wgs84Max = List.of(180.0, 90.0);
+        private List<Double> wgs843DMin = List.of(-180.0, -90.0, -1000000.0);
+        private List<Double> wgs843DMax = List.of(180.0, 90.0, 1000000.0);
+
+        private Builder() {}
+
+        public Builder cartesianMin(List<Double> cartesianMin) {
+            this.cartesianMin = cartesianMin;
+            return this;
+        }
+
+        public Builder cartesianMax(List<Double> cartesianMax) {
+            this.cartesianMax = cartesianMax;
+            return this;
+        }
+
+        public Builder cartesian3DMin(List<Double> cartesian3DMin) {
+            this.cartesian3DMin = cartesian3DMin;
+            return this;
+        }
+
+        public Builder cartesian3DMax(List<Double> cartesian3DMax) {
+            this.cartesian3DMax = cartesian3DMax;
+            return this;
+        }
+
+        public Builder wgs84Min(List<Double> wgs84Min) {
+            this.wgs84Min = wgs84Min;
+            return this;
+        }
+
+        public Builder wgs84Max(List<Double> wgs84Max) {
+            this.wgs84Max = wgs84Max;
+            return this;
+        }
+
+        public Builder wgs843DMin(List<Double> wgs843DMin) {
+            this.wgs843DMin = wgs843DMin;
+            return this;
+        }
+
+        public Builder wgs843DMax(List<Double> wgs843DMax) {
+            this.wgs843DMax = wgs843DMax;
+            return this;
+        }
+
+        public PointIndexOption build() {
+            return new PointIndexOption(this);
+        }
+    }
+}

@@ -46,9 +46,11 @@ Each case is formed of an input model and a list of expected validation issues (
 # Go, local checkout via go.work; GOWORK=off uses the version in go.mod
 cd spec-tests/runners/go && go test ./...
 
-# Java, local publication by default; -Pogs.version=<version> uses a published one
-./gradlew publishJvmPublicationToMavenLocal publishKotlinMultiplatformPublicationToMavenLocal -Pversion=0.0.0-local
-./gradlew -p spec-tests/runners/java test
+# Kotlin JVM target
+./gradlew :spec-tests-java:test
+
+# Native Java port
+./gradlew :spec-tests-java:test -Pogs.artifact=java  
 
 # JS, local build by default; npm install @neo4j/ontology-graph-spec@<version> --no-save uses a published one
 ./gradlew jsNodeProductionLibraryDistribution
