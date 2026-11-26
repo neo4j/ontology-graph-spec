@@ -2,6 +2,10 @@ plugins { java }
 
 repositories { mavenCentral() }
 
+java {
+    toolchain { languageVersion.set(JavaLanguageVersion.of(21)) }
+}
+
 // The library under test: the Kotlin JVM target by default, or the native Java port with -Pogs.artifact=java.
 val ogsArtifact = providers.gradleProperty("ogs.artifact").getOrElse("kotlin")
 
