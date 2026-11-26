@@ -809,6 +809,58 @@ class GraphSpecDataModelV3MigrationTest {
     }
 
     @Test
+    fun `a label gets the properties of the node it is the identifier of even when another node implies it first`() {
+        val vendorDocument = "VendorDocument" to schemaMapOf(
+            "labels" to schemaMapOf("identifier" to "VendorDocument", "implied" to listOf("Document")),
+            "properties" to schemaMapOf(
+                "documentNumber" to schemaMapOf("type" to "STRING"),
+                "vendorDescription" to schemaMapOf("type" to "STRING")
+            )
+        )
+        val document = "Document" to schemaMapOf(
+            "labels" to schemaMapOf("identifier" to "Document"),
+            "properties" to schemaMapOf(
+                "documentNumber" to schemaMapOf("type" to "STRING"),
+                "documentTitle" to schemaMapOf("type" to "STRING")
+            )
+        )
+
+        listOf(listOf(vendorDocument, document), listOf(document, vendorDocument)).forEach { nodes ->
+            val input = schemaMapOf("nodes" to schemaMapOf(*nodes.toTypedArray()))
+            val nodeLabels = migration.migrate(input)
+                .map("graphSchemaRepresentation").map("graphSchema").listOfMaps("nodeLabels")
+            val propertyIds = nodeLabels.associate { label ->
+                label.string("token") to label.listOfMaps("properties").map { it.string("\$id") }
+            }
+
+            assertEquals(listOf("documentNumber", "vendorDescription"), propertyIds["VendorDocument"])
+            assertEquals(listOf("documentNumber", "documentTitle"), propertyIds["Document"])
+        }
+    }
+
+    @Test
+    fun `labels that are only implied or optional have no properties`() {
+        val input = schemaMapOf(
+            "nodes" to schemaMapOf(
+                "n" to schemaMapOf(
+                    "labels" to schemaMapOf(
+                        "identifier" to "Person",
+                        "implied" to listOf("Entity"),
+                        "optional" to listOf("Employee")
+                    ),
+                    "properties" to schemaMapOf("p1" to schemaMapOf("type" to "STRING"))
+                )
+            )
+        )
+
+        val nodeLabels = migration.migrate(input)
+            .map("graphSchemaRepresentation").map("graphSchema").listOfMaps("nodeLabels")
+        val propertyCounts = nodeLabels.associate { it.string("token") to it.listOfMaps("properties").size }
+
+        assertEquals(mapOf("Person" to 1, "Entity" to 0, "Employee" to 0), propertyCounts)
+    }
+
+    @Test
     fun `migrate fails for a node without a label`() {
         val missingLabels = schemaMapOf("nodes" to schemaMapOf("n" to schemaMapOf("description" to "no labels")))
         val missingIdentifier = schemaMapOf(
