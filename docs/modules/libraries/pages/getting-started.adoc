@@ -34,6 +34,12 @@ npm install @neo4j/ontology-graph-spec@{library-version}
 go get github.com/neo4j/ontology-graph-spec/go@v{library-version}
 ----
 
+.Rust
+[source,shell,subs="attributes+"]
+----
+cargo add ontology-graph-spec
+----
+
 Each platform's page lists its requirements.
 
 == Get a model
@@ -145,6 +151,27 @@ func main() {
 	for _, issue := range issues {
 		fmt.Printf("%s at %s: %s\n", issue.Code, issue.Path, issue.Message)
 	}
+}
+----
+
+.Rust
+[source,rust]
+----
+use std::fs;
+
+use ontology_graph_spec::GraphSpec;
+use ontology_graph_spec::validate::ValidationSet;
+
+fn main() {
+    let content = fs::read_to_string("movies.json").expect("read movies.json");
+    let model = GraphSpec::decode(&content).expect("decode");
+    let issues = model.validate(&ValidationSet::core());
+    if issues.is_empty() {
+        println!("No issues found");
+    }
+    for issue in &issues {
+        println!("{} at {}: {}", issue.code, issue.path.as_deref().unwrap_or(""), issue.message);
+    }
 }
 ----
 

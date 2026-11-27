@@ -1,0 +1,34 @@
+[package]
+name = "ontology-graph-spec"
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Define, validate and exchange ontologies for Neo4j as YAML or JSON"
+license = "Apache-2.0"
+repository = "https://github.com/neo4j/ontology-graph-spec"
+readme = "README.md"
+keywords = ["neo4j", "ontology", "graph", "validation", "yaml"]
+categories = ["data-structures"]
+
+# The version here is a placeholder: the release workflow stamps the release version before
+# publishing to crates.io, in the same way the npm and Maven releases are stamped.
+
+[dependencies]
+indexmap = { version = "2", features = ["serde"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+# The maintained continuation of serde_yaml; same API.
+serde_norway = "0.9"
+# Optional: validates documents against the published JSON Schema, for consumers that gate on
+# the schema rather than the model. Default features are off so no HTTP resolver is pulled in.
+jsonschema = { version = "0.26", optional = true, default-features = false }
+
+# jsonschema's ahash dependency seeds its hash maps through getrandom at runtime; on the
+# wasm32-unknown-unknown target getrandom needs the wasm_js backend, which nothing in that tree
+# enables. A target-specific dependency so native builds get nothing extra.
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+getrandom = { version = "0.3", optional = true, features = ["wasm_js"] }
+
+[features]
+default = []
+schema-validation = ["dep:jsonschema", "dep:getrandom"]

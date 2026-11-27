@@ -1,0 +1,9 @@
+[package]
+name = "ontology-graph-spec-spec-tests"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+ontology-graph-spec = { path = "../../../rust", features = ["schema-validation"] }
+serde_json = { version = "1", features = ["preserve_order"] }

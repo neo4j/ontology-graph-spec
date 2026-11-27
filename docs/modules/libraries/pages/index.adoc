@@ -1,11 +1,13 @@
 = Libraries
-:description: Libraries for reading, writing, validating and migrating Neo4j Ontology Graph Specification models on the JVM, in JavaScript and TypeScript, and in Go.
+:description: Libraries for reading, writing, validating and migrating Neo4j Ontology Graph Specification models on the JVM, in JavaScript and TypeScript, in Go, and in Rust.
 
 The libraries read, write, validate and migrate models, for tools that work with the xref:format:concepts.adoc[format]:
 
 * xref:jvm.adoc[] for Kotlin, Java and other JVM languages
 * xref:javascript.adoc[]
 * xref:go.adoc[]
+* xref:rust.adoc[]
 
-All three are built from the same Kotlin code, so validation and migration behave the same on every platform. To try
-one, see xref:getting-started.adoc[].
+The JVM, JavaScript/TypeScript and Go libraries are built from the same Kotlin code, so validation and migration behave
+the same on every platform. The Rust library is a native implementation of the same format and the same validators,
+running the same spec tests. To try one, see xref:getting-started.adoc[].

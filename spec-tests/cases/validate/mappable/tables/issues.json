@@ -1,22 +1,22 @@
 [
-    {
-        "code": "duplicate_table_column_name",
-        "path": "/extensions/data_source_tables/people.csv/columns/0/name",
-        "details": {}
-    },
-    {
-        "code": "duplicate_table_column_name",
-        "path": "/extensions/data_source_tables/people.csv/columns/1/name",
-        "details": {}
-    },
-    {
-        "code": "missing_table_column_name",
-        "path": "/extensions/data_source_tables/people/columns/0/name",
-        "details": {}
-    },
-    {
-        "code": "missing_table_column_supported_type",
-        "path": "/extensions/data_source_tables/people/columns/1/supported",
-        "details": {}
-    }
+  {
+    "code": "duplicate_table_column_name",
+    "path": "/extensions/data_source_tables/people.csv/columns/0/name",
+    "details": {}
+  },
+  {
+    "code": "duplicate_table_column_name",
+    "path": "/extensions/data_source_tables/people.csv/columns/1/name",
+    "details": {}
+  },
+  {
+    "code": "missing_table_column_name",
+    "path": "/extensions/data_source_tables/people/columns/0/name",
+    "details": {}
+  },
+  {
+    "code": "missing_table_column_supported_type",
+    "path": "/extensions/data_source_tables/people/columns/1/supported",
+    "details": {}
+  }
 ]
