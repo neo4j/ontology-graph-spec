@@ -53,7 +53,7 @@ These lists must not repeat an entry:
 
 [cols="2,1"]
 |===
-| Field | Maximum length in characters
+| Field | Maximum length in Unicode code points
 
 | The model's `name` | 256
 | The model's `description` | 65,536
@@ -61,3 +61,7 @@ These lists must not repeat an entry:
 | The `name` of a property | 256
 | The `name` of a constraint or index | 800
 |===
+
+Lengths are counted in Unicode code points, not bytes or UTF-16 code units, so `😀` has a length of 1 in every library.
+Libraries must count code points explicitly, as the default string length in Java, Kotlin and JavaScript counts UTF-16
+code units and in Go and Rust counts UTF-8 bytes.

@@ -182,4 +182,21 @@ class StringLengthTest {
 
         assertTrue(validate(model(nodes = mapOf("n" to node))).isEmpty())
     }
+
+    @Test
+    fun `lengths count unicode code points`() {
+        val emoji = "\uD83D\uDE00"
+        assertEquals(1, StringLength.codePointLength(emoji))
+        assertEquals(2, StringLength.codePointLength("a$emoji"))
+        assertEquals(1, StringLength.codePointLength("\u00e9"))
+        // An unpaired surrogate counts as one code point
+        assertEquals(1, StringLength.codePointLength("\uD83D"))
+
+        val atLimit = model(name = emoji.repeat(MAX_NAME_LENGTH))
+        assertTrue(validate(atLimit).isEmpty())
+
+        val overLimit = validate(model(name = emoji.repeat(MAX_NAME_LENGTH + 1)))
+        assertEquals(listOf("name_too_long"), overLimit.map { it.code })
+        assertEquals("${MAX_NAME_LENGTH + 1}", overLimit.single().details["length"])
+    }
 }
