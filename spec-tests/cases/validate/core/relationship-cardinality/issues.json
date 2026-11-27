@@ -5,8 +5,18 @@
         "details": {}
     },
     {
+        "code": "relationship_count_conflict",
+        "path": "/relationships/reports/to",
+        "details": {}
+    },
+    {
         "code": "relationship_count_negative",
         "path": "/relationships/knows/to/count",
+        "details": {}
+    },
+    {
+        "code": "relationship_count_negative",
+        "path": "/relationships/reports/from/count",
         "details": {}
     },
     {
@@ -15,13 +25,28 @@
         "details": {}
     },
     {
+        "code": "relationship_max_count_negative",
+        "path": "/relationships/likes/to/max_count",
+        "details": {}
+    },
+    {
         "code": "relationship_min_count_exceeds_max",
         "path": "/relationships/follows/to",
         "details": {}
     },
     {
+        "code": "relationship_min_count_exceeds_max",
+        "path": "/relationships/mentors/from",
+        "details": {}
+    },
+    {
         "code": "relationship_min_count_negative",
         "path": "/relationships/follows/from/min_count",
+        "details": {}
+    },
+    {
+        "code": "relationship_min_count_negative",
+        "path": "/relationships/mentors/to/min_count",
         "details": {}
     }
 ]

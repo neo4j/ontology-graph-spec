@@ -2,10 +2,13 @@
   "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
   "version": "1",
   "id": "relationship-cardinality",
-  "description": "Relationship ends with conflicting, negative or inverted counts.",
+  "description": "Relationship ends with conflicting, negative or inverted counts, checked on both the from and to ends. Equal minimum and maximum counts are valid.",
   "relationships": {
     "knows": { "type": "KNOWS", "from": { "count": 1, "max_count": 2 }, "to": { "count": -1 } },
     "follows": { "type": "FOLLOWS", "from": { "min_count": -1 }, "to": { "min_count": 3, "max_count": 2 } },
-    "likes": { "type": "LIKES", "from": { "max_count": -1 }, "to": {} }
+    "likes": { "type": "LIKES", "from": { "max_count": -1 }, "to": { "max_count": -1 } },
+    "reports": { "type": "REPORTS", "from": { "count": -1 }, "to": { "count": 1, "min_count": 1 } },
+    "mentors": { "type": "MENTORS", "from": { "min_count": 3, "max_count": 2 }, "to": { "min_count": -1 } },
+    "pairs": { "type": "PAIRS", "from": { "min_count": 2, "max_count": 2 }, "to": { "count": 0 } }
   }
 }

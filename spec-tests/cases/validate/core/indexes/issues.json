@@ -7,8 +7,22 @@
         }
     },
     {
+        "code": "duplicate_node_index_label",
+        "path": "/nodes/person/extensions/indexes/name_range/labels/2",
+        "details": {
+            "value": "Person"
+        }
+    },
+    {
         "code": "duplicate_node_index_property",
         "path": "/nodes/person/extensions/indexes/name_range/properties/1",
+        "details": {
+            "value": "name"
+        }
+    },
+    {
+        "code": "duplicate_node_index_property",
+        "path": "/nodes/person/extensions/indexes/name_range/properties/2",
         "details": {
             "value": "name"
         }

@@ -7,6 +7,13 @@
         }
     },
     {
+        "code": "duplicate_node_property_alias",
+        "path": "/nodes/person/properties/name/aliases/2",
+        "details": {
+            "value": "fullName"
+        }
+    },
+    {
         "code": "duplicate_relationship_property_alias",
         "path": "/relationships/knows/properties/since/aliases/1",
         "details": {

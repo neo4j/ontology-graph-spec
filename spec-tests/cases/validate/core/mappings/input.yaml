@@ -19,7 +19,7 @@ extensions:
       source: "local"
       columns:
         - name: "id"
-          supported: ["STRING", "STRING"]
+          supported: ["STRING", "STRING", "STRING"]
     friendships:
       source: "local"
       columns:

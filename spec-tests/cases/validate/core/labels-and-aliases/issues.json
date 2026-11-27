@@ -7,8 +7,22 @@
         }
     },
     {
+        "code": "duplicate_node_alias",
+        "path": "/nodes/person/aliases/2",
+        "details": {
+            "value": "Human"
+        }
+    },
+    {
         "code": "duplicate_node_implied_label",
         "path": "/nodes/person/labels/implied/1",
+        "details": {
+            "value": "Agent"
+        }
+    },
+    {
+        "code": "duplicate_node_implied_label",
+        "path": "/nodes/person/labels/implied/2",
         "details": {
             "value": "Agent"
         }

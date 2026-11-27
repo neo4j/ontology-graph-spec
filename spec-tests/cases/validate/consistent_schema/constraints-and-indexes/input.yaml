@@ -1,7 +1,7 @@
 schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
 version: "1"
 id: "constraints-and-indexes"
-description: "Empty, duplicate and conflicting constraints and indexes."
+description: "Empty, duplicate and conflicting constraints and indexes. Property sets match whatever their order or constraint type."
 nodes:
   person:
     constraints:
@@ -18,6 +18,18 @@ nodes:
       email_unique_again:
         type: "UNIQUE"
         properties: ["email"]
+      email_unique_third:
+        type: "UNIQUE"
+        properties: ["email"]
+      email_exists:
+        type: "EXISTS"
+        properties: ["email"]
+      phone_fax_unique:
+        type: "UNIQUE"
+        properties: ["phone", "fax"]
+      fax_phone_key:
+        type: "KEY"
+        properties: ["fax", "phone"]
       nothing_unique:
         type: "UNIQUE"
         properties: []

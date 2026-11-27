@@ -2,7 +2,7 @@
   "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
   "version": "1",
   "id": "index-constraint-name-reuse",
-  "description": "Index and constraint names reused across indexes, across constraints and across nodes. Blank names and names shared only with a relationship constraint are not reported.",
+  "description": "Index and constraint names reused across indexes, across constraints and across nodes (a company constraint and index reuse the names of the person ones). Blank names and names shared only with a relationship constraint are not reported.",
   "nodes": {
     "person": {
       "properties": {
@@ -93,7 +93,7 @@
           "properties": [
             "name"
           ],
-          "name": "across_nodes"
+          "name": "shared_constraint"
         }
       },
       "extensions": {
@@ -106,7 +106,7 @@
             "properties": [
               "name"
             ],
-            "name": "across_nodes"
+            "name": "shared_index"
           }
         }
       }

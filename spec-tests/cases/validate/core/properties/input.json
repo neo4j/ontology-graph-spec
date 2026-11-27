@@ -7,7 +7,7 @@
     "person": {
       "properties": {
         "code": { "type": "STRING", "pattern": "^[A-Z]$", "one_of": ["A"] },
-        "name": { "type": "STRING", "aliases": ["fullName", "fullName"] }
+        "name": { "type": "STRING", "aliases": ["fullName", "fullName", "fullName"] }
       }
     }
   },

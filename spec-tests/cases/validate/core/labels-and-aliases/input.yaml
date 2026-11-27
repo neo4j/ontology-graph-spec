@@ -1,7 +1,7 @@
 schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
 version: "1"
 id: "labels-and-aliases"
-description: "Nodes and Relationships with duplicate aliases or labels."
+description: "Nodes and Relationships with duplicate aliases or labels. Every repeat after the first is reported."
 nodes:
   person:
     labels:
@@ -9,10 +9,12 @@ nodes:
       implied:
         - "Agent"
         - "Agent"
+        - "Agent"
       optional:
         - "Actor"
         - "Actor"
     aliases:
+      - "Human"
       - "Human"
       - "Human"
 relationships:

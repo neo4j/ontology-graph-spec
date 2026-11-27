@@ -10,6 +10,21 @@
         "details": {}
     },
     {
+        "code": "duplicate_node_constraint_property_set",
+        "path": "/nodes/person/constraints/email_unique_third/properties",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_constraint_property_set",
+        "path": "/nodes/person/constraints/fax_phone_key/properties",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_constraint_property_set",
+        "path": "/nodes/person/constraints/phone_fax_unique/properties",
+        "details": {}
+    },
+    {
         "code": "duplicate_node_index_constraint_name",
         "path": "/nodes/person/constraints/id_name_key/name",
         "details": {}
