@@ -119,14 +119,18 @@ public final class StringLength implements Validation {
     }
 
     private void check(String field, String value, int max, String path, List<Issue> issues) {
-        if (value != null && value.length() > max) {
+        if (value == null) {
+            return;
+        }
+        // Count Unicode code points rather than UTF-16 code units so every library agrees
+        int length = value.codePointCount(0, value.length());
+        if (length > max) {
             Map<String, String> details = new LinkedHashMap<>();
-            details.put("length", String.valueOf(value.length()));
+            details.put("length", String.valueOf(length));
             details.put("max", String.valueOf(max));
             issues.add(new Issue(
                     field + "_too_long",
-                    "The " + field + " at '" + path + "' is " + value.length() + " characters long, the maximum is "
-                            + max,
+                    "The " + field + " at '" + path + "' is " + length + " characters long, the maximum is " + max,
                     path,
                     details));
         }

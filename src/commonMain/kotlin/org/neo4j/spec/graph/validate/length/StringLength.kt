@@ -25,6 +25,9 @@ import org.neo4j.spec.graph.validate.jsonPointerOf
 
 /**
  * Restricts the length of names and descriptions throughout the model.
+ *
+ * Lengths are counted in Unicode code points, so every library gives the same answer whatever its native string
+ * representation (UTF-16 code units on the JVM and JS, UTF-8 bytes in Go and Rust).
  */
 object StringLength : Validation {
 
@@ -85,16 +88,30 @@ object StringLength : Validation {
     }
 
     private fun check(field: String, value: String?, max: Int, issues: MutableList<Issue>, vararg path: Any) {
-        if (value != null && value.length > max) {
+        if (value == null) return
+        val length = codePointLength(value)
+        if (length > max) {
             val pointer = jsonPointerOf(*path)
             issues.add(
                 Issue(
                     code = "${field}_too_long",
-                    message = "The $field at '$pointer' is ${value.length} characters long, the maximum is $max",
+                    message = "The $field at '$pointer' is $length characters long, the maximum is $max",
                     path = pointer,
-                    details = mapOf("length" to value.length.toString(), "max" to max.toString())
+                    details = mapOf("length" to length.toString(), "max" to max.toString())
                 )
             )
         }
+    }
+
+    /** The number of Unicode code points in [value], counting each surrogate pair once. */
+    internal fun codePointLength(value: String): Int {
+        var count = 0
+        var i = 0
+        while (i < value.length) {
+            if (value[i].isHighSurrogate() && i + 1 < value.length && value[i + 1].isLowSurrogate()) i++
+            i++
+            count++
+        }
+        return count
     }
 }

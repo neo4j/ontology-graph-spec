@@ -1,0 +1,6 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.5/schema.json",
+  "version": "1",
+  "id": "schema-url-unreleased-version",
+  "description": "A schema url on the right base with a patch version that hasn't been released, which still migrates as 1.1.0."
+}

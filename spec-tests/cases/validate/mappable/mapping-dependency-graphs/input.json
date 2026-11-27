@@ -1,0 +1,124 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "mapping-dependency-graphs",
+  "description": "A three-mapping cycle with a mapping depending on it, a cycle between node and relationship mappings, and a list id that needs escaping in paths with a mapping missing its key after the first entry.",
+  "nodes": {
+    "person": {
+      "properties": {
+        "id": {
+          "type": "STRING"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {
+        "node": "person"
+      },
+      "to": {
+        "node": "person"
+      },
+      "properties": {
+        "since": {
+          "type": "DATE"
+        }
+      }
+    }
+  },
+  "extensions": {
+    "data_source_mappings": {
+      "load": [
+        {
+          "type": "QUERY",
+          "table": "people",
+          "query": "RETURN 1",
+          "id": "x",
+          "depends_on": "y"
+        },
+        {
+          "type": "QUERY",
+          "table": "people",
+          "query": "RETURN 1",
+          "id": "y",
+          "depends_on": "z"
+        },
+        {
+          "type": "QUERY",
+          "table": "people",
+          "query": "RETURN 1",
+          "id": "z",
+          "depends_on": "x"
+        },
+        {
+          "type": "QUERY",
+          "table": "people",
+          "query": "RETURN 1",
+          "id": "tail",
+          "depends_on": "x"
+        },
+        {
+          "type": "NODE",
+          "node": "person",
+          "table": "people",
+          "properties": {
+            "id": {
+              "column": "id"
+            }
+          },
+          "key": [
+            "id"
+          ],
+          "id": "people",
+          "depends_on": "friendships"
+        },
+        {
+          "type": "RELATIONSHIP",
+          "relationship": "knows",
+          "table": "friendships",
+          "from_node": {},
+          "to_node": {},
+          "properties": {
+            "since": {
+              "column": "since"
+            }
+          },
+          "key": [
+            "since"
+          ],
+          "id": "friendships",
+          "depends_on": "people"
+        }
+      ],
+      "a/b~c": [
+        {
+          "type": "QUERY",
+          "table": "people",
+          "query": "RETURN 1",
+          "id": "first"
+        },
+        {
+          "type": "NODE",
+          "node": "person",
+          "table": "people",
+          "properties": {
+            "id": {
+              "column": "id"
+            }
+          },
+          "key": [],
+          "id": "second"
+        },
+        {
+          "type": "QUERY",
+          "table": "people",
+          "query": "RETURN 1",
+          "id": "first",
+          "depends_on": "missing"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+schema: "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json"
+version: "1"
+id: "token-separators"
+description: "A label containing '=' and a relationship type containing ':', the separators the other case doesn't use."
+nodes:
+  person:
+    labels:
+      identifier: "Person=Human"
+relationships:
+  knows:
+    type: "KNOWS:FRIEND"
+    from: {}
+    to: {}

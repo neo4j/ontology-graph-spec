@@ -7,7 +7,7 @@
   "relationships": { "knows": { "type": "KNOWS", "from": {}, "to": {}, "properties": { "since": { "type": "DATE" } } } },
   "extensions": {
     "data_source_tables": {
-      "people": { "source": "local", "columns": [{ "name": "id", "supported": ["STRING", "STRING"] }] },
+      "people": { "source": "local", "columns": [{ "name": "id", "supported": ["STRING", "STRING", "STRING"] }] },
       "friendships": { "source": "local", "columns": [{ "name": "since" }] }
     },
     "data_source_mappings": {

@@ -21,6 +21,13 @@
         }
     },
     {
+        "code": "duplicate_table_column_supported_type",
+        "path": "/extensions/data_source_tables/people/columns/0/supported/2",
+        "details": {
+            "value": "STRING"
+        }
+    },
+    {
         "code": "invalid_relationship_mapping_key",
         "path": "/extensions/data_source_mappings/load/2/key/0",
         "details": {

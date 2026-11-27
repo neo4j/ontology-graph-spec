@@ -1,0 +1,12 @@
+[
+    {
+        "code": "invalid_node_label_token",
+        "path": "/nodes/person/labels/identifier",
+        "details": {}
+    },
+    {
+        "code": "invalid_relationship_type_token",
+        "path": "/relationships/knows/type",
+        "details": {}
+    }
+]

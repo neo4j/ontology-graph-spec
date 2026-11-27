@@ -1,0 +1,32 @@
+[
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "path": "/nodes/company/constraints/name_unique/name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "path": "/nodes/company/extensions/indexes/name_range/name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "path": "/nodes/person/constraints/email_unique/name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "path": "/nodes/person/constraints/name_unique/name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "path": "/nodes/person/extensions/indexes/email_range/name",
+        "details": {}
+    },
+    {
+        "code": "duplicate_node_index_constraint_name",
+        "path": "/nodes/person/extensions/indexes/name_range/name",
+        "details": {}
+    }
+]

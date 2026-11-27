@@ -18,8 +18,8 @@ nodes:
             type: "FULLTEXT"
         name_range:
           type: "RANGE"
-          labels: ["Person", "Person"]
-          properties: ["name", "name"]
+          labels: ["Person", "Person", "Person"]
+          properties: ["name", "name", "name"]
 relationships:
   knows:
     type: "KNOWS"

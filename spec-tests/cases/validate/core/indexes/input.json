@@ -10,7 +10,7 @@
       "extensions": {
         "indexes": {
           "name_text": { "type": "TEXT", "labels": ["Person"], "properties": ["name"], "options": { "type": "FULLTEXT" } },
-          "name_range": { "type": "RANGE", "labels": ["Person", "Person"], "properties": ["name", "name"] }
+          "name_range": { "type": "RANGE", "labels": ["Person", "Person", "Person"], "properties": ["name", "name", "name"] }
         }
       }
     }

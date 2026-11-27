@@ -1,0 +1,137 @@
+{
+  "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
+  "version": "1",
+  "id": "index-constraint-name-reuse",
+  "description": "Index and constraint names reused across indexes, across constraints and across nodes (a company constraint and index reuse the names of the person ones). Blank names and names shared only with a relationship constraint are not reported.",
+  "nodes": {
+    "person": {
+      "properties": {
+        "name": {
+          "type": "STRING",
+          "name": "name"
+        },
+        "email": {
+          "type": "STRING",
+          "name": "email"
+        }
+      },
+      "constraints": {
+        "name_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "name"
+          ],
+          "name": "shared_constraint"
+        },
+        "email_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "email"
+          ],
+          "name": "shared_constraint"
+        },
+        "name_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "name"
+          ],
+          "name": "  "
+        },
+        "email_exists": {
+          "type": "EXISTS",
+          "properties": [
+            "email"
+          ],
+          "name": "  "
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "name_range": {
+            "type": "RANGE",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "name"
+            ],
+            "name": "shared_index"
+          },
+          "email_range": {
+            "type": "RANGE",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "email"
+            ],
+            "name": "shared_index"
+          },
+          "name_text": {
+            "type": "TEXT",
+            "labels": [
+              "Person"
+            ],
+            "properties": [
+              "name"
+            ],
+            "name": "shared_with_relationship"
+          }
+        }
+      }
+    },
+    "company": {
+      "properties": {
+        "name": {
+          "type": "STRING",
+          "name": "name"
+        }
+      },
+      "constraints": {
+        "name_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "name"
+          ],
+          "name": "shared_constraint"
+        }
+      },
+      "extensions": {
+        "indexes": {
+          "name_range": {
+            "type": "RANGE",
+            "labels": [
+              "Company"
+            ],
+            "properties": [
+              "name"
+            ],
+            "name": "shared_index"
+          }
+        }
+      }
+    }
+  },
+  "relationships": {
+    "knows": {
+      "type": "KNOWS",
+      "from": {},
+      "to": {},
+      "properties": {
+        "since": {
+          "type": "DATE",
+          "name": "since"
+        }
+      },
+      "constraints": {
+        "since_unique": {
+          "type": "UNIQUE",
+          "properties": [
+            "since"
+          ],
+          "name": "shared_with_relationship"
+        }
+      }
+    }
+  }
+}

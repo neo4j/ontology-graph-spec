@@ -2,14 +2,18 @@
   "schema": "https://neo4j.com/docs/ontology-graph-spec/1.1.0/schema.json",
   "version": "1",
   "id": "constraints",
-  "description": "Node and relationship constraints with an invalid number of properties or duplicate properties.",
+  "description": "Node and relationship constraints with an invalid number of properties or duplicate properties. Every repeat after the first is reported, and a single repeated property still counts as one.",
   "nodes": {
     "person": {
       "properties": { "name": { "type": "STRING" }, "age": { "type": "INTEGER" } },
       "constraints": {
         "name_exists": { "type": "EXISTS", "properties": [] },
         "name_age_type": { "type": "PROPERTY_TYPE", "properties": ["name", "age"] },
-        "name_unique": { "type": "UNIQUE", "properties": ["name", "name"] }
+        "name_unique": { "type": "UNIQUE", "properties": ["name", "name", "name"] },
+        "name_age_exists": { "type": "EXISTS", "properties": ["name", "age"] },
+        "nothing_type": { "type": "PROPERTY_TYPE", "properties": [] },
+        "name_name_type": { "type": "PROPERTY_TYPE", "properties": ["name", "name"] },
+        "age_age_exists": { "type": "EXISTS", "properties": ["age", "age"] }
       }
     }
   },
@@ -22,7 +26,10 @@
       "constraints": {
         "since_exists": { "type": "EXISTS", "properties": [] },
         "since_weight_type": { "type": "PROPERTY_TYPE", "properties": ["since", "weight"] },
-        "since_unique": { "type": "UNIQUE", "properties": ["since", "since"] }
+        "since_unique": { "type": "UNIQUE", "properties": ["since", "since"] },
+        "since_weight_exists": { "type": "EXISTS", "properties": ["since", "weight"] },
+        "nothing_type": { "type": "PROPERTY_TYPE", "properties": [] },
+        "since_since_type": { "type": "PROPERTY_TYPE", "properties": ["since", "since"] }
       }
     }
   }
