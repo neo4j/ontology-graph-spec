@@ -130,8 +130,7 @@ public final class StringLength implements Validation {
             details.put("max", String.valueOf(max));
             issues.add(new Issue(
                     field + "_too_long",
-                    "The " + field + " at '" + path + "' is " + length + " characters long, the maximum is "
-                            + max,
+                    "The " + field + " at '" + path + "' is " + length + " characters long, the maximum is " + max,
                     path,
                     details));
         }
